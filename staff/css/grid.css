@@ -38,20 +38,7 @@ Style Theme: Node
 
 /* main color */
 .gridContainer {
-	
-	padding:20px;
-	
-	background-color: #222;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#333)); 
-	background-image: -webkit-linear-gradient(top, #222, #333); 
-	background-image:    -moz-linear-gradient(top, #222, #333); 
-	background-image:     -ms-linear-gradient(top, #222, #333); 
-	background-image:      -o-linear-gradient(top, #222, #333); 
-	background-image:         linear-gradient(top, #222, #333); 
-
-	/* Grid Shadow */
-	-webkit-box-shadow: 0px 0px 10px #000;
-	-moz-box-shadow: 0px 0px 10px #000;
+	background-color:#FFF;
 }
 
 /* Font Family, Size and Color */
@@ -65,12 +52,12 @@ Style Theme: Node
 .grid {
 	border-spacing:0px;
 	border-collapse:collapse;
-	/* if you want cell separation
+	
 	border-spacing:1px;
 	border-collapse:separate;
-	*/
 	
-	background:#464752;
+	background:#FFF;
+	color:#000;
 }
 
 
@@ -83,16 +70,16 @@ Style Theme: Node
 
 /* if you want to turn off animations for speed reasons turns these off */
 .gridContainer tr, .gridContainer td, .gridContainer th, .gridContext div {
-	/*
+	
 	-webkit-transition: background-color 200ms linear;
 	-moz-transition: background-color 200ms linear;
-	*/
+	
 }
 
 /* padding of the cells */
 .grid td, .gridHeaderRow th {
 	padding:0px;
-	border-left:1px solid #636470;
+	border-left:1px solid #999;
 	padding-left:6px;
 }
 .grid td {
@@ -119,18 +106,18 @@ Style Theme: Node
 
 /* this can't inherit the color because its fixed to the bottom of the page */
 .gridPager.fixed {
-	background:#333;
+	background:#000;
 }
 
 /* Row Highlight */
 .gridWrapper tr:hover, .gridContainer th:hover,  .gridWrapper tr:hover input, .gridWrapper tr:hover a{
-	color:#fff;
-	background-color: #525357;
+	color:#000;
+	background-color: #d9d9d9;
 }
 
 /* Current Cell Highlight */
 .grid td:hover {
-	background-color: #636470;
+	background-color: #d9d9d9;
 }
 
 
@@ -209,21 +196,18 @@ textarea.editableInput {
 }
 
 .gridHeaderRow tr:first-child {
-	background-color: #525357;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#636470), to(#525357)); 
-	background-image: -webkit-linear-gradient(top, #636470, #525357); 
-	background-image:    -moz-linear-gradient(top, #636470, #525357); 
-	background-image:     -ms-linear-gradient(top, #636470, #525357); 
-	background-image:      -o-linear-gradient(top, #636470, #525357); 
-	background-image:         linear-gradient(top, #636470, #525357); 
+	background-color: #CB0202;
+	border-right:1px solid white;
 }
 
 /* the header row cells */
 .gridHeaderRow th {
 	width:150px;
 	cursor:pointer;
-	padding-top:12px;
-	padding-bottom:12px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-right:1px solid white;
+	text-align:left;
 }
 
 .gridHeaderRow th:first-child {
@@ -277,13 +261,9 @@ textarea.editableInput {
 	-moz-border-radius-bottomright: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	
-	background-color: rgba(0,0,0,.2);
-	background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0,0,0,.2))); 
-	background-image: -webkit-linear-gradient(top, transparent, rgba(0,0,0,.2)); 
-	background-image:    -moz-linear-gradient(top, transparent, rgba(0,0,0,.2)); 
-	background-image:     -ms-linear-gradient(top, transparent, rgba(0,0,0,.2)); 
-	background-image:      -o-linear-gradient(top, transparent, rgba(0,0,0,.2)); 
-	background-image:         linear-gradient(top, transparent, rgba(0,0,0,.2));
+	background-color:#999;
+	color:#000;
+	
 }
 /* when the pager is fixed */
 .gridPager.fixed {
@@ -315,18 +295,8 @@ textarea.editableInput {
 	cursor:pointer;
 	text-align:center;
 	font-size:11px;
-	
-	background-color: #525357;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#636470), to(#525357)); 
-	background-image: -webkit-linear-gradient(top, #636470, #525357); 
-	background-image:    -moz-linear-gradient(top, #636470, #525357); 
-	background-image:     -ms-linear-gradient(top, #636470, #525357); 
-	background-image:      -o-linear-gradient(top, #636470, #525357); 
-	background-image:         linear-gradient(top, #636470, #525357);
-	
-	-webkit-box-shadow:1px 1px 5px #222;
-	box-shadow:1px 1px 5px #222;
-
+	color:#FFF;
+	background-color: #CB0202;
 }
 
 .gridButton:active {
@@ -413,5 +383,6 @@ textarea.editableInput {
 	cursor:pointer;
 }
 .grid a {
-	text-decoration:underline;
+	text-decoration:none;
+	color:#CB0202;
 }

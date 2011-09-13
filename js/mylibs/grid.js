@@ -31,13 +31,6 @@ This is openGrid version 1.8
 
 $(function() {	
 	
-	/* to do
-	
-	subGrids
-	
-	*/
-	
-	
 	// load / reload grid function
 	$.fn.loadGrid = function(user_opts) {
 		return this.each(function() {
@@ -49,8 +42,8 @@ $(function() {
 				page:1,					// page to start on
 				search:"",				// search term
 				justSearched:false,		// used to allow searching to db without the filtering destorying fields that aren't on the grid
-				nRowsShowing:5,			// how many rows to show
-				resizable:true,			// is the grid resizable?
+				nRowsShowing:20,			// how many rows to show
+				resizable:false,			// is the grid resizable?
 				resizableColumns:true,	// can the columns be resized?
 				pager:true,				// show the pager?
 				pagerLocation:"bottom",	// bottom|top|both
@@ -218,8 +211,20 @@ $(function() {
 			
 			// get the data via ajax
 			$grid.data("gridLoading",true);
-			$.post($grid.attr("action"),$grid.data(), function(data, status, xhr) {
+			$.ajax({
+				url: $grid.attr("action"),
+				type: "POST",
+				data: {'data' : $grid.data(), "table" : $grid.attr('sel'), "functions" : $grid.attr('functions')},
+				dataType: 'json',
+				success: function (data, status, xhr) {
+					//$('.data').html(data);
+					loadData(data, status, xhr);
+				}
 				
+			})
+			
+			function loadData (data, status, xhr) {
+		
 				// method load start
 				if($grid.data().loadStart) $grid.loadStart();
 				
@@ -403,7 +408,7 @@ $(function() {
 				// if there is a callback use that
 				if($grid.data().loadComplete) $grid.loadComplete();
 				
-			},"json");
+			}
 		});
 	}
 	

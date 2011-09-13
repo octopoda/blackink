@@ -1,6 +1,6 @@
 // JavaScript Document
 $(document).ready(function () {
-    
+    //Load All Grids
 	
 	
 	//Set height of Secondary and Main 

@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/grid.css">
   <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
   
   <script src="js/libs/modernizr-2.0.6.min.js"></script>

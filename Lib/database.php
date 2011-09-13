@@ -86,8 +86,16 @@
 			return $result_set->fetch_array();
 		}
 		
+		public function fetchAssoc($result_set) {
+			return $result_set->fetch_assoc();	
+		}
+		
 		public function numRows($result_set) {
 			return $result_set->num_rows;	
+		}
+		
+		public function fieldCount($result_set) {
+			return $result_set->field_count;	
 		}
 		
 		public function insertedID() {
@@ -95,7 +103,7 @@
 		}
 		
 		public function affectedRows() {
-			return mysqli_affected_rows($this->database);	
+			return $this->database->affected_rows($this->database);	
 		}
 		
 		public function showFields($table) {
@@ -138,6 +146,8 @@
                 $rslt = FALSE;
             return $rslt;
         }
+		
+		
 	}
 	
 	$database = new MySQLDatabase();

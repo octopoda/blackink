@@ -1,14 +1,13 @@
 <?php
-	// connect to db
-	mysql_connect("localhost","root","root");
-	mysql_select_db("cmi_test");
+	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
+
+
 	
-	// require our class
-	require_once("grid.php");
 	// load our grid with a table
-	$grid = new Grid("orders");
+	$grid = new Grid($_POST['table']);
 	
-	// for editing check for the save flag and call save
+	
+	//for editing check for the save flag and call save
 	if(isset($_POST['save'])) {
 		//$grid->security = array("n_items");
 		echo $grid->save();
@@ -25,7 +24,52 @@
 			echo json_encode($grid->data);
 		}	
 	} else {
+		$dataArray = array();
 		$grid->load();
+		
+		//Change any data before placing in JSON
+		if (isset($_POST['functions'])) {
+			$dataArray = runFunctions($_POST['functions']);	
+		}
+		
+		//print_r($grid->data);
 		echo json_encode($grid->data);
-	}	
+	}
+	
+	
+	function runFunctions($name) {
+		global $grid;
+		
+		switch ($name) {
+			case 'content':
+				content($grid->data);
+				break;
+		}
+		
+		
+	}
+	
+	function content(&$dataArray) {
+		global $grid;
+		
+		$count = count($grid->data['rows']);
+		//print_r($grid->data);
+		/* for ($i = 1; $i < $count; $i++) {
+			$users = new Users($grid->data['rows']['_'.$i]['user_id']);
+			$grid->data['rows']['_'.$i]['user_id'] = $users->printName();
+		}*/
+		
+		foreach ($dataArray['rows'] as &$row) {
+			$users = new Users($row['user_id']);
+			$row['user_id'] = $users->printName();
+			
+			$row['created_on'] = $users->displayDate($row['created_on']);
+			$row['modified_on'] = $users->displayDate($row['modified_on']);
+			$row['access'] = $users->accessGroupName($row['access']);
+		}
+		
+		
+	}
 ?>
+
+

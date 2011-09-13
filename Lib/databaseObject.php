@@ -368,36 +368,7 @@ abstract class databaseObject {
 		}
 		
 		
-/* ================================================	
-	Grid Control
-   ================================================	 */
-   
-   		public function listObjects() {
-			global $error;
-			
-			$result = $this->fetchAll();
-			
-			if ($result != false) {
-				$count = count($result);
-				
-				for($i = 0; $i < $count; $i++) {
-						$object = new $this->table;
-						
-						$object->fetchById($result[$i][$this->idfield]);
-						$this->objectList[] = $object;
-				}
-				
-			} else {
-				$error->addError("You have no Content in your database.");	
-			}	
-		}
-		
-		public function displayGrid($list) {
-			$grid = new Grid($list);
-			
-			return $grid->display();	
-		}
-	
+
 }	
 
 
