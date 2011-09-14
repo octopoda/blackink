@@ -3,7 +3,7 @@
 
 	$nav = new Navigation();
 	$nav->listNav(1);
-	$link = 'forms/navigation.php';
+	$link = '/staff/forms/navigation.php';
 ?>
 
 
@@ -28,7 +28,7 @@
     		<tr class="mainNav">
             	<td class="title"><?php echo $list->title; ?></td>
                 <td width="50" style="text-align:center"><?php echo $list->published($list->navigation_id); ?></td>
-                <td width="100"><?php echo $list->moveArrows($list->navigation_id, $list->position, $link); ?></td>
+                <td width="100"><?php echo $list->moveArrows($list->navigation_id, $list->position, $link, $list->parent); ?></td>
                 <td><?php echo $list->accessGroupName($list->access); ?></td>
             </tr>
             
@@ -37,7 +37,7 @@
     			<tr class="subNav">
                 	<td class="title"><?php echo $sub->title; ?></td>
                     <td style="text-align:center"><?php echo $sub->published($sub->navigation_id); ?></td>
-                    <td><?php echo $list->moveArrows($sub->navigation_id, $sub->position, $link); ?></td>
+                    <td><?php echo $list->moveArrows($sub->navigation_id, $sub->position, $link, $sub->parent); ?></td>
                     <td><?php echo $sub->accessGroupName($sub->access); ?></td>
                 </tr>
     <?php  } } } ?>

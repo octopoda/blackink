@@ -44,7 +44,7 @@
 			global $db;
 			global $error;
 			
-			$sql = "SELECT N.title, N.position, N.access, N.published, N.navigation_id FROM menus M 
+			$sql = "SELECT N.title, N.position, N.access, N.published, N.navigation_id, N.parent FROM menus M 
 						JOIN navigationForMenus NM ON M.menu_id = NM.menu_id
 						JOIN navigation N ON NM.navigation_id = N.navigation_id
 						WHERE M.menu_id = {$menu_id} AND N.parent = 0 ORDER BY position";
@@ -61,7 +61,7 @@
 				
 				//Get the Subnav and place them in itemList
 				for ($i = 0; $i < count($this->itemList); $i++) {
-					$subNav = $db->queryFill("SELECT title, position, access, published, navigation_id FROM navigation WHERE parent = " . $this->itemList[$i]->navigation_id. " ORDER BY position");
+					$subNav = $db->queryFill("SELECT title, position, access, published, parent, navigation_id FROM navigation WHERE parent = " . $this->itemList[$i]->navigation_id. " ORDER BY position");
 					
 					foreach ($subNav as $nav) {
 						$sub = new Navigation($nav['navigation_id']);

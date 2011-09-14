@@ -33,7 +33,7 @@ if (isset($_POST['move'])) {
 	if ($_POST['move'] == 'moveUp') $newPosition--;
 	else $newPosition++;
 	
-	$class->setPosition($newPosition, $class->position);
+	$class->setPosition($newPosition, $class->position, $_POST['parent']);
 	
 	echo $_POST['href'];	
 }

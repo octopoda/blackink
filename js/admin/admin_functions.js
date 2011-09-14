@@ -1,15 +1,32 @@
 // JavaScript Document
 $(document).ready(function () {
-    //Load All Grids
+ 	//SEtup Ajax Errors
+ 	/* $.ajaxSetup({
+		error:function(x,e){
+			if(x.status==0){
+			alert('You are offline!!\n Please Check Your Network.');
+			}else if(x.status==404){
+			alert('Requested URL not found.');
+			}else if(x.status==500){
+			alert('Internel Server Error.');
+			}else if(e=='parsererror'){
+			alert('Error.\nParsing JSON Request failed.');
+			}else if(e=='timeout'){
+			alert('Request Time out.');
+			}else {
+			alert('Unknow Error.\n'+x.responseText);
+			}
+		}
+	}); */
 	
 	
 	//Set height of Secondary and Main 
   	function redirectTo($string) {
+		
 		$.ajax({
 			url: $string,
 			success: function(data) {
-				$('#contentWrapper').html(data);
-				
+				$('#content').html(data);				
 				//Get Errors
 				$.ajax({
 					url: '/ajax/ajax_form_submit.php',
@@ -106,14 +123,13 @@ $(document).ready(function () {
 		$class = $(this).parent('li').attr('class');
 		$position = $(this).parent('li').attr('sel');
 		$href = $(this).attr('href');
-		alert('click');
+		$parent = $(this).attr('parent');
 		
 		$.ajax ({
 			url: '/ajax/admin/admin_form_submit.php',
 			type: 'POST',
-			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href},
+			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href, 'parent' : $parent},
 			success: function (data) {
-				$('.data').html(data);
 				redirectTo(data);
 			}
 		}); 
@@ -121,6 +137,8 @@ $(document).ready(function () {
 		e.preventDefault();
 	});
 	
+	
+	//Publish and unpublish items.
 	$('.published').live('click', function () {
 		
 		var $id = $(this).attr('id');

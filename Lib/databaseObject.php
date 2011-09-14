@@ -317,7 +317,7 @@ abstract class databaseObject {
 		}
 		
 		//Position 
-		public function setPosition ($newPosition, $varName) {
+		public function setPosition ($newPosition, $varName, $parent) {
 			global $db; 
 			
 			$position = $varName;
@@ -331,30 +331,30 @@ abstract class databaseObject {
 			}
 			
 			
-			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position}");
+			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position} AND parent = {$parent}");
 			$db->query("SELECT @sign:= SIGN({$position}-{$newPosition}) FROM {$this->table}");
-			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh}");
-			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000");
+			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh} AND parent = {$parent}");
+			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000 AND parent = {$parent}");
 			
 			if ($db->affectedRows() > 0) {
 			
 			}
 		}	
 		
-		public function moveArrows ($id, $varName, $link) {
+		public function moveArrows ($id, $varName, $link, $parent) {
 			$position = $varName;
 			
 			$html = '<ul class="moveArrows">
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			if ($position != $this->topPosition($position)) {
-				$html .='<a sel="'.$id.'" class="move" title="moveUp" href="'.$link.'"><img src="/images/admin/move_up.jpg" alt="move up" /></a>';
+				$html .='<a sel="'.$id.'" class="move upTriangle" title="moveUp" href="'.$link.'" parent="'.$parent.'">Up</a>'; 
 			}
 			
 			$html .=	'</li>
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			
 			if ($position != $this->bottomPosition($position)) {
-				$html .= '<a sel="'.$id.'" class="move" title="moveDown" href="'.$link.'"><img src="/images/admin/move_down.jpg" alt="move Down" /></a>';
+				$html .= '<a sel="'.$id.'" class="move downTriangle" title="moveDown" href="'.$link.'" parent="'.$parent.'">Down</a>';
 			}
 			
 			
