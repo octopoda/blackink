@@ -269,6 +269,19 @@ abstract class databaseObject {
 			return $this->{$this->idfield};	
 		}
 		
+		//Access Method
+		public function accessGroupName($id) {
+			global $db;
+			
+			$result_set = $db->queryFill("SELECT groupname FROM userGroups WHERE group_id = $id LIMIT 1");
+			if ($result_set != false) {
+				$result_set = array_shift($result_set);
+				return 	$result_set['groupname'];	
+			}
+			
+			return false;
+		}
+		
 /* ================================================	
 	Blog and Publish Methods
    ================================================	 */
@@ -293,13 +306,13 @@ abstract class databaseObject {
 		
 		public function publish() {
 			global $db;
-			$db->query("UPDATE {$this->table} SET active = 1 WHERE {$this->idfield} = {$this->indirectId()}");
+			$db->query("UPDATE {$this->table} SET published = 1 WHERE {$this->idfield} = {$this->indirectId()}");
 			return ($db->affectedRows() > 0);
 		}
 		
 		public function unpublish() {
 			global $db;
-			$db->query("UPDATE {$this->table} SET active = 0 WHERE {$this->idfield} = {$this->indirectId()}");
+			$db->query("UPDATE {$this->table} SET published = 0 WHERE {$this->idfield} = {$this->indirectId()}");
 			return ($db->affectedRows() > 0);
 		}
 		

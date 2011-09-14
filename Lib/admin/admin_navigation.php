@@ -1,4 +1,5 @@
 <?php
+
 	//All Navigation pieces for the Admin 
     class AdminNavigation {
       	public $navigation;
@@ -21,6 +22,7 @@
 		}
 		
 		public function createTabArray($mainNavItem) {
+			global $db;
 			$tabs = array();
 			
 			switch ($mainNavItem) {
@@ -29,8 +31,8 @@
 					break;
 					
 				case 'Navigation':
-					$tabs[] = $this->listNav('Main Menu', 'forms/navigation.php', 1);
-					$tabs[] = $this->listNav('Quick Menu', 'forms/navigation.php', 1);
+					$tabs[] = $this->listNav("Menus", 'forms/navigation.php', 1);		
+					$tabs[] = $this->listNav('Add Menu', 'forms/form_navigation.php', 1);
 					break;
 				
 				case 'Content':

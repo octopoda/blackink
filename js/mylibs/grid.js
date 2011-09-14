@@ -38,11 +38,11 @@ $(function() {
 			// setup DEFAULT options
 			var opts = $.extend({
 				order_by : "",			// sql order by
-				sort : "DESC",			// sql sort by
+				sort : "ASC",			// sql sort by
 				page:1,					// page to start on
 				search:"",				// search term
 				justSearched:false,		// used to allow searching to db without the filtering destorying fields that aren't on the grid
-				nRowsShowing:20,			// how many rows to show
+				nRowsShowing:10,			// how many rows to show
 				resizable:false,			// is the grid resizable?
 				resizableColumns:true,	// can the columns be resized?
 				pager:true,				// show the pager?
@@ -214,7 +214,7 @@ $(function() {
 			$.ajax({
 				url: $grid.attr("action"),
 				type: "POST",
-				data: {'data' : $grid.data(), "table" : $grid.attr('sel'), "functions" : $grid.attr('functions')},
+				data: {'data' : $grid.data(), "table" : $grid.attr('sel')},
 				dataType: 'json',
 				success: function (data, status, xhr) {
 					//$('.data').html(data);

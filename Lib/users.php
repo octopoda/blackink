@@ -116,16 +116,6 @@
 	Access Functions
    ===================================== */
 		
-		public function accessGroupName($id) {
-			global $db;
-			
-			$result_set = $db->queryFill("SELECT groupname FROM userGroups WHERE group_id = $id LIMIT 1");
-			if ($result_set != false) {
-				$result_set = array_shift($result_set);
-				return 	$result_set['groupname'];	
-			}
-			
-			return false;
-		}
+		
     }
 ?>

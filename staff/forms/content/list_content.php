@@ -1,10 +1,6 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php');
-	
-	unset($_SESSION['errors']);
-	
 	$content = new Content();
-	
 ?>
 
 
@@ -12,13 +8,14 @@
 <p><?php if (isset($_SESSION['error'])) echo $_SESSION['error']; ?></p>
 
 <div class="list">
-		<table class="grid" action="/ajax/grid_ajax.php" title="Default" sel="content" functions="content">
+		<table class="grid" action="/ajax/grid_ajax.php" title="Default" sel="content">
 			<tr>	
 				<th col="title" width="300" link="/forms/form_content.php">Title</th>
+                <th col="published" width="40">Published</th>
 				<th col="created_on" width="50">Created</th>
 				<th col="modified_on" width="50">Last Edited</th>
 				<th col="user_id" width="50">Author</th>
-				<th col="access" width="100">Access</th>
+				<th col="access" width="50">Access</th>
 			</tr>
 		</table>
 

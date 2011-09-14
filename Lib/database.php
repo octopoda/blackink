@@ -103,7 +103,7 @@
 		}
 		
 		public function affectedRows() {
-			return $this->database->affected_rows($this->database);	
+			return $this->database->affected_rows;	
 		}
 		
 		public function showFields($table) {

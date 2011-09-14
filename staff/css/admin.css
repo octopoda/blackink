@@ -90,7 +90,7 @@ header {
 	
 	#tabs ul li.active a:link, #tabs u li.active a:visited {
 		color: #9902CB;
-		background-color: #FFF !important;
+		background-color: #FFF;
 		border-top:2px solid #444;
 		border-left:2px solid #444;
 		border-right:2px solid #444;
@@ -118,6 +118,22 @@ header {
 }
 	#content input{ width:300px; margin-bottom:5px;}
     #content textarea {width:300px; height:150px;}
+	
+table.navigationList {width:100%; height:auto}	
+table.navigationList thead {background:#CB0202; color:#FFF; text-align:left;}
+table.navigationList thead tr th {padding:5px; border-right:1px solid white;}
+
+table.navigationList tbody tr td {border-bottom:1px solid #CCC;}
+table.navigationList tbody tr.mainNav td.title {font-weight:bold;}
+table.navigationList tbody tr.subNav td.title {padding-left:20px;}
+
+/* =============================
+	Admin Tools
+	===========================*/
+	
+.moveArrows {}
+.moveArrows li { list-style:none; margin:0px; float:left;}
+
 	
 	
 #sidebar {

@@ -11,11 +11,12 @@ if (isset($_POST['publishedId'])) {
 	$pub = false;
 	
 	if (isset($_POST['published'])) $pub = true;
-
 	$class = new $className($pubId);
 	
 	if ($pub) $class->unpublish();
 	else $class->publish();	
+	
+	$class = new $className($pubId);
 	
 	$id = $class->indirectId();
 	echo $class->published($id);

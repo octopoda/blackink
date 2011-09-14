@@ -77,7 +77,7 @@
 		
 //News Conversion
 			
-	$sql ="SELECT * FROM news";
+	/*$sql ="SELECT * FROM news";
 	$result = mysqli_query($innovation, $sql);
 	$nTimes = 0;
 	
@@ -91,7 +91,17 @@
 		$db->query($sql);		
 	
 		$nTimes++;
-	}
+	} */
+	
+	
+//Navigation to Menu conversion
+		$sql = "SELECT navigation_id FROM navigation";
+		$result = $db->query($sql); 	
+		
+		while ($row = $db->fetchArray($result)) {
+			$sql = "INSERT INTO navigationForMenus (menu_id, navigation_id) VALUES (1, ". $row['navigation_id'] .")";
+			$db->query($sql);	
+		}
 		
 	echo "complete";
 	?>

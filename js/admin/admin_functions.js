@@ -94,4 +94,71 @@ $(document).ready(function () {
  	}
 	
 	
+/* ===========================================
+	Error Methods
+   =========================================*/
+   
+   
+	///Move Up and Down Arrows 
+	$('.move').live('click', function (e) {
+		$title = $(this).attr('title');
+		$id = $(this).attr('sel');
+		$class = $(this).parent('li').attr('class');
+		$position = $(this).parent('li').attr('sel');
+		$href = $(this).attr('href');
+		alert('click');
+		
+		$.ajax ({
+			url: '/ajax/admin/admin_form_submit.php',
+			type: 'POST',
+			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href},
+			success: function (data) {
+				$('.data').html(data);
+				redirectTo(data);
+			}
+		}); 
+		
+		e.preventDefault();
+	});
+	
+	$('.published').live('click', function () {
+		
+		var $id = $(this).attr('id');
+		var $class = $(this).attr('sel');
+		var $published = $(this).attr('published');
+		var $this = $(this);
+		if ($published == 'yes') $published = true;
+		
+		$.ajax({
+			url: '/ajax/admin/admin_form_submit.php',
+			type: 'POST',
+			data: { "publishedId": $id, "class": $class, "published": $published },
+			success: function (data) {
+				$this.parent().html(data);
+			}
+		})
+	});
+
+
+/* ===========================================
+	Error Methods
+   =========================================*/
+	
+	//Error Box actions
+	$('.errorClose').live('click', function(e) {
+		$.ajax({
+			url: '/ajax/admin/admin_form_submit.php',
+			type : 'POST',
+			data: {'closeError' : 1},
+			success: function (data) {
+				$('#errorWrapper').remove();
+			}
+		})
+	});
+	
+	
+	$('.reportError').live('click', function(e) {
+		redirectTo('forms/report_errors.php');
+		$('.errorClose').click();
+	});
 });
