@@ -2,14 +2,30 @@
 	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php'); 
 
 	$nav = new Navigation();
-	$nav->listNav(1);
 	$link = '/staff/forms/navigation.php';
+	
+	if (isset($_GET['sel'])) {
+		$menuId = $_GET['sel'];
+	} else {
+		$menuId = 1;
+	}
 ?>
 
 
 <h3 class="floatLeft">Main Menu Navigation</h3>
 <p></p>
 
+<div class="menuSelect">
+	<form>
+		<select class="menuPicker">
+			<?php  
+				$nav->listMenus();
+				foreach ($nav->menuList as $list) { ?>
+					<option value="<?php echo $list['menu_id']; ?>" <?php if ($list['menu_id'] == $menuId) echo 'selected="selected"'; ?>><?php  echo $list['menu_name'] ?></option>
+			<?php }?>
+		</select>
+	</form> 
+</div>
 <div class="list">
 	<table class="navigationList">
     	<thead>
@@ -22,9 +38,9 @@
         </thead>
     	<tbody>
     
-	<?php foreach($nav->itemList as $list) { ?>
-    		
-    		
+	<?php 
+		$nav->listNav($menuId);
+		foreach($nav->itemList as $list) { ?>
     		<tr class="mainNav">
             	<td class="title"><?php echo $list->title; ?></td>
                 <td width="50" style="text-align:center"><?php echo $list->published($list->navigation_id); ?></td>

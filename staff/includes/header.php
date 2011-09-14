@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/admin.css">
   <link rel="stylesheet" href="css/grid.css">
+  <link type="text/css" href="css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
   <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
   
   <script src="js/libs/modernizr-2.0.6.min.js"></script>

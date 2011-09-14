@@ -13,20 +13,46 @@
 		public $position;
 		public $published;
 		public $link;
+		public $menu;
 		
 		//Helpers
 		public $navigationList;
 		public $subNavList;
+		public $menuList;
 		
 		 public function __construct($n_id="") {
 			 if (empty($n_id)) $n_id = $this->navigation_id;
 			
 			if (!empty($n_id)) {
          		$result = $this->fetchById($n_id); 
-			} 
+         		$this->getMenu(); 
+			}
+			
+			
 		}
 		
+/*  ===========================================
+	Build Methods
+	========================================= */	
+
+		private function getMenu() {
+			global $db;
+			$result_set = $db->queryFill("SELECT M.menu_id, M.menu_name FROM navigationForMenus NM JOIN menus M ON NM.menu_id = M.menu_id WHERE NM.navigation_id = {$this->navigation_id} LIMIT 1");
+			
+			if ($result_set != false) {
+				$result_set = $this->arrayShift($result_set);
+				$this->menu = $result_set['menu_name'];
+			} else {
+				return false;
+			}
+			
+			
+		}		
 		
+
+/*  ===========================================
+	Display Methods
+	========================================= */	
 		//Create Main Navigation
 		
 		//Create Dropdowns
@@ -35,6 +61,7 @@
 		
 		//Display Navigtion 	
 	
+
 /*  ===========================================
 	Admin Methods
 	========================================= */	
@@ -78,9 +105,56 @@
 			}
 			
 		}
+		
+		//List Menus aviaible  
+		public function listMenus() {
+			global $db;
+			global $errors;
+			
+			$result_set = $db->queryFill("SELECT * FROM menus");
+			
+			if ($result_set != false) {
+				$this->menuList = $this->arrayShift($result_set);
+			} else {
+				$errors->addError("There are no menus defined");
+			}
+			
+			
+		}
+		
+
+
+/*  ===========================================
+	Redefined Methods
+	========================================= */
+
+
+	public function setPosition ($newPosition, $varName, $parent) {
+			global $db; 
+			
+			$position = $varName;
+			
+			$posLow = $position;
+			$posHigh = $newPosition;
+			
+			if ($posLow > $posHigh) {
+				$posLow = $newPosition;
+				$posHigh = $position;
+			}
+			
+			
+			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position} AND parent = {$parent}");
+			$db->query("SELECT @sign:= SIGN({$position}-{$newPosition}) FROM {$this->table}");
+			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh} AND parent = {$parent}");
+			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000 AND parent = {$parent}");
+			
+			if ($db->affectedRows() > 0) {
+			
+			}
+		}
 	
 	
-	}
+	} //Class Ending
 	
 	
 	

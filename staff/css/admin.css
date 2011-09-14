@@ -123,13 +123,17 @@ table.navigationList {width:100%; height:auto}
 table.navigationList thead {background:#CB0202; color:#FFF; text-align:left;}
 table.navigationList thead tr th {padding:5px; border-right:1px solid white;}
 
-table.navigationList tbody tr td {border-bottom:1px solid #CCC;}
+table.navigationList tbody tr td {border-bottom:1px solid #CCC; padding: 5px 10px;}
 table.navigationList tbody tr.mainNav td.title {font-weight:bold;}
 table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 
 /* =============================
 	Admin Tools
 	===========================*/
+	
+.menuPicker {float:right; margin:20px 0px;}	
+.menuPicker option {padding:10px;}
+	
 	
 .moveArrows {margin-left:-12px;}
 .moveArrows li { list-style:none; margin:0px; margin-left:8px; float:left;}
@@ -138,6 +142,11 @@ table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 
 .subNav .upTriangle {border-bottom:8px solid #999}
 .subNav .downTriangle {border-top:8px solid #999}	
+
+/* =============================
+	Side Bar
+	===========================*/
+
 	
 	
 #sidebar {

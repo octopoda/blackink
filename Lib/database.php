@@ -54,7 +54,7 @@
            	$rtn = $this->query($sql);
             if (empty($rtn)) return false;
             $row_array = array();
-            $count = count($rtn);
+            
 			
 			while ($row = $this->fetchArray($rtn)) {
                 $row_array[] = $row;
@@ -62,6 +62,7 @@
 			
 			return $row_array;
         }
+        
         
 		private function confirmQuery ($result) {
 			if (!$result) {

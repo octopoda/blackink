@@ -29,7 +29,7 @@ $(document).ready(function () {
 				$('#content').html(data);				
 				//Get Errors
 				$.ajax({
-					url: '/ajax/ajax_form_submit.php',
+					url: '/ajax/admin_functionality.php',
 					type: 'POST',
 					data: {'errorPlacement': 1},
 					success: function (data) {
@@ -112,11 +112,11 @@ $(document).ready(function () {
 	
 	
 /* ===========================================
-	Error Methods
+	Admin Methods
    =========================================*/
    
    
-	///Move Up and Down Arrows 
+	//Position Arrows 
 	$('.move').live('click', function (e) {
 		$title = $(this).attr('title');
 		$id = $(this).attr('sel');
@@ -126,7 +126,7 @@ $(document).ready(function () {
 		$parent = $(this).attr('parent');
 		
 		$.ajax ({
-			url: '/ajax/admin/admin_form_submit.php',
+			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
 			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href, 'parent' : $parent},
 			success: function (data) {
@@ -148,7 +148,7 @@ $(document).ready(function () {
 		if ($published == 'yes') $published = true;
 		
 		$.ajax({
-			url: '/ajax/admin/admin_form_submit.php',
+			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
 			data: { "publishedId": $id, "class": $class, "published": $published },
 			success: function (data) {
@@ -156,6 +156,22 @@ $(document).ready(function () {
 			}
 		})
 	});
+	
+	
+	//Menu Select to change Navigation
+	$('.menuPicker').live('change', function () {
+		var $id = $(this).val();
+		$url = 'forms/navigation.php'
+		$url += '?sel=' + $id;
+		
+		$.ajax({
+			url: $url,
+			success: function (data) {
+				$('#content').html(data);
+			}
+		})
+	});
+	
 
 
 /* ===========================================
@@ -165,7 +181,7 @@ $(document).ready(function () {
 	//Error Box actions
 	$('.errorClose').live('click', function(e) {
 		$.ajax({
-			url: '/ajax/admin/admin_form_submit.php',
+			url: '/ajax/admin/admin_functionality.php',
 			type : 'POST',
 			data: {'closeError' : 1},
 			success: function (data) {

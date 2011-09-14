@@ -4,11 +4,14 @@
     // $table - contains the name of the table in the database. Required
     // $idfield - contains the name of the id field in the table.  Required for 'fetchById'
     
-//require_once("database.php");
 require_once("errors.php");
 
-// Added the ABSTRACT tag to make sure nobody tries to instantiate this directly
 abstract class databaseObject {
+
+/* ================================================	
+	Fetch Methods
+   ================================================	 */	
+		
 		public function fetchBySQL($sql="") {
             global $db;
 			
@@ -70,6 +73,20 @@ abstract class databaseObject {
 			
 			return !empty($result_array) ? array_shift($result_array) : false;	
 		}
+		
+		public function arrayShift($array) {
+			$count = count($array);
+			
+			if ($count == 1) {
+				$array = array_shift($array);
+			}
+			
+			return $array;
+		}
+		
+/* ================================================	
+	Build Methods
+   ================================================	 */		
 		
 		private function getAttribute($record) {
 			foreach ($record as $attribute=>$value)	{
@@ -141,6 +158,10 @@ abstract class databaseObject {
 			return !empty($result_array) ? array_shift($result_array) : false;	
 		}
 		
+
+/* ================================================	
+	Reading and Writing to Forms
+   ================================================	 */
 		
         public function fillFromForm($form) {
             global $db;
@@ -173,6 +194,10 @@ abstract class databaseObject {
             return $html;
         }
 
+
+/* ================================================	
+	CRUD Methods
+   ================================================	 */
 
 		public function save($id="") {
 			//echo "ID in SAVE Method: " . $id;
@@ -317,7 +342,7 @@ abstract class databaseObject {
 		}
 		
 		//Position 
-		public function setPosition ($newPosition, $varName, $parent) {
+		public function setPosition ($newPosition, $varName) {
 			global $db; 
 			
 			$position = $varName;
@@ -331,10 +356,10 @@ abstract class databaseObject {
 			}
 			
 			
-			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position} AND parent = {$parent}");
+			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position}");
 			$db->query("SELECT @sign:= SIGN({$position}-{$newPosition}) FROM {$this->table}");
-			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh} AND parent = {$parent}");
-			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000 AND parent = {$parent}");
+			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh}");
+			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000");
 			
 			if ($db->affectedRows() > 0) {
 			
