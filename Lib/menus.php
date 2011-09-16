@@ -1,44 +1,57 @@
 <?php
 	require_once('databaseObject.php');
 	
-	
-    class Navigation extends databaseObject {
-      	public $table = "navigation";
-        public $idfield = "navigation_id";
+    class Menus extends databaseObject {
+      	public $table = "menus";
+        public $idfield = "menu_id";
 		
-		public $navigation_id;
-		public $title;
-		public $parent;
-		public $access;
-		public $position;
+		public $menu_id;
+		public $menu_name;
 		public $published;
-		public $link;
+		public $access;
 		
-		 public function __construct($n_id="") {
-			 if (empty($n_id)) $n_id = $this->navigation_id;
+		//Helpers
+		public $menuList = array();
+		
+		 public function __construct($m_id="") {
+			 if (empty($m_id)) $m_id = $this->menu_id;
 			
-			if (!empty($n_id)) {
-         		$result = $this->fetchById($n_id); 
-			} 
+			if (!empty($m_id)) {
+         		$result = $this->fetchById($m_id);
+         	} 
+		}
+		
+		public function listMenus() {
+			global $db;
+			global $error;
+			
+			$result_set = $db->queryFill("SELECT * FROM menus");
+			
+			if ($result_set != false) {
+				$result_set = $this->arrayShift($result_set);
+				foreach($result_set as $row) {
+					$menu = new Menus($row['menu_id']);
+					$this->menuList[] = $menu;
+				}
+			} else {
+				$error->addMessage("You have no menus in your Database");
+				return false;
+			}
 		}
 		
 		
-		//Create Main Navigation
 		
-		//Create Dropdowns
 		
-		//Attach Navigation to Content
-		
-		//Display Navigtion 	
-	
 /*  ===========================================
 	Admin Methods
 	========================================= */	
 	
-		//List Navigation for Menus
-		function listNav($menu) {
-				
-		}
+		//Add Menu
+		
+		//Update Menu
+		
+		//Delete Menu
+		
 	
 	
 	}

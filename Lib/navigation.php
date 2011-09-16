@@ -1,8 +1,7 @@
 <?php
 	require_once('databaseObject.php');
 	
-	
-    class Navigation extends databaseObject {
+	class Navigation extends databaseObject {
       	public $table = "navigation";
         public $idfield = "navigation_id";
 		
@@ -41,7 +40,7 @@
 			
 			if ($result_set != false) {
 				$result_set = $this->arrayShift($result_set);
-				$this->menu = $result_set['menu_name'];
+				$this->menu = new Menus($result_set['menu_id']);
 			} else {
 				return false;
 			}
@@ -105,23 +104,7 @@
 			}
 			
 		}
-		
-		//List Menus aviaible  
-		public function listMenus() {
-			global $db;
-			global $errors;
-			
-			$result_set = $db->queryFill("SELECT * FROM menus");
-			
-			if ($result_set != false) {
-				$this->menuList = $this->arrayShift($result_set);
-			} else {
-				$errors->addError("There are no menus defined");
-			}
-			
-			
-		}
-		
+				
 
 
 /*  ===========================================

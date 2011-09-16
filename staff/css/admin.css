@@ -13,6 +13,8 @@ Created By: Zack Davis
 	Purple: #9902CB
 	Red: #CB0202
 	Gray: #999
+	Blue: #06e
+	Black #444
 	
    =====================================*/
 
@@ -101,6 +103,13 @@ header {
 	}	
 	
 
+/* =============================
+	Main Section
+	===========================*/
+
+section {margin-top:10px; padding-bottom:50px;border-bottom:2px solid #444;}
+section:last-child {border-bottom:0px;}
+
 #main {
 	clear:both;
 	width: 100%;
@@ -111,6 +120,8 @@ header {
 	position:relative;
 }
 
+
+
 #content {
 	margin:20px 0px 0px 30px;
 	width:60%;
@@ -119,11 +130,22 @@ header {
 	#content input{ width:300px; margin-bottom:5px;}
     #content textarea {width:300px; height:150px;}
 	
+.list {clear:both;margin-top:20px; font-family: Arial,Helvetica, san-serif}
+
+
+/* Navagation  Menu Tabs */
+.menuPicker {float:right;margin:-10px 0px 10px 0px; }
+#radio {margin-top:-30px;}
+#radio input {margin:0px; padding:0px;}
+#radio label  {width:auto; font-size:12px;}
+
+
+
 table.navigationList {width:100%; height:auto}	
 table.navigationList thead {background:#CB0202; color:#FFF; text-align:left;}
 table.navigationList thead tr th {padding:5px; border-right:1px solid white;}
 
-table.navigationList tbody tr td {border-bottom:1px solid #CCC; padding: 5px 10px;}
+table.navigationList tbody tr td {border-bottom:1px solid #CCC; padding:5px 10px; vertical-align: middle}
 table.navigationList tbody tr.mainNav td.title {font-weight:bold;}
 table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 
@@ -131,17 +153,41 @@ table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 	Admin Tools
 	===========================*/
 	
-.menuPicker {float:right; margin:20px 0px;}	
-.menuPicker option {padding:10px;}
 	
 	
 .moveArrows {margin-left:-12px;}
 .moveArrows li { list-style:none; margin:0px; margin-left:8px; float:left;}
-.moveArrows .upTriangle {width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 10px solid #CB0202; text-indent: -9999px; display: block;}
-.moveArrows .downTriangle {width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 10px solid #CB0202; text-indent: -9999px; display: block;}
+.moveArrows .move {font-size:20px; color:#CB0202}
+.subNav .move {color:#999}
 
-.subNav .upTriangle {border-bottom:8px solid #999}
-.subNav .downTriangle {border-top:8px solid #999}	
+.quickMenu {float:right; margin:20px 0px;}
+.quickMenu li a {cursor:pointer; color:#06e}
+.quickMenu li {list-style:none; font-size:16px; float:left;}
+.quickMenu li span {display: inline-table; margin-right:6px; }
+.quickMenu .text {line-height:22px; position:relative; top:4px;}	
+
+.published {font-size:20px; color:#444; margin-left:10px;}
+
+.delete {font-size:20px; color:#CB0202; margin-left:15px;}
+.delete:hover  {color:#731115}
+
+/* =============================
+	Forms
+	===========================*/
+
+.twoDropDowns {clear:both}
+.twoDropDowns  p{ float:left; margin-right:10px;}
+
+
+
+
+
+/* =============================
+	JQUERY UI/Ninja UI
+	===========================*/
+
+
+
 
 /* =============================
 	Side Bar
@@ -164,4 +210,49 @@ table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 footer {border-top:2px solid #CCC; margin-top:30px;}
 footer ul {float:right;}
 footer ul li { list-style:none; float:left; margin-left:10px}
+
+button {
+  background: #e3e3e3;
+  clear:both;
+  border: 1px solid #bbb;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  -moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  -ms-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  -o-box-shadow: inset 0 0 1px 1px #f6f6f6;
+  box-shadow: inset 0 0 1px 1px #f6f6f6;
+  
+  color: #333;
+  font: bold 12px "helvetica neue", helvetica, arial, sans-serif;
+  line-height: 12px;  
+  text-align: center;
+  text-shadow: 0 1px 0 #fff;
+  padding:8px 10px; 
+ } 
+ 
+ button:hover {
+    background: #d9d9d9;
+    -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -moz-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -o-box-shadow: inset 0 0 1px 1px #eaeaea;
+    box-shadow: inset 0 0 1px 1px #eaeaea;
+    color: #222;
+    cursor: pointer; 
+ }
+ 
+ button:active {
+    background: #d0d0d0;
+    -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    -moz-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    -ms-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    -o-box-shadow: inset 0 0 1px 1px #e3e3e3;
+    box-shadow: inset 0 0 1px 1px #e3e3e3;
+    color: #000; 
+ }
 

@@ -294,18 +294,7 @@ abstract class databaseObject {
 			return $this->{$this->idfield};	
 		}
 		
-		//Access Method
-		public function accessGroupName($id) {
-			global $db;
-			
-			$result_set = $db->queryFill("SELECT groupname FROM userGroups WHERE group_id = $id LIMIT 1");
-			if ($result_set != false) {
-				$result_set = array_shift($result_set);
-				return 	$result_set['groupname'];	
-			}
-			
-			return false;
-		}
+		
 		
 /* ================================================	
 	Blog and Publish Methods
@@ -315,14 +304,13 @@ abstract class databaseObject {
 		public function published($id="") {
 			if (empty($id)) $id = $this->$idfield;
 			
-			$html = '<a class="published" sel="'.$this->table. '" id="'.$id.'"';
+			$html = '<a  sel="'.$this->table. '" id="'.$id.'"';
 			if ($this->published == 1) $html .= 'published="yes"';
-			$html .= '><img src=';
 			
 			if ($this->published == 1) {
-				$html .= '"/images/admin/published.png" alt="published" /></a>';
+				$html .= ' class="published ninjaSymbol ninjaSymbolCheck" ></a>';
 			} else {
-				$html .= '"/images/admin/unpublished.png" alt="published" /></a>';
+				$html .= ' class="published ninjaSymbol ninjaSymbolNot" ></a>';
 			}
 			
 			return $html;
@@ -341,7 +329,7 @@ abstract class databaseObject {
 			return ($db->affectedRows() > 0);
 		}
 		
-		//Position 
+		//Set new Position 
 		public function setPosition ($newPosition, $varName) {
 			global $db; 
 			
@@ -366,20 +354,21 @@ abstract class databaseObject {
 			}
 		}	
 		
+		//Create the arrows for position
 		public function moveArrows ($id, $varName, $link, $parent) {
 			$position = $varName;
 			
 			$html = '<ul class="moveArrows">
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			if ($position != $this->topPosition($position)) {
-				$html .='<a sel="'.$id.'" class="move upTriangle" title="moveUp" href="'.$link.'" parent="'.$parent.'">Up</a>'; 
+				$html .='<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveUp" title="moveUp" href="'.$link.'" parent="'.$parent.'"></a>'; 
 			}
 			
 			$html .=	'</li>
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			
 			if ($position != $this->bottomPosition($position)) {
-				$html .= '<a sel="'.$id.'" class="move downTriangle" title="moveDown" href="'.$link.'" parent="'.$parent.'">Down</a>';
+				$html .= '<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveDown" title="moveDown" href="'.$link.'" parent="'.$parent.'"></a>';
 			}
 			
 			
@@ -387,6 +376,7 @@ abstract class databaseObject {
 			return $html;	
 		}
 		
+		//Find out if item is in top position
 		public function topPosition() {
 			global $db;
 			
@@ -396,6 +386,7 @@ abstract class databaseObject {
 			return $result['position'];
 		}
 		
+		//Find out if item is in bottom position
 		public function bottomPosition() {
 			global $db;
 			
@@ -404,6 +395,58 @@ abstract class databaseObject {
 			
 			return $result['position'];
 		}
+		
+		
+		//Get Access GroupName from Id
+		public function accessGroupName($id) {
+			global $db;
+			
+			$result_set = $db->queryFill("SELECT groupname FROM userGroups WHERE group_id = $id LIMIT 1");
+			if ($result_set != false) {
+				$result_set = array_shift($result_set);
+				return 	$result_set['groupname'];	
+			}
+			
+			return false;
+		}
+			
+		//List all Access Groups
+		public function listAccessGroups() {
+			global $db;
+			$list = array();
+			
+			$result_set = $db->queryFill("SELECT * FROM userGroups");
+			
+			if ($result_set != false) {
+				$result_set = $this->arrayShift($result_set);
+				
+				foreach ($result_set as $name) {
+					$list[] = $name;
+				
+				}
+			}
+			return $list;
+		}
+		
+		public function accessDropDown($id) {
+			$array = $this->listAccessGroups();
+		
+			$html = '<select id="access">';
+		
+			foreach($array as $list){
+				$html .= '<option value="'. $list['group_id'].'" '; 
+				if ($id == $list['group_id']) {
+					$html .= 'selected="selected" ';
+				} 
+				
+				$html .= ' >'. $list['groupname'].'</option>';
+			}
+			
+			$html .= "</select>";
+			
+			return $html;
+		}
+
 		
 		
 

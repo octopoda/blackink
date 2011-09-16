@@ -34,6 +34,30 @@ CREATE TABLE `addressForUser` (
 
 
 
+# Dump of table menus
+# ------------------------------------------------------------
+
+CREATE TABLE `menus` (
+  `menu_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `menu_name` varchar(30) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
+  PRIMARY KEY (`menu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table navigationForMenus
+# ------------------------------------------------------------
+
+CREATE TABLE `navigationForMenus` (
+  `navigation_id` int(11) NOT NULL,
+  `menu_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`navigation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
 # Dump of table content
 # ------------------------------------------------------------
 

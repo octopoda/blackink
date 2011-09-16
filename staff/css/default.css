@@ -139,7 +139,7 @@ form { margin: 0; }
 fieldset { border: 0; margin: 0; padding: 0; }
 
 /* Indicate that 'label' will shift focus to the associated form element */
-label {cursor:pointer; width:180px; display:block; }
+label {cursor:pointer; display:block; margin-bottom:4px; }
 
 /* 
  * 1. Correct color not inheriting in IE6/7/8/9 
@@ -216,7 +216,7 @@ td { vertical-align: top; }
    Primary Styles
    ========================================================================== */
 
-	
+h3 {margin:10px 0px; font-size:30px; color:#999}
 	
 
 

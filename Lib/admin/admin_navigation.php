@@ -14,7 +14,7 @@
 		public function createMainNavigation() {
 			$this->mainNav[] = $this->listNav('Dashboard', 'forms/dashboard.php', 0);
 			$this->mainNav[] = $this->listNav('Site', 'forms/site.php', 0);
-			$this->mainNav[] = $this->listNav('Navigation', 'forms/navigation.php', 0);
+			$this->mainNav[] = $this->listNav('Navigation', 'forms/navigation/navigation.php', 0);
 			$this->mainNav[] = $this->listNav('Content', 'forms/content/list_content.php', 0);
 			$this->mainNav[] = $this->listNav('Users', 'forms/users.php', 0); 
 			
@@ -31,8 +31,9 @@
 					break;
 					
 				case 'Navigation':
-					$tabs[] = $this->listNav("Menus", 'forms/navigation.php', 1);		
-					$tabs[] = $this->listNav('Add Menu', 'forms/form_navigation.php', 1);
+					$tabs[] = $this->listNav("Navigation", 'forms/navigation/navigation.php', 1);
+					$tabs[] = $this->listNav("Menus", 'forms/navigation/menus.php', 1);
+					$tabs[] = $this->listNav('Add Menu', 'forms/navigation/form_navigation.php', 1);
 					break;
 				
 				case 'Content':

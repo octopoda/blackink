@@ -64,13 +64,7 @@
 		 
 	}
 	
-	function setActive() {
-		
-		if (isset($_SESSION['mainNav'])) {
-			//return $_SESSION['mainNav'];	
-			echo 'hello';
-		}
-	}
+	
 	
 	function getTitle($pageTitle) {
 		
@@ -118,6 +112,8 @@
 		return $html;
 	}
 	
+	
+		
 	
 	
 ?>

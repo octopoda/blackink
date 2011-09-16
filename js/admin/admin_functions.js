@@ -1,26 +1,13 @@
 // JavaScript Document
 $(document).ready(function () {
- 	//SEtup Ajax Errors
- 	/* $.ajaxSetup({
-		error:function(x,e){
-			if(x.status==0){
-			alert('You are offline!!\n Please Check Your Network.');
-			}else if(x.status==404){
-			alert('Requested URL not found.');
-			}else if(x.status==500){
-			alert('Internel Server Error.');
-			}else if(e=='parsererror'){
-			alert('Error.\nParsing JSON Request failed.');
-			}else if(e=='timeout'){
-			alert('Request Time out.');
-			}else {
-			alert('Unknow Error.\n'+x.responseText);
-			}
-		}
-	}); */
-	
-	
-	//Set height of Secondary and Main 
+ 		
+
+/* ===========================================
+	Redirection  Methods
+   =========================================*/		
+   
+   
+	//Redirect Main Content
   	function redirectTo($string) {
 		
 		$.ajax({
@@ -44,7 +31,7 @@ $(document).ready(function () {
 		});
 	}
 
-	
+	//Ajax Control of Main Navigation
 	$('#navigation ul li a').click(function (e) {
 		e.preventDefault();
 		
@@ -85,6 +72,7 @@ $(document).ready(function () {
 	});
 	
 	
+	//AJAX Control of Tabs
 	$('#tabs ul li a').live('click', function (e) {
 		e.preventDefault();	
 		$this = $(this);
@@ -135,7 +123,9 @@ $(document).ready(function () {
 		}); 
 		
 		e.preventDefault();
-	});
+	}); 
+	
+	
 	
 	
 	//Publish and unpublish items.
@@ -159,9 +149,10 @@ $(document).ready(function () {
 	
 	
 	//Menu Select to change Navigation
-	$('.menuPicker').live('change', function () {
+	$('#radio input').live('change', function () {
 		var $id = $(this).val();
-		$url = 'forms/navigation.php'
+		
+		$url = 'forms/navigation/navigation.php'
 		$url += '?sel=' + $id;
 		
 		$.ajax({
@@ -171,6 +162,121 @@ $(document).ready(function () {
 			}
 		})
 	});
+	
+	//Edit 
+	$('.edit').live('click', function(e) {
+		e.preventDefault();
+		redirectTo($(this).attr('href'));	
+	})
+	
+	
+	//Stop quick edit from editting on first click
+	$('.quickEdit').live('click', function (e) {
+		e.preventDefault();	
+	});
+	
+	
+	//Quick Edit Feature
+	$('.quickEdit').live('dblclick', function(e)  {
+		$this = $(this);
+		$value = $this.html()
+		$id = $this.attr('id');
+		$title = $this.attr('title');
+		$href = $this.attr('href');
+		
+		$this.replaceWith('<input type="text" name="'+ $title +'" value="'+ $value +'"  link="'+ $href +'"/><button class="editSubmit" name="editSubmit" id="'+$id+'">Edit</button>');
+		
+	});
+	
+	//Submitting the Quick Edit
+	$('.editSubmit').live('click', function(e) {
+		$this = $(this);
+		$className = $(this).parent().attr('class');
+		$id = $this.attr('id');
+		$value = $this.prev('input').val();
+		$href = $this.prev('input').attr('link');
+		$name = $this.prev('input').attr('name');
+		
+		$.ajax({
+			url: '/ajax/admin_form_submit.php',
+			type: 'POST',
+			data: { 'id': $id, 'class': $className, 'name': $name, 'value' : $value, 'quickEdit': 1, 'href': $href },
+			success: function (data) {
+				$('.data').html(data);
+				redirectTo(data);
+			}	
+		})	
+	}); 
+	
+	
+	//Delete Buttons 
+	$('.delete').live('click', function (e) {
+		e.preventDefault();
+		if (!confirm("You are about to delete this item. Is this what you want to do?")) {
+			return false;
+		}
+		$class = $(this).attr('id');
+		$id = $(this).attr('sel');
+		$href = $(this).attr('href');
+		
+		$.ajax({
+			url: '/ajax/admin_form_submit.php',
+			type: 'POST',
+			data: { 'id': $id, 'class': $class, 'href': $href , 'deleter': 1 },
+			success: function (data) {
+				$('.data').html(data);
+				redirectTo(data);
+			}
+			
+			})
+			
+	});
+
+/* ===========================================
+	Form Submitting
+   =========================================*/
+	
+	$('form#formUpdate').live('submit', function(e) {
+		e.preventDefault();
+		
+		var $this = $(this);
+		validate($this);
+		
+		var $error = 1;
+		var $count = $this.children('fieldset').find(':input:not(button)').hasClass('hasError'); 
+		
+		if ($count) {
+			$error = -1;
+			
+		}
+		
+		if ($error == 1) {
+			ajaxFormSubmit($this);	
+		}
+		
+	});
+	
+	
+	//Validation on Submit for Forms
+	function ajaxFormSubmit(object) {
+		var $url = object.attr('action');
+		var $datastring = object.serialize();
+		
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/admin/admin_form_submit.php',
+			data: $datastring,
+			beforeSubmit: $('.data').html('loading....'),
+			success: function (data) {
+				$('.data').html(data);
+				redirectTo(data);
+				
+			},
+			error: function(xhr, textStatus, errThrown) {
+                $('.data').html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');
+            }
+		}); 
+	}
 	
 
 

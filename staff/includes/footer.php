@@ -12,7 +12,7 @@
 </div><!-- End SiteWrapper -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-  <script type="text/javascript" src="/js/libs/jquery-ui-1.8.16.custom.min.js"></script>
+  <script src="/js/libs/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="/js/libs/blockui.js"></script>
   <script src="/js/mylibs/grid.js"></script>
 	
