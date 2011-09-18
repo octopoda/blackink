@@ -12,7 +12,7 @@
 		public $position;
 		public $published;
 		public $link;
-		public $menu;
+		public $menu_id;
 		
 		//Helpers
 		public $navigationList;
@@ -24,7 +24,6 @@
 			
 			if (!empty($n_id)) {
          		$result = $this->fetchById($n_id); 
-         		$this->getMenu(); 
 			}
 			
 			
@@ -34,19 +33,7 @@
 	Build Methods
 	========================================= */	
 
-		private function getMenu() {
-			global $db;
-			$result_set = $db->queryFill("SELECT M.menu_id, M.menu_name FROM navigationForMenus NM JOIN menus M ON NM.menu_id = M.menu_id WHERE NM.navigation_id = {$this->navigation_id} LIMIT 1");
 			
-			if ($result_set != false) {
-				$result_set = $this->arrayShift($result_set);
-				$this->menu = new Menus($result_set['menu_id']);
-			} else {
-				return false;
-			}
-			
-			
-		}		
 		
 
 /*  ===========================================
@@ -70,10 +57,7 @@
 			global $db;
 			global $error;
 			
-			$sql = "SELECT N.title, N.position, N.access, N.published, N.navigation_id, N.parent FROM menus M 
-						JOIN navigationForMenus NM ON M.menu_id = NM.menu_id
-						JOIN navigation N ON NM.navigation_id = N.navigation_id
-						WHERE M.menu_id = {$menu_id} AND N.parent = 0 ORDER BY position";
+			$sql = "SELECT * FROM navigation WHERE menu_id = {$menu_id} AND parent = 0 ORDER BY position";
 			
 			$result_set = $db->queryFill($sql);
 			if ($result_set != false) {
@@ -87,7 +71,7 @@
 				
 				//Get the Subnav and place them in itemList
 				for ($i = 0; $i < count($this->itemList); $i++) {
-					$subNav = $db->queryFill("SELECT title, position, access, published, parent, navigation_id FROM navigation WHERE parent = " . $this->itemList[$i]->navigation_id. " ORDER BY position");
+					$subNav = $db->queryFill("SELECT * FROM navigation WHERE parent = " . $this->itemList[$i]->navigation_id. " ORDER BY position");
 					
 					foreach ($subNav as $nav) {
 						$sub = new Navigation($nav['navigation_id']);
@@ -112,7 +96,7 @@
 	========================================= */
 
 
-	public function setPosition ($newPosition, $varName, $parent) {
+	public function setPosition ($newPosition, $varName, $parent, $menu_id) {
 			global $db; 
 			
 			$position = $varName;
@@ -126,15 +110,36 @@
 			}
 			
 			
-			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position} AND parent = {$parent}");
+			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position} AND parent = {$parent} AND menu_id = {$menu_id}");
 			$db->query("SELECT @sign:= SIGN({$position}-{$newPosition}) FROM {$this->table}");
-			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh} AND parent = {$parent}");
-			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000 AND parent = {$parent}");
+			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh} AND parent = {$parent} AND menu_id = {$menu_id}");
+			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000 AND parent = {$parent} AND menu_id = {$menu_id}");
 			
 			if ($db->affectedRows() > 0) {
 			
 			}
-		}
+	}
+	
+	public function moveArrows ($id, $varName, $link, $parent, $menu_id) {
+			$position = $varName;
+			
+			$html = '<ul class="moveArrows">
+						<li class="'.$this->table.'" sel="'.$position.'">';
+			if ($position != $this->topPosition($position)) {
+				$html .='<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveUp" title="moveUp" href="'.$link.'" parent="'.$parent.'" menu="'.$menu_id.'"></a>'; 
+			}
+			
+			$html .=	'</li>
+						<li class="'.$this->table.'" sel="'.$position.'">';
+			
+			if ($position != $this->bottomPosition($position)) {
+				$html .= '<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveDown" title="moveDown" href="'.$link.'" parent="'.$parent.'" menu="'. $menu_id.'"></a>';
+			}
+			
+			
+			$html .= '</li></ul>';
+			return $html;	
+	}
 	
 	
 	} //Class Ending

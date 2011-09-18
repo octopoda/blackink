@@ -4,13 +4,15 @@
 	$nav = new Navigation();
 	$menu = new Menus();
 	
-	$link = '/staff/forms/navigation/navigation.php';
+	
 	
 	if (isset($_GET['sel'])) {
 		$menuId = $_GET['sel'];
 	} else {
 		$menuId = 1;
 	}
+	
+	$link = '/staff/forms/navigation/navigation.php?sel=' . $menuId;
 ?>
 <script>
 	$(function() {
@@ -62,7 +64,7 @@
     		<tr class="mainNav">
             	<td class="title"><?php echo $list->title; ?></td>
                 <td width="50" style="text-align:center"><?php echo $list->published($list->navigation_id); ?></td>
-                <td width="100"><?php echo $list->moveArrows($list->navigation_id, $list->position, $link, $list->parent); ?></td>
+                <td width="100"><?php echo $list->moveArrows($list->navigation_id, $list->position, $link, $list->parent, $list->menu_id); ?></td>
                 <td><?php echo $list->accessDropDown($list->access); ?></td>
             </tr>
             
@@ -71,7 +73,7 @@
     			<tr class="subNav">
                 	<td class="title"><?php echo $sub->title; ?></td>
                     <td style="text-align:center"><?php echo $sub->published($sub->navigation_id); ?></td>
-                    <td><?php echo $list->moveArrows($sub->navigation_id, $sub->position, $link, $sub->parent); ?></td>
+                    <td><?php echo $list->moveArrows($sub->navigation_id, $sub->position, $link, $sub->parent, $sub->menu_id); ?></td>
                     <td><?php echo $sub->accessDropDown($sub->access); ?></td>
                 </tr>
     <?php  } } } ?>

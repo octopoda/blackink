@@ -111,11 +111,12 @@ $(document).ready(function () {
 		$position = $(this).parent('li').attr('sel');
 		$href = $(this).attr('href');
 		$parent = $(this).attr('parent');
+		$menu_id = $(this).attr('menu')
 		
 		$.ajax ({
 			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
-			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href, 'parent' : $parent},
+			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href, 'parent' : $parent, 'menu_id': $menu_id},
 			success: function (data) {
 				redirectTo(data);
 			}

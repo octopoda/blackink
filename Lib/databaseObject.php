@@ -355,20 +355,20 @@ abstract class databaseObject {
 		}	
 		
 		//Create the arrows for position
-		public function moveArrows ($id, $varName, $link, $parent) {
+		public function moveArrows ($id, $varName, $link) {
 			$position = $varName;
 			
 			$html = '<ul class="moveArrows">
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			if ($position != $this->topPosition($position)) {
-				$html .='<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveUp" title="moveUp" href="'.$link.'" parent="'.$parent.'"></a>'; 
+				$html .='<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveUp" title="moveUp" href="'.$link.'"></a>'; 
 			}
 			
 			$html .=	'</li>
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			
 			if ($position != $this->bottomPosition($position)) {
-				$html .= '<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveDown" title="moveDown" href="'.$link.'" parent="'.$parent.'"></a>';
+				$html .= '<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveDown" title="moveDown" href="'.$link.'"></a>';
 			}
 			
 			

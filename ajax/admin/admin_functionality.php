@@ -33,7 +33,12 @@ if (isset($_POST['move'])) {
 	if ($_POST['move'] == 'moveUp') $newPosition--;
 	else $newPosition++;
 	
-	$class->setPosition($newPosition, $class->position, $_POST['parent']);
+	if (isset($_POST['parent']) && isset($_POST['menu_id'])) {
+		$class->setPosition($newPosition, $class->position, $_POST['parent'], $_POST['menu_id']);
+	} else {
+		$class->setPosition($newPosition, $class->position);
+	}	
+	
 	
 	echo $_POST['href'];	
 }
