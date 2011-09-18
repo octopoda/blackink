@@ -211,29 +211,26 @@ footer {border-top:2px solid #CCC; margin-top:30px;}
 footer ul {float:right;}
 footer ul li { list-style:none; float:left; margin-left:10px}
 
+/* =============================
+	Buttons and Forms
+	===========================*/
+
+
 button {
-  background: #e3e3e3;
-  clear:both;
-  border: 1px solid #bbb;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
-  
-  border-radius: 3px;
-  -webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  -moz-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  -ms-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  -o-box-shadow: inset 0 0 1px 1px #f6f6f6;
-  box-shadow: inset 0 0 1px 1px #f6f6f6;
-  
-  color: #333;
-  font: bold 12px "helvetica neue", helvetica, arial, sans-serif;
-  line-height: 12px;  
-  text-align: center;
-  text-shadow: 0 1px 0 #fff;
-  padding:8px 10px; 
- } 
+	font-size: 14px;
+	color: #ffffff;
+	padding: 5px 8px;
+	background: -moz-linear-gradient( top,#CB0202 0%,#950404);
+	background: -webkit-gradient(linear, left top, left bottom, from(#CB0202),to(#950404));
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 1px solid #134201;
+	-moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,1);
+	-webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,1);
+	text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 1px 0px rgba(255,255,255,0.3);
+}
+
  
  button:hover {
     background: #d9d9d9;
@@ -256,3 +253,38 @@ button {
     color: #000; 
  }
 
+
+/* =============================
+	Modal Bar and Errors
+	===========================*/
+	
+.modal {
+	width:400px;
+	position:absolute;
+	background:#FFF;
+	text-align:center;
+	z-index:9999;
+	display:none;
+	border:1px solid black;
+	padding:20px;
+}
+
+
+.modal .close {
+	font-size:30px;
+	background-color:#FFF;
+	height:30px;
+	width:30px;
+	border-radius: 30px;
+	-moz-border-radius: 30px;
+	-webkit-border-radius: 30px;
+	position:relative;
+	left:220px;
+	top:-35px;
+	color:#444;
+}
+
+.modal .close:hover {color:#CB0202}
+.modal .text {font-size:14px; font-weight:bold; margin-bottom:30px;}
+
+#mask {background-color:#444; z-index:999; position:absolute;}

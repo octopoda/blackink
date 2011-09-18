@@ -5,8 +5,7 @@ $(document).ready(function () {
 /* ===========================================
 	Redirection  Methods
    =========================================*/		
-   
-   
+ 
 	//Redirect Main Content
   	function redirectTo($string) {
 		
@@ -281,24 +280,53 @@ $(document).ready(function () {
 
 
 /* ===========================================
-	Error Methods
+	Modal Methods
    =========================================*/
 	
-	//Error Box actions
-	$('.errorClose').live('click', function(e) {
-		$.ajax({
-			url: '/ajax/admin/admin_functionality.php',
-			type : 'POST',
-			data: {'closeError' : 1},
-			success: function (data) {
-				$('#errorWrapper').remove();
-			}
-		})
+	modal($('#dialog'));
+	
+	function modal ($object) {
+		//Get the A tag
+        
+        //Get the screen height and width
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width();
+     
+        //Set height and width to mask to fill up the whole screen
+        $('#mask').css({'width':maskWidth,'height':maskHeight});
+         
+        //transition effect    
+        $('#mask').fadeIn(1000);   
+        $('#mask').fadeTo("slow",0.6); 
+     
+        //Get the window height and width
+        var winH = $(window).height();
+        var winW = $(window).width();
+               
+        //Set the popup window to center
+        $('#dialog').css('top',  winH/2-$('#dialog').height()/2);
+        $('#dialog').css('left', winW/2-$('#dialog').width()/2);
+     
+        //transition effect
+        $('#dialog').fadeIn(2000); 
+	}
+	
+	$('.modal .close').live('click', function () {
+		 //Cancel the link behavior
+       
+        $('.modal').hide();
+        $('#mask').hide();
+        
+        //Clear Session
 	});
 	
-	
-	$('.reportError').live('click', function(e) {
-		redirectTo('forms/report_errors.php');
-		$('.errorClose').click();
-	});
-});
+	$('#mask').live('click', function() {
+        $('.modal').hide();
+        $('#mask').hide();
+        
+        //Clear Session
+	});	
+
+
+});//End Doucment Ready
+
