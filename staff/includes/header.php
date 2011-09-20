@@ -37,10 +37,11 @@
 
 </head>
 <body>
-<div id="mask"></div>
-<div id="dialog" class="modal">
-	<a class="close ninjaSymbol ninjaSymbolClear"></a>
-	<p class="text">There is some shit in here. </p>
-	<button class="reportError">Report Text</button>
-</div>
+<!-- Modal -->
+   <div id="mask"></div>
+   <div id="dialog" class="modal">
+		<p class="text"></p>
+		
+	</div>
+
 

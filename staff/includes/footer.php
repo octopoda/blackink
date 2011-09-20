@@ -1,4 +1,6 @@
    <footer>
+   
+   
    <?php 
 		curPageURL();
 		if ($pageTitle != 'Login')
@@ -10,20 +12,26 @@
 	?>
     </footer>
 </div><!-- End SiteWrapper -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
   <script src="/js/libs/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="/js/libs/blockui.js"></script>
   <script src="/js/mylibs/grid.js"></script>
 	
   <script defer src="/js/admin/admin_functions.js"></script>
-  <script defer src="/js/script.js"></script>
-  <script defer src="/js/libs/ckeditor/ckeditor.js"></script>
-  <script defer src="/js/libs/ckeditor/adapters/jquery.js"></script>
+  <script type="text/javascript">
+  	modalError('Now is the time');
+  </script>
+  
+  <script src="/js/script.js"></script>
+  <script src="/js/libs/ckeditor/ckeditor.js"></script>
+  <script src="/js/libs/ckeditor/adapters/jquery.js"></script> 
   
   <?php if (SERVER == 'dev') { ?>
-		 <script src="/js/mylibs/live.js"></script>	  
+		<script src="/js/mylibs/live.js"></script>
   <?php } ?>
+
+
   <!-- end scripts-->
 
  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.

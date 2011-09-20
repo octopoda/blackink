@@ -15,6 +15,6 @@
 	require_once(ADMIN_PATH.DS. 'admin_navigation.php');
 	require_once(ADMIN_PATH.DS. 'grid.php');
 	
-	if ($error->errorsLoaded()) echo $error->displayErrors();
+	
 
 ?>

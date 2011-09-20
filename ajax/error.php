@@ -16,7 +16,9 @@ if (isset($_POST['display'])) {
 	if ($error->errorsLoaded()) {
 		echo $error->displayErrors();
 	}
-	
 	return;
 }
+
+
+
 ?>

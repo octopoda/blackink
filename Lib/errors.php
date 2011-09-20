@@ -1,9 +1,20 @@
 <?php 
 
 	class Errors {
+		private $indicator;
+		public $text = array();
+		public $errorCount;
+		public $function;
+		
 		
 		public function addError($string) {
 			$_SESSION['errors'][] = $string;
+			$_SESSION['indicator'] = 1;
+		}
+		
+		public function addMessage($string) {
+			$_SESSION['errors'][] = $string;
+			$_SESSION['indicator'] = 2;
 		}
 		
 		public function errorsLoaded() {
@@ -19,30 +30,31 @@
 			$_SESSION['errors'] = array();
 			return true;
 		}
+		
+		private function setupErrors() {
+			$html = '<ul>';
+			
+			foreach ($_SESSION['errors'] as $text) {
+				$html .= '<li>'. $text.'</li>';
+			}
+			
+			return $html .= '</ul>';
+		}
 		 
 		 
 		public function displayErrors() {
-			$count = count($_SESSION['errors']);
-			
-			$html = '<div id="errorWrapper">	
-						<a class="errorClose">Close</a>
-						<p class="errorMessage">';
-			
-			if ($count > 1) {
-				for($i = 0; $i < $count; $i++) {
-					$html .= '<span>' . $_SESSION['errors'][$i] . '</span>';	
-				}
-				
-				
-			} else  if ($count == 1){
-				$html .= '<span>'. $_SESSION['errors'][0] .'</span>';	
+			if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 1) {
+				$this->function = 'modalError("'.$this->setupErrors().'")';
+			} else if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 2) {
+				$this->function = 'modalMessage("'.$this->setupErrors().'")';
 			}
 			
-			$html .= '</p>
-					<a class="reportError">Report Error</a>
-				</div>';
+			
+			$html = '<script type="text/javascript">'. $this->function .';</script>';
 			return $html;
 		}
+		
+		
 		
 		
 	 }

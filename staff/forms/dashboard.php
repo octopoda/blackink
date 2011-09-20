@@ -1,24 +1,20 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php'); 
+	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/errors.php');
 
 	if (isset($_GET['sel'])) {
-		$menuId = $_GET['sel'];
-		$link = 'forms/navigation/navigation.php?sel='.$menuId;
+		
 	} else {
-		$menuId = 1;
-		$link = 'forms/navigation/navigation.php?sel=1';
+		
 	}
 	
+	$link = 'forms/dashboard.php';
+	$error->addMessage('This is an Message');
 ?>
-<script>
-	$(function() {
-	});
-</script>
 
 <section>
 <h3 class="floatLeft">Dashboard</h3>
 <p>
-	
 
 </p>
 </section>

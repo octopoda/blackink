@@ -1,8 +1,7 @@
 <?php 
     require('includes/header.php');
-	
-    
-    $nav = new AdminNavigation();
+	$error->clearErrors();
+	$nav = new AdminNavigation();
 ?>
 
 <div id="siteWrapper">
@@ -29,7 +28,7 @@
     <div id="main" class="clearfix row">
        
         <div id="content">
-            
+            <?php require_once('forms/dashboard.php'); ?>
         </div>
         <aside id="sidebar">
         	<nav id="contentNavigation">

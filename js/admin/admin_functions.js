@@ -1,10 +1,10 @@
 // JavaScript Document
-$(document).ready(function () {
- 		
 
 /* ===========================================
 	Redirection  Methods
    =========================================*/		
+ 
+ 
  
 	//Redirect Main Content
   	function redirectTo($string) {
@@ -46,13 +46,13 @@ $(document).ready(function () {
 			data: {'sel' : $sel, 'href': $href},
 			dataType: 'json',
 			success: function (data) {
+				//alert(data);
 				//$('#tabs').html(data);
 				$('#tabs').html(data.tabs);
 				
 				$.ajax ({
 					url: $href,
 					success: function (data) {
-						
 						if (data != null) {
 							$('#content').html(data)	
 						} else {
@@ -64,7 +64,7 @@ $(document).ready(function () {
 				});
 			},
 			error: function (xhr, textStatus, errThrown) {
-				alert('Error: Please report error ID MNB129 to Error Reporting');	
+				modalError('Error: Please report error ID AJ3129 to Error Reporting');	
 			}
 		});
 		
@@ -284,12 +284,9 @@ $(document).ready(function () {
 	Modal Methods
    =========================================*/
 	
-	modal($('#dialog'));
-	
-	function modal ($object) {
-		//Get the A tag
-        
-        //Get the screen height and width
+	function modal () {
+				
+		//Get the screen height and width
         var maskHeight = $(document).height();
         var maskWidth = $(window).width();
      
@@ -298,7 +295,7 @@ $(document).ready(function () {
          
         //transition effect    
         $('#mask').fadeIn(1000);   
-        $('#mask').fadeTo("slow",0.6); 
+        $('#mask').fadeTo("slow",0.6);
      
         //Get the window height and width
         var winH = $(window).height();
@@ -307,6 +304,9 @@ $(document).ready(function () {
         //Set the popup window to center
         $('#dialog').css('top',  winH/2-$('#dialog').height()/2);
         $('#dialog').css('left', winW/2-$('#dialog').width()/2);
+        
+        $('#dialog .text').before('<a class="close ninjaSymbol ninjaSymbolClear"></a>');
+        
      
         //transition effect
         $('#dialog').fadeIn(2000); 
@@ -319,6 +319,7 @@ $(document).ready(function () {
         $('#mask').hide();
         
         //Clear Session
+        clearErrors();
 	});
 	
 	$('#mask').live('click', function() {
@@ -326,8 +327,74 @@ $(document).ready(function () {
         $('#mask').hide();
         
         //Clear Session
+        clearErrors;
 	});	
+	
+	
+	function clearErrors() {
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/admin/admin_functionality.php',
+			data: {'closeError': 1},
+			success: function (data) {
+				$('#dialog .reportError').remove();
+				$('#dialog .close').remove();
+				$('#dialog .text').html('');
+			}
+		});
+	}
+	
+	
+	
+	//Modal Errors
+	function modalError($text) {
+		$('#dialog').removeClass()
+		$('#dialog').addClass('error');
+		$('#dialog').addClass('modal');
+		
+		$('#dialog .text').html($text);
+		$('#dialog .text').after('<button class="reportError">Report Error</button>');
+		modal(); 
+	}
+	
+	
+	//Modal Messages
+	function modalMessage($text) {
+		$('#dialog').removeClass()
+		$('#dialog').addClass('message');
+		$('#dialog').addClass('modal');
+		
+		$('#dialog .text').html($text);
+		modal();
+	}
+	 
+	//Modal AJAX
+	function modalHref($href) {
+		$('#dialog').removeClass()
+		$('#dialog').addClass('message');
+		$('#dialog').addClass('modal');
+		
+		$.ajax({
+			type: 'POST',
+			url: $href,
+			beforeSubmit: $('.data').html('loading....'),
+			success: function (data) {
+				$('#dialog .text').html(data)
+				modal();
+				
+			},
+			error: function(xhr, textStatus, errThrown) {
+                $('#dialog').html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');
+                modal();
+            }
+		});
+	}
+	/*
+	function modalLoading () {
+		
+	}
+	*/
 
+var $_modal = 'loaded';
 
-});//End Doucment Ready
 

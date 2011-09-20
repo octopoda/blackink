@@ -70,7 +70,7 @@ header {
 	}
 	
 	#tabs ul li.active {
-		z-index:2000;
+		z-index:950;
 	}
 	
 	#tabs ul li a:link, #tabs ul li a:visited {
@@ -257,7 +257,7 @@ button {
 /* =============================
 	Modal Bar and Errors
 	===========================*/
-	
+ 	
 .modal {
 	width:400px;
 	position:absolute;
@@ -268,6 +268,7 @@ button {
 	border:1px solid black;
 	padding:20px;
 }
+
 
 
 .modal .close {
@@ -285,6 +286,25 @@ button {
 }
 
 .modal .close:hover {color:#CB0202}
-.modal .text {font-size:14px; font-weight:bold; margin-bottom:30px;}
+.modal .text {font-size:14px; font-weight:bold; margin-bottom:50px;}
 
-#mask {background-color:#444; z-index:999; position:absolute;}
+.modal .text ul {margin:0px; padding:0px; }
+.modal .text ul li {list-style:none; margin:0px !important; width:100%; }
+
+
+
+#mask {background-color:#444; z-index:999; position:absolute; top:0px left:0px;}
+
+.error.modal {background:#CB0202; color:#FFF;#CB0202}
+.error button.reportError {
+	background: #d9d9d9;
+    -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -moz-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
+    -o-box-shadow: inset 0 0 1px 1px #eaeaea;
+    box-shadow: inset 0 0 1px 1px #eaeaea;
+    color: #222;
+    cursor: pointer;
+}
+
+.message.modal {color:green;}
