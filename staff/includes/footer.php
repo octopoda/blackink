@@ -17,11 +17,10 @@
   <script src="/js/libs/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="/js/libs/blockui.js"></script>
   <script src="/js/mylibs/grid.js"></script>
+  <script src="/js/mylibs/blackink_modal_min.js"></script>
 	
   <script defer src="/js/admin/admin_functions.js"></script>
-  <script type="text/javascript">
-  	modalError('Now is the time');
-  </script>
+
   
   <script src="/js/script.js"></script>
   <script src="/js/libs/ckeditor/ckeditor.js"></script>
