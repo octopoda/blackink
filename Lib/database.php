@@ -108,13 +108,11 @@
 		}
 		
 		public function showFields($table) {
-			$res = mysqli_list_fields(DB_NAME, $table, $this->connection);
-			$fields = $res->num_rows;
-			
+			$res = $this->query("SHOW COLUMNS FROM {$table}");
 			$fieldNames = array();
 			
-			for  ($i = 0;  $i < $fields; $i++) {
-				$fieldNames[] = mysqli_fetch_field($res, $i);
+			while ($row = $res->fetch_array()) {
+				$fieldNames[] = $row['Field'];
 			}
 			
 			return $fieldNames;

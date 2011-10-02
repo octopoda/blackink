@@ -25,23 +25,17 @@
   <link rel="stylesheet" href="css/master.css" >
   <link rel="stylesheet" href="css/default.css" />
   <link rel="stylesheet" href="/css/ui/jquery-ui.css" />
-  <link rel="stylesheet" href="/css/ui/symbols.css"
-  <link rel="stylesheet" href="css/grid.css">
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="/css/ui/symbols.css" />
+  <link rel="stylesheet" href="css/grid.css" />
+  <link rel="stylesheet" href="css/admin.css" />
   
-
-  
+  <!-- Load Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-  
-  <script src="/js/libs/modernizr.js"></script>
+  <script src="/js/libs/modernizr.js"></script> <!-- Modernizr -->
 
 </head>
 <body>
 <!-- Modal -->
-   <div id="mask"></div>
-   <div id="dialog" class="modal">
-		<p class="text"></p>
-		
-	</div>
+   <div id="dialog" class="modal"></div>
 
 

@@ -44,6 +44,18 @@ if (isset($_POST['move'])) {
 }
 
 
+//Redo Access on Change 
+if (isset($_POST['access'])) {
+	$className = $_POST['class'];
+	$class = new $className($_POST['id']);
+	$newAccess = $_POST['access'];
+	
+	$class->setAccess($newAccess, $_POST['id']);
+	
+	
+	echo $class->accessDropDown($newAccess, $_POST['id']);	
+}
+
 //Quick Edit Ajax Control
 if (isset($_POST['quickEdit'])) {
 	$className = $_POST['class'];
@@ -51,10 +63,10 @@ if (isset($_POST['quickEdit'])) {
 	
 	$class->fillFromForm($_POST);
 	$class->$_POST['name'] = $_POST['value'];	
+	
 	$id = $class->save($class->indirectId());
 	
-	if ($id != null) 
-		echo $_POST['href'];
+	if ($id != null) echo $_POST['href'];
 }
 
 //Delete Control
@@ -65,7 +77,6 @@ if (isset($_POST['deleter'])) {
 	if ($class->deleteFromForm()) {
 		echo $_POST['href'];
 	} else {
-		$_SESSION['error'] = "Something went wrong and did not delete.  Please report error with this ID: AFS4875";	
 		echo $_POST['href'];
 	}	
 }
@@ -90,6 +101,29 @@ if (isset($_POST['usersPassword'])) {
 }
 
 
+//Change Parent on Menu Switch
+if (isset($_POST['menuChange'])) {
+	global $error;
+	
+	$navigation = new Navigation();
+	$navigation->listParents($_POST['menu_id']);
+	
+	$parent =  $navigation->parentDropDown();
+	$position = $navigation->positionDropDown($_POST['menu_id'], 0);
+	
+	echo json_encode(array (
+		"parent" => $parent,
+		"position" => $position
+	));
+		
+}
+
+//Change the prent
+if (isset($_POST['parentChange'])) {
+	$navigation = new Navigation();
+	echo $navigation->positionDropDown($_POST['menu_id'], $_POST['parent_id']);
+}	
+
 //Report Errors to admin
 if (isset($_POST['adminConnect'])) {
 		
@@ -99,10 +133,10 @@ if (isset($_POST['adminConnect'])) {
 }
 
 
+
 //Close Error Box and Remove Errors From Session
 if (isset($_POST['closeError'])) {
 	global $error;
-	
 	$error->clearErrors();
 	return true;	
 }

@@ -33,7 +33,7 @@
 				case 'Navigation':
 					$tabs[] = $this->listNav("Navigation", 'forms/navigation/navigation.php', 1);
 					$tabs[] = $this->listNav("Menus", 'forms/navigation/menus.php', 1);
-					$tabs[] = $this->listNav('Add Menu', 'forms/navigation/form_navigation.php', 1);
+					$tabs[] = $this->listNav('Edit Navigation', 'forms/navigation/navigationForm.php', 1);
 					break;
 				
 				case 'Content':

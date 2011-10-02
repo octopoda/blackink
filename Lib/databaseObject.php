@@ -205,15 +205,20 @@ abstract class databaseObject {
 		}
 		
 		public function create() {
-            global $db;
+            
+			global $db;
             //echo "creating <br />";
 			//echo $this->table;
+			
 			$attributes = $this->cleanAttributes();
-            $attribute_pairs = array();
-            foreach($attributes as $key => $value) {
+			$attribute_pairs = array();
+            
+			foreach($attributes as $key => $value) {
                 if ($key != $this->indirectId())
                     $attribute_pairs[$key] = $this->quoteField($value);     
-            }			
+            }	
+			
+				
             
 			
 			//INSERT INTO table (key, key) VALUES ('value', 'value')
@@ -223,6 +228,7 @@ abstract class databaseObject {
 			$sql .= join(", ", array_values($attribute_pairs));
 			$sql .=")";
 			
+			//echo $sql;
 			if ($db->query($sql)) {
 				return $db->insertedID();
 			} 
@@ -267,7 +273,7 @@ abstract class databaseObject {
 			//DELETE FROM table  WHERE condition LIMIT 1
 			$sql = "DELETE FROM " .$this->table;
 			$sql .= " WHERE " . $this->idfield ."=" .$this->quoteField($idval);
-            
+           
             $db->query($sql);
             return($db->affectedRows() > 0) ? true : false;
 		}
@@ -428,10 +434,14 @@ abstract class databaseObject {
 			return $list;
 		}
 		
-		public function accessDropDown($id) {
+		public function accessDropDown($id, $navid="") {
 			$array = $this->listAccessGroups();
+			
 		
-			$html = '<select id="access">';
+			$html = '<select id="access" class="'.$this->table.'" name="access"';
+			
+			if (isset($navid)) 
+				$html .= ' sel="'. $navid.'">';
 		
 			foreach($array as $list){
 				$html .= '<option value="'. $list['group_id'].'" '; 
@@ -445,6 +455,13 @@ abstract class databaseObject {
 			$html .= "</select>";
 			
 			return $html;
+		}
+		
+		public function setAccess($newAccess, $id) {
+			global $db;
+				
+			$result_set = $db->query("UPDATE {$this->table} SET access = {$newAccess} WHERE {$this->idfield} = {$id}");
+			if ($db->affectedRows() > 0) return true;
 		}
 
 		

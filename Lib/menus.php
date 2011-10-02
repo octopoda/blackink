@@ -34,7 +34,6 @@
 					$this->menuList[] = $menu;
 				}
 			} else {
-				$error->addMessage("You have no menus in your Database");
 				return false;
 			}
 		}
@@ -48,10 +47,46 @@
 	
 		//Add Menu
 		
+		public function createMenuFromForm($post) {
+			global $error;
+			
+			$this->fillFromForm($_POST);
+			 
+			if ($this->save($this->menu_id)) {	
+				return true;	
+			} else {
+				$error->addError('the information did not save.  Please report the error id: #Menu1284');
+				return false;	
+			}	
+		}
+		
 		//Update Menu
 		
 		//Delete Menu
+		public function deleteFromForm() {
+			if ($this->delete($this->menu_id)) {
+				return true;	
+			} else {
+				$error->addError('the information did not save.  Please report the error id: #Menu1564');	
+			}
+		}
 		
+		public static function bottomMenu() {
+			global $db;
+			global $error;
+			
+			$sql = "SELECT menu_id FROM menus LIMIT 1 ";
+			$result_set = $db->queryFill($sql);
+			
+			if ($result_set != false) {
+				$menu = new Menus();
+				$result_set = $menu->arrayShift($result_set);
+				return $result_set['menu_id'];
+			} else {
+				$error->addError('Please add a menu first before trying to add Navigation');
+				return false;	
+			}
+		}
 	
 	
 	}

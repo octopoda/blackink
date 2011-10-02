@@ -50,15 +50,20 @@
     
 	<?php  
 		$menu->listMenus();
+		if ($menu->menuList != false) {
 		foreach ($menu->menuList as $list) {	?>
 			<tr>
-				<td><a id="" title="" href="<?php echo $link ?>" class="quickEdit"><?php echo $list->menu_name; ?></span></td>
+				<td class="menus"><a id="<?php echo $list->menu_id ?>" title="menu_name" href="<?php echo $link ?>" class="quickEdit"><?php echo $list->menu_name; ?></span></td>
 				<td><?php echo $list->published($list->menu_id); ?></td>
-				<td><?php echo $list->accessDropDown($list->access); ?></td>
-				<td><a class="delete ninjaSymbol ninjaSymbolClear"></a></td>
+				<td><?php echo $list->accessDropDown($list->access, $list->menu_id); ?></td>
+				<td><a class="delete ninjaSymbol ninjaSymbolClear" id="menus" sel="<?php echo $list->menu_id ?>" href="<?php echo $link ?>"></a></td>
 			</tr>
 	
-	<?php } ?>
+	<?php } } else {?>
+    		<tr>
+            	<td colspan="4">There are no menus in your database.  Please add a menu.</td>
+            </tr>
+    <?php } ?>
 	</tbody>
     </table>
 </div>
@@ -73,23 +78,24 @@
 	<fieldset>
 		<p>
 			<label for="menu_name">Menu Name</label>
-			<input type="text" maxlength="60"  />
+			<input type="text" maxlength="60" id="menu_name" name="menu_name"  />
 		</p>
 		<div class="twoDropDowns clearfix">
 		<p>
 			<label>Published</label>
-			<select>
+			<select name="published" id="published">
 				<option value="0">Unpublished</option>
-				<option vaule="1">Published</option>
+				<option value="1">Published</option>
 			</select>	
 		</p>
-		<p>
+		<p class="new">
 			<label for="access">Access:</label>
 			<?php echo $menu->accessDropDown(1) ?>
 		</p>
 		</div>
 		<p>
 			<button type="submit">Add Menu</button>
+            <input type="hidden" name="addMenu" value="<?php echo $link ?>" />
 		</p>
 	</fieldset>
 </form>

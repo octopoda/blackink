@@ -69,7 +69,7 @@ $(function() {
 				deleting : false,		// deleting on
 				deleteConfirm: false,	// set to a column name to use as a confirmation
 				dateFormat:'yy-mm-dd',	// datepicker format - note requires jquery ui and datepicker
-				pageSearchResults:true,	// weather to page search results or not
+				pageSearchResults:false,	// weather to page search results or not
 				columnOpts : null,		// options for each column (advanced stuff)
 				rowClick : null,		// callback for clicking on a row
 				rowAdd : null,			// callback as rows are being added to the grid NOT DONE
@@ -80,7 +80,9 @@ $(function() {
 				saveSuccess:null,		// after succesfull save
 				saveFail:null,			// after failed save
 				deleteSuccess:null,		// after delete success
-				deleteFail:null		// after delete fail
+				deleteFail:null,		// after delete fail
+				title: false,			//If you want a title
+				searchBar: true			//If you want a search bar
 			},user_opts);
 			
 			// cache our man grid, this is the <table>
@@ -209,6 +211,7 @@ $(function() {
 			// method before load start
 			if($grid.data().beforeLoadStart) $grid.beforeLoadStart();
 			
+			
 			// get the data via ajax
 			$grid.data("gridLoading",true);
 			$.ajax({
@@ -217,7 +220,7 @@ $(function() {
 				data: {'data' : $grid.data(), "table" : $grid.attr('sel')},
 				dataType: 'json',
 				success: function (data, status, xhr) {
-					//$('.data').html(data);
+					$('.data').html(data.colData);
 					loadData(data, status, xhr);
 				}
 				
@@ -418,11 +421,15 @@ $(function() {
 		var $grid = $(this).parents(".gridContainer").find(".grid");
 		// don't filter if you just searched
 		if($grid.data().justSearched == false) {
-			var search = $(this).val();
+			
+			$grid.loadGrid({
+				search: $(this).val(),
+				page: 1	
+			});
 			var $grid = $(this).parents(".gridContainer").find(".grid");
 			// make sure what you type goes into all instances of the box
 			$grid.parents(".gridContainer").find(".gridSearch input").val(search);
-			var $trs = $grid.find("tr");
+			/*var $trs = $grid.find("tr");
 			$trs.each(function() {
 				// make sure to search editable values as well
 				var editableVals = "";
@@ -436,7 +443,7 @@ $(function() {
 				} else {
 					$(this).fadeIn();
 				}
-			});
+			}); */
 		} else {
 			// set this to false so that filtering will work again
 			$grid.data("justSearched",false);

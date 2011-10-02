@@ -27,31 +27,49 @@
 		 
 		public function clearErrors() {
 			unset($_SESSION['errors']);
+			unset($_SESSION['indicator']);
 			$_SESSION['errors'] = array();
 			return true;
 		}
 		
 		private function setupErrors() {
-			$html = '<ul>';
-			
-			foreach ($_SESSION['errors'] as $text) {
-				$html .= '<li>'. $text.'</li>';
+			if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 1) {
+				$html = '<ul class="text">';
+				foreach ($_SESSION['errors'] as $text) {
+					$html .= '<li>'. $text.'</li>';
+				}
+				$html .= '</ul>';
+			} else if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 2) {
+				$html = '<p class="text">';	
+				foreach ($_SESSION['errors'] as $text) {
+					$html .=  $text . '    ';
+				}
+				$html .= "</p>";
 			}
 			
-			return $html .= '</ul>';
+			return $html;
 		}
 		 
 		 
 		public function displayErrors() {
 			if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 1) {
-				$this->function = 'modalError("'.$this->setupErrors().'")';
+				$this->function = 
+				'$("#dialog").modal({ 
+						style: \'error\',
+						text: \''. $this->setupErrors() .'\',
+						reportError: true,
+						reportURL: \'forms/report_errors.php\'
+					});';
 			} else if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 2) {
-				$this->function = 'modalMessage("'.$this->setupErrors().'")';
+				$this->function = '$("#dialog").modal({ 
+						style: \'message\',
+						text: \''. $this->setupErrors() .'\',
+					});';
 			}
 			
-			
-			$html = '<script type="text/javascript">'. $this->function .';</script>';
-			return $html;
+			echo $this->function;
+			$html = '<script>'. $this->function .';</script>';
+			//echo $html;
 		}
 		
 		

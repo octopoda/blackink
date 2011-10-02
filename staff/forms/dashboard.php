@@ -9,7 +9,6 @@
 	}
 	
 	$link = 'forms/dashboard.php';
-	$error->addMessage('This is an Message');
 ?>
 
 <section>

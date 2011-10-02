@@ -8,22 +8,12 @@
  
 	//Redirect Main Content
   	function redirectTo($string) {
-		
+		//alert($string);
 		$.ajax({
 			url: $string,
 			success: function(data) {
 				$('#content').html(data);				
-				//Get Errors
-				$.ajax({
-					url: '/ajax/admin_functionality.php',
-					type: 'POST',
-					data: {'errorPlacement': 1},
-					success: function (data) {
-						$('.errorPlacement').html(data);			
-					}
-				})
-				
-            },
+			},
 			error:function(xhr, status, errorThrown) { 
             	alert('That Page was not Found'); 
         	}
@@ -48,6 +38,8 @@
 			success: function (data) {
 				//alert(data);
 				//$('#tabs').html(data);
+				
+				
 				$('#tabs').html(data.tabs);
 				
 				$.ajax ({
@@ -61,7 +53,8 @@
 					}, error: function (xhr, textStatus, errThrown) {
 						$('#content').html('Hmm an Error..Something is missing.')
 					}
-				});
+				}); //Ajax
+				
 			},
 			error: function (xhr, textStatus, errThrown) {
 				modalError('Error: Please report error ID AJ3129 to Error Reporting');	
@@ -96,6 +89,12 @@
 	 	object.parent('li').siblings().removeClass('active');
 		object.parent('li').addClass('active');
  	}
+	
+	$('.redirect').live('click', function (e) {
+		e.preventDefault();
+		var href = $(this).attr('href')
+		redirectTo(href);
+	});	
 	
 	
 /* ===========================================
@@ -147,6 +146,26 @@
 		})
 	});
 	
+	$('#access').live('change', function () {
+		if ($(this).parent().attr('class') == 'new') {
+			return false;	
+		}
+		
+		var $id = $(this).attr('sel');
+		var $class = $(this).attr('class');
+		var $access = $(this).val();
+		var $this = $(this);
+		
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: { "access": $access, "class": $class, "id": $id },
+			success: function (data) {
+				$this.parent().html(data);
+			}	
+		})
+	});
+	
 	
 	//Menu Select to change Navigation
 	$('#radio input').live('change', function () {
@@ -181,10 +200,10 @@
 		$this = $(this);
 		$value = $this.html()
 		$id = $this.attr('id');
-		$title = $this.attr('title');
+		$column = $this.attr('title');
 		$href = $this.attr('href');
 		
-		$this.replaceWith('<input type="text" name="'+ $title +'" value="'+ $value +'"  link="'+ $href +'"/><button class="editSubmit" name="editSubmit" id="'+$id+'">Edit</button>');
+		$this.replaceWith('<input type="text" name="'+ $column +'"  value="'+ $value +'"  link="'+ $href +'" /><button class="editSubmit" name="editSubmit" id="'+$id+'">Edit</button>');
 		
 	});
 	
@@ -197,12 +216,13 @@
 		$href = $this.prev('input').attr('link');
 		$name = $this.prev('input').attr('name');
 		
+		
 		$.ajax({
-			url: '/ajax/admin_form_submit.php',
+			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
 			data: { 'id': $id, 'class': $className, 'name': $name, 'value' : $value, 'quickEdit': 1, 'href': $href },
 			success: function (data) {
-				$('.data').html(data);
+				//$('.data').html(data);
 				redirectTo(data);
 			}	
 		})	
@@ -220,11 +240,11 @@
 		$href = $(this).attr('href');
 		
 		$.ajax({
-			url: '/ajax/admin_form_submit.php',
+			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
 			data: { 'id': $id, 'class': $class, 'href': $href , 'deleter': 1 },
 			success: function (data) {
-				$('.data').html(data);
+				//$('.data').html(data);
 				redirectTo(data);
 			}
 			
@@ -240,26 +260,24 @@
 		e.preventDefault();
 		
 		var $this = $(this);
-		validate($this);
+		//validate($this);
 		
-		var $error = 1;
-		var $count = $this.children('fieldset').find(':input:not(button)').hasClass('hasError'); 
+		//var $error = 1;
+		//var $count = $this.children('fieldset').find(':input:not(button)').hasClass('hasError'); 
 		
-		if ($count) {
-			$error = -1;
-			
-		}
+		//if ($count) {
+			//$error = -1;
+		//}
 		
-		if ($error == 1) {
+		//if ($error == 1) {
 			ajaxFormSubmit($this);	
-		}
+		//}
 		
 	});
 	
 	
 	//Validation on Submit for Forms
 	function ajaxFormSubmit(object) {
-		var $url = object.attr('action');
 		var $datastring = object.serialize();
 		
 		$.ajax({
@@ -268,133 +286,73 @@
 			data: $datastring,
 			beforeSubmit: $('.data').html('loading....'),
 			success: function (data) {
-				$('.data').html(data);
-				redirectTo(data);
-				
+				$('.data').html('data '+ data);
+				//redirectTo(data);
 			},
 			error: function(xhr, textStatus, errThrown) {
                 $('.data').html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');
             }
 		}); 
 	}
-	
 
 
 /* ===========================================
-	Modal Methods
+	Form Actions
    =========================================*/
 	
-	function modal () {
-				
-		//Get the screen height and width
-        var maskHeight = $(document).height();
-        var maskWidth = $(window).width();
-     
-        //Set height and width to mask to fill up the whole screen
-        $('#mask').css({'width':maskWidth,'height':maskHeight});
-         
-        //transition effect    
-        $('#mask').fadeIn(1000);   
-        $('#mask').fadeTo("slow",0.6);
-     
-        //Get the window height and width
-        var winH = $(window).height();
-        var winW = $(window).width();
-               
-        //Set the popup window to center
-        $('#dialog').css('top',  winH/2-$('#dialog').height()/2);
-        $('#dialog').css('left', winW/2-$('#dialog').width()/2);
-        
-        $('#dialog .text').before('<a class="close ninjaSymbol ninjaSymbolClear"></a>');
-        
-     
-        //transition effect
-        $('#dialog').fadeIn(2000); 
-	}
 	
-	$('.modal .close').live('click', function () {
-		 //Cancel the link behavior
-       
-        $('.modal').hide();
-        $('#mask').hide();
-        
-        //Clear Session
-        clearErrors();
-	});
-	
-	$('#mask').live('click', function() {
-        $('.modal').hide();
-        $('#mask').hide();
-        
-        //Clear Session
-        clearErrors;
-	});	
-	
-	
-	function clearErrors() {
-		$.ajax({
-			type: 'POST',
+	$('select#menu_id').live('change', function () {
+		var menu_id = $(this).val();
+		
+		$.ajax ({
 			url: '/ajax/admin/admin_functionality.php',
-			data: {'closeError': 1},
+			type: 'POST',
+			data: {'menu_id' : menu_id, 'menuChange': 1},
+			dataType:'json',
+			beforeSubmit: $('.listParents').html('loading...'),
 			success: function (data) {
-				$('#dialog .reportError').remove();
-				$('#dialog .close').remove();
-				$('#dialog .text').html('');
+				$('.listParents').html(data.parent);
+				$('.listPosition').html(data.position);		
 			}
 		});
-	}
+	});
 	
 	
-	
-	//Modal Errors
-	function modalError($text) {
-		$('#dialog').removeClass()
-		$('#dialog').addClass('error');
-		$('#dialog').addClass('modal');
+	$('select#parent_id').live('change', function() {
+		var menu_id  = $('select#menu_id').val();
+		var parent_id = $(this).val();
 		
-		$('#dialog .text').html($text);
-		$('#dialog .text').after('<button class="reportError">Report Error</button>');
-		modal(); 
-	}
-	
-	
-	//Modal Messages
-	function modalMessage($text) {
-		$('#dialog').removeClass()
-		$('#dialog').addClass('message');
-		$('#dialog').addClass('modal');
-		
-		$('#dialog .text').html($text);
-		modal();
-	}
-	 
-	//Modal AJAX
-	function modalHref($href) {
-		$('#dialog').removeClass()
-		$('#dialog').addClass('message');
-		$('#dialog').addClass('modal');
-		
-		$.ajax({
+		$.ajax ({
+			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
-			url: $href,
-			beforeSubmit: $('.data').html('loading....'),
+			data: {'menu_id' : menu_id, 'parent_id' : parent_id, 'parentChange': 1},
+			beforeSubmit: $('.listPosition').html('loading...'),
 			success: function (data) {
-				$('#dialog .text').html(data)
-				modal();
-				
-			},
-			error: function(xhr, textStatus, errThrown) {
-                $('#dialog').html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');
-                modal();
-            }
+				$('.listPosition').html(data);		
+			}
 		});
-	}
-	/*
-	function modalLoading () {
-		
-	}
-	*/
+	});
+	
+	
+	$('input#content_title').live('focus', function () {
+		$('#dialog').modal({
+			style: 'html',
+			url: 'forms/content/pop_up_content.php',
+			height:400,
+			width:800,	
+		});		
+	});
+	
+	
+	$('#dialog .popup tr td[col="title"]').live('click', function () {
+		var id = $(this).parent().attr('primary_key');
+		$('input#content_id').val(id);
+		$('input#content_title').val($(this).html());
+		$('#mask').click();
+	});
+	
 
-var $_modal = 'loaded';
+
+
 
 

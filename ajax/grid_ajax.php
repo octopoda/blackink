@@ -1,7 +1,6 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
 
-
 	
 	// load our grid with a table
 	$grid = new Grid($_POST['table']);
@@ -9,7 +8,7 @@
 	
 	//for editing check for the save flag and call save
 	if(isset($_POST['save'])) {
-		//$grid->security = array("n_items");
+		$grid->security = array("n_items");
 		echo $grid->save();
 	} else if(isset($_POST['add'])) {
 		$grid->add();
