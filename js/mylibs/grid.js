@@ -66,8 +66,8 @@ $(function() {
 				addButton:false,		// re route the add button
 				linkTarget:"_blank",	// when making links, whats the target
 				confirmBeforeSort:true, // weather to confirm sorting which will kill all unsaved changes
-				deleting : false,		// deleting on
-				deleteConfirm: false,	// set to a column name to use as a confirmation
+				deleting : true,		// deleting on
+				deleteConfirm: true,	// set to a column name to use as a confirmation
 				dateFormat:'yy-mm-dd',	// datepicker format - note requires jquery ui and datepicker
 				pageSearchResults:false,	// weather to page search results or not
 				columnOpts : null,		// options for each column (advanced stuff)
@@ -79,8 +79,8 @@ $(function() {
 				loadComplete:null,		// callback after load and after all my stuff
 				saveSuccess:null,		// after succesfull save
 				saveFail:null,			// after failed save
-				deleteSuccess:null,		// after delete success
-				deleteFail:null,		// after delete fail
+				deleteSuccess: 'Content Deleted',		// after delete success
+				deleteFail: 'Delete Failed',		// after delete fail
 				title: false,			//If you want a title
 				searchBar: true			//If you want a search bar
 			},user_opts);
@@ -217,9 +217,10 @@ $(function() {
 			$.ajax({
 				url: $grid.attr("action"),
 				type: "POST",
-				data: {'data' : $grid.data(), "table" : $grid.attr('sel')},
+				data: {'data' : $grid.data(), "table" : $grid.attr('sel'), "load" : true},
 				dataType: 'json',
 				success: function (data, status, xhr) {
+					$('.data').html(data);
 					$('.data').html(data.colData);
 					loadData(data, status, xhr);
 				}
@@ -966,7 +967,7 @@ $(function() {
 		// mimic the header stucture
 		$grid.getHeaderRow().find("tr:first").append("\
 			<th col='X' style='width:20px'>\
-				<div class='colResizer' style='width:20px'>X\
+				<div class='colResizer' style='width:20px'>Delete\
 					<div class='colHandle'></div>\
 				</div>\
 			</th>\
@@ -974,7 +975,7 @@ $(function() {
 		// count some rows and add them in
 		$grid.find("tr").each(function(i) {
 			var $tr = $(this);
-			$del = $("<div class='gridButton gridDelete'><div>Delete</div></div>");
+			$del = $("<div class='delete ninjaSymbol ninjaSymbolClear'></div>");
 			$del.click(function() {
 				// if we need to confirm the delete
 				if($grid.data().deleteConfirm) {
@@ -986,7 +987,8 @@ $(function() {
 					if(confirm("Are you sure you want to delete "+whatToSay+" ?")) {
 						$.post($grid.attr("action"),{
 							"delete":true,
-							"primary_key":$(this).parents("tr").attr("primary_key")
+							"primary_key":$(this).parents("tr").attr("primary_key"),
+							"table": $(this).parents("tr").parent('tbody').parent('table').attr('sel'),
 						}, function(success) {
 							if(success) {
 								$grid.loadGrid();

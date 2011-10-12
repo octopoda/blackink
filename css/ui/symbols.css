@@ -14,7 +14,7 @@
 }
 
 .ninjaSymbol {
-  font-family: 'Ninja Symbols';
+  font-family: 'Ninja Symbols' !important;
   cursor:pointer;
   color:#06e;
 }

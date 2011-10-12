@@ -7,16 +7,15 @@
 <h3 class="floatLeft">Site Content</h3>
 <p><?php if (isset($_SESSION['error'])) echo $_SESSION['error']; ?></p>
 
-<div class="list">
+<div class="contentList">
 		<table class="grid" action="/ajax/grid_ajax.php" title="Default" sel="content">
 			<tr>	
-				<th col="title" width="300" link="/forms/form_content.php">Title</th>
-                <th col="published" width="40">Published</th>
-				<th col="created_on" width="50">Created</th>
-				<th col="modified_on" width="50">Last Edited</th>
-				<th col="user_id" width="50">Author</th>
-				<th col="access" width="50">Access</th>
-			</tr>
+				<th col="title" width="300" link="forms/content/form_content.php">Title</th>
+                <th col="published" width="50">Published</th>
+				<th col="modified_on" width="40">Last Edited</th>
+				<th col="user_id" width="100">Author</th>
+				<th col="access" width="40">Access</th>
+            </tr>
 		</table>
 
 </div>

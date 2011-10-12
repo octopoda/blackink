@@ -56,8 +56,8 @@
             $row_array = array();
             
 			
-			while ($row = $this->fetchArray($rtn)) {
-                $row_array[] = $row;
+			while ($row = $rtn->fetch_assoc()) {
+               $row_array[] = $row;
 			}
 			
 			return $row_array;

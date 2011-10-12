@@ -107,7 +107,7 @@ header {
 	Main Section
 	===========================*/
 
-section {margin-top:10px; padding-bottom:50px;border-bottom:2px solid #444;}
+section {margin-top:10px; padding-bottom:50px; border-bottom:2px solid #444;}
 section:last-child {border-bottom:0px;}
 
 #main {
@@ -127,8 +127,23 @@ section:last-child {border-bottom:0px;}
 	width:60%;
 	float:left;
 }
-	#content input{ width:300px; margin-bottom:5px;}
-    #content textarea {width:300px; height:150px;}
+
+	#content label {color:#838383;}
+	
+	#content input{ 
+		width:300px; margin-bottom:5px; border:none; background:#CCC; 
+		
+		-moz-box-shadow:inset 2px 2px 8px #999;
+		-webkit-box-shadow:inset 2px 2px 8px #999;
+		box-shadow:inset 2px 2px 8px #999;
+	}
+    #content textarea {
+		width:300px; height:150px; background:#CCC; border:none;
+		
+		-moz-box-shadow:inset 2px 2px 8px #999;
+		-webkit-box-shadow:inset 2px 2px 8px #999;
+		box-shadow:inset 2px 2px 8px #999;
+	}
 	
 .list {clear:both;margin-top:20px; font-family: Arial,Helvetica, san-serif}
 
@@ -166,7 +181,8 @@ table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 .quickMenu li span {display: inline-table; margin-right:6px; }
 .quickMenu .text {line-height:22px; position:relative; top:4px;}	
 
-.published {font-size:20px; color:#444; margin-left:10px;}
+.published, .grid .published {font-size:20px; color:#444; margin-left:10px;}
+.grid tr td {padding:5px;}
 
 .delete {font-size:20px; color:#CB0202;  margin-left:15px; background-color:#FFF !imporant;}
 .delete:hover  {color:#731115}
@@ -341,3 +357,18 @@ button {
 .message {position:absoulte; top:0px; left:0px; width:100%; background:#99CFA4; text-align:left;}
 .message .text {margin:0px; padding:0px;}
 .message .close {display:none;}
+
+
+/* =============================
+	Login
+	===========================*/
+
+.login {width:100%; height:220000px; background:#CCC; border-bottom:0px; margin:auto;}
+.login header hgroup {margin:auto;}
+.login header hgroup h2 {color:#444;}
+
+
+.login div {margin-top:100px;  width:60%;  margin:auto;}
+.login div form {background:#FFF; width:60%; padding:20px; border-radius:5px 5px 5px 5px; box-shadow: 5px 5px 20px #999;}
+.login nav {margin-top:20px;}
+.login div form legend {display:none;}

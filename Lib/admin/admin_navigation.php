@@ -16,7 +16,7 @@
 			$this->mainNav[] = $this->listNav('Site', 'forms/site.php', 0);
 			$this->mainNav[] = $this->listNav('Navigation', 'forms/navigation/navigation.php', 0);
 			$this->mainNav[] = $this->listNav('Content', 'forms/content/list_content.php', 0);
-			$this->mainNav[] = $this->listNav('Users', 'forms/users.php', 0); 
+			$this->mainNav[] = $this->listNav('Users', 'forms/users/list_users.php', 0); 
 			
 			return $this->mainNav;	
 		}
@@ -33,20 +33,18 @@
 				case 'Navigation':
 					$tabs[] = $this->listNav("Navigation", 'forms/navigation/navigation.php', 1);
 					$tabs[] = $this->listNav("Menus", 'forms/navigation/menus.php', 1);
-					$tabs[] = $this->listNav('Edit Navigation', 'forms/navigation/navigationForm.php', 1);
+					$tabs[] = $this->listNav('Edit Navigation', 'forms/navigation/form_navigation.php', 1);
 					break;
 				
 				case 'Content':
 					$tabs[] = $this->listNav('List Content', 'forms/content/list_content.php', 1);
-					$tabs[] = $this->listNav('Update Content', 'forms/content/form_content.php', 1);
 					$tabs[] = $this->listNav('Add Content', 'forms/content/form_content.php', 1);
 					break;
 					
 				case 'Users':
-					$tabs[] = $this->listNav('Search Users', 'forms/user/search_users.php', 1);
+					$tabs[] = $this->listNav('Search Users', 'forms/user/list_users.php', 1);
 					$tabs[] = $this->listNav('Add User', 'forms/users/add_user.php', 1);
 					$tabs[] = $this->listNav('Change Password', 'forms/users/change_password.php', 1);
-					$tabs[] = $this->listNav('Change Access', 'forms/users/change_access.php', 1);	
 					break;
 			}
 			

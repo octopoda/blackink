@@ -6,6 +6,7 @@
 	$grid = new Grid($_POST['table']);
 	
 	
+	
 	//for editing check for the save flag and call save
 	if(isset($_POST['save'])) {
 		$grid->security = array("n_items");
@@ -13,7 +14,10 @@
 	} else if(isset($_POST['add'])) {
 		$grid->add();
 	} else if(isset($_POST['delete'])) {
-		$grid->delete();
+		$classname = $_POST['table'];
+		$class = new $classname($_POST['primary_key']);
+		$class->deleteFromForm();
+		echo true;
 	} else if(isset($_POST['select'])) {
 		// select for column txn_id
 		if($_POST['col'] == "txn_id") {
@@ -23,12 +27,15 @@
 			echo json_encode($grid->data);
 		}	
 	} else {
+		
 		$grid->load();
 		
 		//Change any data before placing in JSON
-		if (isset($_POST['table'])) {
+		if (isset($_POST['load'])) {
 			runFunctions($_POST['table']);	
 		}
+		
+		
 		
 		//print_r($grid->data);
 		echo json_encode($grid->data);
@@ -38,9 +45,13 @@
 	function runFunctions($name) {
 		global $grid;
 		
+		
 		switch ($name) {
 			case 'content':
 				content($grid->data);
+				break;
+			case 'users':
+				users($grid->data);
 				break;
 		}
 		
@@ -57,9 +68,26 @@
 			
 			$row['user_id'] = $users->printName();
 			$row['published'] = $content->published($row['content_id']);
-			$row['created_on'] = $users->displayDate($row['created_on']);
 			$row['modified_on'] = $users->displayDate($row['modified_on']);
-			$row['access'] = $users->accessGroupName($row['access']);
+			$row['access'] = $users->accessDropDown($row['access']);
+		}
+		
+		
+	}
+	
+	function users(&$dataArray) {
+		global $grid;
+		
+		foreach ($dataArray['rows'] as &$row) {
+			
+			$users = new Users($row['user_id']);
+			
+			
+			$row['user_id'] = $users->printName();
+			$row['email'] = $users->email;
+			$row['NPINumber'] = $users->NPINumber;
+			$row['company'] = $users->company;
+			$row['password'] = $users->accessGroupName($users->access);
 		}
 	}
 	

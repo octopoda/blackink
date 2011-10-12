@@ -15,7 +15,12 @@
         public $last;
         public $password;
         public $email;
+		public $company;
+		public $NPINumber;
         public $loggedIn = false;
+		
+		//Helpers
+		public $access;
   
         public function __construct($u_id="") {
            if (empty($u_id) && !isset($_SESSION['user_id']))  {
@@ -37,7 +42,8 @@
                 $result = array_shift($result);
                 $this->instantiate($result, $this);
                 if (isset($this->user_id)) {
-                    $this->loggedIn = true;
+                    $this->getAccess();
+					$this->loggedIn = true;
                 }
             }
         }
@@ -116,6 +122,33 @@
 	Access Functions
    ===================================== */
 		
+		private function getAccess() {
+			global $db;
+			
+			$sql = "SELECT G.group_id, UG.groupname FROM userInGroups G INNER JOIN userGroups UG ON G.group_id = UG.group_id WHERE G.user_id  = {$this->user_id} LIMIT 1";
+			$result_set = $db->queryFill($sql);
+			
+			if ($result_set != false) {
+				
+				foreach($result_set as $row) {
+					$this->access = $row['group_id'];	
+				}
+			}
+			
+		}
 		
-    }
+		
+/* =======================================
+	Admin Functions
+   ===================================== */
+   
+ 	  public function pagination ($offset, $rowsPerPage) {
+			return "SELECT U.email, UG.group_id, U.company, U.NPINumber FROM users U JOIN userInGroups UG ON U.user_id = UG.user_id LIMIT {$offset}, {$rowsPerPage}";   
+   	  }
+	  
+	  
+} // </Class>
+	
+	
+
 ?>

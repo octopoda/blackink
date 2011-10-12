@@ -28,13 +28,26 @@ if (isset($_POST['addNavigation'])) {
 	if (isset($_POST['navigation_id'])) $id = $_POST['navigation_id'];
 	$navigation = new Navigation($id);
 	
-	$navigation->createNavigationFromForm($_POST);
-	/*
-	if ($navigation->createNavigationFromForm($_POST)) {
+	$created = $navigation->createNavigationFromForm($_POST);
+	
+	if ($created) {
 		echo $_POST['addNavigation'];	
 	} else {
-		echo $_POST['addNavigation'];
-	} */
+		return false;	
+	}
+}
+
+if (isset($_POST['addContent'])) {
+	if (isset($_POST['content_id'])) $id = $_POST['content_id'];
+	$content = new Content($id);
+	
+	$created = $content->createContentFromForm($_POST);
+	
+	if ($created) {
+		echo $_POST['addContent'];	
+	} else {
+		echo $_POST['addContent'];
+	}	
 }
 
 ?>

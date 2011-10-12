@@ -36,7 +36,7 @@
 		</div>
 		<ul class="quickMenu">
 		<li>
-			<a class="redirect" href="/staff/forms/navigation/navigationForm.php?menu=<?php echo $menuId; ?>"> 
+			<a class="redirect" href="/staff/forms/navigation/form_navigation.php?menu=<?php echo $menuId; ?>"> 
 				<span class="ninjaSymbol ninjaSymbolPlus"></span>
 				<span class="text">Add Menu Navigation</span>
 			</a>
@@ -65,7 +65,7 @@
 		foreach($nav->itemList as $list) { ?>
     		<tr class="mainNav">
             	<td class="title">
-                	<a href="forms/navigation/navigationForm.php?sel=<?php echo $list->navigation_id ?>&menu=<?php echo $menuId; ?>" class="redirect"><?php echo $list->title; ?></a>
+                	<a href="forms/navigation/form_navigation.php?sel=<?php echo $list->navigation_id ?>&menu=<?php echo $menuId; ?>" class="redirect"><?php echo $list->title; ?></a>
                 </td>
                 <td width="50" style="text-align:center"><?php echo $list->published($list->navigation_id); ?></td>
                 <td width="100"><?php echo $list->moveArrows($list->navigation_id, $list->position, $link, $list->parent_id, $list->menu_id); ?></td>
@@ -77,7 +77,7 @@
 					foreach ($list->subNavList as $sub) { ?>
     			<tr class="subNav">
                 	<td class="title">
-                    	<a href="forms/navigation/navigationForm.php?sel=<?php echo $sub->navigation_id ?>&menu=<?php echo $menuId; ?>" class="redirect"><?php echo $sub->title; ?>
+                    	<a href="forms/navigation/form_navigation.php?sel=<?php echo $sub->navigation_id ?>&menu=<?php echo $menuId; ?>" class="redirect"><?php echo $sub->title; ?>
                     </td>
                     <td style="text-align:center"><?php echo $sub->published($sub->navigation_id); ?></td>
                     <td><?php echo $list->moveArrows($sub->navigation_id, $sub->position, $link, $sub->parent_id, $sub->menu_id); ?></td>

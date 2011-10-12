@@ -351,6 +351,16 @@
 		$('#mask').click();
 	});
 	
+	$('.contentList .grid tr td[col="title"]').live('click', function (e) {
+		e.preventDefault();
+		$(this).attr('target', '_self');
+		var $link = $(this).children('a').attr('href');
+		var $id = $(this).parent('tr').attr('primary_key');
+		var $url = $link + '?sel=' + $id;
+	
+		redirectTo($url);
+	})
+	
 
 
 

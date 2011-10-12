@@ -1,6 +1,6 @@
 <?php
 	require_once('includes/header.php');
-	
+	$site = new Site();
     $user = new Users();
 
     if (isset($_SESSION['user_id'])) redirect('index.php');
@@ -31,15 +31,17 @@
 
 
 ?>
-<div id="loginWrapper">
-    <div id="header" class="clearfix">
-        <h1><a href="http://cadencegeneralcontracting.com" class="logo">Cadence General Contracting Services LLC.</a></h1>
-        <h2>Admin Login</h2>
-    </div>
-    <div id="login">
+<section class="login">
+    <div>
+    <header class="clearfix">
+        <hgroup>
+        	<h1><a href="/index.php" class="logo"><?php echo $site->siteName ?></a></h1>
+        	<h2>Admin Login</h2>
+        </hgroup>
+    </header>
     <form method="post" name="login">
-        <fieldset class="steps">
-            <legend>Lift Admin Login</legend>
+        <fieldset >
+            <legend><?php echo $site->siteName ?> Login</legend>
             <p>
                 <label for="email">Email</label>
                 <input type="type" name="email" id="email" autocomplete="off" />
@@ -56,9 +58,13 @@
             </p>
         </fieldset>
     </form>
-    </div>
+    <nav>
+    	<ul>
+    		<li><a href="">Forgot Password</a></li>
+    	</ul>
+    </nav>
     
- </div>
+</section>
 
 <?php 
     require_once('includes/footer.php'); 

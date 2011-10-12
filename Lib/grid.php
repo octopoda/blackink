@@ -103,9 +103,11 @@ Class Grid {
 	}
 	
 	function delete() {
+		global $db;
+		
 		$post = $this->_safeMysql();
 		$primaryKey = $this->getPrimaryKey();
-		echo mysql_query("DELETE FROM {$this->table} WHERE $primaryKey = '$post[primary_key]'");
+		
 	}
 	
 	// will build an id, value array to be used to make a select box
@@ -194,6 +196,7 @@ Class Grid {
 	
 	// loads data into the grid
 	function load() {
+		echo 'here';
 		$post = $this->_safeMysql();
 		
 		// setup variables from properties
@@ -375,6 +378,8 @@ Class Grid {
 			$limit = "";
 		}
 		
+		
+		
 		// setup the sql - bring it all together
 		$sql = "
 			SELECT $post[cols]
@@ -448,7 +453,7 @@ Class Grid {
 	
 	// using the current table will get the primary key column name
 	// does not work for combined primary keys
-	function getPrimaryKey($table=NULL) {
+	public function getPrimaryKey($table=NULL) {
 		if(!$table) $table = $this->table;
 		$primaryKey = mysql_query("SHOW KEYS FROM $table WHERE Key_name = 'PRIMARY'");
 		$primaryKey = mysql_fetch_assoc($primaryKey);

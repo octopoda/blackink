@@ -77,8 +77,11 @@
 			$this->fillFromForm($post);
 			
 			//Change Position
-			$oldPosition = $this->position - 1;
-			//$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
+			if ($this->position < 1) {
+				$oldPosition = $this->position - 1;
+			}
+			
+			$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
 			
 			//Save
 			$this->navigation_id = $this->save($this->navigation_id);
@@ -89,7 +92,7 @@
 				$this->placeContent($post['content_id'], $this->navigation_id);
 				return true;
 			} else {
-				$error->addError('the information did not save.  Please report the error id: #Navigation1284');
+				$error->addError('The information did not save.  Please report the error id: #Navigation1284');
 				return false;	
 			} 
 		}
