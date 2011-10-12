@@ -61,9 +61,6 @@ class Paginator{
 	//Build back and Forward Buttons
 	public function buildTable() {
 		foreach ($this->result_set as $key=>$value) {
-			for ($i)
-			print_r($value);
-			echo  '<br /><br />';
 		}
 		
 	}
