@@ -18,10 +18,17 @@
 	
 ?>
 
-<div class="buttonSet">
-	<button>Edit Information</button>
-    <button>Change Password</button>
-</div>
+<ul class="quickMenu">
+	<li><a href="forms/users/form_users.php" class="redirect">
+    		<span class="ninjaSymbol ninjaSymbolEdit"></span> 
+        	<span class="text">Edit Information</span>
+         </a></li>
+    <li><a href="forms/users/change_password.php" class="redirect">
+   			<span class="ninjaSymbol ninjaSymbolLock"></span> 
+            <span class="text">Change Password</span>
+        </a></li>
+</ul>
+
 <h3 class="floatLeft"><?php echo $u->printName(); ?></h3>
 
 <div>
