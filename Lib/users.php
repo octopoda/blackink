@@ -21,20 +21,26 @@
 		
 		//Helpers
 		public $access;
+		public $address_id;
+		public $phone_id;
   
         public function __construct($u_id="") {
-           if (empty($u_id) && !isset($_SESSION['user_id']))  {
-                return false;
-            } else if (empty($u_id) && isset($_SESSION['user_id'])) {
-                $this->setUser($_SESSION['user_id']);    
-            } else if (isset($u_id)) {
-                $this->setUser($u_id);    
-            }
+          	
+			if (!empty($u_id)) { 
+				
+				$this->user_id = $u_id;
+				$this->setUser($u_id);
+			} else {
+				return;	
+			}
         }
-    
+/* =======================================
+	Setup and Helper Methods
+   ===================================== */
+	    
         private function setUser($u_id) {
             global $db;
-            
+        
             $result = $db->queryFill("SELECT * FROM users WHERE user_id= {$u_id} LIMIT 1");
 
             if ($result != false)
@@ -43,11 +49,60 @@
                 $this->instantiate($result, $this);
                 if (isset($this->user_id)) {
                     $this->getAccess();
+					$this->getAddress();
+					$this->getPhone();
 					$this->loggedIn = true;
                 }
             }
         }
-
+		
+		public function printName () {
+            return $this->first." ".$this->last;
+		}
+		
+		private function getAccess() {
+			global $db;
+			
+			$sql = "SELECT G.group_id, UG.groupname FROM userInGroups G INNER JOIN userGroups UG ON G.group_id = UG.group_id WHERE G.user_id  = {$this->user_id} LIMIT 1";
+			$result_set = $db->queryFill($sql);
+			
+			if ($result_set != false) {
+				foreach($result_set as $row) {
+					$this->access = $row['group_id'];	
+				}
+			}
+		}
+		
+		private function getAddress() {
+			global $db;
+			$result_set = $db->queryFill("SELECT address_id FROM addressForUser WHERE user_id = {$this->user_id}");
+			if ($result_set != false) {
+				foreach ($result_set as $row) {
+					$this->address_id = $row['address_id'];
+				}	
+			} else {
+				$error->addError('This user has no address entered in the database.');	
+			}
+		}
+		
+		private function getPhone() {
+			global $db;
+			global $error; 
+			
+			$result_set = $db->queryFill("SELECT phone_id FROM phoneForUser WHERE user_id = {$this->user_id}");
+			if ($result_set != false) {
+				foreach ($result_set as $row) {
+					$this->phone_id = $row['phone_id'];
+				}	
+			} else {
+				$error->addError('This user has no Phone entered in the database.');	
+			}
+		}
+		
+/* =======================================
+	Authentication Methods
+   ===================================== */
+	
    		public function authenticate($email,$pass) {
             global $db;
             if (!empty($email)) {
@@ -67,85 +122,66 @@
                 
             return false;                
 		}
-   
-   		public function printName () {
-            return $this->first." ".$this->last;
-		}
-        
-        public function isLoggedIn() {
+		
+		 public function isLoggedIn() {
             return $this->loggedIn;
         }
         
         public function LogOut() {
             $this->loggedIn = false;
         }
-        
-       
-		// return true if the name is OK to use, or false if it's already been used
-        private function checkUsername($checkThis) {
+
+
+/* =======================================
+	Registration Methods
+   ===================================== */
+		
+		 private function checkUsername($checkThis) {
             $result = $this->findByKey('email', $this->escapeString($checkThis));
             if ($result == false) return true;
             return false;
         }
-		
-		
-		
-		public function createUserFromForm($post) {
-			
-		}
-        
-        public function saveForForm() {
-            if (strlen($this->password) != 32) $this->password = md5($this->password);
-            return $this->user_id = $this->save($this->user_id);
-        }   
-		 
-		public function changePassword($pw_1, $pw_2) {
-			global $error;
-			
-			if (md5($pw_1) == $this->password) {
-				$this->password = md5($pw_2); 
-				$this->saveForForm();
-			} else {
-				echo "Your original password did not match our records";
-				return false;	
-			}
-			
-			return true;
-		}
-		
-		public function getUserById($id) {
-			return $this->fetchById($id);	
-		}
-		
-		
-/* =======================================
-	Access Functions
-   ===================================== */
-		
-		private function getAccess() {
-			global $db;
-			
-			$sql = "SELECT G.group_id, UG.groupname FROM userInGroups G INNER JOIN userGroups UG ON G.group_id = UG.group_id WHERE G.user_id  = {$this->user_id} LIMIT 1";
-			$result_set = $db->queryFill($sql);
-			
-			if ($result_set != false) {
-				
-				foreach($result_set as $row) {
-					$this->access = $row['group_id'];	
-				}
-			}
-			
-		}
-		
-		
-/* =======================================
-	Admin Functions
-   ===================================== */
    
- 	  public function pagination ($offset, $rowsPerPage) {
-			return "SELECT U.email, UG.group_id, U.company, U.NPINumber FROM users U JOIN userInGroups UG ON U.user_id = UG.user_id LIMIT {$offset}, {$rowsPerPage}";   
-   	  }
-	  
+   		
+        
+ /* =======================================
+	Admin Methods
+   ===================================== */
+		public function createUserFromForm($post) {
+				
+		}
+		
+		
+		public function saveForForm() {
+				if (strlen($this->password) != 32) $this->password = md5($this->password);
+				return $this->user_id = $this->save($this->user_id);
+		}
+		
+		
+		public function changePassword($pw_1, $pw_2) {
+				global $error;
+				
+				if (md5($pw_1) == $this->password) {
+					$this->password = md5($pw_2); 
+					$this->saveForForm();
+				} else {
+					echo "Your original password did not match our records";
+					return false;	
+				}
+				
+				return true;
+		}
+
+
+/* =======================================
+	Redefine Methods
+   ===================================== */
+	public function setAccess($newAccess, $id) {
+			global $db;
+				
+			$result_set = $db->query("UPDATE userInGroups SET group_id = {$newAccess} WHERE user_id = {$id}");
+			if ($db->affectedRows() > 0) return true;
+		}
 	  
 } // </Class>
 	

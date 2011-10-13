@@ -17,6 +17,6 @@
 	require_once(CLASS_PATH.DS. 'paginator.php');
 	
 	
-	$users = new Users();
+	$users = new Users($_SESSION['user_id']);
 	
 ?>

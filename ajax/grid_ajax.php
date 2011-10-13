@@ -7,6 +7,7 @@
 	
 	
 	
+	
 	//for editing check for the save flag and call save
 	if(isset($_POST['save'])) {
 		$grid->security = array("n_items");
@@ -27,9 +28,23 @@
 			echo json_encode($grid->data);
 		}	
 	} else {
+		if ($_POST['table'] == 'content') {
+		
+		} else  if ($_POST['table'] == 'users') {
+			$users = new Users();
+			
+			$grid->joins = array(
+      			"JOIN userInGroups ON (users.user_id = userInGroups.user_id)"
+ 			);
+			$grid->fields = array(
+			  'access'=> 'userInGroups.group_id',
+			  'name'=>"CONCAT(users.first,' ', users.last )",
+			);
+			
+		}
 		
 		$grid->load();
-		
+	
 		//Change any data before placing in JSON
 		if (isset($_POST['load'])) {
 			runFunctions($_POST['table']);	
@@ -69,7 +84,7 @@
 			$row['user_id'] = $users->printName();
 			$row['published'] = $content->published($row['content_id']);
 			$row['modified_on'] = $users->displayDate($row['modified_on']);
-			$row['access'] = $users->accessDropDown($row['access']);
+			$row['access'] = $content->accessDropDown($row['access'], $row['content_id']);
 		}
 		
 		
@@ -79,17 +94,15 @@
 		global $grid;
 		
 		foreach ($dataArray['rows'] as &$row) {
-			
 			$users = new Users($row['user_id']);
 			
-			
-			$row['user_id'] = $users->printName();
 			$row['email'] = $users->email;
 			$row['NPINumber'] = $users->NPINumber;
 			$row['company'] = $users->company;
-			$row['password'] = $users->accessGroupName($users->access);
+			$row['access'] = $users->accessDropDown($row['access'], $row['user_id']);
 		}
 	}
+
 	
 	
 ?>

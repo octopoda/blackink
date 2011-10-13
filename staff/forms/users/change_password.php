@@ -14,7 +14,6 @@
 	$phones = new Phones($u->user_id);
 	$address = new Address($u->address_id);
 	
-	
 	echo $u->pushToForm();
 	echo $address->pushToForm();
 	

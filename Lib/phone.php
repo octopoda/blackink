@@ -1,6 +1,5 @@
 <?php
 	require_once("databaseObject.php");
-	require_once('emergencyContact.php');
     
     //Class and Table need to be the same name
     class Phone extends databaseObject{

@@ -145,7 +145,7 @@ Class Grid {
 					} else {
 						// field from THIS table that aren't in the fields array
 						if(!isset($this->fields[$col]) && !in_array($col,$usedCols)) {
-							$newColsArray[] = "`$table`.`$col`";
+							$newColsArray[] = "$col";
 							$usedCols[] = $col;
 						}	
 					}
@@ -154,7 +154,7 @@ Class Grid {
 		} else {
 			// add safe tics
 			foreach($colsArray as $key=>$col) {
-				$newColsArray[] = "`$table`.`$col`";
+				$newColsArray[] = "$col";
 			}
 		}
 		
@@ -196,7 +196,6 @@ Class Grid {
 	
 	// loads data into the grid
 	function load() {
-		echo 'here';
 		$post = $this->_safeMysql();
 		
 		// setup variables from properties
@@ -268,8 +267,8 @@ Class Grid {
 					} else {
 						// field from THIS non joined table that aren't in the fields array
 						if(!isset($fields[$col]) && !in_array($col,$usedCols)) {
-							$newColsArray[] = "`$table`.`$col`";
-							$colsArrayForWhere[] = "`$table`.`$col`";
+							$newColsArray[] = "`$col`";
+							$colsArrayForWhere[] = "`$col`";
 							$usedCols[] = $col;
 						
 						// add fields that aren't in the <table> but you want passed anyway
@@ -289,8 +288,8 @@ Class Grid {
 		} else {
 			// add safe tics
 			foreach($colsArray as $key=>$col) {
-				$newColsArray[] = "`$table`.`$col`";
-				$colsArrayForWhere[] = "`$table`.`$col`";
+				$newColsArray[] = "`$col`";
+				$colsArrayForWhere[] = "`$col`";
 			}
 		}
 		
@@ -302,7 +301,7 @@ Class Grid {
 		
 		// if primary key isn't in the list. add it.
 		if($primaryKey && !in_array($primaryKey,$usedCols)) {
-			$colsArray[] = $table.".".$primaryKey;
+			$colsArray[] = $primaryKey;
 		}
 		
 		// with the cols array, if requested
@@ -325,6 +324,7 @@ Class Grid {
 		}
 		
 		// shrink to comma list
+		print_r($post['cols']);
 		$post['cols'] = implode(",",$colsArray);
 		
 		
@@ -391,6 +391,7 @@ Class Grid {
 			ORDER BY $order_by $sort
 			$limit
 		";
+		
 		
 		$this->sql = $sql;
 
@@ -470,11 +471,13 @@ Class Grid {
 	
 	// runs a query, always returns a multi dimensional array of results
 	function _queryMulti($sql) {
+		global $db;
+		
 		$array = array();
-		$res = mysql_query($sql);
+		$res = $db->query($sql);
 		if((bool)$res) {
 			// if there is only 1 field, just return and array with that field as each value
-			if(mysql_num_fields($res) > 1) {
+			if($db->numRows($res) > 1) {
 				while($row = mysql_fetch_assoc($res)) $array[] = $row;
 			} else if(mysql_num_fields($res) == 1) {
 				while($row = mysql_fetch_assoc($res)) {

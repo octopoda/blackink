@@ -10,11 +10,11 @@
 <div class="contentList">
 		<table class="grid" action="/ajax/grid_ajax.php" title="Default" sel="content">
 			<tr>	
-				<th col="title" width="300" link="forms/content/form_content.php">Title</th>
+				<th col="title" width="250" link="forms/content/form_content.php">Title</th>
                 <th col="published" width="50">Published</th>
 				<th col="modified_on" width="40">Last Edited</th>
 				<th col="user_id" width="100">Author</th>
-				<th col="access" width="40">Access</th>
+				<th col="access" editable="select" width="100">Access</th>
             </tr>
 		</table>
 

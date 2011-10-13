@@ -42,8 +42,9 @@
 					break;
 					
 				case 'Users':
-					$tabs[] = $this->listNav('Search Users', 'forms/user/list_users.php', 1);
-					$tabs[] = $this->listNav('Add User', 'forms/users/add_user.php', 1);
+					$tabs[] = $this->listNav('Search Users', 'forms/users/list_users.php', 1);
+					$tabs[] = $this->listNav('User Info', 'forms/users/info_users.php', 1);
+					$tabs[] = $this->listNav('Add User', 'forms/users/form_users.php', 1);
 					$tabs[] = $this->listNav('Change Password', 'forms/users/change_password.php', 1);
 					break;
 			}

@@ -151,7 +151,7 @@ Class Grid {
 					} else {
 						// field from THIS table that aren't in the fields array
 						if(!isset($this->fields[$col]) && !in_array($col,$usedCols)) {
-							$newColsArray[] = "`$table`.`$col`";
+							$newColsArray[] = "$col";
 							$usedCols[] = $col;
 						}	
 					}
@@ -160,7 +160,7 @@ Class Grid {
 		} else {
 			// add safe tics
 			foreach($colsArray as $key=>$col) {
-				$newColsArray[] = "`$table`.`$col`";
+				$newColsArray[] = "$col";
 			}
 		}
 		
@@ -275,8 +275,8 @@ Class Grid {
 					} else {
 						// field from THIS non joined table that aren't in the fields array
 						if(!isset($fields[$col]) && !in_array($col,$usedCols)) {
-							$newColsArray[] = "`$table`.`$col`";
-							$colsArrayForWhere[] = "`$table`.`$col`";
+							$newColsArray[] = "$col";
+							$colsArrayForWhere[] = "$col";
 							$usedCols[] = $col;
 						
 						// add fields that aren't in the <table> but you want passed anyway
@@ -296,8 +296,8 @@ Class Grid {
 		} else {
 			// add safe tics
 			foreach($colsArray as $key=>$col) {
-				$newColsArray[] = "`$table`.`$col`";
-				$colsArrayForWhere[] = "`$table`.`$col`";
+				$newColsArray[] = "$col";
+				$colsArrayForWhere[] = "$col";
 			}
 		}
 		
