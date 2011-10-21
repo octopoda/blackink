@@ -198,7 +198,7 @@ textarea.editableInput {
 }
 
 .gridHeaderRow tr:first-child {
-	background-color: #CB0202;
+	background-color: #444;
 	border-right:1px solid white;
 }
 
@@ -263,10 +263,12 @@ textarea.editableInput {
 	-moz-border-radius-bottomright: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	
-	background-color:#999;
-	color:#000;
+	background-color:#444;
+	color:#FFF;
 	
 }
+
+.gridLimit input {color:#444;}
 /* when the pager is fixed */
 .gridPager.fixed {
 	position:fixed;

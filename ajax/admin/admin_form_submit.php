@@ -43,11 +43,25 @@ if (isset($_POST['addContent'])) {
 	
 	$created = $content->createContentFromForm($_POST);
 	
-	if ($created) {
-		echo $_POST['addContent'];	
-	} else {
-		echo $_POST['addContent'];
-	}	
+	echo $_POST['addContent'];
+}
+
+if (isset($_POST['addUser'])) {
+	if (isset($_POST['user_id']))  $id = $_POST['user_id'];
+	$user = new Users($id);
+	
+	$newUser = $user->createUserFromForm($_POST);
+	
+	echo $_POST['addUser'];	
+}
+
+if (isset($_POST['addNews'])) {
+	if (isset($_POST['news_id'])) $id = $_POST['news_id'];
+	$news = new News();
+	
+	$created = $news->createNewsFromForm($_POST);
+	
+	echo $_POST['addNews'];		
 }
 
 ?>

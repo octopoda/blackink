@@ -1,7 +1,5 @@
 <?php
-    // CREATED 1/5/11 - MCJ
-    
-    require_once("databaseObject.php");
+   	require_once("databaseObject.php");
 	
     
     //Class and Table need to be the same name
@@ -22,7 +20,7 @@
 		//Helpers
 		public $access;
 		public $address_id;
-		public $phone_id;
+		public $phone_id = array();
   
         public function __construct($u_id="") {
           	
@@ -73,6 +71,7 @@
 			}
 		}
 		
+		
 		private function getAddress() {
 			global $db;
 			$result_set = $db->queryFill("SELECT address_id FROM addressForUser WHERE user_id = {$this->user_id}");
@@ -92,7 +91,7 @@
 			$result_set = $db->queryFill("SELECT phone_id FROM phoneForUser WHERE user_id = {$this->user_id}");
 			if ($result_set != false) {
 				foreach ($result_set as $row) {
-					$this->phone_id = $row['phone_id'];
+					$this->phone_id[] = $row['phone_id'];
 				}	
 			} else {
 				$error->addError('This user has no Phone entered in the database.');	
@@ -145,14 +144,58 @@
    		
         
  /* =======================================
-	Admin Methods
+	CRUD Methods
    ===================================== */
 		public function createUserFromForm($post) {
-				
+			global $error;
+			
+			//Create User return ID
+			$this->fillFromForm($post);
+			$this->password = md5($this->password);
+			$u_id = $this->save($this->user_id);
+			echo $u_id;
+			
+			//Set Access to Registered
+			$this->setAccess($this->access, $u_id);
+			
+			//Create Address return ID
+			$address = new Address();
+			$address->fillFromForm($post);
+			$a_id= $address->save($address->address_id);
+			$saveAddress = new Address($a_id);
+			$saveAddress->addAddressToUser($u_id);
+			
+			//Create Phone return ID
+			Phones::save($post,  $u_id);
+			
+			if ($u_id == NULL || $a_id == NULL ) {
+				$error->addError("The user was not created please report Error #USER10974");	
+			}
+		}
+		
+		public function deleteFromForm() {
+			global $db;
+			
+			//Delete Phone
+			Phones::deleteFromForm($this->phone_id);
+			
+			//Delete Address
+			$address = new Address($this->address_id);
+			$address->deleteFromForm();
+			
+			//Delete User
+			$db->query("DELETE FROM userInGroups WHERE user_id = {$this->user_id}");
+			$this->delete($this->user_id);
+			
 		}
 		
 		
-		public function saveForForm() {
+		
+ /* =======================================
+	Change Password Methods
+   ===================================== */		
+   		
+		public function savePasswordForForm() {
 				if (strlen($this->password) != 32) $this->password = md5($this->password);
 				return $this->user_id = $this->save($this->user_id);
 		}
@@ -176,11 +219,19 @@
 /* =======================================
 	Redefine Methods
    ===================================== */
-	public function setAccess($newAccess, $id) {
+		public function setAccess($newAccess, $id) {
 			global $db;
 				
-			$result_set = $db->query("UPDATE userInGroups SET group_id = {$newAccess} WHERE user_id = {$id}");
-			if ($db->affectedRows() > 0) return true;
+			$u = $db->queryFill("SELECT * FROM userInGroups WHERE user_id = {$id}");
+			
+			if ($u == false) {
+				//Insert
+				$db->query("INSERT INTO userInGroups (group_id, user_id) VALUES ('{$newAccess}', '{$id}')");	
+			} else {
+				$result_set = $db->query("UPDATE userInGroups SET group_id = {$newAccess} WHERE user_id = {$id}");
+			}
+			
+			if ($db->affectedRows() > 0)  return true;
 		}
 	  
 } // </Class>

@@ -39,11 +39,12 @@
 				case 'Content':
 					$tabs[] = $this->listNav('List Content', 'forms/content/list_content.php', 1);
 					$tabs[] = $this->listNav('Add Content', 'forms/content/form_content.php', 1);
+					$tabs[] = $this->listNav('News', 'forms/content/list_news.php', 1);
+					//$tabs[] = $this->listNav('Ads', 'forms/content/form_content.php', 1);
 					break;
 					
 				case 'Users':
 					$tabs[] = $this->listNav('Search Users', 'forms/users/list_users.php', 1);
-					$tabs[] = $this->listNav('User Info', 'forms/users/info_users.php', 1);
 					$tabs[] = $this->listNav('Add User', 'forms/users/form_users.php', 1);
 					$tabs[] = $this->listNav('Change Password', 'forms/users/change_password.php', 1);
 					break;

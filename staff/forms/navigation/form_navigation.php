@@ -4,6 +4,7 @@
 
 	$navigation;
 	$action = "Add"; 
+	$external = false;
 	
 	if (isset($_GET['sel']) && isset($_GET['menu'])) {
 		$navigation = new Navigation($_GET['sel']);
@@ -21,25 +22,42 @@
 	
 	echo $navigation->pushToForm();
 	$link = 'forms/navigation/form_navigation.php';
+	if (!empty($navigation->link)) $external = true;
 ?>
 <script>
 	$('#menu_id').val(<?php echo $menu->menu_id ?>)
 	$('#content_title').val('<?php  echo $navigation->content_title ?>');
 	$('#content_id').val(<?php echo $navigation->content_id ?>);
+	<?php if($external) {
+			echo "$('.contentInput').hide();"; 
+		  } else {
+			echo "$('.externalInput').hide();";
+		  }
+	?>
 </script>
 <h3><?php echo $action ?> Navigation</h3>
 <form id="formUpdate" method="POST">
+	<fieldset>
+    	<p>
+        	<input type="checkbox" class="externalLink" <?php if ($external) echo 'checked="checked"' ?> />
+            <label>External Link:</label>
+        </p>
+    </fieldset>
 	<fieldset>
         <p>
             <label for="title">Navigation Title (required)</label>
             <input type="text" name="title" id="title" autofocus  />
             <input type="hidden" name="navigation_id" id="navigation_id" />
         </p>
-        <p>
+        <p class="contentInput">
         	<label for="content">Content for Navigation Item</label>
         	<input type="text" name="content_title" id="content_title" />
             <input type="hidden" name="content_id" id="content_id" />
             
+        </p>
+        <p class="externalInput">
+        	<label for="link">External Link</label>
+            <input type="text" name="link" id="link" placeholder="http://yourdomain.com"/>
         </p>
         <div class="contentPopUp"></div>
         <p>

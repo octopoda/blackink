@@ -43,34 +43,27 @@
 				
 		}
 		
-		public function updatePhone($name, $id ) {
+		
+		//SAve and Update
+		public function updatePhone($id ) {
 			global $db;
 			
-			switch ($name) {
-				case "camper":
-					$table = "phonesForCampers"; 
-					$column = "camper_id";
-					break;
-				case "church":
-					$table = "phonesForChurch"; 
-					$column = "church_id";
-					break;
-				case "user":
-					$table = "phonesForUsers"; 
-					$column = "user_id";
-					break;	
-			}
-			
-			
-			$results = $db->query("SELECT * FROM {$table} WHERE {$column} = {$id} AND phone_id = {$this->phone_id}");
+			$results = $db->query("SELECT * FROM phoneForUser WHERE user_id = {$id}");
 			
 			if ($db->numRows($results) > 0) {
 				return;
 			} else {
-				$query = $db->query("INSERT INTO {$table} (phone_id, {$column}) VALUES ({$this->phone_id}, {$id})");	
+				$query = $db->query("INSERT INTO phoneForUser (phone_id, user_id) VALUES ({$this->phone_id}, {$id})");	
 			}
 			
 				
+		}
+		
+		public function deleteFromForm() {
+			global $db;
+			
+			$db->query("DELETE FROM phoneForUser WHERE phone_id = {$this->phone_id}");
+			$this->delete($this->phone_id);	
 		}
 	}
 ?>

@@ -975,7 +975,7 @@ $(function() {
 		// count some rows and add them in
 		$grid.find("tr").each(function(i) {
 			var $tr = $(this);
-			$del = $("<div class='delete ninjaSymbol ninjaSymbolClear'></div>");
+			$del = $("<div class='deleteGrid ninjaSymbol ninjaSymbolClear'></div>");
 			$del.click(function() {
 				// if we need to confirm the delete
 				if($grid.data().deleteConfirm) {

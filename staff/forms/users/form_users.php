@@ -17,6 +17,7 @@
 	
 	echo $u->pushToForm();
 	echo $address->pushToForm();
+	$link = 'form/users/form_users.php';
 	
 ?>
 
@@ -28,23 +29,23 @@
         <legend>Personal Details</legend>
         <p>
             <label for="first">First Name:</label>
-            <input name="first" id="first" type="text" />
+            <input name="first" id="first" type="text" class="required" />
         </p>
         <p>
             <label for="last">Last Name:</label>
-            <input type="text" name="last" id="last" />
+            <input type="text" name="last" id="last" class="required" />
         </p>
         <p>
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" />
+            <input type="text" name="email" id="email"  class="required email"/>
         </p>
         <p>
             <label for="NPINumber">NPI Number</label>
-            <input type="text" name="NPINumber" id="NPINumber" />
+            <input type="text" name="NPINumber" id="NPINumber" class="required numeric" />
         </p>
         <p>
             <label for="company">Company</label>
-            <input type="text" name="company" id="company" />
+            <input type="text" name="company" id="company" class="required" />
         </p>
         
     </fieldset>
@@ -56,7 +57,7 @@
             <input type="hidden" name="address_id" id="address_id" /> 
         </p>
         <p>
-            <label for="address2">Address</label>
+            <label for="address2">Address 2</label>
             <input id="address2" name="address2" type="text"  />
         </p>
         <p>
@@ -75,19 +76,30 @@
             <?php echo $phones->createPhoneFields(); ?>
         <p>
     </fieldset>
-    <?php if ($action == "Add Users") : ?>
+    
+    <?php if ($action == "Add User") : ?>
     <fieldset>
-        <legend>Login Details</legend>
+        <legend>Authentication Details</legend>
         <p>
             <label for="password">Password</label>
             <input id="password" name="password" type="password"  class="required"  />
         </p>
         <p>
             <label for="confirmPassword">Confirm Password</label>
-            <input id="confirmPasword" name="confirmPassword" type="text"  />
+            <input id="confirmPassword" name="confirmPassword" type="password" class="equalTo"  />
+        </p>
+        <p class="new">
+            <label for="access">User Access</label>
+            <?php echo $u->accessDropDown($u->user_id) ?>
         </p>
     </fieldset>
     <?php endif; ?>
+    <fieldset>
+    	<button name="users"><?php echo $action; ?></button>
+        <input type="hidden" name="user_id" id="user_id" />
+        <input type="hidden" name="addUser" id="addUser" value="forms/users/list_users.php" />
+    </fieldset>
+
 </form>
 
 <div class="data"></div>

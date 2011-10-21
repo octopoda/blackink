@@ -32,12 +32,12 @@
 	<fieldset>
         <p>
             <label for="title">Navigation Title (required)</label>
-            <input type="text" name="title" id="title" autofocus  />
+            <input type="text" name="title" id="title" autofocus class="required"  />
             <input type="hidden" name="navigation_id" id="navigation_id" />
         </p>
         <p>
         	<label for="content">Content for Navigation Item</label>
-        	<input type="text" name="content_title" id="content_title" />
+        	<input type="text" name="content_title" id="content_title" class="required" />
             <input type="hidden" name="content_id" id="content_id" />
             
         </p>

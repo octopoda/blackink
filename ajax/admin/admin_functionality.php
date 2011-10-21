@@ -22,6 +22,16 @@ if (isset($_POST['publishedId'])) {
 	echo $class->published($id);
 }
 
+//Set Default Page
+if (isset($_POST['defaultId'])) {
+	$navid = $_POST['defaultId'];
+	
+	$nav = new Navigation($navid);
+	$nav->setDefault($navid);
+	
+	echo $_POST['href'];	
+}
+
 
 //Move position Ajax control
 if (isset($_POST['move'])) {

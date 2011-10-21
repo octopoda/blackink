@@ -3,19 +3,20 @@
 /* ===========================================
 	Redirection  Methods
    =========================================*/		
- 
+
  
  
 	//Redirect Main Content
   	function redirectTo($string) {
-		//alert($string);
+		findTab($string);
+		
 		$.ajax({
 			url: $string,
 			success: function(data) {
 				$('#content').html(data);				
 			},
 			error:function(xhr, status, errorThrown) { 
-            	alert('That Page was not Found'); 
+            	alert('The Page' + $string +'was not Found'); 
         	}
 		});
 	}
@@ -36,10 +37,6 @@
 			data: {'sel' : $sel, 'href': $href},
 			dataType: 'json',
 			success: function (data) {
-				//alert(data);
-				//$('#tabs').html(data);
-				
-				
 				$('#tabs').html(data.tabs);
 				
 				$.ajax ({
@@ -90,6 +87,18 @@
 		object.parent('li').addClass('active');
  	}
 	
+	function findTab(href) {
+		_a = new Array();
+		_a = href.split("?");
+		
+		
+		$('#tabs ul li').each(function () {
+			if ($(this).children().attr('href') == _a[0]) {
+				changeActiveTab($(this).children());	
+			}
+		})	
+	}
+	
 	$('.redirect').live('click', function (e) {
 		e.preventDefault();
 		var href = $(this).attr('href')
@@ -129,7 +138,6 @@
 	
 	//Publish and unpublish items.
 	$('.published').live('click', function () {
-		
 		var $id = $(this).attr('id');
 		var $class = $(this).attr('sel');
 		var $published = $(this).attr('published');
@@ -146,6 +154,30 @@
 		})
 	});
 	
+	//Set Default Page
+	$('.setDefault').live('click', function (e) {
+		e.preventDefault();
+		
+		$this = $(this);
+		$id = $(this).attr('id');
+		$href = $(this).attr('href');
+		
+		if ($this.hasClass('active')) {
+			return false;
+		}
+		
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: { 'defaultId': $id, 'href': $href},
+			success: function (data) {
+				redirectTo(data);
+			}
+		})
+	
+	});
+	
+	//Change the Access of an Item
 	$('#access').live('change', function () {
 		if ($(this).parent().attr('class') == 'new') {
 			return false;	
@@ -229,9 +261,13 @@
 	}); 
 	
 	
-	//Delete Buttons 
+	//Delete Buttons
+	 
 	$('.delete').live('click', function (e) {
 		e.preventDefault();
+		
+		//if ($(this).parent('td').attr('col') == X) {return false};
+		
 		if (!confirm("You are about to delete this item. Is this what you want to do?")) {
 			return false;
 		}
@@ -251,27 +287,31 @@
 			})
 			
 	});
+	
+	
+	
 
 /* ===========================================
 	Form Submitting
    =========================================*/
+   
 	
 	$('form#formUpdate').live('submit', function(e) {
 		e.preventDefault();
 		
 		var $this = $(this);
-		//validate($this);
+		validate($this);
 		
-		//var $error = 1;
-		//var $count = $this.children('fieldset').find(':input:not(button)').hasClass('hasError'); 
+		var $error = 1;
+		var $count = $this.children('fieldset').find(':input:not(button)').hasClass('hasError'); 
 		
-		//if ($count) {
-			//$error = -1;
-		//}
+		if ($count) {
+			$error = -1;
+		}
 		
-		//if ($error == 1) {
+		if ($error == 1) {
 			ajaxFormSubmit($this);	
-		//}
+		}
 		
 	});
 	
@@ -351,14 +391,30 @@
 		$('#mask').click();
 	});
 	
+	
 	$('.grid tr td a').live('click', function (e) {
 		e.preventDefault();
+		
+		if ($(this).hasClass('published')) return;
+		
 		$(this).attr('target', '_self');
 		var $link = $(this).attr('href');
 		var $id = $(this).parent('td').parent('tr').attr('primary_key');
 		var $url = $link + '?sel=' + $id;
 	
 		redirectTo($url);
+	});
+	
+	$('.externalLink').live('change', function() {
+		if ($(this).is(':checked')) {
+			$('.externalInput').show();
+			$('.contentInput').hide();
+			$('.contentInput').children('input').val('');	
+		} else {
+			$('.contentInput').show();
+			$('.externalInput').hide();
+			$('.externalInput').children('input').val('');
+		}
 	})
 	
 

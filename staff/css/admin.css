@@ -31,7 +31,7 @@ header {
 
 
 #navigation  {
-	background:#999;	
+	background:#444;	
 	clear:both;
 	width:100%;
 	
@@ -90,8 +90,8 @@ header {
 		cursor:pointer;
 	}
 	
-	#tabs ul li.active a:link, #tabs u li.active a:visited {
-		color: #9902CB;
+	#tabs ul li.active a:link, #tabs ul li.active a:visited {
+		color: #444;
 		background-color: #FFF !important;
 		border-top:2px solid #444;
 		border-left:2px solid #444;
@@ -101,6 +101,10 @@ header {
 		border-bottom-left-radius:0px;
 		padding-bottom:80px !important;
 	}	
+	
+	#tabs ul li.active {
+		background-color: #FFF !important;	
+	}
 	
 
 /* =============================
@@ -131,14 +135,14 @@ section:last-child {border-bottom:0px;}
 	#content label {color:#838383;}
 	
 	#content input{ 
-		width:300px; margin-bottom:5px; border:none; background:#CCC; 
+		width:300px; margin-bottom:5px; border:none; background:#ECECEC; 
 		
 		-moz-box-shadow:inset 2px 2px 8px #999;
 		-webkit-box-shadow:inset 2px 2px 8px #999;
 		box-shadow:inset 2px 2px 8px #999;
 	}
     #content textarea {
-		width:300px; height:150px; background:#CCC; border:none;
+		width:300px; height:150px; background:#ECECEC; border:none;
 		
 		-moz-box-shadow:inset 2px 2px 8px #999;
 		-webkit-box-shadow:inset 2px 2px 8px #999;
@@ -157,12 +161,15 @@ section:last-child {border-bottom:0px;}
 
 
 table.navigationList {width:100%; height:auto}	
-table.navigationList thead {background:#CB0202; color:#FFF; text-align:left;}
+table.navigationList thead {background:#444; color:#FFF; text-align:left;}
 table.navigationList thead tr th {padding:5px; border-right:1px solid white;}
 
 table.navigationList tbody tr td {border-bottom:1px solid #CCC; padding:5px 10px; vertical-align: middle}
 table.navigationList tbody tr.mainNav td.title {font-weight:bold;}
 table.navigationList tbody tr.subNav td.title {padding-left:20px;}
+
+table.navigationList tbody tr td a.setDefault {font-size:20px; cursor:pointer; color:#CCC;}
+table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:default;}
 
 /* =============================
 	Admin Tools
@@ -172,21 +179,24 @@ table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 	
 .moveArrows {margin-left:-12px;}
 .moveArrows li { list-style:none; margin:0px; margin-left:8px; float:left;}
-.moveArrows .move {font-size:20px; color:#CB0202}
+.moveArrows .move {font-size:20px; color:#444}
 .subNav .move {color:#999}
 
 .quickMenu {float:right; margin:20px 0px;}
-.quickMenu li a {cursor:pointer; color:#06e}
+.quickMenu li a {cursor:pointer; color:#878787; margin-right:30px;}
 .quickMenu li {list-style:none; font-size:16px; float:left;}
 .quickMenu li span {display: inline-table; margin-right:6px; }
 .quickMenu .text {line-height:22px; position:relative; top:4px;}	
 
-.published, .grid .published {font-size:20px; color:#444; margin-left:10px;}
+.navigationList a {color:#CB0202}
+.navigationList .mainNav .title  a {color:#CB0202 !important}
+.published, .grid .published {font-size:20px; color:#444 !important; margin-left:10px;}
 .grid tr td {padding:5px;}
 
-.delete {font-size:20px; color:#CB0202;  margin-left:15px; background-color:#FFF !imporant;}
-.delete:hover  {color:#731115}
-#navigation.delete {background:none; color:#CB0202}
+.delete, .deleteGrid {font-size:20px; color:#CB0202;  margin-left:15px; background-color:#FFF !imporant;}
+.delete:hover, .deleteGrid  {color:#731115}
+#navigation.delete {background:none; color:#444}
+
 
 /* =============================
 	Forms
@@ -200,6 +210,7 @@ table.navigationList tbody tr.subNav td.title {padding-left:20px;}
 
 #dialog .gridContainer {position:relative; top:-40px;}
 #dialog .grid tr td {text-align:left;}
+
 
 
 
@@ -241,12 +252,21 @@ button {
 	font-size: 14px;
 	color: #ffffff;
 	padding: 5px 8px;
-	background: -moz-linear-gradient( top,#CB0202 0%,#950404);
-	background: -webkit-gradient(linear, left top, left bottom, from(#CB0202),to(#950404));
-	border-radius: 10px;
+	
+	background: #7d7e7d; /* Old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* W3C */
+	
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	border: 1px solid #134201;
+	
 	-moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,1);
 	-webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,1);
 	text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 1px 0px rgba(255,255,255,0.3);
@@ -260,7 +280,17 @@ button {
     -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
     -o-box-shadow: inset 0 0 1px 1px #eaeaea;
     box-shadow: inset 0 0 1px 1px #eaeaea;
-    color: #222;
+	
+	background: #b5bdc8; /* Old browsers */
+	background: -moz-linear-gradient(top, #b5bdc8 0%, #828c95 36%, #28343b 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b5bdc8), color-stop(36%,#828c95), color-stop(100%,#28343b)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* W3C */
+	
+    color: #FFF;
     cursor: pointer; 
  }
  
@@ -272,6 +302,20 @@ button {
     -o-box-shadow: inset 0 0 1px 1px #e3e3e3;
     box-shadow: inset 0 0 1px 1px #e3e3e3;
     color: #000; 
+ }
+ 
+ button.disabled {
+	color:#C4C4C4;
+	cursor:default;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%); /* W3C */
+	box-shadow:none;
  }
 
 
@@ -357,6 +401,9 @@ button {
 .message {position:absoulte; top:0px; left:0px; width:100%; background:#99CFA4; text-align:left;}
 .message .text {margin:0px; padding:0px;}
 .message .close {display:none;}
+
+input.hasError {background:#CB0202 !important; color:#FFF !important;}
+.validationError {color:#CB0202; margin-left:10px;}
 
 
 /* =============================

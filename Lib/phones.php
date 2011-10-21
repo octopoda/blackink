@@ -9,8 +9,8 @@
 		public $emergencyPhones = array();
 		
 		public function __construct($p_id="") {
+			
 			if (!empty($p_id)) {
-				$p_id = $this->user_id;
 				$this->phonesForUser($p_id);
 			} 
 		}
@@ -18,6 +18,7 @@
 		
 		private function phonesForUser($p_id) {
 			global $db;
+			
 			$result = $db->queryFill("SELECT * FROM phoneForUser WHERE user_id = {$p_id}");
 			if ($result != false) {
 				foreach ($result as $p) {
@@ -50,18 +51,31 @@
 		public function createPhoneFields() {
 			$html = '';
 			
+			if (!empty($this->phones)) {
 			foreach ($this->phones as $phone) {
 				$html .= '<div class="phone"><p class="phonesForUsers">
 							<label for="phonenumber">Phone</label>
 							<script type="text/javascript"> $("#phone_type").val("'. $phone->phone_type .'"); </script>
 							<input type="hidden" id="phone_id" name="phone_id[]" value="'.$phone->phone_id.'">
-							<select id="phone_type" name="u_phone_type[]"  class="phoneSelect">
+							<select id="phone_type" name="phone_type[]"  class="phoneSelect">
 								<option selected="selected" value="HP">Home</option>
 								<option value="CP">Cell</option>
 								<option value="WK">Work</option>
 							</select>
 							<input id="phonenumber" name="phonenumber[]" placeholder="e.g. (351)215-5555" type="tel" value="'. $phone->phonenumber .'" class="usPhone"  />
 						</p></div>';
+			}
+			} else {
+				$html .= '<div class="phone"><p class="phonesForUsers">
+							<label for="phonenumber">Phone</label>
+							<input type="hidden" id="phone_id" name="phone_id[]">
+							<select id="phone_type" name="phone_type[]"  class="phoneSelect">
+								<option selected="selected" value="HP">Home</option>
+								<option value="CP">Cell</option>
+								<option value="WK">Work</option>
+							</select>
+							<input id="phonenumber" name="phonenumber[]" placeholder="e.g. (351)215-5555" type="tel" class="usPhone"  />
+						</p></div>';	
 			}
 			
 			return $html;
@@ -81,8 +95,20 @@
 				$phone->phonenumber = $db->escapeString($post['phonenumber'][$j]);
 				isset($post['phone_id']) ? $phone->phone_id = $db->escapeString($post['phone_id'][$j]) : $phone->phone_id = null;	
 				$phone->phone_id = $phone->save($phone->phone_id);
-				$phone->updatePhone('user', $id); 
+				$phone->updatePhone($id); 
 			}
+		}
+		
+		//Delete 
+		public static function deleteFromForm($phone_id) {
+			global $db;
+			
+			foreach ($phone_id as $phone) {
+				$phone = new Phone($phone);
+				$phone->deleteFromForm();	
+			}
+			
+			
 		}
 		
 		

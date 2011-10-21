@@ -85,31 +85,28 @@ require_once("databaseObject.php");
 		//Save
 		public function saveForForm() {
 			$this->address_id = $this->save($this->address_id);
+			return $address_id;
 		}
 		
 		//Add Addresses
-		public function addAddressToCamper($camper_id) {
+		public function addAddressToUser($u_id) {
 			global $db;
 			
-			$result = $db->query("UPDATE camper SET address_id = {$this->address_id} WHERE camper_id = {$camper_id}");
-			return($db->affectedRows() > 0) ? $camper_id : false;	
+			$result_set = $db->queryFill("SELECT * FROM addressForUser WHERE user_id = {$u_id}");
+			
+			if ($result_set == false) {
+				//Insert
+				$db->query("INSERT INTO addressForUser (address_id, user_id) VALUES ('{$this->address_id}', '{$u_id}')");
+				if ($db->affectedRows() > 0) return true;
+			} 	
 		}
 		
-		public function addAddressToChurch($church_id) {
-			global $db;
-			$result = $db->query("UPDATE church SET address_id =  {$this->address_id} WHERE church_id = {$church_id}");
-			return($db->affectedRows() > 0) ? $church_id : false;	
-		}
 		
-		public function addAddressToEvent($event_id) {
+		public function deleteFromForm() {
 			global $db;
 			
-			$result = $db->query("UPDATE events SET address_id = {$this->address_id} WHERE event_id = {$event_id}");	
-		}
-		
-		
-		public function deleteMe() {
-			$this->delete($this->address_id);	
+			$db->query("DELETE FROM addressForUser WHERE address_id = {$this->address_id}");
+			$this->delete($this->address_id);
 		}
 		
 		

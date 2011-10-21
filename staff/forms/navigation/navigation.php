@@ -52,6 +52,7 @@
         	<tr>
             	<th>Title</th>
                 <th>Published</th>
+                <th>Default</th>
                 <th>Position</th>
                 <th>Access</th>
                 <th>Delete</th>
@@ -68,6 +69,7 @@
                 	<a href="forms/navigation/form_navigation.php?sel=<?php echo $list->navigation_id ?>&menu=<?php echo $menuId; ?>" class="redirect"><?php echo $list->title; ?></a>
                 </td>
                 <td width="50" style="text-align:center"><?php echo $list->published($list->navigation_id); ?></td>
+                <td width="50" style="text-align:center"><?php echo $list->displayDefault($link); ?></td>
                 <td width="100"><?php echo $list->moveArrows($list->navigation_id, $list->position, $link, $list->parent_id, $list->menu_id); ?></td>
                 <td width="100"><?php echo $list->accessDropDown($list->access, $list->navigation_id); ?></td>
                 <td><a class="delete ninjaSymbol ninjaSymbolClear" id="navigation" sel="<?php echo $list->navigation_id ?>" href="<?php echo $link ?>"></a></td>
@@ -80,6 +82,7 @@
                     	<a href="forms/navigation/form_navigation.php?sel=<?php echo $sub->navigation_id ?>&menu=<?php echo $menuId; ?>" class="redirect"><?php echo $sub->title; ?>
                     </td>
                     <td style="text-align:center"><?php echo $sub->published($sub->navigation_id); ?></td>
+                    <td></td>
                     <td><?php echo $list->moveArrows($sub->navigation_id, $sub->position, $link, $sub->parent_id, $sub->menu_id); ?></td>
                     <td width="100"><?php echo $sub->accessDropDown($sub->access, $sub->navigation_id); ?></td>
                     <td><a class="delete ninjaSymbol ninjaSymbolClear" id="navigation" sel="<?php echo $sub->navigation_id ?>" href="<?php echo $link ?>"></a></td>

@@ -19,11 +19,11 @@
 ?>
 
 <ul class="quickMenu">
-	<li><a href="forms/users/form_users.php" class="redirect">
+	<li><a href="forms/users/form_users.php?sel=<?php echo $u->user_id; ?>" class="redirect">
     		<span class="ninjaSymbol ninjaSymbolEdit"></span> 
         	<span class="text">Edit Information</span>
          </a></li>
-    <li><a href="forms/users/change_password.php" class="redirect">
+    <li><a href="forms/users/change_password.php?sel=<?php echo $u->user_id ?>" class="redirect">
    			<span class="ninjaSymbol ninjaSymbolLock"></span> 
             <span class="text">Change Password</span>
         </a></li>
@@ -33,20 +33,20 @@
 
 <div>
 	<h4>Personal Information</h4>
-	<dl>
+	<dl class="clearfix">
     	<dt>Email:</dt>
         	<dd><?php echo $u->email; ?></dd>
         <dt>Company:</dt>
         	<dd><?php echo $u->company; ?></dd>
-		<dt>NPI Number</dt>
+		<dt>NPI Number:</dt>
         	<dd><?php echo $u->NPINumber; ?></dd>   
     </dl>
     
     <h4>Location Information</h4>
-    <dl>
+    <dl class="clearfix">
     	<dt>Address:</dt>
         	<dd><address><?php echo $address->printAddress(); ?></address></dd>
-    	<dt>Phone</dt>
+    	<dt>Phone:</dt>
         	<dd><?php echo $phones->printPhones(); ?></dd>
     </dl>
 </div>

@@ -11,12 +11,16 @@
 	require_once(CLASS_PATH.DS. "menus.php");
 	require_once(CLASS_PATH.DS. "content.php");
 	
+	
 	//Admin
 	require_once(CLASS_PATH.DS. 'users.php');
 	require_once(ADMIN_PATH.DS. 'admin_navigation.php');
 	require_once(CLASS_PATH.DS. 'paginator.php');
 	
 	
-	$users = new Users($_SESSION['user_id']);
-	
+	if (isset($_SESSION['user_id'])) {
+		$users = new Users($_SESSION['user_id']);
+	} else {
+		$users = new Users();	
+	}
 ?>

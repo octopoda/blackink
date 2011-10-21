@@ -1,19 +1,22 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/staff/includes/admin_require.php');
 	
+	$u_id;
+
 	if (!empty($_GET['sel'])) {
-		$content = new Content($_GET['sel']);	
-		$action = "Update Content";	
-		$user = new Users($content->user_id);
-		$content->modified_by = $users->user_id;
+		$news = new News($_GET['sel']);	
+		$action = "Update News";	
+		$u = new Users($news->user_id);
 	} else {
-		$content = new Content();
-		$action = "Insert Content";	
-		$user = new Users($users->user_id);
+		$news = new News();
+		$action = "Insert News";
+		$u = new Users($users->user_id);	
 	}
 	
-	echo $content->pushToForm();
-	echo $user->pushToForm();
+
+	
+	echo $news->pushToForm();
+	echo $u->pushToForm();
 	$infoKey = md5(time().rand());
 	
 ?>
@@ -28,7 +31,7 @@
 		<fieldset>
         	<p>
             	<label>Title</label>
-            	<input type="text" id="title" name="title" class="required" />
+            	<input type="text" id="title" name="title" />
             </p>
             <div class="twoDropDowns clearfix">
             <p>
@@ -42,30 +45,29 @@
             
             <p class="new">
             	<label for="access">Access:</label>
-				<?php echo $content->accessDropDown($content->content_id) ?>
+				<?php echo $news->accessDropDown($news->news_id) ?>
             </p>
             </div>
 			<p>
             	<label for="content">Content</label>
-            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor required"></textarea>
+            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor"></textarea>
                 <input type="hidden" id="content" />
             </p>
      	      
             <p>	
-            	<input type="hidden" name="content_id" id="content_id" />
+            	<input type="hidden" name="news_id" id="news_id" />
                 <input type="hidden" name="user_id" id="user_id" />
-                <input type="hidden" name="modified_by" id="modified_by"  />
-                <input type="hidden" name="addContent" id="addContent" value="forms/content/list_content.php" />
+                <input type="hidden" name="addNews" id="addNews" value="forms/content/list_news.php" />
                 <button><?php echo $action; ?></button>
             </p>
             
         </fieldset>
     </form>
     
-    <?php if($action=="Update Content") : ?>
+    <?php if($action=="Update News") : ?>
     <section>
     	
-    	<p>This content was Authored by : <?php echo $user->printName(); ?> on <?php echo $content->displayDate($content->created_on); ?> and last Edited on <?php echo $content->displayDate($content->modified_on) ?></p>
+    	<p>This content was Authored by : <?php echo $u->printName(); ?> on <?php echo $news->displayDate($news->created_on); ?>
         
     </section>
     <?php endif; ?>

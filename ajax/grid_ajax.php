@@ -18,7 +18,7 @@
 		$classname = $_POST['table'];
 		$class = new $classname($_POST['primary_key']);
 		$class->deleteFromForm();
-		echo true;
+		return true;
 	} else if(isset($_POST['select'])) {
 		// select for column txn_id
 		if($_POST['col'] == "txn_id") {
@@ -68,6 +68,9 @@
 			case 'users':
 				users($grid->data);
 				break;
+			case 'news':
+				news($grid->data);
+				break;
 		}
 		
 		
@@ -100,6 +103,21 @@
 			$row['NPINumber'] = $users->NPINumber;
 			$row['company'] = $users->company;
 			$row['access'] = $users->accessDropDown($row['access'], $row['user_id']);
+		}
+	}
+	
+	function news(&$dataArray) {
+		global $grid;
+		
+			
+		foreach ($dataArray['rows'] as &$row) {
+			$news = new News($row['news_id']);
+			$users = new Users($row['user_id']);
+		
+			$row['user_id'] = $users->printName();
+			$row['published'] = $news->published($row['news_id']);
+			$row['created_on'] = $news->displayDate($row['created_on']);
+			$row['access'] = $news->accessDropDown($row['access'], $row['news_id']);
 		}
 	}
 

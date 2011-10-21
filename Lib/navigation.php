@@ -13,6 +13,7 @@
 		public $published;
 		public $link;
 		public $menu_id;
+		public $default_page;
 		
 		//Helpers
 		public $navigationList;
@@ -20,6 +21,7 @@
 		public $parentList;
 		public $content_id;
 		public $content_title;
+		
 		
 		 public function __construct($n_id="") {
 			 if (empty($n_id)) $n_id = $this->navigation_id;
@@ -75,11 +77,12 @@
 			global $error;
 			
 			$this->fillFromForm($post);
+			$oldPosition = 0;
 			
-			//Change Position
-			if ($this->position < 1) {
-				$oldPosition = $this->position - 1;
-			}
+			if ($this->navigation_id != false) {
+				$positionNav = new Navigation($this->navigation_id);
+				$oldPostion = $positionNav->position;
+			} 
 			
 			$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
 			
@@ -88,10 +91,12 @@
 			$saveNav = new Navigation($this->navigation_id);
 			
 			//IF save worked place the content together with the navigation
-			if ($saveNav->navigation_id != false) {
+			if ($saveNav->navigation_id != false && $post['content_id'] != false) {
 				$this->placeContent($post['content_id'], $this->navigation_id);
 				return true;
-			} else {
+			} else if ($saveNav->link) { 
+				return true;
+			}else  {
 				$error->addError('The information did not save.  Please report the error id: #Navigation1284');
 				return false;	
 			} 
@@ -104,6 +109,22 @@
 				return true;
 			} else {
 				$error->addError('the information did not save.  Please report the error id: #Navigation1564');	
+			}
+		}
+		
+		public function setDefault($n_id="") {
+			global $error;
+			global $db;
+			
+			if (empty($n_id)) $n_id = $this->navigation_id;
+			
+			$query1 = $db->query("UPDATE navigation SET default_page = 0");
+			$query2 = $db->query("UPDATE navigation SET default_page = 1 WHERE navigation_id = {$n_id}");
+			
+			if ($db->affectedRows() > 0) {
+				return true;	
+			} else {
+				$error->addError("Your defualt page could no be set.  Plase report the error id: #Navigation1568");
 			}
 		}
 
@@ -232,6 +253,19 @@
 			return $html;	
 		}
 
+	public function displayDefault($link) {
+		global $db;
+		
+		$html = '<a href="'.$link.' "id="'.$this->navigation_id.'" class="ninjaSymbol ninjaSymbolStar setDefault ';
+		
+		if ($this->default_page == 1) {
+			$html .= 'active';	
+		}
+		
+		$html .= '"></a>';
+		
+		return $html;
+	}
 
 /*  ===========================================
 	Redefined Methods
