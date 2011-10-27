@@ -64,6 +64,27 @@ if (isset($_POST['addNews'])) {
 	echo $_POST['addNews'];		
 }
 
+if (isset($_POST['changePassword'])) {
+	global $error;
+	
+	$u = new Users($_POST['user_id']);
+	
+	if ($u->changePassword($_POST['newPass'])) {
+		echo $_POST['changePassword'];
+	}
+		
+}
+
+if (isset($_POST['addAds'])) {
+	global $error;
+	if (isset($_POST['ad_id'])) $id = $_POST['ad_id'];
+	$ads = new Ads($id);
+	
+	$created = $ads->createAdsFromForm($_POST);
+	
+	echo $_POST['addAds'];	
+}
+
 ?>
 
 

@@ -16,6 +16,7 @@
 		public $content;
 		public $link_to;
 		public $modified_by;
+		public $searchable;
 		
 		//Helper Functions
 		public $objectList;
@@ -61,12 +62,14 @@
 		}
 		
 		$this->modified_on = date("Y-m-d h:i:s");
+		$this->searchable = strip_tags($_POST['content']);
+		
 		$content_id = $this->save($this->content_id);
 		 
 		if (isset($content_id)) {
 			
 		} else {
-			$error->addError('The information did not save.  Please report the error id: #Content1284');	
+			$error->addError('The information did not save.', 'Content1284');	
 		}
 	}
 	
@@ -79,7 +82,7 @@
 			if ($this->delete($this->content_id)) {
 				return true;
 			} else {
-				$error->addError('the information did not save.  Please report the error id: #Content1564');	
+				$error->addError('The information did not save.', 'Content1564');	
 			}
 	}
 	

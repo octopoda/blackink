@@ -7,9 +7,10 @@
 		public $function;
 		
 		
-		public function addError($string) {
+		public function addError($string, $id) {
 			$_SESSION['errors'][] = $string;
 			$_SESSION['indicator'] = 1;
+			$_SESSION['error_id'] = $id;
 		}
 		
 		public function addMessage($string) {
@@ -51,25 +52,92 @@
 		}
 		 
 		 
-		public function displayErrors() {
+		public function startError() {
+			$this->addError('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet ligula ut lorem malesuada accumsan non sed massa. Nam consectetur odio nec nisi porta et sodales metus bibendum. Proin placerat gravida lorem, in varius diam placerat vitae. Duis vestibulum eros eget ipsum convallis rhoncus. Aenean suscipit lectus blandit tellus venenatis fermentum. Sed eleifend suscipit augue ut feugiat. Sed laoreet dolor ut leo faucibus id facilisis sem gravida. Nulla facilisi. Cras nec molestie ligula. Quisque gravida posuere eros non cursus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur malesuada suscipit arcu, nec ultrices nibh dictum eget. Duis et purus et lorem tristique feugiat.', 'ER34980');	
+		}
+		
+		public function displayError() {
+			//Error
 			if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 1) {
-				$this->function = 
-				'$("#dialog").modal({ 
-						style: \'error\',
-						text: \''. $this->setupErrors() .'\',
-						reportError: true,
-						reportURL: \'forms/report_errors.php\'
-					});';
-			} else if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 2) {
-				$this->function = '$("#dialog").modal({ 
-						style: \'message\',
-						text: \''. $this->setupErrors() .'\',
-					});';
-			}
+				echo json_encode(array (
+					"style" => 'error',
+					"text" => $this->setupErrors(),
+					"reportError" => true
+				));	
 			
-			echo $this->function;
-			$html = '<script>'. $this->function .';</script>';
-			//echo $html;
+			
+			//Message
+			} else if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 2) {
+				echo json_encode(array (
+					"style"=> 'message',
+					"text"=> $this->setupErrors()
+				));
+			}
+		}
+		
+		public function reportError() {
+			global $db;
+			global $error;
+			
+			//Setup Mailer
+			$mail = new PHPMailer(true);
+			$mail->IsSMTP();
+			$mail->Host = EMAIL_HOST;
+			$mail->Username = REPORT_USER;
+			$mail->Password = REPORT_PASS;
+			$mail->port = EMAIL_PORT;
+			$mail->SMTPAuth   = true;
+				
+				
+			usleep(1000);
+			
+			$site = new Site();
+			
+			$users = new Users($_SESSION['user_id']);	
+			$toName = $users->printName(); 
+			$email = $users->email;
+			
+			if (!empty($_SESSION['error_id'])) $adminId = $_SESSION['error_id'];
+				
+			usleep(1000);
+			
+			if (empty($message) && empty($adminId)) {
+				$error->addError("There seems to be no error to report.", 'ER1254');
+				return;
+			}
+					
+			$subject = "Error Report from Black Ink and " . $site->siteName;
+					
+			$mailMessage =  
+			'<p>'. $toName . " is having issues with the registration system.</p>
+									
+			<p>The admin id given is: <br />
+			". $adminId ."</p>
+									
+			
+			<p>Their email is: <br />
+			" . $email . "</p>
+									
+			<p>Thanks, 
+			Me</p>";
+					
+			$mail->SMTPDebug  = 1;	
+			$mail->AddReplyTo($email, $toName);
+			$mail->AddAddress('zack@2721west.com', 'Black Ink Error');
+			$mail->SetFrom($email, $toName );
+			$mail->Subject = $subject;
+			$mail->Body = $mailMessage;
+			
+			$sent = $mail->Send();
+			 
+			
+			//Mail Sent Change Password
+			if ($sent) 
+				$error->addError("Your mail has been sent, an admin will return an email to you shortly.", '');
+			else
+				$error->addError("There seems to be a problem with the server sending an email. Please try again later.", '');
+					
+			return;	
 		}
 		
 		

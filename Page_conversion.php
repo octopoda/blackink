@@ -18,8 +18,26 @@
 		
 		$db->query($sql);	
 	} */
+
+
+
+
+
 	
+//Add Conversion
+	/*$sql = "SELECT * FROM ads";
+	$result = mysqli_query($innovation, $sql);
+	$nTimes = 0;
+	while($row = mysqli_fetch_array($result)) {
+		$content = $db->escapeString($row['detail']);
+		$summary = $db->escapeString($row['content']);	
+		
+		$sql = "INSERT INTO ads (title, published, position, user_id, placement, summary, content) VALUES ('".$row['title']."', 1, '".$nTimes."', 14, 3, '".$content."', '".$summary."')";
+		$db->query($sql);
+		$nTimes++;
+	}
 	
+	echo 'complete';*/
 
 
 //Navigation Content Conversion 
@@ -95,7 +113,7 @@
 	
 	
 //Navigation to Menu conversion
-		$sql = "SELECT navigation_id FROM navigation";
+		/*$sql = "SELECT navigation_id FROM navigation";
 		$result = $db->query($sql); 	
 		
 		while ($row = $db->fetchArray($result)) {
@@ -103,5 +121,21 @@
 			$db->query($sql);	
 		}
 		
-	echo "complete";
-	?>
+		echo "complete"; */
+		
+		
+		
+//Move Add Searchable Content
+		$result = $db->queryFill("SELECT content, content_id FROM content");
+		
+		if ($result != false) {
+			foreach ($result as $row) {
+				$id = $row['content_id'];
+				$searchable = strip_tags($row['content']);
+				$searchable = $db->escapeString($searchable);
+				$sql = "UPDATE content SET searchable = '{$searchable}' WHERE content_id = {$id}";
+				$db->query($sql);
+			}
+		}
+		
+?>

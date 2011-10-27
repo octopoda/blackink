@@ -210,6 +210,7 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 
 #dialog .gridContainer {position:relative; top:-40px;}
 #dialog .grid tr td {text-align:left;}
+.grid .moveArrows {position:relative; left:-15px; margin-top:-8px;}
 
 
 
@@ -363,7 +364,7 @@ button {
 .modal .text {font-size:14px; font-weight:bold; margin-bottom:50px;}
 
 .modal .text ul {margin:0px; padding:0px; }
-.modal .text ul li {list-style:none; margin:0px !important; width:100%; }
+.modal .text li {list-style:none; margin:0px !important; width:100%; }
 
 
 
@@ -397,8 +398,8 @@ button {
 .error .button:hover {border-top-color: #404040; background: #404040; color: #ccc;}
 .error .button:active {border-top-color: #242424; background: #242424;}
 
-.message.modal {color:#444;}
-.message {position:absoulte; top:0px; left:0px; width:100%; background:#99CFA4; text-align:left;}
+.message.modal {color:#FFF;}
+.message {position:fixed; bottom:20px; right:20px; background:rgba(0,0,0,0.7); text-align:left; width:300px; border-radius:0px 8px 0px 8px; }
 .message .text {margin:0px; padding:0px;}
 .message .close {display:none;}
 

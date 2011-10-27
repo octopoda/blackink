@@ -56,7 +56,7 @@
 		if (isset($news_id)) {
 			return true;
 		} else {
-			$error->addError('The information did not save.  Please report the error id: #News1284');	
+			$error->addError('The information did not save.', 'News1284');	
 		}
 	}
 	
@@ -69,7 +69,7 @@
 		if ($this->delete($this->news_id)) {
 			return true;
 		} else {
-			$error->addError('the information did not save.  Please report the error id: #News1564');	
+			$error->addError('the information did not save.' ,'News1564');	
 		}
 	}
 	

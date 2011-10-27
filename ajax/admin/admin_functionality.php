@@ -128,21 +128,36 @@ if (isset($_POST['menuChange'])) {
 		
 }
 
-//Change the prent
+//Change the parent
 if (isset($_POST['parentChange'])) {
 	$navigation = new Navigation();
 	echo $navigation->positionDropDown($_POST['menu_id'], $_POST['parent_id']);
-}	
-
-//Report Errors to admin
-if (isset($_POST['adminConnect'])) {
-		
-	if (contactAdmin($_POST)) {
-		echo 'forms/report_errors.php';
-	}
 }
 
+//Check 
+if (isset($_POST['checkPassword'])) {
+	$usr = new Users($_POST['id']);
+	$usr->checkPassword($_POST['checkPassword']);
+}
+	
 
+//Report Errors to admin
+if (isset($_POST['reportError'])) {
+	global $error;
+	
+	if ($error->reportError()) {
+		echo 'hello';	
+	};	
+}
+
+if (isset($_POST['addError'])) {
+	global $error;
+	
+	if ($_POST['type'] == 'error')
+		$error->addError($_POST['addError']);	
+	else if ($_POST['type'] == 'message')
+		$error->addMessage($_POST['addError']);
+}
 
 //Close Error Box and Remove Errors From Session
 if (isset($_POST['closeError'])) {
@@ -151,11 +166,16 @@ if (isset($_POST['closeError'])) {
 	return true;	
 }
 
+
+
 //Get errors from Class
 if (isset($_POST['errorPlacement'])) {
 	global $error;	
 	
-	if ($error->errorsLoaded()) echo $error->displayErrors();
+	//$error->startError();
+	if ($error->errorsLoaded()) {
+		echo $error->displayError();
+	}
 }
 
 ?>

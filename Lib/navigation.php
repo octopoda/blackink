@@ -97,7 +97,7 @@
 			} else if ($saveNav->link) { 
 				return true;
 			}else  {
-				$error->addError('The information did not save.  Please report the error id: #Navigation1284');
+				$error->addError('The information did not save.', 'Navigation1284');
 				return false;	
 			} 
 		}
@@ -108,7 +108,7 @@
 			if ($this->delete($this->navigation_id)) {
 				return true;
 			} else {
-				$error->addError('the information did not save.  Please report the error id: #Navigation1564');	
+				$error->addError('the information did not save.', 'Navigation1564');	
 			}
 		}
 		
@@ -124,7 +124,7 @@
 			if ($db->affectedRows() > 0) {
 				return true;	
 			} else {
-				$error->addError("Your defualt page could no be set.  Plase report the error id: #Navigation1568");
+				$error->addError("Your defualt page could no be set.", 'Navigation1568');
 			}
 		}
 
@@ -153,7 +153,7 @@
 				if ($db->affectedRows() > 0) {
 					return true;
 				} else {
-					$error->addError('I could not add Content to your navigation.  Plase report the error id: #Navigation2654');	
+					$error->addError('I could not add Content to your navigation.', 'Navigation2654');	
 				}
 		}
 		

@@ -80,7 +80,7 @@
 					$this->address_id = $row['address_id'];
 				}	
 			} else {
-				$error->addError('This user has no address entered in the database.');	
+				$error->addError('This user has no address entered in the database.', 'User5746');	
 			}
 		}
 		
@@ -94,7 +94,7 @@
 					$this->phone_id[] = $row['phone_id'];
 				}	
 			} else {
-				$error->addError('This user has no Phone entered in the database.');	
+				$error->addError('This user has no Phone entered in the database.', 'User9876');	
 			}
 		}
 		
@@ -169,7 +169,7 @@
 			Phones::save($post,  $u_id);
 			
 			if ($u_id == NULL || $a_id == NULL ) {
-				$error->addError("The user was not created please report Error #USER10974");	
+				$error->addError("The user was not created.", 'User10974');	
 			}
 		}
 		
@@ -195,25 +195,29 @@
 	Change Password Methods
    ===================================== */		
    		
-		public function savePasswordForForm() {
-				if (strlen($this->password) != 32) $this->password = md5($this->password);
-				return $this->user_id = $this->save($this->user_id);
-		}
-		
-		
-		public function changePassword($pw_1, $pw_2) {
+		public function changePassword($pw) {
 				global $error;
 				
-				if (md5($pw_1) == $this->password) {
-					$this->password = md5($pw_2); 
-					$this->saveForForm();
-				} else {
-					echo "Your original password did not match our records";
-					return false;	
-				}
+				if (strlen($pw) != 32) $this->password = md5($pw);
 				
+				$this->user_id = $this->save($this->user_id);
+				
+				if ($this->user_id == false) {
+					$error->addError('Your password was not saved.', 'user1342');
+					return false;
+				}
+				$error->addMessage($this->printName() .'\'s password has been changed.');
 				return true;
 		}
+		
+		public function checkPassword($pw) {
+			if (md5($pw) != $this->password) 
+				echo "The Password entered does not match our files.";	
+			 
+		}
+		
+		
+		
 
 
 /* =======================================

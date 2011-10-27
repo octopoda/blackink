@@ -17,6 +17,8 @@
 			$this->mainNav[] = $this->listNav('Navigation', 'forms/navigation/navigation.php', 0);
 			$this->mainNav[] = $this->listNav('Content', 'forms/content/list_content.php', 0);
 			$this->mainNav[] = $this->listNav('Users', 'forms/users/list_users.php', 0); 
+			$this->mainNav[] = $this->listNav('Media', 'forms/media/media.php', 0);
+			//$this->mainNav[] = $this->listNav('Applications', 'forms/applications/', 0); 
 			
 			return $this->mainNav;	
 		}
@@ -40,7 +42,7 @@
 					$tabs[] = $this->listNav('List Content', 'forms/content/list_content.php', 1);
 					$tabs[] = $this->listNav('Add Content', 'forms/content/form_content.php', 1);
 					$tabs[] = $this->listNav('News', 'forms/content/list_news.php', 1);
-					//$tabs[] = $this->listNav('Ads', 'forms/content/form_content.php', 1);
+					$tabs[] = $this->listNav('Advertisments', 'forms/content/list_ads.php', 1);
 					break;
 					
 				case 'Users':
@@ -48,6 +50,13 @@
 					$tabs[] = $this->listNav('Add User', 'forms/users/form_users.php', 1);
 					$tabs[] = $this->listNav('Change Password', 'forms/users/change_password.php', 1);
 					break;
+				
+				case 'Media':
+					$tabs[] = $this->listNav('Your Media', 'forms/users/list_media.php', 1);
+					$tabs[] = $this->listNav('Upload Media', 'forms/users/form_media.php', 1);
+					break;
+				
+				
 			}
 			
 			return $tabs;

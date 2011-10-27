@@ -41,7 +41,7 @@
 			  'name'=>"CONCAT(users.first,' ', users.last )",
 			);
 			
-		}
+		} 
 		
 		$grid->load();
 	
@@ -70,6 +70,9 @@
 				break;
 			case 'news':
 				news($grid->data);
+				break;
+			case 'ads':
+				ads($grid->data);
 				break;
 		}
 		
@@ -118,6 +121,21 @@
 			$row['published'] = $news->published($row['news_id']);
 			$row['created_on'] = $news->displayDate($row['created_on']);
 			$row['access'] = $news->accessDropDown($row['access'], $row['news_id']);
+		}
+	}
+	
+	function ads(&$dataArray) {
+		global $grid;
+		
+		foreach($dataArray['rows'] as &$row) {
+			$ads = new Ads($row['ad_id']);
+			$users = new Users($row['user_id']);
+			
+			$row['user_id'] = $users->printName();
+			$row['published'] = $ads->published($row['ad_id']);
+			$row['position'] = $ads->moveArrows($row['ad_id'], $ads->position, 'forms/content/list_ads.php');			
+			$row['placement'] = $ads->humanPlacment;
+				 
 		}
 	}
 

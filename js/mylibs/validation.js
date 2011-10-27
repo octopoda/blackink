@@ -34,6 +34,9 @@
 	$('.equalTo').live('focus', function () { clearPaint($(this)); });
 	$('.equalTo').live('focusout', function () { if (equalTo($(this).val(), $(this))) cssPaint ($(this)); });
 	
+	$('.checkPassword').live('focus', function (e) { clearPaint($(this));});
+	$('.checkPassword').live('focusout', function () { checkPassword($(this).val(), $(this).attr('sel'), $(this)) });
+	
 	$('.ac_input').live('focus', function () { clearPaint($(this)); });
 	
 	$('.isChecked').live('click', function () { clearPaint($(this)); $('.message').html('')});
@@ -97,6 +100,24 @@
 		
 		return false
 	}
+	
+	//Check to see if Valid Password
+	function checkPassword (value, id, object) {
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: { 'id': id, 'checkPassword': value},
+			success: function (data) {
+				//$('.data').html(data);
+				if (data != false) {
+					$message = data
+					cssPaint(object);
+				} 
+			}	
+		});
+	}
+	
+	
 	
 	//Numeric Values Only
 	function numeric(value){
@@ -324,9 +345,7 @@
 	}
 	
 //	
-function disable (form) {
-		
-}
+
 	
 	
 function validate(form) {
@@ -337,6 +356,7 @@ function validate(form) {
 		var $this 		= $(this);
 		var $class   	= $this.attr('class');
 		var $value		= $this.val();
+		var $id 		= $this.attr('sel');
 		
 		
 		switch ($class) {
@@ -363,6 +383,9 @@ function validate(form) {
 				break;
 			case 'equalTo':
 				if (equalTo($value, $this)) {cssPaint ($this)} ;
+				break;
+			case 'checkPassword':
+				if (checkPassword($value, $id)) {cssPaint ($this)} ;
 				break;
 			case 'isChecked':
 				if (isChecked($this.attr('checked'))) {

@@ -1,7 +1,4 @@
 <?php
-    // MODIFIED 1/5/11 - MCJ
-	// Add Section for Zack to use localhost 1/6/11
-    
     // Modify this for environment
 	defined('SERVER') ? null : define('SERVER', "dev");
 	global $siteURL;
@@ -24,13 +21,13 @@
 		define('MAIL_PATH', CLASS_PATH.DS. 'mailer');
 		
 		//SMTP
-		define('EMAIL_HOST', '');
-		define('EMAIL_USER', '');
-		define('EMAIL_PASS', '');
+		define('EMAIL_HOST', 'mail.2721west.com');
+		define('EMAIL_USER', 'zack@2721west.com');
+		define('EMAIL_PASS', '!@34QWermail');
 		define('EMAIL_PORT', 26);
 	
-		define("REPORT_USER", '');
-		define("REPORT_PASS", '');
+		define("REPORT_USER", 'zack@2721west.com');
+		define("REPORT_PASS", '!@34QWermail');
 	
 	
 	

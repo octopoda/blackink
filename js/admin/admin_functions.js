@@ -3,9 +3,7 @@
 /* ===========================================
 	Redirection  Methods
    =========================================*/		
-
- 
- 
+    
 	//Redirect Main Content
   	function redirectTo($string) {
 		findTab($string);
@@ -13,7 +11,8 @@
 		$.ajax({
 			url: $string,
 			success: function(data) {
-				$('#content').html(data);				
+				getErrors();
+				$('#content').html(data);
 			},
 			error:function(xhr, status, errorThrown) { 
             	alert('The Page' + $string +'was not Found'); 
@@ -43,7 +42,8 @@
 					url: $href,
 					success: function (data) {
 						if (data != null) {
-							$('#content').html(data)	
+							$('#content').html(data)
+							getErrors();	
 						} else {
 							$('#content').html('I looked for your file but it is not there.')	
 						}
@@ -54,7 +54,7 @@
 				
 			},
 			error: function (xhr, textStatus, errThrown) {
-				modalError('Error: Please report error ID AJ3129 to Error Reporting');	
+				postError('Error', 'Please report error ID AJ3129 to Error Reporting');	
 			}
 		});
 		
@@ -73,10 +73,11 @@
 			url: $href,
 			type: 'POST',
 			success: function (data) {
+				getErrors();
 				$('#content').html(data);
 			},
 			error: function (xhr, textStatus, errThrown) {
-				alert('Error: Please report error ID MNB129 to Error Reporting');
+				postError('error', 'Please report error ID MNB129 to Error Reporting');
 			}
 		});
 	})
@@ -98,6 +99,8 @@
 			}
 		})	
 	}
+	
+	
 	
 	$('.redirect').live('click', function (e) {
 		e.preventDefault();
@@ -262,15 +265,13 @@
 	
 	
 	//Delete Buttons
-	 
 	$('.delete').live('click', function (e) {
 		e.preventDefault();
-		
-		//if ($(this).parent('td').attr('col') == X) {return false};
 		
 		if (!confirm("You are about to delete this item. Is this what you want to do?")) {
 			return false;
 		}
+		
 		$class = $(this).attr('id');
 		$id = $(this).attr('sel');
 		$href = $(this).attr('href');
@@ -283,13 +284,58 @@
 				//$('.data').html(data);
 				redirectTo(data);
 			}
-			
-			})
-			
+		});
 	});
 	
 	
+/* ===========================================
+	Error Methods
+   =========================================*/	
 	
+	function getErrors() {
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: { 'errorPlacement': 1},
+			dataType: 'json',
+			success: function (data) {
+				//$('.data').html(data);
+				$('#dialog').modal({
+					style: data.style,	
+					text: data.text,
+					reportError: data.reportError,
+				});
+			}
+		})	
+	}
+	
+	function postError(type, text) {
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: { 'addError': text, 'type': type},
+			success: function (data) {
+				getErrors();	
+			}
+		});	
+	}
+	
+	
+	$('.reportError').live('click', function (e) {
+		e.preventDefault();
+		
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: {'reportError': 1},
+			onSubmit: $(this).html('...loading'),
+			success: function (data) {
+				$('.modal .close').click();
+				//$('.data').html(data);
+				postError('message', 'Your error has been reported.  Please give 3-4 business days for the error to be fixed.');	
+			}
+		});	
+	});
 
 /* ===========================================
 	Form Submitting
@@ -326,8 +372,8 @@
 			data: $datastring,
 			beforeSubmit: $('.data').html('loading....'),
 			success: function (data) {
-				$('.data').html('data '+ data);
-				//redirectTo(data);
+				//$('.data').html('data '+ data);
+				redirectTo(data);
 			},
 			error: function(xhr, textStatus, errThrown) {
                 $('.data').html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');

@@ -24,10 +24,10 @@
 		
 	//Load Modal based on Style
 		if (defaults.style == 'error') {
-			$object.html('<p class="text">'+ defaults.text +'</p>'); //Add Text tag to Modal
+			$object.html(defaults.text); //Add Text tag to Modal
 			modalError(); //Load Modal as an Error
 		} else if (defaults.style == 'message') {
-			$object.html('<p class="text">'+ defaults.text +'</p>'); //Add Text tag to Modal
+			$object.html(defaults.text); //Add Text tag to Modal
 			$placement = 'top';
 			modalMessage(); //Load Modal as an Message
 		} else if (defaults.style == 'html') {
@@ -46,7 +46,7 @@
 			
 			//If Default option to report Error is true print report error button
 			if (defaults.reportError == true) {
-				$object.children('.text').after('<a class="reportError button" href="'+ defaults.reportURL +'">Report Error</a>');
+				$object.children('.text').after('<a class="reportError button">Report Error</a>');
 			}
 			modal(); //Show Modal
 		}
@@ -60,9 +60,10 @@
 			$object.addClass('modal');
 			
 			modal(); //Load Modal
-			$(this).delay(3000).slideDown(200, function () {
+			
+			$object.delay(3000).fadeOut(200, function () {
 				clearModal();	
-			})
+			});
 		}
 		
 		
@@ -119,13 +120,11 @@
 				})
 				
 				$object.children('.text').before('<a class="close"></a>');
-			}
+			} 
 			
-			$object.addClass('modal');
-
-
 			//transition effect
 			$object.fadeIn(1000); 
+			
 		}
 		
 		//Click of the close button.  Clear modal and run callback function
@@ -142,8 +141,6 @@
 		
 		//Clear the modal and remove all classes
 		function clearModal() {
-			
-			
 			//Send Ajax to clear modal
 			$.ajax({
 				url: '/ajax/admin/admin_functionality.php',

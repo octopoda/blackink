@@ -55,7 +55,7 @@
 			if ($this->save($this->menu_id)) {	
 				return true;	
 			} else {
-				$error->addError('the information did not save.  Please report the error id: #Menu1284');
+				$error->addError('The information did not save.', 'Menu1284');
 				return false;	
 			}	
 		}
@@ -67,7 +67,7 @@
 			if ($this->delete($this->menu_id)) {
 				return true;	
 			} else {
-				$error->addError('the information did not save.  Please report the error id: #Menu1564');	
+				$error->addError('The information did not save.', 'Menu1564');	
 			}
 		}
 		

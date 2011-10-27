@@ -26,7 +26,7 @@
 				$error->addMessage('Your Site has been saved');	
 				return true;	
 			} else {
-				$error->addError('the information did not save.  Please report the error id: #SITE1248');
+				$error->addError('The information did not save.', 'Site1248');
 				return false;	
 			}
 			

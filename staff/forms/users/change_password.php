@@ -3,41 +3,38 @@
 	
 	if (!empty($_GET['sel'])) {
 		$u = new users($_GET['sel']);	
-		$action = "Change Password";	
+		$action = 1;	
 		
 	} else {
-		$u = new users();
-		$content = new Content();
-		$action = "Change Password";	
+		$u = new users($users->user_id);
+		$action = 2;	
 	}
 	
-	$phones = new Phones($u->user_id);
-	$address = new Address($u->address_id);
-	
 	echo $u->pushToForm();
-	echo $address->pushToForm();
 	
 ?>
 
 
-<h3>Change Password</h3>
+<h3>Change Password for <?php echo $u->printName(); ?></h3>
 
-<form id="formUpdate" method="POST" class="validate">
+<form id="formUpdate" method="POST" >
+    <?php if ($action == "2") : ?>
     <fieldset class="step">
         <legend>Original Password</legend>
         <p>
              <label for="origPass">Password</label>
-             <input id="origPass" name="origPass" type="password" class="required" sel="<?php echo $u->user_id ?>" title="camper" />
-             <input type="hidden" name="camper_id" value="<?php echo $u->user_id ?>">
+             <input id="origPass" name="origPass" type="password" class="checkPassword" sel="<?php echo $u->user_id ?>" />
+             
         </p>
     </fieldset>
-    
+    <?php endif; ?>
     
     <fieldset class="step">
         <legend>New Password</legend>
         <p>
             <label for ="newPass">New Password</label>
             <input id="newPass" name="newPass" type="password" class="required" />
+            
         </p>
         <p>
             <label for ="verifyPass">Verify Password</label>
@@ -52,8 +49,9 @@
             is missing data or filled out with invalid data.
         </p>
         <p class="submit">
-           <input type="hidden" name="camperPassword" value="1"  />
-           <button id="confirmButton" type="submit"><?php echo $action; ?></button>
+        	<input type="hidden" name="user_id" value="<?php echo $u->user_id ?>">
+           <input type="hidden" name="changePassword" value="forms/users/info_users.php?sel=<?php echo $u->user_id; ?>"  />
+           <button type="submit"><?php echo "Change Password"; ?></button>
         </p>
     </fieldset>
 </form>
