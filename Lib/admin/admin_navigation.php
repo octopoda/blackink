@@ -52,8 +52,8 @@
 					break;
 				
 				case 'Media':
-					$tabs[] = $this->listNav('Your Media', 'forms/users/list_media.php', 1);
-					$tabs[] = $this->listNav('Upload Media', 'forms/users/form_media.php', 1);
+					$tabs[] = $this->listNav('Your Media', 'forms/media/media.php', 1);
+					$tabs[] = $this->listNav('Upload Media', 'forms/media/upload.php', 1);
 					break;
 				
 				

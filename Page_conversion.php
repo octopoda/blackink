@@ -126,7 +126,7 @@
 		
 		
 //Move Add Searchable Content
-		$result = $db->queryFill("SELECT content, content_id FROM content");
+		/*$result = $db->queryFill("SELECT content, content_id FROM content");
 		
 		if ($result != false) {
 			foreach ($result as $row) {
@@ -136,6 +136,29 @@
 				$sql = "UPDATE content SET searchable = '{$searchable}' WHERE content_id = {$id}";
 				$db->query($sql);
 			}
-		}
+		}*/
+
+
+//Add Guid to Users
+		/* $result = $db->queryFill("SELECT user_id FROM users");
+		
+		if ($result != false) {
+			foreach ($result as $row) {
+				$guid = uniqid('', true);
+				$db->query("UPDATE users SET guid = '{$guid}' WHERE user_id = ".$row['user_id']);	
+			}
+		} */
+
+
+//Add Media to Database
+	$sql = "SELECT * FROM uploads";
+	$result = mysqli_query($innovation, $sql);
+	
+	while($row = mysqli_fetch_array($result)) {
+		$file_name = str_replace("_", " ", $row['file_name']);
+		$file_link = '/files/uploads/'. $row['file_name'];
+		$sql = "INSERT INTO media (file_name, file_link) VALUES ('{$file_name}', '{$file_link}')";
+		$db->query($sql);
+	}
 		
 ?>

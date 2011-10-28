@@ -11,6 +11,7 @@
 		public $siteDescription;
 		public $googleCode;
 		public $keywords;
+		public $siteURL;
 		
         public function __construct() {
             $result = $this->fetchById(1); 

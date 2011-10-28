@@ -7,10 +7,10 @@
 		public $function;
 		
 		
-		public function addError($string, $id) {
+		public function addError($string, $id="") {
 			$_SESSION['errors'][] = $string;
 			$_SESSION['indicator'] = 1;
-			$_SESSION['error_id'] = $id;
+			if (!empty($id)) $_SESSION['error_id'] = $id;
 		}
 		
 		public function addMessage($string) {

@@ -4,13 +4,14 @@
 	$nav = new AdminNavigation();
 	
 	if (!isset($_SESSION['user_id'])) redirect('login.php');
+	$site = new Site();
 ?>
 
 <section id="siteWrapper">
     <header class="clearfix row">
        <hgroup>
-           <h1>Black Ink</h1>
-           <h2>Small Business Content Management System</h2>
+           <h1><?php echo $site->siteName; ?></h1>
+           <h2>Black Ink Content Management System</h2>
        </hgroup>
        
        <!-- Quick Navigation and search  -->

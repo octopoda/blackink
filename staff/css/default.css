@@ -18,10 +18,9 @@ body, button, input, select, textarea { font-family: 'abel', helvetica, san-seri
 /* =============================================================================
    Links
    ========================================================================== */
-
-a { color: #CCC; text-decoration:none;}
-a:visited { color: #551a8b; }
-a:hover { color: #06e; }
+a {text-decoration:none}
+a:link, a:visited { color: #CB0202; }
+a:hover { color: #000; }
 a:focus { outline: thin dotted; }
 
 a:hover, a:active { outline: 0; }

@@ -197,6 +197,9 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .delete:hover, .deleteGrid  {color:#731115}
 #navigation.delete {background:none; color:#444}
 
+.extensionsList {margin:0;}
+.extensionsList li{list-style:none; float:left; margin-left:0px; margin-right:10px; font-weight:bold; font-size:16px;}
+.uploadButton {clear:both; margin-top:80px;}
 
 /* =============================
 	Forms
@@ -211,7 +214,9 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 #dialog .gridContainer {position:relative; top:-40px;}
 #dialog .grid tr td {text-align:left;}
 .grid .moveArrows {position:relative; left:-15px; margin-top:-8px;}
+.gridSearch input  {color:#000;}
 
+.placeholder {color: #aaa;}
 
 
 
@@ -420,3 +425,13 @@ input.hasError {background:#CB0202 !important; color:#FFF !important;}
 .login div form {background:#FFF; width:60%; padding:20px; border-radius:5px 5px 5px 5px; box-shadow: 5px 5px 20px #999;}
 .login nav {margin-top:20px;}
 .login div form legend {display:none;}
+
+
+
+
+
+/* =============================
+	Footer
+	===========================*/
+
+.bottomNav {margin-right:30px;}

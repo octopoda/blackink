@@ -1,27 +1,14 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php'); 
 	
-	if (isset($_GET['sel'])) {
-		
-	} else {
-		
-	}
-	
 	$link = 'forms/dashboard.php';
-	
 	$form_action = 'Contact Admin';
     $user = new Users($_SESSION['user_id']);
 	echo $user->pushToForm();
 ?>
-<p><?php if (isset($_SESSION['error'])) echo $_SESSION['error'] ?></p>
-<form id="reportErrors" action="/ajax/ajax_form_submit.php" method="POST">
-    <fieldset class="step">
-        <legend>Are you experiencing Problems?</legend>
-        <p>
-             <label for="adminId">Admin ID Given with Error:</label>
-             <input id="adminId" name="adminId" type="text" />
-        </p>
-    </fieldset>
+
+<h3>Report Errors</h3>
+<form id="formUpdate"  method="POST">
     <fieldset class="step">
         <legend>Your Information</legend>
         <p>
@@ -36,8 +23,11 @@
             <label for ="email">email</label>
             <input id="email" name="email" type="text" class="email" />
         </p>
+      </fieldset>
+      <fieldset>
+      	<legend>What Problems Are You Experiencing?</legend>  
         <p>
-        	<label for="message">Message</label>
+        	<label for="message">Problem  (please explain step by step)</label>
             <textarea rows="20" cols="40" placeholder="How did you get the Error?" name="message" id="message"></textarea>
         </p>
     </fieldset>
@@ -48,7 +38,7 @@
             is missing data or filled out with invalid data.
         </p>
         <p class="submit">
-           <input type="hidden" name="adminConnect" id="adminConnect" value="1" class="camper_password"  />
+           <input type="hidden" name="reportError" id="ReportError" value="1"  />
            <button id="confirmButton" type="submit"><?php echo $form_action; ?></button>
         </p>
     </fieldset>

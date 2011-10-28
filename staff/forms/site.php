@@ -11,8 +11,13 @@
 	<fieldset>
         <p>
             <label for="siteName">Site Name (required)</label>
-            <input type="text" name="siteName" id="siteName" autofocus required  />
+            <input type="text" name="siteName" id="siteName" autofocus class="required" />
             <input type="hidden" name="site_id" id="site_id" value="1" />
+        </p>
+        
+        <p>
+            <label for="siteURL">Site URL (required)</label>
+            <input type="text" name="siteURL" id="siteURL" class="required" />
         </p>
         
         <p>

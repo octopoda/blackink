@@ -25,9 +25,7 @@
     }
 
 
-	if (isset($_POST['forgot'])) {
-		$msg = forgotPassword($_POST['forgot_email'], "camper");	
-	}
+	
 
 
 ?>
@@ -60,7 +58,7 @@
     </form>
     <nav>
     	<ul>
-    		<li><a href="">Forgot Password</a></li>
+    		<li><a href="/forgot_password.php">Forgot Password</a></li>
     	</ul>
     </nav>
     

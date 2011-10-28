@@ -5,8 +5,9 @@
 		curPageURL();
 		if ($pageTitle != 'Login')
 		echo '<ul class="bottomNav">
-			<li><a href="forms/report_errors.php" class="report">Report Errors</a></li>
+			<li><a href="forms/report_errors.php" class="redirect">Report Errors</a></li>
         	<li><a href="logout.php">Logout</a></li>
+			<li>Black Ink CMS System ::</li>
         	<li>&copy 2010 - '.date('Y') .' Octopoda Inc.  All Rights Reserved.</li>
 		</ul>'
 	?>

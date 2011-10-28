@@ -16,6 +16,7 @@
 		public $company;
 		public $NPINumber;
         public $loggedIn = false;
+		public $guid;
 		
 		//Helpers
 		public $access;
@@ -98,6 +99,20 @@
 			}
 		}
 		
+		static function getUsersFromGuid($g_id) {
+			global $db;
+			
+			$result_set = $db->queryFill("SELECT user_id FROM users WHERE guid = '{$g_id}'");
+			
+			if ($result_set != false) {
+				foreach ($result_set as $row) {
+					return $row['user_id'];	
+				}
+			} else {
+				return false;
+			}
+		}
+		
 /* =======================================
 	Authentication Methods
    ===================================== */
@@ -152,6 +167,7 @@
 			//Create User return ID
 			$this->fillFromForm($post);
 			$this->password = md5($this->password);
+			$this->guid = uniqid('', true);
 			$u_id = $this->save($this->user_id);
 			echo $u_id;
 			
@@ -215,6 +231,74 @@
 				echo "The Password entered does not match our files.";	
 			 
 		}
+		
+		
+		public function forgotPassword($email) {
+			global $db;
+			global $error;
+			
+			$err = NULL;
+
+			
+			$result = $db->queryFill("SELECT * FROM users WHERE email = '{$email}' LIMIT 1");
+			$site = new Site();
+			
+			if (empty($result)) {
+				$error->addError("Sorry that email is not on file");
+				$err[] = 1;
+			} else {
+				$result = array_shift($result);
+				$first =  $result['first'];
+				$last = $result['last'];
+				$guid = $result['guid'];
+			}
+		
+			if (empty($err)) {
+				usleep(1000);
+				$link = 'http://' . $site->siteURL . 'forgot_password.php?gi=' . $guid;	
+				$subject = $site->siteName . " - Forgot password";
+				$mailMessage =  
+					"<p>You requested a new password from ".$site->siteName.".</p>
+					 <p>Please click, or copy and paste into your broswer, the following link.  You will be directed to a page in 
+					 order to change your password. </p>
+					 
+					 <p><a href=\"".$link ."\"></a>".$link."</p>  
+					
+					 <p>Thanks,</p>
+					 
+					 <p>". $site->siteName." Support</p>";			 			
+
+				
+				
+				$mail = new PHPMailer(true);
+				$mail->IsSMTP();
+				
+				$mail->Host = EMAIL_HOST;
+				$mail->Username = EMAIL_USER;
+				$mail->Password = EMAIL_PASS;
+				$mail->Port = 25;
+				$mail->SMTPAuth   = true; 
+				
+				
+				//$mail->SMTPDebug  = 1;  
+				$mail->AddReplyTo('noreply@'.$site->siteURL,  $site->siteName . ' - No Reply');
+				$mail->AddAddress($email, $first . $last);
+				$mail->SetFrom('noreply@'.$site->siteURL, $site->siteName.' - No Reply' );
+				$mail->Subject = $subject;
+				$mail->Body = $mailMessage;
+				
+				$sent = $mail->Send();
+				
+				//Mail Sent Change Password
+				if ($sent) {
+					$error->addMessage('An email has been sent to our email on file.');
+				} else {
+					$error->addError('There was a problem sending to your email address', 'u9875');
+				}
+				
+			}
+		}
+	
 		
 		
 		
