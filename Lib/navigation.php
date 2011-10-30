@@ -16,7 +16,7 @@
 		public $default_page;
 		
 		//Helpers
-		public $navigationList;
+		public $itemList;
 		public $subNavList;
 		public $parentList;
 		public $content_id;
@@ -58,14 +58,21 @@
 /*  ===========================================
 	Display Methods
 	========================================= */	
-		//Create Main Navigation
+	
+	static function defaultNavigation() {
+		global $db;
 		
+		$result = $db->queryFill("SELECT navigation_id FROM navigation WHERE default_page = 1");
 		
-		//Create Dropdowns
-		
-		//Attach Navigation to Content
-		
-		//Display Navigtion 	
+		if ($result != false) {
+			foreach ($result as $row) {
+				$navigation = new Navigation($row['navigation_id']);
+				return $navigation->content_id;	
+			}
+		} else {
+			return false;	
+		}
+	}
 	
 
 /*  ===========================================
@@ -86,15 +93,21 @@
 			
 			$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
 			
+			//Set Link
+			if (empty($_POST['link'])) {
+				$this->link = "";	
+			}
+			
 			//Save
 			$this->navigation_id = $this->save($this->navigation_id);
 			$saveNav = new Navigation($this->navigation_id);
 			
 			//IF save worked place the content together with the navigation
-			if ($saveNav->navigation_id != false && $post['content_id'] != false) {
+			if ($saveNav->navigation_id != false && $post['content_id'] != false && $saveNav->link == "") {
 				$this->placeContent($post['content_id'], $this->navigation_id);
-				return true;
-			} else if ($saveNav->link) { 
+				$error->addMessage('Navigation was saved');
+			} else if ($saveNav->link != "") { 
+				$error->addMessage('Navigation was saved');
 				return true;
 			}else  {
 				$error->addError('The information did not save.', 'Navigation1284');
@@ -106,7 +119,7 @@
 			global $error;
 			
 			if ($this->delete($this->navigation_id)) {
-				return true;
+				$error->addMessage("Navigation was deleted");
 			} else {
 				$error->addError('the information did not save.', 'Navigation1564');	
 			}
@@ -119,7 +132,7 @@
 			if (empty($n_id)) $n_id = $this->navigation_id;
 			
 			$query1 = $db->query("UPDATE navigation SET default_page = 0");
-			$query2 = $db->query("UPDATE navigation SET default_page = 1 WHERE navigation_id = {$n_id}");
+			$query2 = $db->query("UPDATE navigation SET default_page = 1, access = 1, published = 1 WHERE navigation_id = {$n_id}");
 			
 			if ($db->affectedRows() > 0) {
 				return true;	
@@ -149,17 +162,18 @@
 				}
 				
 				$db->query($sql);
+				$created = $db->queryFill("SELECT content_id FROM navigationForContent WHERE navigation_id = {$navigation_id}");
 				
-				if ($db->affectedRows() > 0) {
-					return true;
+				if ($created != false) {
+					return true;	
 				} else {
-					$error->addError('I could not add Content to your navigation.', 'Navigation2654');	
+					$error->addError('The content was not added.', 'Navigation2654');	
 				}
 		}
 		
 	
 		//List Navigation for Menus
-		function listNav($menu_id) {
+		public function listNav($menu_id) {
 			global $db;
 			global $error;
 			

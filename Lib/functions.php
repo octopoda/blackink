@@ -64,41 +64,7 @@
 		 
 	}
 	
-	
-	
-	function getTitle($pageTitle) {
-		
-		switch ($pageTitle) {
-					case 'About Cadence':
-						echo "About Cadence General Contracting Services LLC.";
-						break;
-					case 'current':
-						echo "Current Contractor Project";
-						break;
-					case 'complete':
-						$html = "Cadence's Complete Projects "; 
-						if (!empty($pageTitle)) $html.= " :: " . $pageTitle . ' Project';
-						echo $html;
-						break;
-					case 'Testimonials':
-						echo "Our top testimonials";
-						break;
-					case 'Our Services':
-						echo "Our General Contracting Services";
-						break;
-					case 'Our Process':
-						echo "Cadence Step by Step Processes";
-						break;
-					case 'Contact Cadence':
-						echo "Contact Cadence";
-						break;
-					default:
-						echo "General Contractor for Coppell, Southlake, Colleyville, Keller, Texas";
-						break;	
-				}	
-		
-	}
-	
+
 	function scriptIncludes () {
 		$html = '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>';
         $html .= '<script type="text/javascript" src="../scripts/validation.js"></script>';

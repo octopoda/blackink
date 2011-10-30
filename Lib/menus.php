@@ -38,7 +38,21 @@
 			}
 		}
 		
+/*  ===========================================
+	Display Methods
+	========================================= */
 		
+	static function menuFromName($name) {
+		global $db;
+		
+		$result_id = $db->queryFill("SELECT menu_id FROM menus WHERE menu_name = '{$name}'");
+		
+		if ($result_id != false) {
+			foreach ($result_id as $result) {
+				return $result['menu_id'];	
+			}
+		}
+	}
 		
 		
 /*  ===========================================

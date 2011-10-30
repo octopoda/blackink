@@ -32,6 +32,22 @@
 	Build/Helper Methods 
 	==================================== */	 
 	
+	static function contentFromTitle($title) {
+		global $db;
+		global $error;
+		
+		$result = $db->queryFill("SELECT content_id FROM content WHERE title = '{$title}'");
+		
+		if ($result != false) {
+			foreach ($result as $row) {
+				return $row['content_id'];	
+			}
+		} else {
+			return false;	
+		}
+	}
+	
+	
 	
 		
 		

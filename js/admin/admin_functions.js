@@ -328,7 +328,7 @@
 			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
 			data: {'reportError': 1},
-			onSubmit: $(this).html('...loading'),
+			onSubmit: $(this).html('Sending Email'),
 			success: function (data) {
 				$('.modal .close').click();
 				//$('.data').html(data);

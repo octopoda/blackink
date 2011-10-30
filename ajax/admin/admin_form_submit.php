@@ -17,24 +17,18 @@ if (isset($_POST['siteForm'])) {
 if (isset($_POST['addMenu'])) {
 	$menu = new Menus();
 	
-	if ($menu->createMenuFromForm($_POST)) {
-		echo $_POST['addMenu'];	
-	} else {
-		echo $_POST['addMenu'];
-	}
+	$menu->createMenuFromForm($_POST);
+	
+	echo $_POST['addMenu'];	
 }
 
 if (isset($_POST['addNavigation'])) {
 	if (isset($_POST['navigation_id'])) $id = $_POST['navigation_id'];
+	
 	$navigation = new Navigation($id);
+	$navigation->createNavigationFromForm($_POST);
 	
-	$created = $navigation->createNavigationFromForm($_POST);
-	
-	if ($created) {
-		echo $_POST['addNavigation'];	
-	} else {
-		return false;	
-	}
+	echo $_POST['addNavigation'];	
 }
 
 if (isset($_POST['addContent'])) {

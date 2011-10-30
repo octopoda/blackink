@@ -287,9 +287,23 @@ FileETag None
 <IfModule mod_rewrite.c>
   Options +FollowSymlinks
   RewriteEngine On
+  RewriteCond %{REQUEST_URI} !^/staff/
+  RewriteCond %{REQUEST_URI} !^/js/
+  RewriteCond %{REQUEST_URI} !^/css/
+  RewriteCond %{REQUEST_URI} !^/files/
+  RewriteCond %{REQUEST_URI} !^/lib/
+  RewriteCond %{REQUEST_URI} !^/ajax/ 
+  RewriteCond %{REQUEST_URI} !^/includes/
+  RewriteCond %{REQUEST_URI} !^/images/
+  RewriteCond %{REQUEST_URI} !^/modules/
 </IfModule>
 
+<IfModule mod_rewrite.c>
 
+
+RewriteRule  	^(/?(.*)/)(.*)$ /index.php?title=$1&name=$2 [NC]
+
+</IfModule>
 
 # ----------------------------------------------------------------------
 # Suppress or force the "www." at the beginning of URLs
