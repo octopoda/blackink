@@ -22,6 +22,7 @@
 			global $error;
 			
 			$this->fillFromForm($_POST);
+			$this->siteDescription = strip_tags($this->siteDescription);
 			
 			if ($this->save($this->site_id)) {
 				$error->addMessage('Your Site has been saved');	

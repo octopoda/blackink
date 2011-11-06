@@ -18,6 +18,7 @@
 		define('CSS', SITE_FILES.DS. 'css' .DS);
 		define('CLASS_PATH', SITE_FILES.DS. 'lib');
 		define('ADMIN_PATH', CLASS_PATH.DS. 'admin');
+		define('FILE_PATH', SITE_FILES.DS."files".DS."uploads");
 		define('MAIL_PATH', CLASS_PATH.DS. 'mailer');
 		
 		//SMTP
@@ -41,12 +42,14 @@
 		//Site Files
 		define('DS', DIRECTORY_SEPARATOR);
 		define('SITE_ROOT', DS.'home1');
-		define('SITE_FILES', $_SERVER['DOCUMENT_ROOT'] .DS);
-		define('INCLUDES', SITE_FILES."includes" .DS);
-		define('MODULES', SITE_FILES."modules" .DS);
-		define('LIB_PATH', SITE_FILES.'includes');
-		define('CLASS_PATH', LIB_PATH.DS. 'class');
-		define('MAIL_PATH', LIB_PATH.DS. 'mailer');
+		define('SITE_FILES', $_SERVER['DOCUMENT_ROOT']);
+		define('INCLUDES', SITE_FILES.DS.  "includes" .DS);
+		define('MODULES', SITE_FILES.DS.  "modules" .DS);
+		define('CSS', SITE_FILES.DS. 'css' .DS);
+		define('CLASS_PATH', SITE_FILES.DS. 'lib');
+		define('ADMIN_PATH', CLASS_PATH.DS. 'admin');
+		define('FILE_PATH', SITE_FILES.DS."files".DS."uploads");
+		define('MAIL_PATH', CLASS_PATH.DS. 'mailer');
 		
 		//SMTP
 		define('HOST', "");

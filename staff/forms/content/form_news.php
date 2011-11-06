@@ -30,7 +30,7 @@
 	<form id="formUpdate" method="POST">
 		<fieldset>
         	<p>
-            	<label>Title</label>
+            	<label>News Title</label>
             	<input type="text" id="title" name="title" />
             </p>
             <div class="twoDropDowns clearfix">
@@ -48,9 +48,15 @@
 				<?php echo $news->accessDropDown($news->news_id) ?>
             </p>
             </div>
+            <p>
+            	<a class="uploadImageContent">
+                    <span class="ninjaSymbol ninjaSymbolPlus"></span>
+                    <span class="text">Upload Image</span>
+				</a>
+            </p>
 			<p>
             	<label for="content">Content</label>
-            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor"></textarea>
+            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor"><?php echo $news->content ?></textarea>
                 <input type="hidden" id="content" />
             </p>
      	      
@@ -63,67 +69,68 @@
             
         </fieldset>
     </form>
-    
-    <?php if($action=="Update News") : ?>
-    <section>
-    	
-    	<p>This content was Authored by : <?php echo $u->printName(); ?> on <?php echo $news->displayDate($news->created_on); ?>
-        
-    </section>
-    <?php endif; ?>
+   
 </div>
 
 
 <div class="data">
 </div>
-<div class="phpErrors">
-</div>
+
 
 <script type="text/javascript">
-	
-  
- 
-	var config =  {
-			toolbar :
-			[
-				['Source'],
-				['Cut','Copy','Paste','PasteText','PasteFromWord','-', 'SpellChecker'],
-				['Undo','Redo','-','RemoveFormat'],
-				['Bold','Italic','Underline'],
-				['Subscript','Superscript'],
-				['NumberedList','BulletedList'],
-				['Link','Unlink'],
-				['Image','Flash','HorizontalRule','SpecialChar','Format'],
-				['Maximize', 'ShowBlocks','-','About']
-			],
-			width : '500',
-			height : '300',
-			
-	}; 
+	tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "advanced",
+        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,preview,media,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking",
+
+        // Theme options
+        theme_advanced_buttons1 : "bold, italic, strikethrough, |, styleselect, formatselect, |, pasteword, |, bullist, numlist, blockquote, |, link, unlink, anchor, image, |, code, |, spellchecker, | ,pagebreak ",
+        theme_advanced_buttons2 : "",
+		theme_advanced_buttons3 : "",
+		theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "center",
+        theme_advanced_resizing : true,
 		
-	
-	
-	$( 'textarea.editor' ).ckeditor(config, function () {
-		this.dataProcessor.writer.setRules( 'p',
-            {
-				indent : false,
-				breakBeforeOpen : false,
-				breakAfterOpen : false,
-				breakBeforeClose : false,
-				breakAfterClose : false
-            });
-		this.dataProcessor.writer.setRules( 'div',
-			{
-				indent : false,
-				breakBeforeOpen : false,
-				breakAfterOpen : false,
-				breakBeforeClose : false,
-				breakAfterClose : false
-			});			
+		content_css : "/staff/css/admin.css",
+		
+		width: "600",
+		height: "400"
 	});
 	
+	tinyMCE.triggerSave();
 	
-	$('textarea[name="content"]').val($('#content').val());
+	var btnUpload=$('.uploadImageContent');
+	var button = $('.uploadImageContent').html();
+	var content;	
+		
+	new AjaxUpload(btnUpload, {
+		action: '/ajax/ajax_upload.php',
+		name: 'file_name',
+		data: {'content': 1},
+		onSubmit: function(file, ext){
+			btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
+			content = $('.editor').val();
+			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
+				// extension is not allowed
+				alert('Only JPG, PNG, GIF,  files are allowed');
+				return false;
+			} 
+			
+			if (file.length > 59) {
+				alert('This file name is too long.  Please make it less than 60 characters');
+				return false;	
+			}
+			
+		},
+		onComplete: function(file, response){
+			var ed = tinyMCE.get('<?php echo $infoKey ?>');      // get editor instance
+			var newNode = ed.getDoc().createElement ( "img" );   // create img node
+			newNode.src= response;                            // add src attribute
+			ed.execCommand('mceInsertContent', false, newNode.outerHTML)
+			btnUpload.html(button);			
+		}
+	});
 
 
 </script>

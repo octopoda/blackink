@@ -1,16 +1,23 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
 
 //echo 'hello';
-//print_r($_POST);
 
 if (isset($_POST['siteForm'])) {
 	$site = new Site();
 	
 	if ($site->createFromForm($_POST)) {
-		echo 'forms/site.php';
+		echo $_POST['siteForm'];
 	} else {
 		return false;	
 	}
+}
+
+if (isset($_POST['contactForm'])) {
+	$contact = new contactInformation();
+	
+	$contact->createFromForm($_POST);
+	
+	echo $_POST['contactForm'];
 }
 
 

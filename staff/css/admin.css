@@ -142,7 +142,7 @@ section:last-child {border-bottom:0px;}
 		box-shadow:inset 2px 2px 8px #999;
 	}
     #content textarea {
-		width:300px; height:150px; background:#ECECEC; border:none;
+		 background:#ECECEC; border:none;
 		
 		-moz-box-shadow:inset 2px 2px 8px #999;
 		-webkit-box-shadow:inset 2px 2px 8px #999;
@@ -201,6 +201,16 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .extensionsList li{list-style:none; float:left; margin-left:0px; margin-right:10px; font-weight:bold; font-size:16px;}
 .uploadButton {clear:both; margin-top:80px;}
 
+.phoneButtons {float:left; position:absolute; margin-left:10px; margin-top:4px; display:inline-block;}
+.phoneSelect {margin-right:8px;}
+.listPhones {margin:0px; padding:0px;}
+.listPhones li {line-height:26px; list-style:none; margin-left:0px;}
+
+.deletePhones {float:left; margin-left:300px; margin-top:-20px; width:300px; cursor:pointer;}
+.deletePhones .ninjaSymbol {margin-right:5px;display:inline-block; float:left;}
+.deletePhones .text {margin-top:0px; display:block; float:left;}
+#deletePhone {color:#CB0202; font-size:12px;   position:absolute; margin-left:-20px; margin-top:6px;}
+
 /* =============================
 	Forms
 	===========================*/
@@ -211,14 +221,14 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .mainNav .title a {color:#444;}
 .subNav .title a {color:#444;}
 
-#dialog .gridContainer {position:relative; top:-40px;}
-#dialog .grid tr td {text-align:left;}
+
 .grid .moveArrows {position:relative; left:-15px; margin-top:-8px;}
 .gridSearch input  {color:#000;}
 
 .placeholder {color: #aaa;}
 
-
+.uploadImageContent {position:absolute; margin-top:-5px; display:block;  text-align:right; width:600px;}
+.uploadImageContent .text {display:inline-block; position:relative; top:3px;}
 
 /* =============================
 	JQUERY UI/Ninja UI
@@ -362,7 +372,8 @@ button {
 	color:#444;
 }
 
-.modal .html {padding:0px; margin:0px; border:1px solid yellow;}
+.modal.html {padding:0px; margin:0px; }
+.modal.html .close {margin-left:370px;}
 
 .modal .close:before{content: '*';}
 .modal .close:hover {color:#CB0202}

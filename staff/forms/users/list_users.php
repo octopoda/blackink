@@ -14,8 +14,6 @@
     <tr>	
         <th col="name" width="150" link="forms/users/info_users.php">Title</th>
         <th col="email" width="100">email</th>
-        <th col="company" width="100">Company</th>
-        <th col="NPINumber" width="60">NPINumber</th>
         <th col="access" width="100" editable="select">Access</th>
     </tr>
 </table>

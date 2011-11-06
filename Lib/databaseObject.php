@@ -146,10 +146,10 @@ abstract class databaseObject {
 		
 		protected function cleanAttributes () {
             global $db;
-            
+           
 			$clean_attributes = array();
 			foreach($this->attributes() as $key => $value) {
-				$clean_attributes[$key] = $db->escapeString($value);	
+				$clean_attributes[$key] = $db->escapeString($value);
 			}
 			return $clean_attributes;
 		}
@@ -207,8 +207,7 @@ abstract class databaseObject {
 		public function create() {
             
 			global $db;
-            //echo "creating <br />";
-			//echo $this->table;
+            //echo "creating ". $this->table . "<br />";
 			
 			$attributes = $this->cleanAttributes();
 			$attribute_pairs = array();
@@ -218,9 +217,6 @@ abstract class databaseObject {
                     $attribute_pairs[$key] = $this->quoteField($value);     
             }	
 			
-				
-            
-			
 			//INSERT INTO table (key, key) VALUES ('value', 'value')
 			$sql = "INSERT INTO " . $this->table . "(";
 			$sql .= join(", ", array_keys($attribute_pairs));	
@@ -228,11 +224,12 @@ abstract class databaseObject {
 			$sql .= join(", ", array_values($attribute_pairs));
 			$sql .=")";
 			
-			//echo $sql;
+			
 			if ($db->query($sql)) {
 				return $db->insertedID();
 			} 
-            return false;
+            
+			return false;
 		}
 		
         public function quoteField($fld) {

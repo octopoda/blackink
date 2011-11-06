@@ -23,11 +23,10 @@
 	echo $content->pushToForm();
 	echo $user->pushToForm();
 	$infoKey = md5(time().rand());
+	$otherKey = md5(time().rand());
 	
 ?>
-<script>
-	//Set up the current user_id in the form
-</script>
+<script src="/js/mylibs/ajaxupload.js"></script>
 
 <h3><?php echo $action; ?></h3>
 
@@ -35,7 +34,7 @@
 	<form id="formUpdate" method="POST">
 		<fieldset>
         	<p>
-            	<label>Title</label>
+            	<label>ContentTitle</label>
             	<input type="text" id="title" name="title" class="required" />
             </p>
             <div class="twoDropDowns clearfix">
@@ -53,87 +52,95 @@
 				<?php echo $content->accessDropDown($content->content_id) ?>
             </p>
             </div>
-			<p>
+            <p>
+            	<a class="uploadImageContent">
+                    <span class="ninjaSymbol ninjaSymbolPlus"></span>
+                    <span class="text">Upload Image</span>
+				</a>
+            </p>
+			<p class="textarea">
             	<label for="content">Content</label>
-            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor required"></textarea>
+            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor required"><?php echo $content->content; ?></textarea>
                 <input type="hidden" id="content" />
+            </p>
+            
+            <p class="textarea">
+            	<label for="content">Content Summary (1 Paragraph about your content)</label>
+            	<textarea name="summary" id="<?php echo $otherKey ?>" class="required"><?php echo $content->summary; ?></textarea>
+                <input type="hidden" id="summary" />
             </p>
      	      
             <p>	
             	<input type="hidden" name="content_id" id="content_id" />
                 <input type="hidden" name="user_id" id="user_id" />
                 <input type="hidden" name="modified_by" id="modified_by"  />
-                <input type="hidden" name="addContent" id="addContent" value="forms/content/list_content.php" />
+                <input type="hidden" name="addContent" id="addContent" value="forms/content/info_content.php?sel=<?php echo $content->content_id ?>" />
                 <button><?php echo $action; ?></button>
             </p>
             
         </fieldset>
     </form>
     
-    <?php if($action=="Update Content") : ?>
-    <section>
-    	
-    	<p>This content was Authored by :
-         <?php echo $user->printName(); ?> on 
-		 <?php echo $content->displayDate($content->created_on); ?> and last Edited 
-		<?php if (!empty($modName) && ($modId != $content->user_id)) 	echo 'by ' . $modName; ?>
-		on <?php echo $content->displayDate($content->modified_on) ?></p>
-        
-    </section>
-    <?php endif; ?>
+    
 </div>
 
 
 <div class="data">
 </div>
-<div class="phpErrors">
-</div>
+
 
 <script type="text/javascript">
-	
-  
- 
-	var config =  {
-			toolbar :
-			[
-				['Source'],
-				['Cut','Copy','Paste','PasteText','PasteFromWord','-', 'SpellChecker'],
-				['Undo','Redo','-','RemoveFormat'],
-				['Bold','Italic','Underline'],
-				['Subscript','Superscript'],
-				['NumberedList','BulletedList'],
-				['Link','Unlink'],
-				['Image','Flash','HorizontalRule','SpecialChar','Format'],
-				['Maximize', 'ShowBlocks','-','About']
-			],
-			width : '500',
-			height : '300',
-			
-	}; 
+	tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "advanced",
+        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,preview,media,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking",
+
+        // Theme options
+        theme_advanced_buttons1 : "bold, italic, strikethrough, |, styleselect, formatselect, |, pasteword, |, bullist, numlist, blockquote, |, link, unlink, anchor, image, |, code, |, spellchecker, | ,pagebreak ",
+        theme_advanced_buttons2 : "",
+		theme_advanced_buttons3 : "",
+		theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "center",
+        theme_advanced_resizing : true,
 		
-	
-	
-	$( 'textarea.editor' ).ckeditor(config, function () {
-		this.dataProcessor.writer.setRules( 'p',
-            {
-				indent : false,
-				breakBeforeOpen : false,
-				breakAfterOpen : false,
-				breakBeforeClose : false,
-				breakAfterClose : false
-            });
-		this.dataProcessor.writer.setRules( 'div',
-			{
-				indent : false,
-				breakBeforeOpen : false,
-				breakAfterOpen : false,
-				breakBeforeClose : false,
-				breakAfterClose : false
-			});			
+		content_css : "/staff/css/admin.css",
+		
+		width: "600",
+		height: "400"
 	});
 	
+	tinyMCE.triggerSave();
 	
-	$('textarea[name="content"]').val($('#content').val());
-
-
+	var btnUpload=$('.uploadImageContent');
+	var button = $('.uploadImageContent').html();
+		
+	new AjaxUpload(btnUpload, {
+		action: '/ajax/ajax_upload.php',
+		name: 'file_name',
+		data: {'content': 1},
+		onSubmit: function(file, ext){
+			btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
+			content = $('.editor').val();
+			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
+				// extension is not allowed
+				alert('Only JPG, PNG, GIF,  files are allowed');
+				return false;
+			}
+			
+			if (file.length > 59) {
+				alert('The file name is too long. Please keep the file name under 60 characters.');
+				return false;	
+			}
+			
+		},
+		onComplete: function(file, response){
+			var ed = tinyMCE.get('<?php echo $infoKey ?>');      // get editor instance
+			var newNode = ed.getDoc().createElement ( "img" );   // create img node
+			newNode.src= response;                            // add src attribute
+			ed.execCommand('mceInsertContent', false, newNode.outerHTML)
+			btnUpload.html(button);			
+		}
+	});
+		
 </script>

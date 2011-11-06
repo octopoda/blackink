@@ -17,6 +17,7 @@
 	
 	echo $u->pushToForm();
 	echo $address->pushToForm();
+	
 	$link = 'form/users/form_users.php';
 	
 ?>
@@ -35,34 +36,36 @@
             <label for="last">Last Name:</label>
             <input type="text" name="last" id="last" class="required" />
         </p>
-        <p>
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email"  class="required email"/>
-        </p>
-        <p>
-            <label for="NPINumber">NPI Number</label>
-            <input type="text" name="NPINumber" id="NPINumber" class="required numeric" />
-        </p>
-        <p>
-            <label for="company">Company</label>
-            <input type="text" name="company" id="company" class="required" />
+    </fieldset>
+    
+    <fieldset>
+       <legend>Contact Information <a class="deletePhones"><span class="ninjaSymbol ninjaSymbolClear"></span> 
+            <span class="text">Delete Phones</span></a> </legend>
+         <p>
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email"  class="required email" />
         </p>
         
+        </p>
+            <?php echo $phones->createPhoneFields(); ?>
+        <p>
     </fieldset>
+    
+    
     <fieldset>
         <legend>Location Details</legend>
         <p>
             <label for="address1">Address</label>
-            <input id="address1" name="address1" type="text"  class="required"  />
+            <input id="address1" name="address1" type="text"  class="required"   />
             <input type="hidden" name="address_id" id="address_id" /> 
         </p>
         <p>
             <label for="address2">Address 2</label>
-            <input id="address2" name="address2" type="text"  />
+            <input id="address2" name="address2" type="text"   />
         </p>
         <p>
             <label for="city">City</label>
-            <input type="text" name="city" id="city"  class="required"/>
+            <input type="text" name="city" id="city"  class="required"  />
         </p>
          <p>
             <label for="state">State</label>
@@ -70,12 +73,11 @@
         </p>
          <p>
             <label for="zip">Zip Code</label>
-            <input name="zip" id="zip" type="text" class="zip" />
+            <input name="zip" id="zip" type="text" class="zip" placeholder="90210" />
         </p>
-        </p>
-            <?php echo $phones->createPhoneFields(); ?>
-        <p>
-    </fieldset>
+     </fieldset>
+     
+     
     
     <?php if ($action == "Add User") : ?>
     <fieldset>
@@ -97,7 +99,7 @@
     <fieldset>
     	<button name="users"><?php echo $action; ?></button>
         <input type="hidden" name="user_id" id="user_id" />
-        <input type="hidden" name="addUser" id="addUser" value="forms/users/list_users.php" />
+        <input type="hidden" name="addUser" id="addUser" value="forms/users/info_users.php?sel=<?php echo $u->user_id; ?>" />
     </fieldset>
 
 </form>

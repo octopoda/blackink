@@ -36,8 +36,11 @@
 				case "CP":
 					$this->phone_type = "Cell";
 					break;
-				case "WK":
-					$this->phone_type = "Work";
+				case "FX":
+					$this->phone_type = "Fax";
+					break;
+				case "OP":
+					$this->phone_type = "Office Phone";
 					break;	
 			}
 				
@@ -48,7 +51,7 @@
 		public function updatePhone($id ) {
 			global $db;
 			
-			$results = $db->query("SELECT * FROM phoneForUser WHERE user_id = {$id}");
+			$results = $db->query("SELECT * FROM phoneForUser WHERE user_id = {$id} AND phone_id = {$this->phone_id}");
 			
 			if ($db->numRows($results) > 0) {
 				return;
@@ -63,7 +66,7 @@
 			global $db;
 			
 			$db->query("DELETE FROM phoneForUser WHERE phone_id = {$this->phone_id}");
-			$this->delete($this->phone_id);	
+			return $this->delete($this->phone_id);
 		}
 	}
 ?>

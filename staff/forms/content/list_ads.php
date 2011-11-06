@@ -15,7 +15,7 @@
 <p></p>
 <table class="grid" action="/ajax/grid_ajax.php" title="Default" sel="ads">
     <tr>	
-        <th col="title" width="250" link="forms/content/form_ads.php">Title</th>
+        <th col="title" width="250" link="forms/content/info_ads.php">Title</th>
         <th col="published" width="50">Published</th>
         <th col="position" width="40" class="gridPosition">position</th>
         <th col="placement" width="50">Placement</th>

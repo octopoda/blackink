@@ -54,7 +54,7 @@
 				
 			},
 			error: function (xhr, textStatus, errThrown) {
-				postError('Error', 'Please report error ID AJ3129 to Error Reporting');	
+				postError('Error', 'This page does not exisit');	
 			}
 		});
 		
@@ -77,7 +77,7 @@
 				$('#content').html(data);
 			},
 			error: function (xhr, textStatus, errThrown) {
-				postError('error', 'Please report error ID MNB129 to Error Reporting');
+				postError('error', 'This page does not exisit');
 			}
 		});
 	})
@@ -89,12 +89,21 @@
  	}
 	
 	function findTab(href) {
+		_b = new Array();
+		_b = href.split("/");
+		var $string = _b[2].slice(0,4);
+		
 		_a = new Array();
 		_a = href.split("?");
 		
+		if ($string == 'info') {
+			$url = _a[0].replace('info', 'form');
+		} else  {
+			$url = _a[0]
+		}
 		
 		$('#tabs ul li').each(function () {
-			if ($(this).children().attr('href') == _a[0]) {
+			if ($(this).children().attr('href') == $url) {
 				changeActiveTab($(this).children());	
 			}
 		})	
@@ -264,6 +273,8 @@
 	}); 
 	
 	
+	
+	
 	//Delete Buttons
 	$('.delete').live('click', function (e) {
 		e.preventDefault();
@@ -285,6 +296,62 @@
 				redirectTo(data);
 			}
 		});
+	});
+	
+	//Add Phone 
+	$('.addPhone').live('click', function (e) {
+		e.preventDefault();
+		$span = $(this).parent('span');
+		$paragraph = $(this).parent('span').parent('p');
+		
+		
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: {'addPhone': 1},
+			success: function (data) {
+				$span.hide();
+				$paragraph.after(data);
+				//$('.data').html(data);	
+			}
+		});	
+	})
+	
+	//Delete Phones
+	$('.deletePhones').live('click', function (e) {
+		e.preventDefault();
+		
+		
+		$('.phonesForUsers').each(function () {
+			if ($(this).val() != null) {
+				$(this).append('<span class="ninjaSymbol ninjaSymbolClear" id="deletePhone"></span>');
+			}
+			$(this).find('.phoneButtons').hide();
+		});
+	});
+	
+	
+	$('#deletePhone').live('click', function (e) {
+		//if (confirm("Are you sure you want to delete this?")) {
+			$parent = $(this).parent('p');
+			$id = $parent.find('#phone_id').val();
+			var _addHTML =  $('.phoneButtons').html();
+			$('.phoneButtons').remove();
+			
+			$.ajax({
+				url: '/ajax/admin/admin_functionality.php',
+				type: 'POST',
+				data: {'deletePhone': $id},
+				success: function (success) {
+					if (success) {
+						$parent.remove();
+						$('.phonesForUsers').children('span.ninjaSymbol').remove();
+						$('.phonesForUsers:last').append('<span class="phoneButtons">'+_addHTML+'</span>');						$('.phoneButtons').show();
+						
+					}
+				}
+			});
+		//}
 	});
 	
 	
@@ -379,7 +446,7 @@
 			data: $datastring,
 			beforeSubmit: $('.data').html('loading....'),
 			success: function (data) {
-				//$('.data').html('data '+ data);
+				//$('.data').html(data);
 				redirectTo(data);
 			},
 			error: function(xhr, textStatus, errThrown) {
@@ -459,14 +526,30 @@
 	});
 	
 	$('.externalLink').live('change', function() {
+		
+		_id = $(this).attr('sel');
+		
 		if ($(this).is(':checked')) {
+			$(this).attr('sel',$('#content_id').val());
 			$('.externalInput').show();
 			$('.contentInput').hide();
-			$('.contentInput').children('input').val('');	
+			$('.contentInput').children('input').val('');
 		} else {
-			$('.contentInput').show();
 			$('.externalInput').hide();
 			$('.externalInput').children('input').val('');
+			$('.contentInput').show();
+			$.ajax({
+				url: '/ajax/admin/admin_functionality.php',
+				type: 'POST',
+				data: {'content_title' : _id},
+				success: function (data) {
+					$('.data').html(data);
+					$('#content_title').val(data);
+					$('#content_id').val(_id);	
+				}
+					
+			})
+			
 		}
 	});
 	
@@ -487,6 +570,9 @@
 	
 
 
+/* ===========================================
+	TinyMCE Configuration
+   =========================================*/
 
-
+	
 

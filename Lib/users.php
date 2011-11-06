@@ -13,9 +13,7 @@
         public $last;
         public $password;
         public $email;
-		public $company;
-		public $NPINumber;
-        public $loggedIn = false;
+		public $loggedIn = false;
 		public $guid;
 		
 		//Helpers
@@ -169,10 +167,10 @@
 			$this->password = md5($this->password);
 			$this->guid = uniqid('', true);
 			$u_id = $this->save($this->user_id);
-			echo $u_id;
 			
 			//Set Access to Registered
 			$this->setAccess($this->access, $u_id);
+			
 			
 			//Create Address return ID
 			$address = new Address();

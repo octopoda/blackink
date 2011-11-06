@@ -35,11 +35,7 @@
 	<h4>Personal Information</h4>
 	<dl class="clearfix">
     	<dt>Email:</dt>
-        	<dd><?php echo $u->email; ?></dd>
-        <dt>Company:</dt>
-        	<dd><?php echo $u->company; ?></dd>
-		<dt>NPI Number:</dt>
-        	<dd><?php echo $u->NPINumber; ?></dd>   
+        	<dd><a href="mailto:<?php echo $u->email; ?>"><?php echo $u->email; ?></a></dd>
     </dl>
     
     <h4>Location Information</h4>

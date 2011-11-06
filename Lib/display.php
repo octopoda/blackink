@@ -24,6 +24,7 @@
 		}
 		
 		private function sanitizeURL($url) {
+			$url = urldecode($url);
 			$url = str_replace("/", "", $url);
 			$url = str_replace("_", " ", $url);
 			
@@ -59,8 +60,13 @@
 			
 			$html = '<ul>';
 			foreach ($navigation->itemList as $list) {
-				if ($list->access <= $this->user->access) {
-					$this->parentURL = DS.str_replace(" ", "_", htmlentities($list->title)).DS;
+				if (($list->access <= $this->user->access) && ($list->published == 1)) {
+					$title = urlencode($list->title);
+					if ($list->link == NULL) {
+						$this->parentURL = DS.str_replace("+", "_", $title).DS;
+					} else {
+						$this->parentURL = $list->link;	
+					}
 					$html.= '<li><a href="'.$this->parentURL.'" ';
 					if (($this->navTitle == $list->title) || ($this->navTitle == NULL && $list->default_page == 1) ) {
 						$html .= 'class="active"';
@@ -71,14 +77,23 @@
 					if ($list->subNavList != false) {
 						$html .= "<ul>";
 						foreach ($list->subNavList as $subNav) {
-							$this->childURL= $this->parentURL.str_replace(" ", "_", htmlentities($subNav->content_title));
+							//Check the access and publishded
+							if (($subNav->access <= $this->user->access) &&($subNav->published == 1)) {  
+							//Look if link has external Link
+							if ($subNav->link == NULL) {
+								$this->childURL= $this->parentURL.str_replace(" ", "_", htmlentities($subNav->content_title));
+							} else {
+								$this->childURL = $subNav->link;
+							}
 							
+							//Pint
 							$html .= '<li><a href="'.$this->childURL.'" ';
 							if ($this->contentTitle == $subNav->content_title) {
 								$html .= ' class="active"';
 							}
 							
 							$html .=  '>'.$subNav->title.'</a></li>';
+							}
 						}
 						$html .= "</ul>";
 					}

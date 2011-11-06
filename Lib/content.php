@@ -14,9 +14,9 @@
 		public $title;
 		public $access;
 		public $content;
-		public $link_to;
 		public $modified_by;
 		public $searchable;
+		public $summary;
 		
 		//Helper Functions
 		public $objectList;
@@ -79,6 +79,7 @@
 		
 		$this->modified_on = date("Y-m-d h:i:s");
 		$this->searchable = strip_tags($_POST['content']);
+		$this->summary = strip_tags($_POST['summary']);
 		
 		$content_id = $this->save($this->content_id);
 		 

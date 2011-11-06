@@ -77,7 +77,7 @@
 	<fieldset>
 		<p>
 			<label for="menu_name">Menu Name</label>
-			<input type="text" maxlength="60" id="menu_name" name="menu_name"  />
+			<input type="text" maxlength="60" id="menu_name" name="menu_name" placeholder="Menu Title" />
 		</p>
 		<div class="twoDropDowns clearfix">
 		<p>

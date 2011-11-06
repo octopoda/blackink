@@ -82,37 +82,42 @@
 		//Create From Form
 		public function createNavigationFromForm($post) {
 			global $error;
+			global $db;
 			
 			$this->fillFromForm($post);
-			$oldPosition = 0;
-			
-			if ($this->navigation_id != false) {
-				$positionNav = new Navigation($this->navigation_id);
-				$oldPostion = $positionNav->position;
-			} 
-			
-			$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
+			$oldPostion;
 			
 			//Set Link
 			if (empty($_POST['link'])) {
 				$this->link = "";	
+			} else if (empty($_POST['content_id'])) {
+				$this->content_id = "";	
 			}
 			
-			//Save
-			$this->navigation_id = $this->save($this->navigation_id);
-			$saveNav = new Navigation($this->navigation_id);
+			//Edit Navigation
+			if ($this->navigation_id != false) {
+				$positionNav = new Navigation($this->navigation_id);
+				$oldPosition = $positionNav->position;
+				$this->navigation_id = $this->save($this->navigation_id);
+				$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
 			
-			//IF save worked place the content together with the navigation
-			if ($saveNav->navigation_id != false && $post['content_id'] != false && $saveNav->link == "") {
-				$this->placeContent($post['content_id'], $this->navigation_id);
-				$error->addMessage('Navigation was saved');
-			} else if ($saveNav->link != "") { 
-				$error->addMessage('Navigation was saved');
-				return true;
-			}else  {
-				$error->addError('The information did not save.', 'Navigation1284');
-				return false;	
-			} 
+			//New Navigation
+			} else {
+				$newPosition = $this->position; 
+				
+				$position_set = $db->queryFill("SELECT max(position) AS 'position' FROM navigation WHERE menu_id = {$this->menu_id} AND parent_id = {$this->parent_id} LIMIT 1");
+				$position_set = $this->arrayShift($position_set);
+				$this->position = $position_set['position']+1;
+				$this->navigation_id = $this->save($this->navigation_id);
+				$this->setPosition($newPosition, $this->position, $this->parent_id, $this->menu_id);
+			}
+			//Content only
+			if ((empty($this->link)) && ($this->content_id != false)) {
+				echo 'enter Content';
+				$this->placeContent($saveNav->navigation_id, $this->content_id);	
+			} else if (($this->link != false) && (empty($this->content_id))) {
+				echo 'enter link';	
+			}
 		}
 		
 		public function deleteFromForm() {
@@ -121,7 +126,7 @@
 			if ($this->delete($this->navigation_id)) {
 				$error->addMessage("Navigation was deleted");
 			} else {
-				$error->addError('the information did not save.', 'Navigation1564');	
+				$error->addError('Navigation did not delete.', 'Navigation1564');	
 			}
 		}
 		
@@ -248,7 +253,7 @@
 			if ($parent_id === false) $parent_id = $this->parent_id;
 			
 			
-			$html = '<label for="position">Postion (Set below)</label>';
+			$html = '<label for="position">Postion (Place Below Selection)</label>';
 			$html .=  '<select name="position" id="position" class="changePosition">';
 			
 			$sql = "SELECT position, title FROM {$this->table} WHERE menu_id = {$menu_id} AND parent_id = {$parent_id} ORDER BY position";
@@ -257,7 +262,7 @@
 			if ($result_set != false) {
 				$html .= '<option value="0">Top</option>';
 				foreach ($result_set as $row) {
-					$html .= '<option value="'. $row['position'].'">'.$row['title'].' -('.$row['position'].')</option>';	
+					$html .= '<option value="'. $row['position'].'">'.$row['title'].' ('.$row['position'].')</option>';	
 				}
 			} else {
 				$html .= '<option value="0">Top</option>';

@@ -17,8 +17,7 @@
 	} else if(isset($_POST['delete'])) {
 		$classname = $_POST['table'];
 		$class = new $classname($_POST['primary_key']);
-		$class->deleteFromForm();
-		return true;
+		return $class->deleteFromForm();
 	} else if(isset($_POST['select'])) {
 		// select for column txn_id
 		if($_POST['col'] == "txn_id") {
@@ -41,7 +40,9 @@
 			  'name'=>"CONCAT(users.first,' ', users.last )",
 			);
 			
-		} 
+		} else if ($_POST['table'] == 'media') {
+			$grid->fields = array('thumbs'=> 'file_link');	
+		}
 		
 		$grid->load();
 	
@@ -74,6 +75,9 @@
 			case 'ads':
 				ads($grid->data);
 				break;
+			case 'media':
+				media($grid->data);
+				break;
 		}
 		
 		
@@ -103,8 +107,6 @@
 			$users = new Users($row['user_id']);
 			
 			$row['email'] = $users->email;
-			$row['NPINumber'] = $users->NPINumber;
-			$row['company'] = $users->company;
 			$row['access'] = $users->accessDropDown($row['access'], $row['user_id']);
 		}
 	}
@@ -136,6 +138,16 @@
 			$row['position'] = $ads->moveArrows($row['ad_id'], $ads->position, 'forms/content/list_ads.php');			
 			$row['placement'] = $ads->humanPlacment;
 				 
+		}
+	}
+	
+	function media(&$dataArray) {
+		global $grid;
+		
+		foreach($dataArray['rows'] as &$row) {
+			$media = new Media($row['media_id']);
+			
+			$row['thumbs'] = $media->placeThumbnail();	
 		}
 	}
 

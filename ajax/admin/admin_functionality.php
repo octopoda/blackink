@@ -134,11 +134,33 @@ if (isset($_POST['parentChange'])) {
 	echo $navigation->positionDropDown($_POST['menu_id'], $_POST['parent_id']);
 }
 
-//Check 
+//Check Password 
 if (isset($_POST['checkPassword'])) {
 	$usr = new Users($_POST['id']);
 	$usr->checkPassword($_POST['checkPassword']);
 }
+	
+//Return Content Title 	
+if (isset($_POST['content_title'])) {
+	$content = new Content($_POST['content_title']);
+	
+	echo trim($content->title);	
+}
+
+//Add Phone
+if (isset($_POST['addPhone'])) {
+	echo Phones::addPhone();	
+}
+
+//Delete Phone
+if (isset($_POST['deletePhone'])) {
+	$phone = new Phone($_POST['deletePhone']);
+	
+	//if ($phone->deleteFromForm()) {
+		return true;	
+	//}
+}
+	
 	
 
 //Report Errors to admin

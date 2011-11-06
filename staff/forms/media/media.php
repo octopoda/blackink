@@ -13,15 +13,16 @@
 
 <h3>Current Uploaded Media</h3>
         
- <table class="grid" action="/ajax/grid_ajax.php" title="Default" sel="media">
+ <table class="grid thumbs" action="/ajax/grid_ajax.php" title="Default" sel="media">
     <tr>	
+        <th col="thumbs" type="image" width="30">Thumbnails</th>
         <th col="file_name" width="40%">Title</th>
         <th col="file_link" width="10%">File Link</th>
     </tr>
 </table>       
         
 
-     
+  <div class="data"></div>  
 	    
     
 

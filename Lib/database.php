@@ -42,6 +42,7 @@
 		}
 		
 		public function query($sql) {
+			//echo $sql . '<br />';
 			$this->lastQuery = $sql;
 			$this->escapeString($sql);
 			$result = $this->database->query($sql);

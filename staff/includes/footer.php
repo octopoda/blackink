@@ -23,11 +23,7 @@
   <script src="/js/mylibs/blackink_modal_min.js"></script>
 	
   <script defer src="/js/admin/admin_functions.js"></script>
-
-  
-  <script src="/js/script.js"></script>
-  <script src="/js/libs/ckeditor/ckeditor.js"></script>
-  <script src="/js/libs/ckeditor/adapters/jquery.js"></script> 
+  <script defer src="/js/libs/tiny_mce/tiny_mce.js"></script> 
   
   <?php if (SERVER == 'dev') { ?>
 		<script src="/js/mylibs/live.js"></script>

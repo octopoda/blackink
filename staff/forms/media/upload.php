@@ -36,19 +36,22 @@ $(document).ready(function () {
 		new AjaxUpload(btnUpload, {
 			action: '/ajax/ajax_upload.php',
 			name: 'file_name',
-			data: {'media': 1, 'link': 'forms/media/media.php'},
+			data: {'media': 1, 'link': 'forms/media/media.php', 'error':'forms/media/upload.php'},
 			onSubmit: function(file, ext){
 				 if (! (ext && /^(jpg|png|jpeg|gif|pdf|doc|docx)$/.test(ext))){ 
 					// extension is not allowed
 					status.text('Only JPG, PNG, GIF, DOC, DOCX, or PDF files are allowed');
 					return false;
+				} 
+				
+				if (file.length > 59) {
+					status.text('The file name is too long please keep it below 50 characters');
+					return false;	
 				}
 				$('#status').text('Uploading...');
 			},
 			onComplete: function(file, response){
-				$('#status').text('');
-				$('.response').html(response);
-				redirect(response);
+				redirectTo(response);
 			}
 		});
 });
