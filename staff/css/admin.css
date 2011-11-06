@@ -182,6 +182,10 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .moveArrows .move {font-size:20px; color:#444}
 .subNav .move {color:#999}
 
+.menuSelect {float:right;}
+.menuSelect ul li {float:left; margin-right:2px; color:#FFF; background:#999; padding:5px 10px; cursor:pointer; font-size:14px;}
+
+
 .quickMenu {float:right; margin:20px 0px;}
 .quickMenu li a {cursor:pointer; color:#878787; margin-right:30px;}
 .quickMenu li {list-style:none; font-size:16px; float:left;}
@@ -193,7 +197,7 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .published, .grid .published {font-size:20px; color:#444 !important; margin-left:10px;}
 .grid tr td {padding:5px;}
 
-.delete, .deleteGrid {font-size:20px; color:#CB0202;  margin-left:15px; background-color:#FFF !imporant;}
+.delete, .deleteGrid {font-size:20px; color:#CB0202;  margin-left:15px; background-color:#FFF !important;}
 .delete:hover, .deleteGrid  {color:#731115}
 #navigation.delete {background:none; color:#444}
 

@@ -156,9 +156,9 @@ if (isset($_POST['addPhone'])) {
 if (isset($_POST['deletePhone'])) {
 	$phone = new Phone($_POST['deletePhone']);
 	
-	//if ($phone->deleteFromForm()) {
+	if ($phone->deleteFromForm()) {
 		return true;	
-	//}
+	}
 }
 	
 	

@@ -60,13 +60,13 @@
             </p>
 			<p class="textarea">
             	<label for="content">Content</label>
-            	<textarea name="content" id="<?php echo $infoKey ?>" class="editor required"><?php echo $content->content; ?></textarea>
+            	<textarea name="content" id="<?php echo $infoKey ?>" class="editorContent required"><?php echo $content->content; ?></textarea>
                 <input type="hidden" id="content" />
             </p>
             
             <p class="textarea">
             	<label for="content">Content Summary (1 Paragraph about your content)</label>
-            	<textarea name="summary" id="<?php echo $otherKey ?>" class="required"><?php echo $content->summary; ?></textarea>
+            	<textarea name="summary" id="<?php echo $otherKey ?>" class="editorSummary required"><?php echo $content->summary; ?></textarea>
                 <input type="hidden" id="summary" />
             </p>
      	      
@@ -94,10 +94,32 @@
         // General options
         mode : "textareas",
         theme : "advanced",
+		editor_selector: "editorContent",
         plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,preview,media,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking",
 
         // Theme options
         theme_advanced_buttons1 : "bold, italic, strikethrough, |, styleselect, formatselect, |, pasteword, |, bullist, numlist, blockquote, |, link, unlink, anchor, image, |, code, |, spellchecker, | ,pagebreak ",
+        theme_advanced_buttons2 : "",
+		theme_advanced_buttons3 : "",
+		theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "center",
+        theme_advanced_resizing : true,
+		
+		content_css : "/staff/css/admin.css",
+		
+		width: "600",
+		height: "400"
+	});
+	
+	tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "advanced",
+		editor_selector: "editorSummary",
+        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,preview,media,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking",
+
+        // Theme options
+        theme_advanced_buttons1 : "",
         theme_advanced_buttons2 : "",
 		theme_advanced_buttons3 : "",
 		theme_advanced_toolbar_location : "top",

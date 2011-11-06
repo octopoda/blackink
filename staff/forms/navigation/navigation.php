@@ -2,50 +2,45 @@
 	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php'); 
 
 	$nav = new Navigation();
-	$menu = new Menus();
+	
 	
 	
 	
 	if (isset($_GET['sel'])) {
 		$menuId = $_GET['sel'];
+		
 	} else {
 		$menuId = 1;
 	}
 	
+	$menu = new Menus($menuId);
 	$link = '/staff/forms/navigation/navigation.php?sel=' . $menuId;
 ?>
-<script>
-	$(function() {
-		$( "#radio" ).buttonset();
-	});
-</script>
+
+
+<nav class="menuSelect">
+	<ul>
+	<?php  
+        $menu->listMenus();
+        foreach ($menu->menuList as $list) { 
+            $id = 'radio_'. $list->menu_id; ?>
+            <li sel="<?php echo $list->menu_id ?>"><?php echo $list->menu_name ?></li>
+    <?php } ?>
+    </ul>
+</nav>
+	
 
 <h3 class="floatLeft">Main Menu Navigation</h3>
-<p></p>
 
-<div class="menuSelect">
-	 <form  class="menuPicker">
-		<div id="radio">
-			<?php  
-				$menu->listMenus();
-				foreach ($menu->menuList as $list) { 
-					$id = 'radio_'. $list->menu_id; ?>
-					<input type="radio" name="menuPicker" id="<?php echo $id ?>" value="<?php echo $list->menu_id ?>" <?php if ($list->menu_id == $menuId) echo "checked"; ?>/>
-					<label for="<?php echo $id ?>"><?php echo $list->menu_name ?></label>
-			<?php } ?>
-		</div>
-		<ul class="quickMenu">
+<ul class="quickMenu">
 		<li>
 			<a class="redirect" href="/staff/forms/navigation/form_navigation.php?menu=<?php echo $menuId; ?>"> 
 				<span class="ninjaSymbol ninjaSymbolPlus"></span>
 				<span class="text">Add Menu Navigation</span>
 			</a>
 		</li>
-	</ul>
-	</form>
-	
- 
-</div>
+</ul>
+    
 <div class="list">
 	<table class="navigationList">
     	<thead>

@@ -212,9 +212,9 @@
 	
 	
 	//Menu Select to change Navigation
-	$('#radio input').live('change', function () {
-		var $id = $(this).val();
-		
+	$('.menuSelect ul li').live('click', function () {
+		var $id = $(this).attr('sel');
+		alert($id);
 		$url = 'forms/navigation/navigation.php'
 		$url += '?sel=' + $id;
 		

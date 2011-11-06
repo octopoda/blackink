@@ -80,14 +80,14 @@
         plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,preview,media,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking",
 
         // Theme options
-        theme_advanced_buttons1 : "",
+        theme_advanced_buttons1 : "bold, italic, strikethrough, |, styleselect, formatselect, |, pasteword, |, bullist, numlist, blockquote, |, link, unlink, anchor, image, |, code, |, spellchecker, | ,pagebreak ",
         theme_advanced_buttons2 : "",
 		theme_advanced_buttons3 : "",
 		theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "center",
         theme_advanced_resizing : true,
 		
-		content_css : "/staff/css/admin.css",
+		content_css : "/css/user_styles.css",
 		
 		width: "600",
 		height: "400"
