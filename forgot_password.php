@@ -1,8 +1,10 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/require.php');
+	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/header.php'); 
 	
-	if (!empty($_GET['gi'])) {
-		$u_id = Users::getUsersFromGuid($_GET['gi']);
+	
+	if (!empty($_GET['g'])) {
+		$u_id = Users::getUsersFromGuid($_GET['g']);
 		$u = new Users($u_id);
 		$action = 1; 
 	} else {
@@ -14,7 +16,7 @@
 <?php if ($action == 1) : ?>
 <h3>Change Password for <?php echo $u->printName(); ?></h3>
 
-<form id="formUpdate" method="POST" >
+<form id="formSubmit" method="POST" >
     <fieldset class="step">
         <legend>New Password</legend>
         <p>
@@ -30,20 +32,16 @@
     
     
     <fieldset class="step">
-        <p>
-            A box marked in red indicates that a field
-            is missing data or filled out with invalid data.
-        </p>
-        <p class="submit">
+       <p class="submit">
         	<input type="hidden" name="user_id" value="<?php echo $u->user_id ?>">
-           <input type="hidden" name="changePassword" value="forms/users/info_users.php?sel=<?php echo $u->user_id; ?>"  />
+           <input type="hidden" name="changePassword"  />
            <button type="submit"><?php echo "Change Password"; ?></button>
         </p>
     </fieldset>
 </form>
 <?php endif; ?>
 <?php if ($action == 2) : ?>
-	<form id="formUpdate" method="POST" >
+	<form id="formSubmit" method="POST" >
     	<fieldset>
         	<legend>Email on File</legend>
             <p>
@@ -51,7 +49,8 @@
                 <input type="email" name="email" id="email" class="email"/>
             </p>
             <p>
-            	<button type="submit">Change password</button>
+            	<input type="hidden" name="forgotPassword" value="1"  />
+                <button type="submit">Change password</button>
             </p>
             <p class="message">
             </p>
@@ -61,4 +60,4 @@
 
 <div class="data"></div>
 
-
+<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>

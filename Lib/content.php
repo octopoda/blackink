@@ -20,12 +20,14 @@
 		
 		//Helper Functions
 		public $objectList;
+		public $directLink;
 		
         public function __construct($c_id="") {
            if (empty($c_id)) $c_id = $this->content_id;
 			
 			if (!empty($c_id)) {
-         		$result = $this->fetchById($c_id); 
+         		$result = $this->fetchById($c_id);
+				$this->getLink();
 			} 
         }
 /* ========================================
@@ -40,11 +42,17 @@
 		
 		if ($result != false) {
 			foreach ($result as $row) {
+				
 				return $row['content_id'];	
 			}
 		} else {
 			return false;	
 		}
+	}
+	
+	private function getLink() {
+		$title = str_replace(" ", "_", $this->title);
+		$this->directLink = '/content/'	.$title;
 	}
 	
 	
@@ -55,8 +63,17 @@
 	Display Methods 
 	==================================== */
 		
-	public function searchContent($searchQuery) {
-				
+	static public function searchContent($searchTerm, $limit = null) {
+		global $db;
+		
+		if (empty($limit)) {
+			$sql = "SELECT * FROM content WHERE searchable LIKE '%{$searchTerm}%' OR title LIKE '%{$searchTerm}%'";	
+		} else {
+			$sql = "SELECT * FROM content WHERE searchable LIKE '%{$searchTerm}%' OR title LIKE '%{$searchTerm}%'" . $limit;
+		}
+		
+		$result_set = $db->queryFill($sql);	
+		return $result_set;
 	}	
 		
 /* ========================================
@@ -82,9 +99,9 @@
 		$this->summary = strip_tags($_POST['summary']);
 		
 		$content_id = $this->save($this->content_id);
-		 
-		if (isset($content_id)) {
-			
+		
+		if (!empty($content_id)) {
+			return $content_id;
 		} else {
 			$error->addError('The information did not save.', 'Content1284');	
 		}

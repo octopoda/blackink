@@ -301,7 +301,11 @@ FileETag None
 <IfModule mod_rewrite.c>
 
 
-RewriteRule  	^(/?(.*)/)(.*)$ /index.php?title=$1&name=$2 [NC]
+
+RewriteRule  	^(/?[^/.]+/)([^/.]+)$ 	/index.php?title=$1&name=$2 [NC]
+RewriteRule		^(/?[^/.]+)$		/index.php?title=$1 [NC]
+RewriteRule		^(/?[^/.]+).html$		  	/$1.php [L]
+
 
 </IfModule>
 

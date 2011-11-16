@@ -1,6 +1,8 @@
 <?php 
 	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php'); 
 	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/header.php');
+	
+	$phones = new Phones();
 ?>
 
 <header>
@@ -18,10 +20,10 @@
     	<?php $display->displayMenu('Main Menu'); ?>
     </nav>
 </section>
-<div class="mainContent">
-	<section>
+<section class="mainContent">
+	<article>
     <h3>Join our Site</h3>
-    	<form id="formUpdate" method="POST" class="usersForm">
+    	<form id="formSubmit" method="POST">
     <fieldset>
         <legend>Personal Details</legend>
         <p>
@@ -36,14 +38,10 @@
             <label for="email">Email:</label>
             <input type="text" name="email" id="email"  class="required email" />
         </p>
-        <p>
-            <label for="NPINumber">NPI Number:</label>
-            <input type="text" name="NPINumber" id="NPINumber" class="required numeric" />
+        
         </p>
+            <?php echo $phones->createPhoneFields(); ?>
         <p>
-            <label for="company">Company</label>
-            <input type="text" name="company" id="company" class="required" />
-        </p>
         
     </fieldset>
     <fieldset>
@@ -51,7 +49,6 @@
         <p>
             <label for="address1">Address</label>
             <input id="address1" name="address1" type="text"  class="required"   />
-            <input type="hidden" name="address_id" id="address_id" /> 
         </p>
         <p>
             <label for="address2">Address 2</label>
@@ -88,12 +85,18 @@
     <fieldset>
     	<p>
         	<button id="submit" name="addUser">Join Now</button>
+            <input type="hidden" name="registerUser" value="1" />
         </p>
     </fieldset>
+    <fieldset>
+    	<p class="message">
+        </p>
+     </fieldset>
 </form>
-    </section>
+    </article>
     
     <aside>
+    	<?php include(MODULES.'sidebar.php'); ?>
     </aside>
 </div>
 

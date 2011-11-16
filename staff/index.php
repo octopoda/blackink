@@ -1,6 +1,5 @@
 <?php 
     require('includes/header.php');
-	$error->clearErrors();
 	$nav = new AdminNavigation();
 	
 	if (!isset($_SESSION['user_id'])) redirect('login.php');

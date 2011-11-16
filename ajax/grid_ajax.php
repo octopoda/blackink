@@ -136,7 +136,7 @@
 			$row['user_id'] = $users->printName();
 			$row['published'] = $ads->published($row['ad_id']);
 			$row['position'] = $ads->moveArrows($row['ad_id'], $ads->position, 'forms/content/list_ads.php');			
-			$row['placement'] = $ads->humanPlacment;
+			$row['placement'] = $ads->humanPlacement;
 				 
 		}
 	}

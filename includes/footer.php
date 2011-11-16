@@ -6,17 +6,20 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 	
-  <script defer src="js/plugins.js"></script>
-  <script defer src="js/script.js"></script>
+  <script defer src="/js/plugins.js"></script>
+  <script defer src="/js/script.js"></script>
+  <script src="/js/mylibs/blackink_modal_min.js"></script>
+  <script src="/js/mylibs/validation.js"></script>
+  <script type="text/javascript" src="/js/libs/jquery.autocomplete.js"></script>
   <!-- end scripts-->
 
   <?php if (SERVER == 'dev') { ?>
-		 <script src="js/mylibs/live.js"></script>	  
+		 <script src="/js/mylibs/live.js"></script>	  
   <?php } else { ?>
   
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
-    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    window._gaq = [['_setAccount','<?php echo $site->googleCode; ?>'],['_trackPageview'],['_trackPageLoadTime']];
     Modernizr.load({
       load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
     });

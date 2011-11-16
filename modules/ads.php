@@ -1,0 +1,1 @@
+<?php echo $display->displayAds('Side Bar') ?>

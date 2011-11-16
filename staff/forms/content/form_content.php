@@ -74,7 +74,7 @@
             	<input type="hidden" name="content_id" id="content_id" />
                 <input type="hidden" name="user_id" id="user_id" />
                 <input type="hidden" name="modified_by" id="modified_by"  />
-                <input type="hidden" name="addContent" id="addContent" value="forms/content/info_content.php?sel=<?php echo $content->content_id ?>" />
+                <input type="hidden" name="addContent" id="addContent" value="forms/content/info_content.php?sel=" />
                 <button><?php echo $action; ?></button>
             </p>
             

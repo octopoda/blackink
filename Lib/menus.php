@@ -78,8 +78,20 @@
 		
 		//Delete Menu
 		public function deleteFromForm() {
+			global $db;
+			global $error;
+			
+			$result_set = $db->queryFill("SELECT navigation_id FROM navigation WHERE menu_id = '{$this->menu_id}'");
+
 			if ($this->delete($this->menu_id)) {
-				return true;	
+				if ($result_set != false) {
+					foreach ($result_set as $row) {
+						$navigation = new Navigation($row['navigation_id']);
+						$navigation->deleteFromForm();			
+						$error->addMessage('You menu has been deleted');
+						return true;	
+					}
+				}
 			} else {
 				$error->addError('The information did not save.', 'Menu1564');	
 			}

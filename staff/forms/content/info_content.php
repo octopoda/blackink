@@ -38,7 +38,7 @@
         	<dd><?php echo !empty($content->summary) ? $content->summary :  'No summary added'; ?></dd>
         <dt>Direct Link:</dt>
         	<?php $link = str_replace(" ", "_", $content->title); ?>
-            <dd><?php echo $site->siteURL.DS.'content'.DS.$content->title; ?></dd>
+            <dd><?php echo $site->siteURL.$content->directLink ?></dd>
 	</dl>
     
     <h4>Author Information</h4>

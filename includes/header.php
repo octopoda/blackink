@@ -22,7 +22,7 @@
   	
   <meta charset="utf-8">
   <title><?php echo $site->siteName . $display->displayPageTitle(); ?></title>
-  <meta name="description" content="<?php echo $site->siteDescription; ?>">
+  <meta name="description" content="<?php echo $display->displayPageDescription(); ?>">
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
   <meta name="keywords" content="<?php echo $site->keywords; ?>"  />
   	
@@ -31,13 +31,39 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
-   <!-- CSS: implied media="all" -->
+  <!-- CSS: implied media="all" -->
+  <link rel="stylesheet" href="/css/basic.css" media="screen" />
+  <link rel="stylesheet" href="/css/desktop.css" media="only screen and (min-width: 1024px)" />
+  <link rel="stylesheet" href="/css/tablet.css" media="only screen and (max-width:1024px)" />
+  <link rel="stylesheet" href="/css/mobile.css" media="only screen and (max-width:480px)" />
+  
+  <!-- plugin CSS files -->
+  <link rel="stylesheet" href="/css/simple.modal.css" media="screen" />
+  <link rel="stylesheet" href="/css/ui/symbols.css" media="screen" />
+    
   <script src="/js/libs/modernizr-2.0.6.min.js"></script>
-
+  
 </head>
 
 <body>
+<div id="dialog"></div>
 <div id="siteWrapper">
     <header>
-
-    </header>
+        <hgroup>
+            <h1><a href="/index.php"><?php echo $site->siteName; ?></a></h1>
+        </hgroup>
+        <nav>
+            <?php $display->displayMenu('Quick Menu'); ?>
+        </nav>
+            <form id="form" method="GET" action="/search.php">
+                <input type="search" name="h" id="search" />
+                <button id="searchButton">Search</button>
+            </form>
+        
+        <p class="message"></p>
+   </header>
+   <section>
+        <nav>
+            <?php $display->displayMenu('Main Menu'); ?>
+        </nav>
+	</section>

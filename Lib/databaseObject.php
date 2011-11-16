@@ -393,9 +393,8 @@ abstract class databaseObject {
 		public function bottomPosition() {
 			global $db;
 			
-			$result = $db->queryFill("SELECT * FROM {$this->table}  ORDER BY position DESC LIMIT 1");
+			$result = $db->queryFill("SELECT max(position) AS 'position' FROM {$this->table}");
 			$result = array_shift($result);
-			
 			return $result['position'];
 		}
 		

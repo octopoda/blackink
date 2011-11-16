@@ -74,6 +74,18 @@
 		}
 	}
 	
+	
+	static function contentIdFromTitle($title) {
+		global $db; 
+		
+		$result = $db->queryFill("SELECT NC.content_id FROM navigation N JOIN navigationForContent NC ON N.navigation_id = NC.navigation_id WHERE N.title = '{$title}' ");
+		
+		if ($result != false) {
+			foreach ($result as $row) {
+				return $row['content_id'];	
+			}
+		}
+	}	
 
 /*  ===========================================
 	CRUD METHODs
@@ -104,30 +116,32 @@
 			//New Navigation
 			} else {
 				$newPosition = $this->position; 
-				
 				$position_set = $db->queryFill("SELECT max(position) AS 'position' FROM navigation WHERE menu_id = {$this->menu_id} AND parent_id = {$this->parent_id} LIMIT 1");
 				$position_set = $this->arrayShift($position_set);
 				$this->position = $position_set['position']+1;
 				$this->navigation_id = $this->save($this->navigation_id);
 				$this->setPosition($newPosition, $this->position, $this->parent_id, $this->menu_id);
 			}
+			
 			//Content only
 			if ((empty($this->link)) && ($this->content_id != false)) {
-				echo 'enter Content';
-				$this->placeContent($saveNav->navigation_id, $this->content_id);	
+				$this->placeContent($this->content_id, $this->navigation_id);	
 			} else if (($this->link != false) && (empty($this->content_id))) {
-				echo 'enter link';	
+					
 			}
 		}
 		
 		public function deleteFromForm() {
 			global $error;
 			
+			$newPosition = $this->bottomPosition($this->position, $this->parent_id, $this->menu_id);
+			$this->setPosition($newPosition, $this->position, $this->parent_id, $this->menu_id);
+			
 			if ($this->delete($this->navigation_id)) {
 				$error->addMessage("Navigation was deleted");
 			} else {
 				$error->addError('Navigation did not delete.', 'Navigation1564');	
-			}
+			} 
 		}
 		
 		public function setDefault($n_id="") {
@@ -154,6 +168,8 @@
 				global $db;
 				global $error;
 				
+				
+	
 				//Check to see if Navigation is defined already 
 				$sql = "SELECT * FROM navigationForContent WHERE navigation_id = {$navigation_id}";
 				$set = $db->queryFill($sql);
@@ -232,7 +248,7 @@
 		}
 		
 		public function parentDropDown() {
-			$html = '<label for="parent_id">Parent Navigation</label>';
+			$html = '<label for="parent_id">Dropdown Under</label>';
 			$html .= '<select name="parent_id" id="parent_id">';
 			
 			foreach ($this->parentList as $k=>$v) {
@@ -327,13 +343,23 @@
 			$html .=	'</li>
 						<li class="'.$this->table.'" sel="'.$position.'">';
 			
-			if ($position != $this->bottomPosition($position)) {
+			if ($position != $this->bottomPosition($position, $parent, $menu_id)) {
 				$html .= '<a sel="'.$id.'" class="move ninjaSymbol ninjaSymbolMoveDown" title="moveDown" href="'.$link.'" parent="'.$parent.'" menu="'. $menu_id.'"></a>';
 			}
 			
 			
 			$html .= '</li></ul>';
 			return $html;	
+	}
+	
+	
+	//Find out if item is in bottom position
+	public function bottomPosition($position, $parent, $menu_id) {
+		global $db;
+		
+		$result = $db->queryFill("SELECT max(position) AS 'position' FROM {$this->table} WHERE parent_id = {$parent} AND menu_id = {$menu_id}");
+		$result = array_shift($result);
+		return $result['position'];
 	}
 	
 	

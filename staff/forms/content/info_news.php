@@ -26,11 +26,13 @@
 <div>
 	<h4>News Information</h4>
 	<dl class="clearfix">
-    	<dt>News Content:</dt>
+    	<dt>News Summary</dt>
+        	<dd><?php echo $news->summary ?></dd>
+        <dt>News Content:</dt>
         	<dd><?php echo $news->content; ?></dd>
       	<dt>Direct Link:</dt>
         	<?php $link = str_replace(" ", "_", $news->title); ?>
-            <dd><?php echo $site->siteURL.DS.'new'.DS.$news->title; ?></dd>
+            <dd><?php echo $site->siteURL.$news->directLink ?></dd>
 	</dl>
     
     <h4>Author Information</h4>

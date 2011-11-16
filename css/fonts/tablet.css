@@ -1,0 +1,41 @@
+/* Tablets */
+/* Style adjustments for viewports for 768px and under */
+@media only screen and (max-width: 768px) {
+    #mainNavigation ul li {width:100%;}
+	header #searchBox fieldset {float:none; }
+	header #searchBox .inset {width:90%;}
+	
+	body {font-size: 16px; -webkit-text-size-adjust: none;}
+	.ninjaSymbol {font-size:48px !important;}
+	.row, body, .container {width: 100%; min-width: 0; margin-left:0px; margin-right:0px; padding-left:0px; padding-right:0px;}
+	
+	.row .onecol, .row .twocol, .row .threecol, .row .fourcol, .row .fivecol, .row .sixcol, .row .sevencol, .row .eightcol, .row .ninecol, .row .tencol, .row .elevencol, .row .twelvecol {
+	    width: auto;
+	    float: none;
+	    margin-left:0px;
+	    margin-right:0px;
+	    padding-right:20px;
+	    padding-left:20px; 
+	}
+	
+	
+	
+	.paging nav ul {width:100%;}
+	.paging nav ul li {width:45%;}
+}
+
+
+
+/* Landscape Tablets */
+/* Style adjustments for viewports 768px and over go here */
+@media only screen and (min-width: 768px) {
+     body { font-size: 0.8em; line-height: 1.5em;}
+}
+
+
+
+
+
+
+
+

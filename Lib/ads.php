@@ -18,6 +18,8 @@
 		//Helper Functions
 		public $adList;
 		public $humanPlacment;
+		public $directLink;
+		public $access = 0;
 		
         public function __construct($a_id="") {
            if (empty($a_id)) $a_id = $this->ad_id;
@@ -25,6 +27,7 @@
 			if (!empty($a_id)) {
          		$result = $this->fetchById($a_id);
 				$this->placementHumanReadable(); 
+				$this->getLink();
 			} 
         }
 /* ========================================
@@ -35,26 +38,50 @@
 		
 		switch ($this->placement) {
 			case 0:
-				$this->humanPlacment = 'Front Page';
+				$this->humanPlacement = 'Front Page';
 				break;
 			case 1: 
-				$this->humanPlacment = 'Side Bar';
+				$this->humanPlacement = 'Side Bar';
 				break;
 			case 2: 
-				$this->humanPlacment = 'Both';
+				$this->humanPlacement = 'Both';
 				break;	
 		}
 	}
 	
+	public function getLink() {
+		$title = str_replace(" ", "_", $this->title);
+		$this->directLink = '/ads/'.$title;
+	}
+	
+	
+	public function listAds() {
+		global $db;
+		
+		$result_set = $db->queryFill("SELECT ad_id FROM ads ");
+		
+		if ($result_set != false) {
+			foreach ($result_set as $row) {
+				$this->adList[] = new Ads($row['ad_id']);	
+			}
+		}
+	}
 		
 		
 /* ========================================
 	Display Methods 
 	==================================== */
 		
-	public function searchContent($searchQuery) {
-				
-	}	
+	static function adIdFromTitle($title) {
+		global $db;
+		
+		$result_set = $db->queryFill("SELECT ad_id FROM ads WHERE title = '{$title}'");
+		if ($result_set != false) {
+			foreach ($result_set as $row) {
+				return $row['ad_id'];	
+			}
+		}
+	}
 		
 /* ========================================
 	Admin Methods 

@@ -24,7 +24,6 @@
    <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="css/master.css" >
   <link rel="stylesheet" href="css/default.css" />
-  <link rel="stylesheet" href="/css/ui/jquery-ui.css" />
   <link rel="stylesheet" href="/css/ui/symbols.css" />
   <link rel="stylesheet" href="css/grid.css" />
   <link rel="stylesheet" href="css/admin.css" />

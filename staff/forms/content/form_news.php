@@ -18,6 +18,7 @@
 	echo $news->pushToForm();
 	echo $u->pushToForm();
 	$infoKey = md5(time().rand());
+	$otherKey = md5(time().rand());
 	
 ?>
 <script>
@@ -57,6 +58,12 @@
 			<p>
             	<label for="content">Content</label>
             	<textarea name="content" id="<?php echo $infoKey ?>" class="editor"><?php echo $news->content ?></textarea>
+                <input type="hidden" id="content" />
+            </p>
+            
+            <p>
+            	<label for="summary">Sidebar Summary</label>
+            	<textarea name="summary" id="<?php echo $infoKey ?>" class="editor"><?php echo $news->summary ?></textarea>
                 <input type="hidden" id="content" />
             </p>
      	      

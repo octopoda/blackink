@@ -14,7 +14,7 @@
 	
 	//Admin
 	require_once(CLASS_PATH.DS. 'users.php');
-	require_once(ADMIN_PATH.DS. 'admin_navigation.php');
+	require_once(ADMIN_PATH.DS. 'adminNavigation.php');
 	
 	//Mail
 	require_once(MAIL_PATH.DS. 'class.phpmailer.php');

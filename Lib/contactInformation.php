@@ -40,6 +40,47 @@
 		}
 		
 		
+		public function emailCompany($post) {
+			global $db;
+			$site = new Site();
+			
+			usleep(1000);
+			$email = $db->escapeString($post['email']);
+			$name = $db->escapeString($post['name']);
+			$subject = $db->escapeString($post['subject']);
+			$message = $_POST['message'];
+			
+			$mailMessage =  $message;
+			
+			
+			$mail = new PHPMailer(true);
+			$mail->IsSMTP();
+			
+			$mail->Host = EMAIL_HOST;
+			$mail->Username = EMAIL_USER;
+			$mail->Password = EMAIL_PASS;
+			$mail->Port = 26;
+			$mail->SMTPAuth   = true; 
+			
+			
+			$mail->SMTPDebug  = 1;  
+			$mail->AddReplyTo($email, $name);
+			$mail->AddAddress(EMAIL_USER, $site->siteName." website request");
+			$mail->SetFrom($email, $name);
+			$mail->Subject = $subject;
+			$mail->Body = $mailMessage;
+			
+			$sent = $mail->Send();
+			
+			//Mail Sent Change Password
+			if ($sent) {
+				return true;
+			} else {
+				return false;
+			}
+		
+		}
+		
 		
 		
 	}

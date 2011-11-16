@@ -44,7 +44,7 @@ if (isset($_POST['addContent'])) {
 	
 	$created = $content->createContentFromForm($_POST);
 	
-	echo $_POST['addContent'];
+	echo $_POST['addContent'].$created;
 }
 
 if (isset($_POST['addUser'])) {

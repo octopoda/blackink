@@ -22,9 +22,10 @@
 	<ul>
 	<?php  
         $menu->listMenus();
-        foreach ($menu->menuList as $list) { 
-            $id = 'radio_'. $list->menu_id; ?>
-            <li sel="<?php echo $list->menu_id ?>"><?php echo $list->menu_name ?></li>
+		foreach ($menu->menuList as $list) { ?>
+            <li sel="<?php echo $list->menu_id ?>" 
+            	class="<?php echo ($list->menu_id == $menuId ) ? 'active' : '' ;?>">
+			<?php echo $list->menu_name ?></li>
     <?php } ?>
     </ul>
 </nav>

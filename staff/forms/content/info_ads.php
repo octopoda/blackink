@@ -13,7 +13,7 @@
 ?>
 
 <ul class="quickMenu">
-	<li><a href="forms/content/form_content.php?sel=<?php echo $ads->ad_id; ?>" class="redirect">
+	<li><a href="forms/content/form_ads.php?sel=<?php echo $ads->ad_id; ?>" class="redirect">
     		<span class="ninjaSymbol ninjaSymbolEdit"></span> 
         	<span class="text">Edit Information</span>
          </a></li>
@@ -30,7 +30,7 @@
         	<dd><?php echo !empty($ads->summary) ? $ads->summary :  'No summary added'; ?></dd>
         <dt>Direct Link:</dt>
         	<?php $link = str_replace(" ", "_", $ads->title); ?>
-        	<dd><?php echo $site->siteURL.DS.'ads'.DS.$link; ?></dd>
+        	<dd><?php echo $site->siteURL.$ads->directLink; ?></dd>
 	</dl>
     
     <h4>Author Information</h4>

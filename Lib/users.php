@@ -7,7 +7,6 @@
         
         public $table = "users";
         public $idfield = "user_id";
-        public $allowCache = true;
         public $user_id;
         public $first;
         public $last;
@@ -24,11 +23,10 @@
         public function __construct($u_id="") {
           	
 			if (!empty($u_id)) { 
-				
 				$this->user_id = $u_id;
 				$this->setUser($u_id);
 			} else {
-				return;	
+				$this->access = 1;
 			}
         }
 /* =======================================
@@ -164,12 +162,19 @@
 			
 			//Create User return ID
 			$this->fillFromForm($post);
-			$this->password = md5($this->password);
-			$this->guid = uniqid('', true);
+			
+			if (!empty($post['password'])) {
+				$this->password = md5($this->password);
+			}
+			
+			if (empty($this->guid)) {
+				$this->guid = uniqid('', true);
+			}
+			
 			$u_id = $this->save($this->user_id);
 			
 			//Set Access to Registered
-			$this->setAccess($this->access, $u_id);
+			$this->setAccess(2, $u_id);
 			
 			
 			//Create Address return ID
@@ -213,7 +218,7 @@
 				global $error;
 				
 				if (strlen($pw) != 32) $this->password = md5($pw);
-				
+				$this->guid = uniqid('', true);
 				$this->user_id = $this->save($this->user_id);
 				
 				if ($this->user_id == false) {
@@ -231,19 +236,16 @@
 		}
 		
 		
-		public function forgotPassword($email) {
+		static function forgotPassword($email) {
 			global $db;
 			global $error;
 			
-			$err = NULL;
-
 			
 			$result = $db->queryFill("SELECT * FROM users WHERE email = '{$email}' LIMIT 1");
 			$site = new Site();
 			
 			if (empty($result)) {
-				$error->addError("Sorry that email is not on file");
-				$err[] = 1;
+				echo 'Sorry your email is not in our files.  Please feel free to join our site.';
 			} else {
 				$result = array_shift($result);
 				$first =  $result['first'];
@@ -253,7 +255,7 @@
 		
 			if (empty($err)) {
 				usleep(1000);
-				$link = 'http://' . $site->siteURL . 'forgot_password.php?gi=' . $guid;	
+				$link = 'http://' . $site->siteURL.DS. 'forgot_password.php?g=' . $guid;	
 				$subject = $site->siteName . " - Forgot password";
 				$mailMessage =  
 					"<p>You requested a new password from ".$site->siteName.".</p>
@@ -261,6 +263,8 @@
 					 order to change your password. </p>
 					 
 					 <p><a href=\"".$link ."\"></a>".$link."</p>  
+					 
+					 <p>If you did not request a new password please ignore this email. </p>
 					
 					 <p>Thanks,</p>
 					 
@@ -270,12 +274,14 @@
 				
 				$mail = new PHPMailer(true);
 				$mail->IsSMTP();
+				$mail->IsHTML();
 				
 				$mail->Host = EMAIL_HOST;
 				$mail->Username = EMAIL_USER;
 				$mail->Password = EMAIL_PASS;
 				$mail->Port = 25;
 				$mail->SMTPAuth   = true; 
+				
 				
 				
 				//$mail->SMTPDebug  = 1;  
@@ -289,9 +295,9 @@
 				
 				//Mail Sent Change Password
 				if ($sent) {
-					$error->addMessage('An email has been sent to our email on file.');
+					echo "An email has been to sent with further instructions.";
 				} else {
-					$error->addError('There was a problem sending to your email address', 'u9875');
+					echo "There was a problem sending email.  Please try again or contact us.";
 				}
 				
 			}

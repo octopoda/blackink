@@ -10,6 +10,7 @@
 		
 		$.ajax({
 			url: $string,
+			onSubmit: $('#content').html('<p><img src="/images/admin/ajax-loader.gif" alt="loading cursor"/>loading....</p>'),
 			success: function(data) {
 				getErrors();
 				$('#content').html(data);
@@ -35,6 +36,7 @@
 			type: 'POST',
 			data: {'sel' : $sel, 'href': $href},
 			dataType: 'json',
+			onSubmit: $('#content').html('<p><img src="/images/admin/ajax-loader.gif" alt="loading cursor"/>loading....</p>'),
 			success: function (data) {
 				$('#tabs').html(data.tabs);
 				
@@ -72,6 +74,7 @@
 		$.ajax({
 			url: $href,
 			type: 'POST',
+			onSubmit: $('#content').html('<p><img src="/images/admin/ajax-loader.gif" alt="loading cursor"/>loading....</p>'),
 			success: function (data) {
 				getErrors();
 				$('#content').html(data);
@@ -213,11 +216,10 @@
 	
 	//Menu Select to change Navigation
 	$('.menuSelect ul li').live('click', function () {
-		var $id = $(this).attr('sel');
-		alert($id);
+		$this = $(this);
+		$id = $(this).attr('sel');
 		$url = 'forms/navigation/navigation.php'
 		$url += '?sel=' + $id;
-		
 		$.ajax({
 			url: $url,
 			success: function (data) {
@@ -366,7 +368,6 @@
 			data: { 'errorPlacement': 1},
 			dataType: 'json',
 			success: function (data) {
-				//$('.data').html(data);
 				$('#dialog').modal({
 					style: data.style,	
 					text: data.text,
@@ -386,6 +387,7 @@
 			}
 		});	
 	}
+
 	
 	
 	$('.reportError').live('click', function (e) {
@@ -523,6 +525,20 @@
 		var $url = $link + '?sel=' + $id;
 	
 		redirectTo($url);
+	});
+	
+	$('.stuckRow td a').live('click', function (e) {
+		e.preventDefault();
+		
+		if ($(this).hasClass('published')) return;
+		
+		$(this).attr('target', '_self');
+		var $link = $(this).attr('href');
+		var $id = $(this).parent('td').parent('tr').attr('primary_key');
+		var $url = $link + '?sel=' + $id;
+	
+		redirectTo($url);
+		
 	});
 	
 	$('.externalLink').live('change', function() {
