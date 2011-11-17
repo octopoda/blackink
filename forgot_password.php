@@ -5,6 +5,11 @@
 	
 	if (!empty($_GET['g'])) {
 		$u_id = Users::getUsersFromGuid($_GET['g']);
+		if ($u_id == false) {
+			echo '<h3>Your password request has expired. Please try again.</h3>';
+			return;	
+		}
+		
 		$u = new Users($u_id);
 		$action = 1; 
 	} else {

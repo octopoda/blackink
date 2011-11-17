@@ -1,10 +1,4 @@
-<?php 
-	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php');
-	$users = new Users();
-	
-	
-	
-?>
+<?php require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php'); ?>
 
 
 <h3 class="floatLeft">Users</h3>
@@ -14,7 +8,9 @@
     <tr>	
         <th col="name" width="150" link="forms/users/info_users.php">Title</th>
         <th col="email" width="100">email</th>
+        <?php if ($users->access > 4) : ?>
         <th col="access" width="100" editable="select">Access</th>
+        <?php endif; ?>
     </tr>
 </table>
 

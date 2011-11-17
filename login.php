@@ -34,7 +34,7 @@
     </form>
     <nav>
     	<ul>
-    		<li><a href="/forgot_password">Forgot Password</a></li>
+    		<li><a href="/forgot_password.html">Forgot Password</a></li>
     	</ul>
     </nav>
     

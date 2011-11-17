@@ -18,10 +18,13 @@
 		//Helper Attributes
 		public $mainNav = array();
 		public $tabs = array();
+		private $user;
 		
 		//Create the Main Navigaton
 		public function __construct ($a_id="") {
 			if ($a_id == false) $a_id = $this->admin_id;
+			
+			$this->user = new Users($_SESSION['user_id']);
 			
 			if (!empty($a_id)) {
 				$this->fetchById($a_id);
@@ -65,10 +68,12 @@
 			$nTimes = 0;
 			
 			foreach ($this->mainNav as $mainNav) {
-				$html .= '<li';
-				if ($nTimes == 0) $html .= ' class="active" ';
-				$html .= '><a href="'.$mainNav->link.'" sel="'.$mainNav->title.'">'.$mainNav->title.'</a></li>';
-				$nTimes++;
+				if ($mainNav->access <= $this->user->access) {
+					$html .= '<li';
+					if ($nTimes == 0) $html .= ' class="active" ';
+					$html .= '><a href="'.$mainNav->link.'" sel="'.$mainNav->title.'">'.$mainNav->title.'</a></li>';
+					$nTimes++;
+				}
 			}
 			
 			$html .= '</ul>';
@@ -83,13 +88,14 @@
 			foreach ($this->mainNav as $mainNav) {
 				if ($mainNav->title == $title) {
 					foreach ($mainNav->tabs as $tabs) {
-						$html.= '<li'; 
-						if ($nTimes == 0) $html .= ' class="active" ';
-							
-						$html .= '><a href="'.$tabs->link.'" sel="'.$tabs->title.'" >'.$tabs->title.'</a></li>';
-						$nTimes++;	
+						if ($tabs->access <= $this->user->access) {
+							$html.= '<li'; 
+							if ($nTimes == 0) $html .= ' class="active" ';
+								
+							$html .= '><a href="'.$tabs->link.'" sel="'.$tabs->title.'" >'.$tabs->title.'</a></li>';
+							$nTimes++;	
+						}
 					}
-					
 				}
 			}
 			
