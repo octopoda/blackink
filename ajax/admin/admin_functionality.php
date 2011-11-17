@@ -200,6 +200,14 @@ if (isset($_POST['errorPlacement'])) {
 	}
 }
 
+if (isset($_POST['preview'])) {
+	unset ($_SESSION['title']);
+	unset ($_SESSION['content']);
+	
+	$_SESSION['title'] = $_POST['title'];
+	$_SESSION['content'] = $_POST['content'];	
+}
+
 ?>
 
 

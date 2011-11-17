@@ -587,8 +587,22 @@
 
 
 /* ===========================================
-	TinyMCE Configuration
+	Preview Information
    =========================================*/
 
+	$('.preview').live('click', function(e) {
+		e.preventDefault();
+		_title = $('#title').val();
+		_content = $('.editorContent').val();
+		
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: {'preview' : 1, 'title': _title, 'content' : _content},
+			success: function () {
+				window.open('/preview.html');	
+			}
+		})
+	});
 	
 

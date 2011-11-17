@@ -28,6 +28,13 @@
 ?>
 <script src="/js/mylibs/ajaxupload.js"></script>
 
+<ul class="quickMenu">
+	<li><a href="/preview.php" class="preview" target="_blank">
+    		<span class="ninjaSymbol ninjaSymbolWatch"></span> 
+        	<span class="text">Preview</span>
+         </a></li>
+</ul>
+
 <h3><?php echo $action; ?></h3>
 
 <div class="header">

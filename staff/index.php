@@ -3,6 +3,8 @@
 	$nav = new AdminNavigation();
 	
 	if (!isset($_SESSION['user_id'])) redirect('login.php');
+	else if ($users->access < 3) redirect('/no_access.html');	
+	
 	$site = new Site();
 ?>
 
