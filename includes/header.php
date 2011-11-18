@@ -37,9 +37,11 @@
   <link rel="stylesheet" href="/css/tablet.css" media="only screen and (max-width:1024px)" />
   <link rel="stylesheet" href="/css/mobile.css" media="only screen and (max-width:480px)" />
   
+  <!-- Font Stylesheets -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  
   <!-- plugin CSS files -->
-  <link rel="stylesheet" href="/css/simple.modal.css" media="screen" />
-  <link rel="stylesheet" href="/css/ui/symbols.css" media="screen" />
+  <link rel="stylesheet" href="/css/plugins.css" media="screen" />
     
   <script src="/js/libs/modernizr-2.0.6.min.js"></script>
   
@@ -47,23 +49,19 @@
 
 <body>
 <div id="dialog"></div>
-<div id="siteWrapper">
     <header>
-        <hgroup>
-            <h1><a href="/index.php"><?php echo $site->siteName; ?></a></h1>
-        </hgroup>
-        <nav>
-            <?php $display->displayMenu('Quick Menu'); ?>
-        </nav>
-            <form id="form" method="GET" action="/search.php">
-                <input type="search" name="h" id="search" />
-                <button id="searchButton">Search</button>
-            </form>
-        
-        <p class="message"></p>
+    	<div class="row">
+            <hgroup>
+                    <h1><a href="/index.php" class="ir logo"><?php echo $site->siteName; ?></a></h1>
+            </hgroup>
+            <nav class="quickNav">
+                <?php $display->displayMenu('Quick Menu'); ?>
+            </nav>
+        </div>
    </header>
-   <section>
-        <nav>
-            <?php $display->displayMenu('Main Menu'); ?>
-        </nav>
-	</section>
+   <nav class="mainNav">
+   		<div class="row">
+			<?php $display->displayMenu('Main Menu'); ?>
+        </div>
+   </nav>
+	

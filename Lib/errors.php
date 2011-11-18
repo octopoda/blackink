@@ -52,10 +52,6 @@
 		}
 		 
 		 
-		public function startError() {
-			$this->addError('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sit amet ligula ut lorem malesuada accumsan non sed massa. Nam consectetur odio nec nisi porta et sodales metus bibendum. Proin placerat gravida lorem, in varius diam placerat vitae. Duis vestibulum eros eget ipsum convallis rhoncus. Aenean suscipit lectus blandit tellus venenatis fermentum. Sed eleifend suscipit augue ut feugiat. Sed laoreet dolor ut leo faucibus id facilisis sem gravida. Nulla facilisi. Cras nec molestie ligula. Quisque gravida posuere eros non cursus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur malesuada suscipit arcu, nec ultrices nibh dictum eget. Duis et purus et lorem tristique feugiat.', 'ER34980');	
-		}
-		
 		public function displayError() {
 			//Error
 			if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 1) {
@@ -70,7 +66,8 @@
 			} else if (isset($_SESSION['indicator']) && $_SESSION['indicator'] == 2) {
 				echo json_encode(array (
 					"style"=> 'message',
-					"text"=> $this->setupErrors()
+					"text"=> $this->setupErrors(),
+					"reportError" => false
 				));
 			}
 		}

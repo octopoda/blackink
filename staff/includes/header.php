@@ -11,8 +11,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   	
   <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
+  <title><?php $site = new Site(); echo $site->siteName; ?> :: Octopoda Black Ink</title>
+  <meta name="description" content="Black Ink Content management system made by OctopodaMedia.com">
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
   <meta name="keywords" content=""  />
   	
@@ -24,7 +24,7 @@
    <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="css/master.css" >
   <link rel="stylesheet" href="css/default.css" />
-  <link rel="stylesheet" href="/css/ui/symbols.css" />
+  <link rel="stylesheet" href="/css/plugins.css" />
   <link rel="stylesheet" href="css/grid.css" />
   <link rel="stylesheet" href="css/admin.css" />
   

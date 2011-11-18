@@ -3,6 +3,19 @@
 
 /* Style adjustments for viewports for 768px and under */
 @media only screen and (max-width: 768px) {
+body { font-size: 16px; -webkit-text-size-adjust: none;}
+	
+.row, body, .container { width: 100%; min-width: 0; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px;}
+	
+.row .onecol, .row .twocol, .row .threecol, .row .fourcol, .row .fivecol, .row .sixcol, .row .sevencol, .row .eightcol, .row .ninecol, .row .tencol, .row .elevencol, .row .twelvecol {
+	width: auto;
+	float: none;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+  
   
 }
 
@@ -11,7 +24,9 @@
 /* Landscape Tablets */
 /* Style adjustments for viewports 768px and over go here */
 @media only screen and (min-width: 768px) {
-   
+   .refills h5 {font-size:20px; width:50%;}
+   .search input {width:50%;}
+
 }
 
 

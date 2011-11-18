@@ -1,10 +1,11 @@
 // JavaScript Document //	
+$(document).ready(function () {	
 	
 /* ===========================================
 	Load Calls
    =========================================*/
 	getErrors();
-
+	
 
 
 /* ===========================================
@@ -151,16 +152,23 @@
 	//Validation on Submit for Forms
 	function ajaxFormSubmit(object) {
 		var $datastring = object.serialize();
+		_button = object.find('button');
+		_html = _button.html();
 		
 		$.ajax({
 			type: 'POST',
 			url: '/ajax/ajax_submit.php',
 			data: $datastring,
+			onSubmit: _button.html('<img src="/images/admin/ajax-loader.gif" /> Loading').addClass('disabled'), 
 			success: function (data) {
-				$('.message').html(data);
+				_button.remove();
+				$('.data').html(data);
+				postError('message', data);
+				getErrors();
 			},
 			error: function(xhr, textStatus, errThrown) {
-                postError('Something went wrong with out System. Please try again later');
+                _button.html(_html);
+				postError('error', 'Something went wrong with out System. Please try again later');
 				getErrors();
             }
 		}); 
@@ -187,10 +195,7 @@
 			input.val(input.attr('placeholder'));
 	  	}
 	}).blur();
-	
-
-
-
+});
 
 
 

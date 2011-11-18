@@ -8,15 +8,10 @@
 
 
 <section class="login">
-    <div>
-    <header class="clearfix">
-        <hgroup>
-        	<h1><a href="/index.php" class="logo"><?php echo $site->siteName ?></a></h1>
-        </hgroup>
-    </header>
+    <div class="row">
     <form method="post" name="login" id="formSubmit">
         <fieldset >
-            <legend><?php echo $site->siteName ?> Login</legend>
+            <h1><?php echo $site->siteName ?> Login</h1>
             <p>
                 <label for="email">Email</label>
                 <input type="type" name="email" id="email" autocomplete="off" />
@@ -37,7 +32,7 @@
     		<li><a href="/forgot_password.html">Forgot Password</a></li>
     	</ul>
     </nav>
-    
+    </div>
 </section>
 
 <?php 

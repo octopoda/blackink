@@ -17,7 +17,8 @@
 	}
 	
 ?>
-
+<section class="mainContent">
+<div class="row">
 <?php if ($action == 1) : ?>
 <h3>Change Password for <?php echo $u->printName(); ?></h3>
 
@@ -64,5 +65,6 @@
 <?php endif; ?>
 
 <div class="data"></div>
-
+</div>
+</section>
 <?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>

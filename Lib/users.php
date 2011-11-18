@@ -273,14 +273,14 @@
 				
 				
 				$mail = new PHPMailer(true);
-				$mail->IsSMTP();
+				//$mail->IsSMTP();
 				$mail->IsHTML();
 				
 				$mail->Host = EMAIL_HOST;
 				$mail->Username = EMAIL_USER;
 				$mail->Password = EMAIL_PASS;
 				$mail->Port = 25;
-				$mail->SMTPAuth   = true; 
+				//$mail->SMTPAuth   = true; 
 				
 				
 				

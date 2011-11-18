@@ -61,7 +61,6 @@
 	function runFunctions($name) {
 		global $grid;
 		
-		
 		switch ($name) {
 			case 'content':
 				content($grid->data);
@@ -77,6 +76,9 @@
 				break;
 			case 'media':
 				media($grid->data);
+				break;
+			case 'refills':
+				refills($grid->data);
 				break;
 		}
 		
@@ -148,6 +150,15 @@
 			$media = new Media($row['media_id']);
 			
 			$row['thumbs'] = $media->placeThumbnail();	
+		}
+	}
+	
+	function refills(&$dataArray) {
+		global $grid;
+		
+		foreach ($dataArray['rows'] as &$row) {
+			$refills = new Refills($row['refill_id']);
+			$row['time'] = $refills->displayTime;	
 		}
 	}
 

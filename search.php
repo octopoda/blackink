@@ -11,19 +11,21 @@
 ?>
 
 <section class="mainContent">
-	<article>
-    	<?php if (isset($nosearch)) {
-			
-		} else {
-			echo $display->siteSearch($search, 1);	
-		}
-		
-		?>
-    </article>
+	<div class="row">
+        <article>
+            <?php if (isset($nosearch)) {
+                
+            } else {
+                echo $display->siteSearch($search, 1);	
+            }
+            
+            ?>
+        </article>
     
-    <aside>
-    	<?php //include(MODULES.'sidebar.php'); ?>
-    </aside>
+    	<aside>
+    		<?php include(MODULES.'sidebar.php'); ?>
+    	</aside>
+    </div>
 </section>
 
 

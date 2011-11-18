@@ -131,7 +131,7 @@
 					if ($list->subNavList != false) {
 						$html .= "<ul>";
 						foreach ($list->subNavList as $subNav) {
-							if (($subNav->access <= $this->user->access) &&($subNav->published == 1)) {  
+							if (($subNav->access <= $this->user->access) && ($subNav->published == 1)) {  
 							if ($subNav->link == NULL) {
 								$title = urlencode($subNav->content_title);
 								$this->childURL= $this->parentURL.str_replace("+", "_", $title);
@@ -183,6 +183,9 @@
 			
 		}
 		
+		public function displayTitle() {
+			echo $this->content->title;	
+		}
 		
 		public function displayContent() {
 			if ($this->content->access <= $this->user->access) {
@@ -212,6 +215,7 @@
 			}
 			
 			$html .= "</ul>";
+			$html .= '<div class="newsTriangle"></div>';
 			return $html;
 		}
 		
@@ -277,7 +281,7 @@
 			$totalSize = count(Content::searchContent($string));
 			
 			$page = 1;
-			$size = 2;
+			$size = 10;
 			
 			if (isset($pageNumber)) $page = $pageNumber; 
  			 

@@ -2,7 +2,7 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/require.php');
 	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/header.php'); 
  ?>
- <section>
+ <section class="row noAccess">
  	<h3>You do not have access to this area.  Please go back to the main site. </h3>
  </section>
  

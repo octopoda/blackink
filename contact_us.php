@@ -5,6 +5,7 @@
 ?>
 
 <section class="mainContent">
+  <div class="row">
   <article>
     <h2>Contact Us</h2>
     
@@ -46,11 +47,12 @@
         <p class="message"> </p>
       </fieldset>
     </form>
-  </section>
+  </article>
   <aside>
   	<?php include(MODULES.'sidebar.php'); ?>
   </aside>
-</div>
+  </div>
+</section>
 
 
 <?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>

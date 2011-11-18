@@ -71,6 +71,20 @@ if (isset($_POST['changePassword'])) {
 	redirect('index.php');
 }
 
+
+if (isset($_POST['refill'])) {
+	global $error;
+	
+	$refill = new Refills();
+	$id = $refill->createRefillFromForm($_POST);
+	
+	if ($id != false) {
+		$error->addMessage('You refill request has been sent.');	
+	} else {
+		$error->addMessage('Sorry there was an error with your refill. Please contact us for further information.');
+	}
+}
+
 /*if (isset($_POST['newsletterSubmit'])) {
 	
 	if ($_POST['email'] == '') {  echo 'No email address Provided'; return; }

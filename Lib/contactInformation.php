@@ -13,6 +13,9 @@
 		public $faxnumber;
 		public $summary; 
 		
+		//helpers
+		public $address;
+		
         public function __construct() {
             $result = $this->fetchById(1);
 			$this->address = new Address($this->address_id); 
@@ -39,6 +42,14 @@
 			
 		}
 		
+		
+		public function printPhones() {
+			$html = '<ul class="contactPhones">';
+			$html .= '<li><span class="phoneLabel">Phone: </span>'.$this->phonenumber.'</li>';
+			$html .= '<li><span class="phoneLabel">Fax: </span>'.$this->faxnumber.'</li>';
+			$html .= '</ul>';
+			return $html;	
+		}
 		
 		public function emailCompany($post) {
 			global $db;

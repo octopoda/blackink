@@ -32,27 +32,19 @@ class Paginator
 		
 	private function getLimit()
 	{
-		if ($this->total_records == 0)
-		{
+		if ($this->total_records == 0) {
 			$lastpage = 0;
-		}
-		else 
-		{
+		} else {
 			$lastpage = ceil($this->total_records/$this->size);
 		}
 		
 		$page = $this->page;		
 		
-		if ($this->page < 1)
-		{
+		if ($this->page < 1) {
 			$page = 1;
-		} 
-		else if ($this->page > $lastpage && $lastpage > 0)
-		{
+		} else if ($this->page > $lastpage && $lastpage > 0){
 			$page = $lastpage;
-		}
-		else 
-		{
+		} else {
 			$page = $this->page;
 		}
 		
@@ -116,7 +108,7 @@ class Paginator
 		}
 		
 		
-		return '<ul class="pagination" sel="'.$this->searchTerm.'">' . $output . '</ul></div>';
+		return '<ul class="pagination" sel="'.$this->searchTerm.'">' . $output . '</ul>';
 	}
 }
 

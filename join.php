@@ -5,23 +5,9 @@
 	$phones = new Phones();
 ?>
 
-<header>
-	<hgroup>
-    	<h1><a href="/index.php"><?php echo $site->siteName; ?></a></h1>
-    </hgroup>
-	<nav>
-    	<?php $display->displayMenu('Quick Menu'); ?>
-    </nav>
-    
-    
-</header>
-<section>
-	<nav>
-    	<?php $display->displayMenu('Main Menu'); ?>
-    </nav>
-</section>
 <section class="mainContent">
-	<article>
+	<div class="row">
+    <article>
     <h3>Join our Site</h3>
     	<form id="formSubmit" method="POST">
     <fieldset>
@@ -98,7 +84,8 @@
     <aside>
     	<?php include(MODULES.'sidebar.php'); ?>
     </aside>
-</div>
+    </div>
+</section>
 
 
 <?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>        
