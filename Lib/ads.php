@@ -49,7 +49,7 @@
 	}
 	
 	public function getLink() {
-		$title = str_replace(" ", "-", $this->title);
+		$title = str_replace(" ", "_", $this->title);
 		$this->directLink = '/ads/'.urlencode($title).'.html';
 	}
 	

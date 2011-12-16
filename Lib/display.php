@@ -71,7 +71,7 @@
 		private function sanitizeURL($url) {
 			$url = urldecode($url);
 			$url = str_replace("/", "", $url);
-			$url = str_replace("-", " ", $url);
+			$url = str_replace("_", " ", $url);
 			
 			return $url;
 		}

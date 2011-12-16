@@ -38,7 +38,7 @@
         }
 		
 		public function getLink() {
-			$title = str_replace(" ", "-", $this->ProductName);
+			$title = str_replace(" ", "_", $this->ProductName);
 			$this->directLink = '/supplements/'. urlencode($title). '.html';	
 		}
 		

@@ -51,7 +51,7 @@
 	}
 	
 	private function getLink() {
-		$title = str_replace(" ", "-", $this->title);
+		$title = str_replace(" ", "_", $this->title);
 		$this->directLink = '/content/'	.urlencode($title).'.html';
 	}
 	

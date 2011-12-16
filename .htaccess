@@ -313,6 +313,8 @@ RewriteRule		^compass/([^/.]+/)([^/.]+).html$		/compass.php?title=compass&name=$
 RewriteRule		^supplements/?$							/supplements.php?title=supplements [NC]
 RewriteRule		^supplements/([^/.]+).html$				/supplements.php?title=supplements&name=$1 [NC]
 
+RewriteRule		^content/([^/.]+).html$				/display.php?title=$1 [NC]
+
 RewriteRule		^/?staff/?$								/staff/index.php [NC]
 
 RewriteRule		^(/?[^/.]+/?)$							/display.php?title=$1 [NC]
