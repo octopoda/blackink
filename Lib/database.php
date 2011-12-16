@@ -1,7 +1,5 @@
 <?php
-    // MODIFIED 1/5/11 - MCJ
-    
- 	require_once("web_config.php");	
+   require_once("web_config.php");	
 	
 	class MySQLDatabase {
 		private $database;

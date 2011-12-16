@@ -3,7 +3,6 @@
 	
 	$navigation;
 	$action = "Add"; 
-	$external = false;
 	
 	if (isset($_GET['sel']) && isset($_GET['menu'])) {
 		$navigation = new Navigation($_GET['sel']);
@@ -22,42 +21,82 @@
 	echo $navigation->pushToForm();
 	$link = 'forms/navigation/form_navigation.php';
 	if (!empty($navigation->link)) $external = true;
+	
+		
 ?>
 <script>
 	$('#menu_id').val(<?php echo $menu->menu_id ?>)
 	$('#content_title').val('<?php  echo $navigation->content_title ?>');
 	$('#content_id').val(<?php echo $navigation->content_id ?>);
-	<?php if($external) {
-			echo "$('.contentInput').hide();"; 
-		  } else {
-			echo "$('.externalInput').hide();";
-		  }
+	<?php 
+		switch ($navigation->type) {
+			case 2: 
+				echo "$('.contentInput').hide();";
+				echo "$('.drugList').hide();";
+				echo "$('#link').addClass('activeInput');";
+				break;
+			case 3:
+				echo "$('.contentInput').hide();";
+				echo "$('.externalInput').hide();";
+				echo "$('#drugName').addClass('activeInput');";
+				break;
+			default:
+				echo "$('.externalInput').hide();";
+				echo "$('.drugList').hide();";
+				echo "$('#content_title').addClass('activeInput');";
+				break;	
+		}
 	?>
+	
 </script>
 <h3><?php echo $action ?> Navigation</h3>
 <form id="formUpdate" method="POST">
 	<fieldset>
+    	<p>
+        	<label for="type">Type of Link:</label>
+        	<select name="type" id="type" sel>
+            	<option value="1">Content</option>
+                <option value="2">External Link</option>
+                <option value="3">Compass Drug Listing</option>
+                <option value="4">Compass Content</option>
+            </select>
+        </p>
+    
         <p>
             <label for="title">Navigation Title (required)</label>
-            <input type="text" name="title" id="title" autofocus placeholder="Navigation Name"  />
+            <input type="text" name="title" id="title" autofocus placeholder="Navigation Name" class="nospecial"  />
             <input type="hidden" name="navigation_id" id="navigation_id" />
         </p>
-        
-        <p class="checkbox">
-        	<input type="checkbox" class="externalLink" <?php if ($external) echo 'checked="checked"' ?> sel="" />
-            <label>External Link:</label>
-        </p>
-        
         <p class="contentInput">
         	<label for="content">Content for Navigation Item</label>
-        	<input type="text" name="content_title" id="content_title" placeholder="Click to Choose Content" />
+        	<input type="text" name="content_title" id="content_title" sel="<?php echo $navigation->content_id; ?>" placeholder="Click to Choose Content" />
             <input type="hidden" name="content_id" id="content_id" />
             
         </p>
         <p class="externalInput">
         	<label for="link">External Link</label>
-            <input type="text" name="link" id="link" placeholder="http://yourdomain.com" />
+            <input type="text" name="link" id="link" placeholder="http://yourdomain.com" sel="<?php echo $navigation->navigation_id; ?>" />
         </p>
+        <div class="drugList">
+            <a> 
+				<span class="ninjaSymbol ninjaSymbolPlus"></span>
+				<span class="text">Add Theraputic Class</span>
+			</a>
+            <p>
+            	<label>Treatment Names:</label>
+                <ul class="drugs">
+                	<?php if ($navigation->drugList != false) :
+						
+						foreach ($navigation->drugList as $drug) {	?>
+                        <li>
+                        	<span class="ninjaSymbol ninjaSymbolClear" id="deleteCompass"></span>
+                        	<?php echo $drug->drugName; ?> 
+                        	<input type="hidden" name="drug_id[]" value="<?php echo $drug->drug_id; ?>" /></li>
+                     <?php  } endif;?>
+                     
+                </ul>
+            </p>
+        </div>
         <div class="contentPopUp"></div>
         <p>
         	<label for="menu_id">Menus</label>
@@ -97,7 +136,7 @@
         </p>
         <p>
             <button name="navigationSettings" id="navigationSettings">Submit</button>
-            <input type="hidden" name="addNavigation" id="addNavigation" value="forms/navigation/navigation.php" />
+            <input type="hidden" name="addNavigation" id="addNavigation" value="forms/navigation/navigation.php?sel=" />
         </p>
     
     </fieldset>

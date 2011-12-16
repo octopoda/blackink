@@ -99,7 +99,7 @@ legend { border: 0; *margin-left: -7px; padding: 0; }
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
 button, input { line-height: normal; *overflow: visible; padding:5px; }
 table button, table input { *overflow: auto; }
-button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; margin-top:20px; }
 input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
 input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
 input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
@@ -118,6 +118,8 @@ fieldset {margin-bottom:60px;}
 .checkbox label {float:left; text-align:left; width:300px; margin-left:-275px; margin-top:0px;}
 .checkbox input {float:left; }
 .checkbox {padding:20px 0px; clear:both;}
+
+form .ninjaSymbol {position:relative; top:-5px !important;}
 
 /* =============================================================================
    Tables

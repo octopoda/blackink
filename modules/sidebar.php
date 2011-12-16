@@ -3,11 +3,10 @@
     <button id="searchButton">Search</button>
 </form>
 <section class="refills">
-	<h5><a href="refills.html">Online Refills</a></h5>
-	<div class="refillTriangle"></div>
+	<h5><a href="/online_refills.html">Prescriptions Refills</a><span class="ninjaSymbol ninjaSymbolArrowRight"></span></h5>
 </section>
 
 
 <h3 class="newsHeader">Recent News</h3>
 <?php include(MODULES.'news.php'); ?>
-<?php //include(MODULES.'ads.php'); ?>
+<?php $display->randomAd('Side Bar'); ?>

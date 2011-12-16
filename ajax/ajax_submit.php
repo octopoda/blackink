@@ -2,19 +2,28 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/require.php');
 
+//print_r($_POST);
+
 if (isset($_POST['login'])) {
 	$user = new Users();
 	
 	$email = trim($_POST['email']);
     $password = trim($_POST['password']);
-        
-    if ($user->authenticate($email, $password) == false) {
-         echo "The email / password you've given do not match anything in our system.";
+    $err = NULL;
+	$refer = NULL;    
+	
+	if ($user->authenticate($email, $password) == false) {
+	    $err = "The email / password you've given do not match anything in our system.";
     }
 	
 	 if ($user->isLoggedIn()) {      // did we authenticate / are we already logged in?
-        redirect('/index');
+       $refer = $_POST['refer'];
     }
+	
+	echo json_encode(array(
+		'error'=> $err,
+		'refer'=> $refer
+	));
 }	
 
 
@@ -85,6 +94,24 @@ if (isset($_POST['refill'])) {
 	}
 }
 
+
+if (isset($_POST['supplementAlpha'])) {
+	$supplement = new Supplements();
+	$searchArray = $supplement->alphaSearch($_POST['supplementAlpha']);
+	
+	$html = '';
+	
+	if ($searchArray != false) {
+		foreach ($searchArray as $product) {
+			$html .= $supplement->displayPreviewSupplement($product);	
+		}
+	} else {
+		$html .= '<h4>There are no products in your search.</h4>';	
+	}
+	
+	echo $html;
+}
+ 
 /*if (isset($_POST['newsletterSubmit'])) {
 	
 	if ($_POST['email'] == '') {  echo 'No email address Provided'; return; }

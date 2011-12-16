@@ -147,6 +147,27 @@ if (isset($_POST['content_title'])) {
 	echo trim($content->title);	
 }
 
+//Return Content Link
+if (isset($_POST['content_link'])) {
+	$navigation = new Navigation($_POST['content_link']);
+	
+	echo trim($navigation->link);
+}	
+
+//Return Content Drug List
+if (isset($_POST['content_drugList'])) {
+	$navigation = new Navigation($_POST['content_drugList']);
+	$html = '';
+	if ($navigation->drugList != false) {
+		foreach ($navigation->drugList as $drug) {
+			$html .="<li>$drug->drugName</li>";	
+		}
+	} else {
+		
+	}
+	echo $html;
+}
+
 //Add Phone
 if (isset($_POST['addPhone'])) {
 	echo Phones::addPhone();	
@@ -168,7 +189,7 @@ if (isset($_POST['reportError'])) {
 	global $error;
 	
 	if ($error->reportError()) {
-		echo 'hello';	
+			
 	};	
 }
 
@@ -200,12 +221,31 @@ if (isset($_POST['errorPlacement'])) {
 	}
 }
 
+//Preview the Content
 if (isset($_POST['preview'])) {
 	unset ($_SESSION['title']);
 	unset ($_SESSION['content']);
 	
 	$_SESSION['title'] = $_POST['title'];
 	$_SESSION['content'] = $_POST['content'];	
+}
+
+
+//Set supplements featured and Front Page
+if (isset($_POST['supplementTitle'])) {
+	$supplement = new Supplements($_POST['id']);
+	
+	switch ($_POST['supplementTitle']) {
+		case 'featured':
+			$supplement->setFeatured();
+			echo $supplement->displayFeatured();	
+			break;
+		case 'frontpage':
+			$supplement->setFrontpage();
+			echo $supplement->displayFrontpage();
+			break;
+	}
+	return;
 }
 
 ?>

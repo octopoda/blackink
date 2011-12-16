@@ -35,7 +35,6 @@
 	==================================== */	 
 	
 	public function placementHumanReadable() {
-		
 		switch ($this->placement) {
 			case 0:
 				$this->humanPlacement = 'Front Page';
@@ -50,8 +49,8 @@
 	}
 	
 	public function getLink() {
-		$title = str_replace(" ", "_", $this->title);
-		$this->directLink = '/ads/'.$title;
+		$title = str_replace(" ", "-", $this->title);
+		$this->directLink = '/ads/'.urlencode($title).'.html';
 	}
 	
 	

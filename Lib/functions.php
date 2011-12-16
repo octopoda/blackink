@@ -14,7 +14,7 @@
 	}
 	
 	function redirect($location) {
-		printf("<script>window.location ='{$location}'</script>");
+		printf("<script>window.location ='%s'</script>", $location);
 		exit;
 	}
 	
@@ -65,18 +65,7 @@
 	}
 	
 
-	function scriptIncludes () {
-		$html = '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>';
-        $html .= '<script type="text/javascript" src="../scripts/validation.js"></script>';
-        $html .= '<script type="text/javascript" src="../scripts/ckeditor/ckeditor.js"></script>';
-		$html .= '<script type="text/javascript" src="../scripts/ckeditor/adapters/jquery.js"></script>'; 
-		$html .= '<script type="text/javascript" src="../ckfinder/ckfinder.js"></script>';
-		$html .= '<script type="text/javascript" src="../scripts/ajaxupload.js"></script>';
-		$html .= '<script type="text/javascript" src="../scripts/slideshow.min.js"></script>';
-		$html .= '<script type="text/javascript" src="../scripts/admin_functions.js"></script>';
-		
-		return $html;
-	}
+	
 	
 	
 		

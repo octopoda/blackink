@@ -30,10 +30,16 @@
 /* ========================================
 	Build/Helper Methods 
 	==================================== */	 
-		public function listNews() {
+		public function listNews($limit="") {
 			global $db;
 			
-			$result_set = $db->queryFill("SELECT * FROM news");
+			$sql = "SELECT * FROM news ORDER BY created_on DESC";
+			
+			if (!empty($limit)) {
+				$sql .= " LIMIT {$limit}"; 
+			}
+			
+			$result_set = $db->queryFill($sql);
 			
 			if ($result_set != false) {
 				foreach ($result_set as $row) {
@@ -43,8 +49,8 @@
 		}
 		
 		public function getLink() {
-			$title = str_replace(" ", "_", $this->title);
-			$this->directLink = '/news/'.$title;	
+			$title = str_replace(" ", "-", $this->title);
+			$this->directLink = '/news/'. urlencode($title). '.html';	
 		}
 		
 				

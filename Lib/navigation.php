@@ -14,6 +14,7 @@
 		public $link;
 		public $menu_id;
 		public $default_page;
+		public $type;
 		
 		//Helpers
 		public $itemList;
@@ -21,6 +22,7 @@
 		public $parentList;
 		public $content_id;
 		public $content_title;
+		public $drugList = array();
 		
 		
 		 public function __construct($n_id="") {
@@ -29,6 +31,10 @@
 			if (!empty($n_id)) {
          		$result = $this->fetchById($n_id);
 				$this->matchContent(); 
+				
+				if ($this->type == 3) {
+					$this->createDrugList();	
+				}
 			}
 			
 			
@@ -52,7 +58,18 @@
 				return false;	
 			}
 		}
+		
+		private function createDrugList() {
+			global $db;
 			
+			$result  = $db->queryFill("SELECT drug_id FROM navigationForDrug WHERE navigation_id = {$this->navigation_id}");
+			
+			if ($result != false ) {
+				foreach ($result as $drug) {
+					$this->drugList[] = new Drugs($drug['drug_id']);
+				}
+			} 
+		}
 		
 
 /*  ===========================================
@@ -86,6 +103,80 @@
 			}
 		}
 	}	
+	
+	static function drugListFromTitle($title) {
+		global $db;
+		$drugList = array();
+		
+		$result_set = $db->queryFill("SELECT D.drug_id FROM navigation N JOIN navigationForDrug ND on N.navigation_id = ND.navigation_id JOIN drugs D ON ND.drug_id = D.drug_id WHERE N.title = '{$title}'");
+		
+		if ($result_set != false) {
+			foreach ($result_set as $row) {
+				$drugList[] = new Drugs($row['drug_id']);
+			}	
+			return $drugList;
+		}
+		
+	
+	}
+	
+	public function buildNavigation($parentName ="") {
+		if ($this->published == 0) return;
+		
+		$title = $this->replaceString($this->title);
+		if (!empty($parentName)) {
+			$parentName = $this->replaceString($parentName);
+		}
+		
+		switch ($this->type) {
+			case 1:
+				return $this->contentLink($title, $parentName);
+				break;
+			case 2: 
+				return $this->externalLink($title);
+				break;
+			default:
+				return $this->compassLink($title);
+				break;	
+		}
+		
+	}
+	
+	private function compassLink($title) {
+		if (!empty($parentName)) { //Child
+			$URL = DS.'compass'.DS.$parentName.DS.$title.'.html';	
+		} else { //Parent
+			$URL = DS.'compass'.DS.$title.'.html';
+		}
+		
+		$html = '<li><a href="'.$URL.'">'.$this->title.'</a>';	
+		return $html;
+	}
+	
+	private function externalLink() {
+		$URL = $this->link;	
+		$html = '<li><a href="'.$URL.'">'.$this->title.'</a>';
+		
+		return $html;
+	} 
+	
+	private function contentLink($title, $parentName="") {
+		if (!empty($parentName)) { //Child
+			$URL = DS.$parentName.DS.$title.'.html';	
+		} else { //Parent
+			$URL = DS.$title.DS;	
+		}
+		
+		$html = '<li><a href="'.$URL.'">'.$this->title.'</a>';	
+		
+		return $html;
+	}
+	
+	private function replaceString($string) {
+		$string = rawurlencode($string);
+		return str_replace("%20", "-", $string);	
+	}
+	
 
 /*  ===========================================
 	CRUD METHODs
@@ -99,43 +190,83 @@
 			$this->fillFromForm($post);
 			$oldPostion;
 			
-			//Set Link
-			if (empty($_POST['link'])) {
-				$this->link = "";	
-			} else if (empty($_POST['content_id'])) {
-				$this->content_id = "";	
+			switch ($_POST['type']) {
+				//Content
+				case 1: 
+					$this->link = '';
+					unset($this->drugList);
+					break;
+				//External
+				case 2:
+					$this->content_id = '';
+					$this->content_title = '';
+					unset($this->drugList);
+					break;
+				//Compass
+				case 3:
+					if (!isset($post['drug_id']) && (!empty($this->navigation_id))) { $this->removeDrugs($this->navigation_id); unset($this->drugList); }
+					else {$this->drugList = $post['drug_id'];}
+					break;	
 			}
 			
-			//Edit Navigation
+			
+			//Edit Navigation Position Set
 			if ($this->navigation_id != false) {
 				$positionNav = new Navigation($this->navigation_id);
 				$oldPosition = $positionNav->position;
 				$this->navigation_id = $this->save($this->navigation_id);
 				$this->setPosition($this->position, $oldPosition, $this->parent_id, $this->menu_id);
 			
-			//New Navigation
+			//New Navigation Position Set
 			} else {
-				$newPosition = $this->position; 
-				$position_set = $db->queryFill("SELECT max(position) AS 'position' FROM navigation WHERE menu_id = {$this->menu_id} AND parent_id = {$this->parent_id} LIMIT 1");
-				$position_set = $this->arrayShift($position_set);
-				$this->position = $position_set['position']+1;
-				$this->navigation_id = $this->save($this->navigation_id);
-				$this->setPosition($newPosition, $this->position, $this->parent_id, $this->menu_id);
+				$this->position = $this->position+1;// 6  
+				$position_set = $db->queryFill("SELECT position FROM navigation WHERE menu_id = {$this->menu_id} AND parent_id = {$this->parent_id} AND position = {$this->position} LIMIT 1");										 				
+				if ($position_set != false) {
+					$position_set = $this->arrayShift($position_set);
+					$setPosition = $position_set['position']; 
+					$newPosition = $setPosition+1;
+					$this->setPosition($newPosition, $setPosition, $this->parent_id, $this->menu_id);
+					$this->navigation_id = $this->save($this->navigation_id);	
+				} else {
+					$this->navigation_id = $this->save($this->navigation_id);
+				}
+				
+				
+				
+				
 			}
 			
-			//Content only
-			if ((empty($this->link)) && ($this->content_id != false)) {
-				$this->placeContent($this->content_id, $this->navigation_id);	
-			} else if (($this->link != false) && (empty($this->content_id))) {
-					
+			
+			//Insert Content
+			if (!empty($this->content_id)) {
+				$this->placeContent($this->content_id, $this->navigation_id);
 			}
+			
+			
+			//Insert Drugs
+			if (isset($this->drugList)) {
+				$this->placeDrugs($this->drugList, $this->navigation_id);
+			}
+			
+			return $this->navigation_id; 
+			
 		}
+		
 		
 		public function deleteFromForm() {
 			global $error;
 			
 			$newPosition = $this->bottomPosition($this->position, $this->parent_id, $this->menu_id);
 			$this->setPosition($newPosition, $this->position, $this->parent_id, $this->menu_id);
+			
+			switch($this->type) {
+				case 1:
+					$this->removeContent($this->navigation_id);
+					break;
+				case 3:	
+					$this->removeDrugs($this->navigation_id);
+					break;
+			}
 			
 			if ($this->delete($this->navigation_id)) {
 				$error->addMessage("Navigation was deleted");
@@ -169,7 +300,6 @@
 				global $error;
 				
 				
-	
 				//Check to see if Navigation is defined already 
 				$sql = "SELECT * FROM navigationForContent WHERE navigation_id = {$navigation_id}";
 				$set = $db->queryFill($sql);
@@ -190,6 +320,33 @@
 				} else {
 					$error->addError('The content was not added.', 'Navigation2654');	
 				}
+		}
+		
+		private function removeContent($navigation_id) {
+			global $db;
+			$db->query("DELETE FROM navigationForContent WHERE navigation_id =  {$navigation_id}");	
+		}
+		
+		public function placeDrugs($drug_list, $navigation_id) {
+			global $db;
+			global $error;
+			$set = $db->query("SELECT * FROM navigationForDrug WHERE navigation_id = {$navigation_id}");
+			
+			if ($set != false) {
+				$this->removeDrugs($navigation_id);
+			}
+			
+			$nTimes = 1;
+			foreach ($drug_list as $drug) {
+				$db->query("INSERT INTO navigationForDrug (navigation_id, drug_id, position) VALUES ('{$navigation_id}', '".$drug."', '{$nTimes}')");
+				$nTimes++;
+			}
+			
+		}
+		
+		private function removeDrugs($navigation_id) {
+			global $db;
+			$db->query("DELETE FROM navigationForDrug WHERE navigation_id = {$navigation_id}");
 		}
 		
 	

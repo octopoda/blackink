@@ -151,7 +151,7 @@
 
 
 //Add Media to Database
-	$sql = "SELECT * FROM uploads";
+	/*$sql = "SELECT * FROM uploads";
 	$result = mysqli_query($innovation, $sql);
 	
 	while($row = mysqli_fetch_array($result)) {
@@ -159,6 +159,25 @@
 		$file_link = '/files/uploads/'. $row['file_name'];
 		$sql = "INSERT INTO media (file_name, file_link) VALUES ('{$file_name}', '{$file_link}')";
 		$db->query($sql);
+	}*/
+	
+//Drug Content to DrugNames 
+	$drugs = $db->queryFill("SELECT drug_id FROM drugs");
+	
+	foreach ($drugs as $drug) {
+		$drug_id = $drug['drug_id'];
+		$result = $db->queryFill("SELECT page_content FROM drugContent WHERE drug_id = {$drug_id}");
+		$result = array_shift($result);
+		
+		$content = $result['page_content'];
+		$searchable = strip_tags($content);
+		
+		//$content = $db->escapeString($content);
+		
+		$db->query("UPDATE drugs SET searchable = '{$searchable}' WHERE drug_id = {$drug_id}");
 	}
+	
+
+	
 		
 ?>

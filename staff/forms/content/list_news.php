@@ -26,7 +26,10 @@
 </div>
 <script>
 	$(document).ready(function () {
-		$(".grid").loadGrid();
+		$(".grid").loadGrid({
+			order_by: 'created_on',
+			sort: 'DESC'	
+		});
 	});
 </script>
 

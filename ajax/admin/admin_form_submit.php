@@ -35,7 +35,7 @@ if (isset($_POST['addNavigation'])) {
 	$navigation = new Navigation($id);
 	$navigation->createNavigationFromForm($_POST);
 	
-	echo $_POST['addNavigation'];	
+	echo $_POST['addNavigation'].$_POST['menu_id'];	
 }
 
 if (isset($_POST['addContent'])) {
@@ -84,6 +84,25 @@ if (isset($_POST['addAds'])) {
 	$created = $ads->createAdsFromForm($_POST);
 	
 	echo $_POST['addAds'];	
+}
+
+
+if (isset($_POST['addDrugs'])) {
+	if (isset($_POST['drug_id'])) $id = $_POST['drug_id'];
+	$drugs = new Drugs($id);
+	
+	$created = $drugs->createDrugsFromForm($_POST);
+	
+	echo $_POST['addDrugs'].$created;
+}
+
+if (isset($_POST['supplementReload'])) {
+	$supplement = new Supplements();
+	
+	if ($supplement->installSupplements()) {
+		echo 'forms/supplements/list_supplements.php';	
+	}
+	
 }
 
 

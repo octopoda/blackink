@@ -1,13 +1,16 @@
 <?php
 	$title = "";
 	$name = ""; 
+	$drug = "";
 	
 	if (isset($_GET['title']))
 		$title = $_GET['title'];
 	if (isset($_GET['name']))
 		$name = $_GET['name'];
+	if (isset($_GET['drug']))
+		$drug = $_GET['drug'];
 	
-	$display = new Display($title, $name);
+	$display = new Display($title, $name, $drug);
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
@@ -21,7 +24,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   	
   <meta charset="utf-8">
-  <title><?php echo $site->siteName . $display->displayPageTitle(); ?></title>
+  <title><?php echo $site->siteName . $display->displayPageTitle(); ?> :: Compounding Compass</title>
   <meta name="description" content="<?php echo $display->displayPageDescription(); ?>">
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
   <meta name="keywords" content="<?php echo $site->keywords; ?>"  />
@@ -33,9 +36,11 @@
 	
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/css/basic.css" media="screen" />
+  <link rel="stylesheet" href="/css/plugins.css" media="screen" />
   <link rel="stylesheet" href="/css/desktop.css" media="only screen and (min-width: 1024px)" />
   <link rel="stylesheet" href="/css/tablet.css" media="only screen and (max-width:1024px)" />
   <link rel="stylesheet" href="/css/mobile.css" media="only screen and (max-width:480px)" />
+  
   
   <!-- Font Stylesheets -->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -47,7 +52,7 @@
   
 </head>
 
-<body>
+<body class"<?php if($title == 'compass') echo 'compass'?>"  >
 <div id="dialog"></div>
     <header>
     	<div class="row">
@@ -61,7 +66,10 @@
    </header>
    <nav class="mainNav">
    		<div class="row">
-			<?php $display->displayMenu('Main Menu'); ?>
+			<?php 
+				if ($title != 'compass') $display->displayMenu('Main Menu');
+				else $display->displayMenu('Compounding Compass')
+			 ?>
         </div>
    </nav>
 	

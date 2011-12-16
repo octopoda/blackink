@@ -5,8 +5,8 @@
 ?>
 <section class="mainContent">
   <div class="row">
-  <article>
-    <h1>Online Refills</h1>
+  <article class="eightcol">
+    <h1>Prescription Refills</h1>
     
     
     <form id="formSubmit" method="POST">
@@ -20,18 +20,18 @@
                 <input type="text" name="email" class="email" />
             </p>
             <p>
-                <label for="Phone">Phone:</label><br />
+                <label for="Phone">Phone:</label>
                 <input type="text" name="phone" class="usPhone"/>
             </p>
             <p>
-                <label for="email">Prescription Number:</label><br />
+                <label for="email">Prescription Number:</label>
                 <input type="text" name="number" class="prescription"/>
             </p>
         </fieldset>
         
         <fieldset>
             <p>
-                <label>Method of Pickup</label><br />
+                <label>Method of Pickup</label>
                 <select name="delivery" id="delivery">
                     <option value="1">Pick-Up</option>
                     <option value="2">Delivery</option>
@@ -39,7 +39,7 @@
             </p>
         
             <p>
-                <label for="special">Special Message:</label> <br />
+                <label for="special">Special Message:</label>
                 <textarea rows="10" cols="40" name="special" maxlength="400"><?php if(isset($special)) {echo $special; } ?></textarea>
             </p>
         </fieldset>
@@ -55,7 +55,7 @@
         
         <div class="data"></div>
   </article>
-  <aside>
+  <aside class="fourcol last">
   	<?php include(MODULES.'sidebar.php'); ?>
   </aside>
   </div>

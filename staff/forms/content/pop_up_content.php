@@ -7,7 +7,8 @@
 <script>
 	$(document).ready(function () {
 		$(".grid").loadGrid({
-			searchBar: true,	
+			searchBar: true,
+			deleting: false	
 		});
 	});
 </script>

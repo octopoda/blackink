@@ -7,7 +7,7 @@
 
 <section class="mainContent">
 	<div class="row">
-    <article>
+    <article class="eightcol">
     <h3>Join our Site</h3>
     	<form id="formSubmit" method="POST">
     <fieldset>
@@ -22,11 +22,12 @@
         </p>
         <p>
             <label for="email">Email:</label>
-            <input type="text" name="email" id="email"  class="required email" />
+            <input type="email" name="email" id="email"  class="email" />
         </p>
         
         </p>
-            <?php echo $phones->createPhoneFields(); ?>
+            <label for"phonenumber">Phone:</label>
+            <input type="tel" name="phonenumber" id="phonenumber" class="usPhone" placeholder="(555) 555-5555" />
         <p>
         
     </fieldset>
@@ -81,7 +82,7 @@
 </form>
     </article>
     
-    <aside>
+    <aside class="fourcol last">
     	<?php include(MODULES.'sidebar.php'); ?>
     </aside>
     </div>

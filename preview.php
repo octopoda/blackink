@@ -12,7 +12,7 @@
 
 <section class="mainContent">
 	<div class="row">
-        <article>
+        <article class="eightcol">
             <?php 
                 if (isset($action)) {
                     echo '<h3>There is no content to preview</h3>';	
@@ -24,7 +24,7 @@
         </article>
         
         
-        <aside>
+        <aside class="fourcol last">
             <?php include(MODULES.'sidebar.php'); ?>
         </aside>
     </div>

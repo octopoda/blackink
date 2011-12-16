@@ -501,8 +501,53 @@
 			style: 'html',
 			url: 'forms/content/pop_up_content.php',
 			height:400,
-			width:800,	
+			width:800	
 		});		
+	});
+	
+	$('.drugList a').live('click', function() {
+		$('#dialog').modal({
+			style: 'html',
+			url: 'forms/compass/pop_up_drugs.php',
+			height: 400,
+			width:800
+		});
+	})
+	
+	//Set Feature For Supplements
+	$('.supplementStar').live('click', function (e) {
+		e.preventDefault();
+		_parent = $(this).parent('td')
+		_title = $(this).attr('title');
+		_id = $(this).attr('id');
+		
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: {'supplementTitle': _title, 'id': _id},
+			success: function (data) {
+				if (_title == 'featured') {
+					_parent.html(data);
+				} else {
+					redirectTo('forms/supplements/list_supplements.php');	
+				}
+			}
+		});	
+	});
+	
+	//Reload the Supplelemts
+	$('.reloadSupplements').live('click', function (e) {
+		e.preventDefault();
+		_this = $(this);
+		$.ajax({
+			url: '/ajax/admin/admin_form_submit.php',
+			type: 'POST',
+			data: {'supplementReload' : 1},
+			onSubmit: _this.html('<p><img src="/images/admin/ajax-loader.gif" alt="loading cursor"/>Processing...</p>'),
+			success: function (data) {
+				redirectTo(data);	
+			}
+		})
 	});
 	
 	
@@ -512,6 +557,19 @@
 		$('input#content_title').val($(this).html());
 		$('#mask').click();
 	});
+	
+	$('#dialog .popup tr td[col="drugName"]').live('click', function () {
+		var id = $(this).parent().attr('primary_key');
+		$('#drugName').val($(this).html());
+		$('.drugs').prepend('<li><span class="ninjaSymbol ninjaSymbolClear" id="deleteCompass"></span>'+$(this).html()+'<input type="hidden" name="drug_id[]" value="'+id+'" /></li>');
+		$('#mask').click();
+	});
+	
+	$('#deleteCompass').live('click', function (e) {
+		e.preventDefault();
+		$(this).parent('li').remove();	
+	})
+	
 	
 	
 	$('.grid tr td a').live('click', function (e) {
@@ -541,33 +599,75 @@
 		
 	});
 	
-	$('.externalLink').live('change', function() {
+	$('#type').live('change', function() {
 		
-		_id = $(this).attr('sel');
+		_id = $('.activeInput').attr('sel');
 		
-		if ($(this).is(':checked')) {
-			$(this).attr('sel',$('#content_id').val());
-			$('.externalInput').show();
+		//External Link
+		if ($(this).val() == 2) {
+			$(this).attr('sel',$('#content_id').val()); //Show
+			
+			
+			//Hide and Clear Others
 			$('.contentInput').hide();
+			$('.drugList').hide()
+			$('.drugs').html('');
 			$('.contentInput').children('input').val('');
-		} else {
-			$('.externalInput').hide();
-			$('.externalInput').children('input').val('');
-			$('.contentInput').show();
+			
 			$.ajax({
 				url: '/ajax/admin/admin_functionality.php',
 				type: 'POST',
-				data: {'content_title' : _id},
+				data: {'content_link': _id},
 				success: function (data) {
-					$('.data').html(data);
-					$('#content_title').val(data);
-					$('#content_id').val(_id);	
+					//$('.data').html(data);
+					$('.externalInput input').val($.trim(data));	
 				}
-					
 			})
 			
+			$('.externalInput').show(); //Show
+		
+		//Drug Link
+		} else if ($(this).val() == 3) {
+			//Hide and Clear Others
+			$('.contentInput').hide();
+			$('.externalInput').hide();
+			$('.externalInput').children('input').val('');
+			$('.contentInput').children('input').val('');
+			
+			$.ajax({
+				url: '/ajax/admin/admin_functionality.php',
+				type: 'POST',
+				data: {'content_drugList': _id},
+				success: function (data) {
+					//$('.data').html(data);
+					$('.drugs').html($.trim(data));	
+				}
+			})
+			
+			$('.drugList').show(); //Show
+			
+		//Content	
+		} else  {
+			$('.externalInput').hide();
+			$('.externalInput').children('input').val('');
+			$('.drugList').hide();
+			$('.drugs').html('');
+			
+			$.ajax({
+				url: '/ajax/admin/admin_functionality.php',
+				type: 'POST',
+				data: {'content_title': _id},
+				success: function (data) {
+					//$('.data').html(data);
+					$('#content_title').val($.trim(data));
+					$('#content_id').val(_id);	
+				}
+			})
+			$('.contentInput').show();
 		}
 	});
+	
+	
 	
 	
 	$('[placeholder]').focus(function() {

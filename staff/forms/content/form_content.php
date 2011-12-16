@@ -42,7 +42,7 @@
 		<fieldset>
         	<p>
             	<label>ContentTitle</label>
-            	<input type="text" id="title" name="title" class="required" />
+            	<input type="text" id="title" name="title" class="nospecial"  />
             </p>
             <div class="twoDropDowns clearfix">
             <p>

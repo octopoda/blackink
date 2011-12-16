@@ -22,7 +22,6 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
    <!-- CSS: implied media="all" -->
-  <link rel="stylesheet" href="css/master.css" >
   <link rel="stylesheet" href="css/default.css" />
   <link rel="stylesheet" href="/css/plugins.css" />
   <link rel="stylesheet" href="css/grid.css" />
@@ -30,8 +29,7 @@
   
   <!-- Load Fonts -->
   <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
-  <script src="/js/libs/modernizr.js"></script> <!-- Modernizr -->
-
+  
 </head>
 <body>
 <!-- Modal -->

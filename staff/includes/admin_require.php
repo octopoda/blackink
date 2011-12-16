@@ -20,6 +20,12 @@
 	require_once(MAIL_PATH.DS. 'class.phpmailer.php');
 	require_once(MAIL_PATH.DS. 'class.smtp.php');
 	
+	//Plugins
+	require_once(PLUGIN_PATH.DS. 'refills.php');
+	require_once(PLUGIN_PATH.DS. 'drugs.php');
+	require_once(PLUGIN_PATH.DS. 'supplements.php');
+	
+	
 	
 	if (isset($_SESSION['user_id'])) {
 		$users = new Users($_SESSION['user_id']);

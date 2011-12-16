@@ -80,6 +80,12 @@
 			case 'refills':
 				refills($grid->data);
 				break;
+			case 'drugs':
+				drugs($grid->data);
+				break;
+			case 'supplements':
+				supplements($grid->data);
+				break;
 		}
 		
 		
@@ -159,6 +165,35 @@
 		foreach ($dataArray['rows'] as &$row) {
 			$refills = new Refills($row['refill_id']);
 			$row['time'] = $refills->displayTime;	
+		}
+	}
+	
+	
+	function drugs(&$dataArray) {
+		global $grid;
+		
+		foreach ($dataArray['rows'] as &$row) {
+			$users = new Users($row['user_id']);
+			$drug = new Drugs($row['drug_id']);
+			
+			$row['user_id'] = $users->printName();
+			$row['published'] = $drug->published($row['drug_id']);
+			$row['modified_on'] = $users->displayDate($row['modified_on']);
+			$row['access'] = $drug->accessDropDown($row['access'], $row['drug_id']);
+		}
+		
+		
+	}
+	
+	function supplements(&$dataArray) {
+		global $grid; 
+		
+		foreach ($dataArray['rows'] as &$row) {
+			$supplement = new Supplements($row['ItemNumber']);
+			
+			$row['featured'] = $supplement->displayFeatured();
+			$row['frontpage'] = $supplement->displayFrontpage();
+				
 		}
 	}
 

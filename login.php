@@ -4,12 +4,13 @@
 	$site = new Site();
     
     if (isset($_SESSION['user_id'])) redirect('index.php');
+	$refer = $_SERVER['HTTP_REFERER'];
 ?>
 
 
 <section class="login">
     <div class="row">
-    <form method="post" name="login" id="formSubmit">
+    <form method="post" name="login" id="formLogin">
         <fieldset >
             <h1><?php echo $site->siteName ?> Login</h1>
             <p>
@@ -22,9 +23,10 @@
                 <input type="hidden" name="login" value="1" />
             </p>
             <p>
+            	<input type="hidden" name="refer" id="refer" value="<?php echo $refer ?>" />
                 <button id="login" name ="login" type="submit" >Log In</button>
             </p>
-            <p class="message"></p>
+            <p class="formMessage"></p>
         </fieldset>
     </form>
     <nav>

@@ -6,7 +6,7 @@
 
 <section class="mainContent">
   <div class="row">
-  <article>
+  <article class="eightcol">
     <h2>Contact Us</h2>
     
     <address>
@@ -48,7 +48,7 @@
       </fieldset>
     </form>
   </article>
-  <aside>
+  <aside class="fourcol last">
   	<?php include(MODULES.'sidebar.php'); ?>
   </aside>
   </div>

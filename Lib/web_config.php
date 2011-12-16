@@ -20,6 +20,7 @@
 		define('ADMIN_PATH', CLASS_PATH.DS. 'admin');
 		define('FILE_PATH', SITE_FILES.DS."files".DS."uploads");
 		define('MAIL_PATH', CLASS_PATH.DS. 'mailer');
+		define('PLUGIN_PATH', CLASS_PATH.DS. 'plugins');
 		
 		//SMTP
 		define('EMAIL_HOST', 'host300.hostmonster.com');

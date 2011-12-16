@@ -2,6 +2,6 @@
     require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php');
 
 	session_unset();
-	redirect('login.php');
+	redirect('index.php');
 ?>
 

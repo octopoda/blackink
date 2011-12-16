@@ -3,23 +3,10 @@
 
 
 Colors for Site: 
-Dark Green: #78A22E;
-Light Blue: #34A5E0
-Dark Blue: #0081AD
-Gray: #B5B5B5;
+
 
 */
 
-@font-face {
-  font-family: 'Ninja Symbols';
-  src: url('font/symbols.eot');
-  src: url('font/symbols.eot?iefix') format('eot'),
-    url('font/symbols.woff') format('woff'),
-    url('font/symbols.ttf') format('truetype'),
-    url('font/symbols.svg#NinjaSymbolsMonospaced') format('svg');
-  font-style: normal;
-  font-weight: normal;
-}
 
 @font-face  {
 	font-family: "tenderness";  
@@ -172,8 +159,6 @@ button {
 	border:none;
 	padding:8px 12px;
 	color:#FFF;
-	background:#78A22E;
-	border:1px solid #F4F4F4;
 	font-size:14px;
 	background: #cc0000; /* Old browsers */
 	background: linear-gradient(top,  #C52127 0%,#8D0D11 100%); /* W3C */
@@ -240,10 +225,6 @@ table tfoot {font-size:11px; color:#838383; text-align:right;}
 .row .fourcol {width: 30.75%;}
 .oldie .fourcol  {width:30.6%}
 
-.mainContent .row aside {margin-right: 3.8%; float: left; min-height: 1px; width:30.75%;  margin-right: 0px;}
-.oldie .mainContent .row aside  {margin-right: 3.8%; float: left; min-height: 1px; width:30.6%;  margin-right: 0px;}
-
-
 .row .fivecol {width: 39.45%;}
 .oldie .fivecol {width:39%;}
 
@@ -251,13 +232,8 @@ table tfoot {font-size:11px; color:#838383; text-align:right;}
 
 .row .sevencol  {width: 56.75%;}
 
-
 .row .eightcol {width: 64.4%;}
 .oldie .eightcol {width:61.6%}
-
-.mainContent .row article {margin-right: 3.8%; float: left; min-height: 1px; width: 64.4%;}
-.oldie .mainContent article {margin-right: 3.8%; float: left; min-height: 1px; width:61.6%}
-
 
 .row .ninecol {width: 74.05%;}
 
@@ -381,21 +357,32 @@ header {height:33px; background:#002F66}
 .mainNav { height:100px; background:url(../images/nav_background.jpg) bottom left repeat-x; box-shadow:0px 10px 20px #CCC; z-index:20;}
 	.mainNav ul {margin-left:196px; margin-top:30px;}
 	.mainNav ul li  {float:left; margin-right:2.5%}
-	.mainNav ul li a {color:#002F66; font-size:16px; padding:25px 10px;}
-	.mainNav ul li ul  {position:absolute;  background:#0A1948; margin-left:0px; top:-10000px; left:-10000px; margin-top:0px;}
+	.mainNav ul li a {color:#002F66; font-size:15px; padding:25px 10px;}
+	.mainNav ul li ul  {margin:0; padding:0; position:absolute; top:-10000px; left:-10000px; background:#0A1948;}
 	.mainNav ul li.active ul {top:auto; left:auto;}
-	.mainNav ul li ul li {float:none; border-top:1px solid white; padding:5px 0px 5px 20px; width:92%;}
+	.mainNav ul li ul li { margin:0px; float:none; border-top:1px solid white; }
 	.mainNav ul li ul li:hover {background:#687AB6}
-	.mainNav ul li ul li a {padding:25px; color:#FFF; }
+	.mainNav ul li ul li a { color:#FFF; padding:10px 15px 10px 15px; display:block;}
 
-.quickNav {float:right; width:20%;}
-.quickNav ul li {float:left; margin-right:6%;}
-.quickNav ul li a {color:#FFF;}
+.quickNav {float:right; }
+.quickNav ul li {float:right; text-align:right;}
+.quickNav ul li a {color:#FFF; font-size:14px; padding:6px 15px; display:block;}
+.quickNav ul li a:hover {background:#FFF; color:#000;}
 
-.mainContent {background:url(../images/content_background.jpg) top center no-repeat #FBFAF8; padding-top:20px; box-shadow:4px 10px 20px #666; padding-bottom:20px;}
-.mainContent article h1 {font-size:26px; font-weight:100; margin-bottom:30px; padding:8px;}
+
+/* Main Content */
+.mainContent, .homeContent {background:url(../images/content_background.jpg) top center no-repeat #FBFAF8; padding-top:20px; box-shadow:4px 10px 20px #666; min-height:453px; }
+.mainContent {padding-bottom:30px;}
+.mainContent article h1, .homeContent article h1 {font-size:26px; font-weight:100; margin-bottom:30px; padding:8px;}
+.contentShadow {background:url(../images/content_shadow_up.jpg) bottom center no-repeat; height:37px; }
+
+.homeContent img {float:left; margin:0px 80px 80px 0px;}
+
 
 /* News  */
+aside h3 {margin-top:10px;}
+
+
 .newsHeader {font-size:40px; color:#AEA173; text-shadow:2px 1px #FFF; padding-bottom:0px; margin-bottom:0px; clear:both; padding-top:30px;}
 .news {background:#0A1948; padding:20px;}
 .news li{ list-style:none;}
@@ -409,19 +396,15 @@ header {height:33px; background:#002F66}
 }
 
 /* Refills */
-.refills h5 {background:#685B1D; width:60%; float:left;  line-height:75px; padding:0px 0px; padding-left:20px; font-size:28px;}
+.refills {border-radius:3px 3px 3px 3px;}
+.refills h5 {background:#685B1D; width:80% ;  padding:10px; font-size:24px;}
 .refills h5 a {color:#FFF;}
-.refillTriangle {width: 0; height: 0; margin-top:20px;
-	border-top: 37px solid transparent;
-	border-left: 79px solid #685B1D;
-	border-bottom: 37px solid transparent;
-	float:left;
-}
+.refills .ninjaSymbol {color:#FFF; font-size:28px;float:right;}
 
 form.search input {width:70%;}
 .ac_results { background:white; z-index:99999; margin:0; padding:0;}
 	.ac_results ul {margin:0; padding:0;}
-	.ac_results ul li {  margin:0px; padding:0; width:100%; border-top:1px solid black; border-bottom:1px solid black; cursor:pointer; list-style:none; padding:5px 0px; }
+	.ac_results ul li {  margin:0px; padding:0; width:100%; border-top:1px solid black; border-bottom:1px solid black; cursor:pointer; list-style:none; padding:5px 0px 5px 5px; }
 	.ac_results ul li:hover, .autocomplete ul li.active { color:white; background:#685B1D;}
 	.ac_results ul li:hover span, .autocomplete ul li.active span { color:#FFF;}
 	.ac_results ul li span { font-size:10px; color:#666;}
@@ -431,5 +414,77 @@ footer {background: url(../images/footer.jpg) top center no-repeat #F5F2EB; bord
 footer .about p {width:60%;}
 
 .noAccess{height:600px;}
-
 .message {color:#FFF !important;}
+
+
+
+.ads { float:left; width:620px;  padding:40px 5px 5px 5px; position:relative; }
+.ads div.panel { padding:20px; width:580px; }
+		.panel ul { margin-left:15px;}
+		.panel ul li{ margin:5px 0px; list-style:disc;}
+.learnMore { display:block; background:url(../images/more_button.jpg) top right no-repeat #C52127;
+	padding:5px 40px 5px 10px;
+	height:20px;
+	float:right;
+	font-family:"tenderness", "Times New Roman", Times, serif;
+	color:#FFF !important;
+	font-size:16px;
+	margin-top:10px;
+}
+
+.scroll { height:380px; position:relative; overflow:auto; }
+.scrollButtons { position:absolute; top:150px; cursor:pointer;}
+
+.numbers { position:relative; }
+.numbers ul { margin:auto;}
+.numbers ul li { float:left; margin-left:5px; height:20px; width:15px; background:url(../images/numbers.jpg) no-repeat; background-position:-15px 0px;}
+.numbers ul li.active { background-position:0px 0px;}
+
+.alphaList { margin:0px; padding:0px;}
+.alphaList li {width:20px; height:20px; float:left; cursor:pointer; list-style:none; text-align:center; margin:5px;}
+.alphaList li:hover {background:#002F66; color:#FFF;}
+
+.supplementFeatured {margin:0; padding:0; margin-bottom:60px;}
+.supplementFeatured li{ list-style:none; margin:0; padding:5px 0px 5px 5px; border-bottom:1px solid #CCC;}
+.supplementFeatured li:hover {background:#002F66}
+.supplementFeatured li:hover a {color:#FFF;}
+
+.supplementThumb {height:200px; margin:40px 20px 40px 0px;}
+.supplementThumb img {float:left; margin-right:10px;}
+
+.homeAds {padding:10px;}
+.homeLower {width: 100%;  min-width: 755px; margin: 0 auto; overflow: hidden; border-top:1px solid #CCC; background:#FFF; padding:20px 0px;}
+
+.supplementLeft h2 {margin-bottom:40px;}
+
+
+.supplementRight .price, .supplementRight .count {font-size:18px;}
+.supplementRight h6 {border-bottom:1px solid #CCC; margin-top:20px;}
+
+
+
+/* ==|== Site styles ================================================================================================================
+   Content Styles
+   ========================================================================== */
+
+.mangevityLogo {
+	display:block;
+	background:url(../images/mangevity_logo.jpg) top left no-repeat;
+	text-indent:-9999px;
+	width:293px;
+	height:78px;
+}
+
+
+
+
+
+
+/* ==|== Site styles ================================================================================================================
+   Compass Styles
+   ========================================================================== */
+   
+.drugList {margin:0px; padding:0px;}   
+.drugList li {list-style:none; margin:0px; padding:8px 0px 8px 5px; border-bottom:1px solid #CCC; }
+.drugList li:hover {background:#002F66;}
+.drugList li:hover a {color:#FFF;} 

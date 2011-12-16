@@ -27,7 +27,7 @@
 		<fieldset>
         	<p>
             	<label>Advertisment Title</label>
-            	<input type="text" id="title" name="title" />
+            	<input type="text" id="title" name="title" class="nospecial" />
             </p>
             <div class="twoDropDowns clearfix">
             <p>

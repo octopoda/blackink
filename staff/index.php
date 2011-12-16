@@ -1,10 +1,12 @@
 <?php 
     require('includes/header.php');
-	$nav = new AdminNavigation();
 	
+	//Auth
 	if (!isset($_SESSION['user_id'])) redirect('login.php');
 	else if ($users->access < 3) redirect('/no_access.html');	
 	
+	//Set Classes
+	$nav = new AdminNavigation();
 	$site = new Site();
 ?>
 

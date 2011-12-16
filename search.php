@@ -13,7 +13,8 @@
 <section class="mainContent">
 	<div class="row">
         <article>
-            <?php if (isset($nosearch)) {
+            <h1>Search Results</h1>
+			<?php if (isset($nosearch)) {
                 
             } else {
                 echo $display->siteSearch($search, 1);	

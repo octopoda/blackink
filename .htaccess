@@ -287,25 +287,37 @@ FileETag None
 <IfModule mod_rewrite.c>
   Options +FollowSymlinks
   RewriteEngine On
-  RewriteCond %{REQUEST_URI} !^/staff/
-  RewriteCond %{REQUEST_URI} !^/js/
-  RewriteCond %{REQUEST_URI} !^/css/
-  RewriteCond %{REQUEST_URI} !^/files/
-  RewriteCond %{REQUEST_URI} !^/lib/
+  RewriteCond %{REQUEST_URI} !^/staff/ 
+  RewriteCond %{REQUEST_URI} !^/js/ 
+  RewriteCond %{REQUEST_URI} !^/css/ 
+  RewriteCond %{REQUEST_URI} !^/files/ 
+  RewriteCond %{REQUEST_URI} !^/lib/ 
   RewriteCond %{REQUEST_URI} !^/ajax/ 
   RewriteCond %{REQUEST_URI} !^/includes/
-  RewriteCond %{REQUEST_URI} !^/images/
+  RewriteCond %{REQUEST_URI} !^/images/ 
   RewriteCond %{REQUEST_URI} !^/modules/
+  RewriteCond %{REQUEST_URI} !^/uploads/ 
 </IfModule>
 
 <IfModule mod_rewrite.c>
 
 
 
-RewriteRule  	^(/?[^/.]+/)([^/.]+)$ 	/index.php?title=$1&name=$2 [NC]
-RewriteRule		^(/?[^/.]+/)$			/index.php?title=$1 [NC]
-RewriteRule		^(/?[^/.]+).html$		/$1.php [L]
 
+RewriteRule 	^(/?)$									/index.php [NC]
+
+RewriteRule		^compass/?$								/compass.php?title=compass [NC]
+RewriteRule		^compass/([^/.]+).html$					/compass.php?title=compass&name=$1 [NC]
+RewriteRule		^compass/([^/.]+/)([^/.]+).html$		/compass.php?title=compass&name=$1&drug=$2 [NC]
+
+RewriteRule		^supplements/?$							/supplements.php?title=supplements [NC]
+RewriteRule		^supplements/([^/.]+).html$				/supplements.php?title=supplements&name=$1 [NC]
+
+RewriteRule		^/?staff/?$								/staff/index.php [NC]
+
+RewriteRule		^(/?[^/.]+/?)$							/display.php?title=$1 [NC]
+RewriteRule  	^(/?[^/.]+/)([^/.]+).html$ 				/display.php?title=$1&name=$2 [NC]
+RewriteRule 	^(.*)\.html$ 							$1.php [NC,L]
 
 </IfModule>
 

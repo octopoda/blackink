@@ -48,7 +48,7 @@ header {
 	
 	#navigation ul li a:hover, #navigation ul li.active a {
 		color:#000;
-		background:#FFF;	
+		background:white;	
 	}
 
 #tabs {
@@ -215,6 +215,19 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .deletePhones .ninjaSymbol {margin-right:5px;display:inline-block; float:left;}
 .deletePhones .text {margin-top:0px; display:block; float:left;}
 #deletePhone {color:#CB0202; font-size:12px;   position:absolute; margin-left:-20px; margin-top:6px;}
+#deleteCompass { color:#CB0202; font-size:12px; margin-right:10px; margin-top:-5px}
+
+.drugList {margin-top:60px; margin-bottom:60px;}
+.drugList a {cursor:pointer;}
+	.drugs li {list-style:none;}
+	
+	
+.grid tbody tr td a.supplementStar {font-size:16px; cursor:pointer; color:#CCC; margin-left:20px;}
+.grid tbody tr td a.supplementStar.active {color:#CB0202; cursor:default;}
+
+.modal .gridContainer {position:relative; top:-30px;}
+.modal .grid {text-align:left; margin-top:0px;}
+.modal .gridSearch input{background:#FFF;}
 
 /* =============================
 	Forms
@@ -378,14 +391,12 @@ button {
 }
 
 .modal.html {padding:0px; margin:0px; }
-.modal.html .gridContainer {margin-top:-40px;}
-.model.html .grid {text-align:left;}
-.modal.html .close {margin-left:370px;}
+.modal.html .close {}
 
 .modal .close:before{content: '*';}
 .modal .close:hover {color:#CB0202}
 .modal.html .text {margin-bottom:0px;}
-.modal .text {font-size:14px; font-weight:bold; margin-bottom:50px;}
+.modal .text {font-size:14px; font-weight:bold; }
 
 .modal .text ul {margin:0px; padding:0px; }
 .modal .text li {list-style:none; margin:0px !important; width:100%; }
