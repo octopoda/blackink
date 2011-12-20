@@ -380,14 +380,14 @@
 			
 			if ($item->placement == 1) return;
 			
-			$adDisplay = '<div class="scroll"><div class="panel">';
+			$adDisplay = '<div class="panelInside">';
 			if (($placement == $item->humanPlacement) || ($item->humanPlacment == 'Both')) {
 				$adDisplay .= $item->summary;
 			} else if (($placement == $item->humanPlacement) || ($item->humanPlacement == 'Both')) {
 				$adDisplay .= $item->summary;
 			} 
 			$adDisplay .= '<a href="'.$item->directLink.'" class="learnMore">Learn More</a>';
-			$adDisplay .= '</div></div>';
+			$adDisplay .= '</div>';
 			
 			echo $adDisplay;
 			

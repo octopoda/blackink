@@ -33,7 +33,7 @@ header {height:60px; background:#002F66}
 	.mainNav ul li {float:none; text-align:center; font-size:26px; border-top:1px solid #CCC;}
 	.mainNav ul li a {color:#002F66; font-size:15px; padding:5px 0px; width:100%;}
 	.mainNav ul li ul  {margin:0; padding:0; background:#0A1948; position:relative; top:0px; left:0px; display:none; }
-	.mainNav ul li.active ul {}
+	.mainNav ul li.active ul {display:block;}
 	.mainNav ul li ul li { margin:0px; float:none; border-top:1px solid white; }
 	.mainNav ul li ul li:hover {background:#687AB6}
 	.mainNav ul li ul li a { color:#FFF; padding:10px 15px 10px 15px; display:block;}

@@ -18,7 +18,7 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js  <?php if($detect->isMobile()) echo 'mobile'; ?> mobile" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js  <?php if($detect->isMobile()) echo 'mobile'; ?>" lang="en"> <!--<![endif]-->
 <head> 
   <!-- Use the .htaccess and remove these lines to avoid edge case issues.
        More info: h5bp.com/b/378 -->
