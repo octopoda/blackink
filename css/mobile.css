@@ -1,4 +1,4 @@
-/* Phones */
+ /* Phones */
 
 body { font-size: 16px; -webkit-text-size-adjust: none;}
 	
@@ -13,4 +13,45 @@ body { font-size: 16px; -webkit-text-size-adjust: none;}
 	padding-right: 20px;
 }
 
-.newsTriangle {margin-top:-17px;}
+.newsTriangle {position:relative; top:-5px; }
+.mobileRefill {display:block;}
+
+
+.homeContent img {float:none; width:100%;}
+.homeContent p {clear:left;}
+
+.homeLower {width: 100%; max-width:480px;  min-width:0px; margin: 0; overflow: visible; border-top:1px solid #CCC; background:#FFF; padding:20px 0;}
+.homeLower .row {width:100% !important; }
+.panel {padding-right:40px;}
+
+.logo {background:url(../images/white_logo.png) top left no-repeat; display:block; width:120px; height:40px; float:none;}
+header h1 {border:none;  position:absolute; margin-top:0px; margin-left:20px;}
+header {height:60px; background:#002F66}
+
+.mainNav {height:auto; padding-bottom:10px;}
+	.mainNav ul {margin-left:0px; margin-top:0px; clear:left}
+	.mainNav ul li {float:none; text-align:center; font-size:26px; border-top:1px solid #CCC;}
+	.mainNav ul li a {color:#002F66; font-size:15px; padding:5px 0px; width:100%;}
+	.mainNav ul li ul  {margin:0; padding:0; background:#0A1948; position:relative; top:0px; left:0px; display:none; }
+	.mainNav ul li.active ul {}
+	.mainNav ul li ul li { margin:0px; float:none; border-top:1px solid white; }
+	.mainNav ul li ul li:hover {background:#687AB6}
+	.mainNav ul li ul li a { color:#FFF; padding:10px 15px 10px 15px; display:block;}
+	
+.quickNav {float:none; }
+.quickNav ul li {float:right; text-align:right;}
+.quickNav ul li a {color:#FFF; font-size:11px; padding:10px 3px; display:block;}
+.quickNav ul li a:hover {background:#FFF; color:#000;}	
+	
+	
+footer {background:#F5F2EB; border-top:1px solid #CCC; padding-bottom:40px;}
+
+aside {border-top:2px solid #CCC; margin-top:40px;}
+
+.supplementThumb {clear:both; margin-top:80px;}
+#supplements {margin-top:180px;}
+
+
+.alphaList { margin:0px; padding:0px;}
+.alphaList li {width:20px; height:20px; float:left; cursor:pointer; list-style:none; text-align:center; margin:5px;}
+.alphaList li:hover {background:#002F66; color:#FFF;}

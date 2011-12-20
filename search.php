@@ -12,7 +12,7 @@
 
 <section class="mainContent">
 	<div class="row">
-        <article>
+        <article class="eightcol">
             <h1>Search Results</h1>
 			<?php if (isset($nosearch)) {
                 
@@ -23,7 +23,7 @@
             ?>
         </article>
     
-    	<aside>
+    	<aside class="fourcol last">
     		<?php include(MODULES.'sidebar.php'); ?>
     	</aside>
     </div>

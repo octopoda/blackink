@@ -87,7 +87,7 @@
         theme_advanced_toolbar_align : "center",
         theme_advanced_resizing : true,
 		
-		content_css : "/css/user_styles.css",
+		content_css : "/css/tiny_styles.css",
 		
 		width: "600",
 		height: "400"

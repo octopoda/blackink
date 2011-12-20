@@ -1,11 +1,13 @@
     <footer>
     	<div class="row">
 			<?php $contactInformation = new ContactInformation(); ?>
-            <section class="about eightcol">
-                <?php echo $contactInformation->summary; ?>
+            <section class="eightcol">
+                <div class="footerAbout">
+					<?php echo $contactInformation->summary; ?>
+                </div>
                 <p class="legal">&copy; 2007- <?php echo date("Y") ?> Innovation Compounding Inc, All Rights Reserved.</p>
             </section>
-            <section class="footerContact fourcol last">
+            <section class="fourcol last">
                 <h5>Visit Us</h5>
                 <p><?php echo $contactInformation->address->printAddress(); ?></p>
                 
@@ -20,13 +22,13 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
-	
+  <script defer src="/js/libs/hoverable.js"></script>
   <script defer src="/js/plugins.js"></script>
   <script defer src="/js/script.js"></script>
   <!-- end scripts-->
 
   <?php if (SERVER == 'dev') { ?>
-		 <script src="/js/mylibs/live.js"></script>	  
+		 <!-- <script src="/js/mylibs/live.js"></script> -->	  
   <?php } else { ?>
   
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->

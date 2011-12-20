@@ -11,14 +11,15 @@
 		$drug = $_GET['drug'];
 	
 	$display = new Display($title, $name, $drug);
+	$detect = new MobileDetect();
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
+<!--[if gt IE 8]><!--> <html class="no-js  <?php if($detect->isMobile()) echo 'mobile'; ?> mobile" lang="en"> <!--<![endif]-->
+<head> 
   <!-- Use the .htaccess and remove these lines to avoid edge case issues.
        More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -29,7 +30,9 @@
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
   <meta name="keywords" content="<?php echo $site->keywords; ?>"  />
   	
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+
 
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -60,7 +63,14 @@
                     <h1><a href="/index.php" class="ir logo"><?php echo $site->siteName; ?></a></h1>
             </hgroup>
             <nav class="quickNav">
-                <?php $display->displayMenu('Quick Menu'); ?>
+            	
+                <?php
+					//if (!$detect->isMobile()) {
+					 $display->displayMenu('Quick Menu');
+					//} else {
+						//echo '<a href="/login.html" class="mobileQuickMenu">Login</a>';			
+					//}
+				?>
             </nav>
         </div>
    </header>

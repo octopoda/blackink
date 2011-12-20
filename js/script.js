@@ -6,11 +6,39 @@ $(document).ready(function () {
    =========================================*/
 	getErrors();
 	
-	$('.mainNav li').hover( function (e) {
-		$(this).toggleClass('active');
-	}, function () {
-		$(this).toggleClass('active');
-	});
+	
+	if (!$('html').hasClass('mobile')) {
+		$('.mainNav li').hover( function (e) {
+			$(this).toggleClass('active');
+		}, function () {
+			$(this).toggleClass('active');
+		});
+	} else {
+		$('.mainNav ul li').each(function () {
+			_this = $(this);
+			
+			if (_this.children('ul').length == 0) {
+				_this.addClass('open');	
+			}
+		})
+		
+		$('.mainNav ul li').click(function (e) {
+			if ($(this).hasClass('open')) {
+				return true;
+			} else {
+				$(this).children('ul').slideDown(500);
+				$(this).children('ul').children('li').each(function () {
+					$(this).addClass('open');
+				});
+				e.preventDefault();	
+			}
+			
+			$(this).toggleClass('open');
+		});
+	}
+	
+	
+	
 
 /* ===========================================
 	Site  Methods
@@ -56,17 +84,19 @@ $(document).ready(function () {
 	Search Methods
    =========================================*/
 	
-	$("#search").autocomplete( "/ajax/ajax_submit.php",
-	  {
-			autofill: true,
-			matchSubset: false,
-			matchContains: false,
-			formatItem: function(row, i, max) { return row[0]; },
-			formatMatch: function(row, i, max) { return row[0]; },
-			formatResult: function(row) { return row[0]; },
-			extraParams: { 'searchAutoComplete': 1 }
-	  });
-			
+	if (!$('html').hasClass('mobile')) {
+		$("#search").autocomplete( "/ajax/ajax_submit.php",
+		  {
+				autofill: true,
+				matchSubset: false,
+				matchContains: false,
+				formatItem: function(row, i, max) { return row[0]; },
+				formatMatch: function(row, i, max) { return row[0]; },
+				formatResult: function(row) { return row[0]; },
+				extraParams: { 'searchAutoComplete': 1 }
+		  });
+	}
+	
 	$('.pagination li a').live('click', function (e) {
 		e.preventDefault();
 		$pageNumber = $(this).parent('li').attr('sel');
@@ -260,72 +290,91 @@ $(document).ready(function () {
    =========================================*/
 
 //Setup Numbers Panel
-	var $panels = $('.scroll > div'); //Set Array of Panels
-	var $container = $('.ads .scroll'); //Set up Scroll Container
-	var $ads = $('.ads'); //Set up main Container
+	setNumbers();
+	setScroll();
+	nTimes = 0;
+	_panels = $('.scroll').children('.panel');
 	
-	var $html = '<ul>';
-	for(var i = 0; i <= $panels.length -1; i++) {
-		$html = $html + '<li class="'+i+' ir" sel="'+i+'">' + i + '</li>';	
-	}
-	$html = $html + '</ul>';
+	$(window).resize(function(e) {
+     	setNumbers();
+		setScroll();
+    });
 	
-	$('.numbers').html($html);
 	
-	//Set the position of Numbers
-	var numWidth = ($panels.length * 20)/2;
-	var adWidth = ($('.ads').width())/2;
-	var numLeft =  adWidth - numWidth; 
-	$('.numbers').css({ left: numLeft });
-		
-	var $numbers = $('.numbers ul li');  //Build Array for Numbers
-	var cWidth = ($panels[0].offsetWidth + 30 ) * $panels.length; //Set width for .scroll from # of Panels placed together
-	
-	$container.css({ width: cWidth }) //Set Scroll Container
-	$panels.css({ float: 'left', position: 'relative' }); //Float panels to left and add relative for IE7
-	$ads.css({overflow:'hidden'}); //Hide the Panels outside of Ads
-	
-	var nTimes = 0;	//Counter for Number of times through animatiom
-	$('.numbers ul li:first-child').addClass('active'); //Add Active attribute to First li in Numbers
-	
-	//Setup Interval to run every 3 Seconds
 	setInterval(function () {
-		panelAnimate($panels[nTimes]);
+		panelAnimate();
 		numbersChange();
+	}, 3000); 
+	
+	function setNumbers() {
+		//Add the Numbers
+		_panelsNumber = $('.scroll').children('.panel').length;
+		_html = '<ul>';
+		for (i = 0; i <= _panelsNumber-1; i++) {
+			_html = _html + '<li class="'+i+' ir" sel="'+i+'">' + i + '</li>';
+		}
+		_html = _html + '</ul>';
+		$('.numbers').html(_html);
+	
+		//Set first to Active
+		$('.numbers ul li:first-child').addClass('active');
 		
-	}, 10000);
+		//Set the position of Numbers
+		_numWidth = (_panelsNumber*20)/2;
+		_adWidth = ($('.homeAds').width()-40)/2;
+		_numLeft =  _adWidth - _numWidth; 
+		$('.numbers').css({ left: _numLeft });
+		
+	}
 	
 	
-	//Animate Objects
-	function panelAnimate(object) {
-		if (nTimes >= $panels.length -1) {
+	
+	
+	
+	function setScroll() {
+	//Set Width of Scroll
+		
+		_adWidth = $('.homeAds').width();
+		$('.panel').width(_adWidth);
+		
+		
+		_scrollWidth = 0;
+		$('.scroll').children('.panel').each(function () {
+			_scrollWidth = _scrollWidth + $(this).width();	
+		})
+		
+		$('.scroll').width(_scrollWidth+220);
+	}
+	
+	function panelAnimate() {
+		//alert(nTimes);
+		if (nTimes >= _panels.length -1) {
 			nTimes = 0; 
 		} else {
 			nTimes++;
 		}
 		
-		var objectWidth = object.offsetWidth;
+		var objectWidth = $('.panel:first-child').outerWidth();
+		
 		objectWidth = -objectWidth *nTimes;
 		
-		$container.animate({
-			left: objectWidth
-		}, 500);
+		$('.scroll').animate({
+			marginLeft: objectWidth
+		}, 1000);
 	}
 	
 	//Setup Number Panel
 	function numbersChange () {
 		$('.numbers ul').children('li').removeClass('active');
-		
 		var className = nTimes;
 		$('.numbers ul .' + className).addClass('active');	
 	}
 
 
 
+/* ===========================================
+	Mobile Scripts
+   =========================================*/
 
-
-
-
-
-
+	
 

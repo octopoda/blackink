@@ -9,6 +9,7 @@
 	require_once(CLASS_PATH.DS. "errors.php");
 	require_once(CLASS_PATH.DS. "navigation.php");
 	require_once(CLASS_PATH.DS. "menus.php");
+	require_once(CLASS_PATH.DS. "mobileDetect.php");
 	
 	
 	//Admin

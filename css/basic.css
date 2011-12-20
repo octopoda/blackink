@@ -255,6 +255,9 @@ img {height: auto;}
    ========================================================================== */
 
 .legal {font-size:10px; color:#838383; line-height:16px;}
+.blueText {color:#002f66;}
+.redText {color:#8D0D11;}
+.brownText {color:#685B1D;}
 .ninjaSymbol {font-family: 'Ninja Symbols' !important; cursor:pointer; color:#444; font-size:20px;}
 
 
@@ -370,6 +373,8 @@ header {height:33px; background:#002F66}
 .quickNav ul li a:hover {background:#FFF; color:#000;}
 
 
+.mobileRefill {display:none;}
+
 /* Main Content */
 .mainContent, .homeContent {background:url(../images/content_background.jpg) top center no-repeat #FBFAF8; padding-top:20px; box-shadow:4px 10px 20px #666; min-height:453px; }
 .mainContent {padding-bottom:30px;}
@@ -418,11 +423,14 @@ footer .about p {width:60%;}
 
 
 
-.ads { float:left; width:620px;  padding:40px 5px 5px 5px; position:relative; }
-.ads div.panel { padding:20px; width:580px; }
+.ads { float:left;  position:relative; }
+.ads div.panel { padding:20px; }
 		.panel ul { margin-left:15px;}
 		.panel ul li{ margin:5px 0px; list-style:disc;}
-.learnMore { display:block; background:url(../images/more_button.jpg) top right no-repeat #C52127;
+
+.learnMore { 
+	display:block; 
+	background:url(../images/more_button.jpg) top right no-repeat #C52127;
 	padding:5px 40px 5px 10px;
 	height:20px;
 	float:right;
@@ -432,13 +440,8 @@ footer .about p {width:60%;}
 	margin-top:10px;
 }
 
-.scroll { height:380px; position:relative; overflow:auto; }
-.scrollButtons { position:absolute; top:150px; cursor:pointer;}
 
-.numbers { position:relative; }
-.numbers ul { margin:auto;}
-.numbers ul li { float:left; margin-left:5px; height:20px; width:15px; background:url(../images/numbers.jpg) no-repeat; background-position:-15px 0px;}
-.numbers ul li.active { background-position:0px 0px;}
+
 
 .alphaList { margin:0px; padding:0px;}
 .alphaList li {width:20px; height:20px; float:left; cursor:pointer; list-style:none; text-align:center; margin:5px;}
@@ -452,7 +455,6 @@ footer .about p {width:60%;}
 .supplementThumb {height:200px; margin:40px 20px 40px 0px;}
 .supplementThumb img {float:left; margin-right:10px;}
 
-.homeAds {padding:10px;}
 .homeLower {width: 100%;  min-width: 755px; margin: 0 auto; overflow: hidden; border-top:1px solid #CCC; background:#FFF; padding:20px 0px;}
 
 .supplementLeft h2 {margin-bottom:40px;}
@@ -476,7 +478,13 @@ footer .about p {width:60%;}
 }
 
 
-
+.homeAds {overflow:hidden;}
+.scroll {position:relative;}
+.panel {float:left; padding:0px; margin:0; padding-right:40px; }
+.numbers { position:relative; clear:both;}
+.numbers ul { margin:auto;}
+.numbers ul li { float:left; margin-left:5px; height:20px; width:15px; background:url(../images/numbers.jpg) no-repeat; background-position:-15px 0px;}
+.numbers ul li.active { background-position:0px 0px;}
 
 
 

@@ -347,7 +347,7 @@
 			
 			
 			
-			$adDisplay = '<div class="ads '.$placement.'"><div class="scroll">';
+			$adDisplay = '<div class="scroll">';
 			foreach($ads->adList as $item) {
 				if ($item->placement == 1) {
 					continue;	
@@ -363,7 +363,7 @@
 			}
 			$adDisplay .= '</div>
 			<div class="numbers ir"></div>
-			</div>';
+			';
 			
 			echo $adDisplay;
 		}

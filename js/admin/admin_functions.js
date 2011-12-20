@@ -695,6 +695,15 @@
 		_title = $('#title').val();
 		_content = $('.editorContent').val();
 		
+
+		if (_content == false) {
+			_id = $('.editorContent').attr('id');
+			_tiny = tinyMCE.get(_id);
+			_content = _tiny.getContent();
+		}
+		
+		
+			
 		$.ajax({
 			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',

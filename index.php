@@ -4,11 +4,16 @@
 ?>
 
 <section class="homeContent">
-	<div class="row">
+	<div class="row mobileRefill">
+		<div class="sixcol">
+		<?php include(MODULES. 'refills.php');  ?>
+        </div>
+	</div>
+    
+    <div class="row">
         <article class="twelvecol">
            	<h1><?php $display->displayTitle(); ?></h1>
             <?php $display->displayContent(); ?>
-           
         </article>
       </div>
        <div class="contentShadow"></div>
@@ -18,7 +23,8 @@
                 <?php echo $display->displayAds('Front Page') ?>
             </div>
             <div class="fourcol homeNews">
-                 <?php echo $display->displayNews(); ?>
+            	 <?php include(MODULES. 'refills.php');  ?>
+				 <?php echo $display->displayNews(); ?>
             </div>
         </article>
       </section>
