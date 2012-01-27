@@ -24,7 +24,7 @@
 			
 			if (!empty($n_id)) {
          		$result = $this->fetchById($n_id); 
-				$this->getLink();
+				$this->directLink = $this->createLink('news', $this->title);
 			} 
         }
 /* ========================================
@@ -48,10 +48,6 @@
 			}
 		}
 		
-		public function getLink() {
-			$title = str_replace(" ", "_", $this->title);
-			$this->directLink = '/news/'. urlencode($title). '.html';	
-		}
 		
 				
 		

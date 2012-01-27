@@ -40,9 +40,9 @@
 	echo 'complete';*/
 
 
-//Navigation Content Conversion 
-	/*$sql = "SELECT * FROM users U 
-
+//Adding Users
+	/* $sql = "SELECT * FROM users U 
+ 
 			JOIN master_name M ON U.userID = M.userId 
 			JOIN address A ON U.userId = A.userId
 			JOIN phone P ON U.userId = P.userId";
@@ -52,11 +52,11 @@
 	while ($row = mysqli_fetch_array($result)) {
 		
 		
-		$sql = "INSERT INTO users (first, last, password, email, NPINumber, company) VALUES ('".$row['firstName']."', '". $row['LastName']. "', '". $row['hashedPassword'] ."', '". $row['email']. "', '".$row['mdNumber']."', '".$row['companyName']."')";
+		$sql = "INSERT INTO users (first, last, password, email, NPINumber, company) VALUES ('".$row['firstName']."', '". $db->escapeString($row['LastName']). "', '". $row['hashedPassword'] ."', '". $row['email']. "', '".$row['mdNumber']."', '".$row['companyName']."')";
 		$db->query($sql);
 		$user_id = $db->insertedID();
 		
-		$sql2 = "INSERT INTO address (address_1, address_2, city, zip) VALUES ('".$row['address']."', '". $row['address2']."', '".$row['city']."', '". $row['zip']."')";
+		$sql2 = "INSERT INTO address (address1, address2, city, zip) VALUES ('".$row['address']."', '". $row['address2']."', '".$row['city']."', '". $row['zip']."')";
 		$db->query($sql2);
 		$address_id = $db->insertedID();
 		
@@ -65,7 +65,7 @@
 		$db->query($sql6);
 		
 		
-		$sql3 = "INSERT INTO phone (phonenumber, phoneType) VALUES ('".$row['phoneNum']."', 'OP')";
+		$sql3 = "INSERT INTO phone (phonenumber, phone_type) VALUES ('".$row['phoneNum']."', 'OP')";
 		$db->query($sql3);
 		$phone_id = $db->insertedID();
 		
@@ -90,7 +90,7 @@
 			$sql9 = "INSERT INTO phoneForUser (phone_id, user_id) VALUES ({$cell_id}, {$user_id})";
 			$db->query($sql9);
 		} 
-	}*/
+	} */
 		
 		
 //News Conversion
@@ -140,14 +140,14 @@
 
 
 //Add Guid to Users
-		/* $result = $db->queryFill("SELECT user_id FROM users");
+		/*$result = $db->queryFill("SELECT user_id FROM users");
 		
 		if ($result != false) {
 			foreach ($result as $row) {
 				$guid = uniqid('', true);
 				$db->query("UPDATE users SET guid = '{$guid}' WHERE user_id = ".$row['user_id']);	
 			}
-		} */
+		}*/
 
 
 //Add Media to Database
@@ -162,7 +162,7 @@
 	}*/
 	
 //Drug Content to DrugNames 
-	$drugs = $db->queryFill("SELECT drug_id FROM drugs");
+	/*$drugs = $db->queryFill("SELECT drug_id FROM drugs");
 	
 	foreach ($drugs as $drug) {
 		$drug_id = $drug['drug_id'];
@@ -175,9 +175,19 @@
 		//$content = $db->escapeString($content);
 		
 		$db->query("UPDATE drugs SET searchable = '{$searchable}' WHERE drug_id = {$drug_id}");
-	}
+	} */
 	
-
+	
+	$result_set = $db->queryFill("SELECT user_id FROM users");
+	
+	if ($result_set != false) {
+		foreach ($result_set as $r) {
+			$id = $r['user_id'];
+			$db->query("INSERT INTO userInGroups (user_id, group_id ) VALUES ('{$id}', 2)");	
+		}
+	}	
+	
+	echo 'done';
 	
 		
 ?>

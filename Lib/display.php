@@ -256,7 +256,7 @@
 		
 		private function prepareLink($string) {
 			$string = rawurlencode($string);
-			return str_replace("%20", "-", $string);	
+			return str_replace("%20", "_", $string);	
 		}
 		
 

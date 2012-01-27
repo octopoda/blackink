@@ -27,9 +27,9 @@
   <script defer src="/js/script.js"></script>
   <!-- end scripts-->
 
-  <?php if (SERVER == 'dev') { ?>
-		 <!-- <script src="/js/mylibs/live.js"></script> -->	  
-  <?php } else { ?>
+  <?php if (SERVER == 'dev') : ?>
+		 <script src="/js/mylibs/live.js"></script> 
+  <?php endif; ?>
   
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
  <?php if ((!empty($site->googleCode)) && (SERVER == 'live')) : ?>

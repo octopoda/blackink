@@ -19,6 +19,7 @@ $(document).ready(function () {
 			
 			if (_this.children('ul').length == 0) {
 				_this.addClass('open');	
+				_this.css({})
 			}
 		})
 		

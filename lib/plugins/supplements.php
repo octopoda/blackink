@@ -33,14 +33,10 @@
 			
 			if (!empty($i_id)) {
          		$result = $this->fetchById($i_id);
-				$this->getLink();
+				$this->directLink = $this->createLink('supplements', $this->ProductName);
 			} 
         }
 		
-		public function getLink() {
-			$title = str_replace(" ", "_", $this->ProductName);
-			$this->directLink = '/supplements/'. urlencode($title). '.html';	
-		}
 		
 		
 /* ========================================

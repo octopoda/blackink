@@ -302,6 +302,8 @@ abstract class databaseObject {
 /* ================================================	
 	Blog and Publish Methods
    ================================================	 */
+   
+   		
 		
 		//Publish and Unpublish methods
 		public function published($id="") {
@@ -430,6 +432,8 @@ abstract class databaseObject {
 			return $list;
 		}
 		
+		
+		//Drop downs for access members. 
 		public function accessDropDown($id, $navid="") {
 			$array = $this->listAccessGroups();
 			
@@ -453,6 +457,8 @@ abstract class databaseObject {
 			return $html;
 		}
 		
+		
+		//Setting the access for the members
 		public function setAccess($newAccess, $id) {
 			global $db;
 				
@@ -460,6 +466,13 @@ abstract class databaseObject {
 			if ($db->affectedRows() > 0) return true;
 		}
 
+
+		//Creating links for content;
+		public function createLink($folder, $name) {
+			$title = str_replace(" ", "_", $name);
+			$link =  '/'.$folder.'/'	.urlencode($title).'.html';
+			return $link;
+		}
 		
 		
 

@@ -26,7 +26,7 @@
 			
 			if (!empty($d_id)) {
          		$result = $this->fetchById($d_id);
-				$this->getLink();
+				$this->directLink = $this->createLink('compass', $this->drugName);
 			} 
         }
 /* ========================================
@@ -47,12 +47,6 @@
 			return false;	
 		}
 	}
-	
-	private function getLink() {
-		$title = str_replace(" ", "-", $this->drugName);
-		$this->directLink = '/compass/'	.urlencode($title);
-	}
-	
 	
 	static function drugsFromName($name) {
 		global $db;

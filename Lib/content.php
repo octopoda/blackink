@@ -27,7 +27,7 @@
 			
 			if (!empty($c_id)) {
          		$result = $this->fetchById($c_id);
-				$this->getLink();
+				$this->directLink = $this->createLink("content", $this->title);
 			} 
         }
 /* ========================================
@@ -50,10 +50,7 @@
 		}
 	}
 	
-	private function getLink() {
-		$title = str_replace(" ", "_", $this->title);
-		$this->directLink = '/content/'	.urlencode($title).'.html';
-	}
+	
 	
 	
 	

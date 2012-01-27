@@ -27,7 +27,7 @@
 			if (!empty($a_id)) {
          		$result = $this->fetchById($a_id);
 				$this->placementHumanReadable(); 
-				$this->getLink();
+				$this->directLink = $this->createLink('ads', $this->title);
 			} 
         }
 /* ========================================
@@ -46,11 +46,6 @@
 				$this->humanPlacement = 'Both';
 				break;	
 		}
-	}
-	
-	public function getLink() {
-		$title = str_replace(" ", "_", $this->title);
-		$this->directLink = '/ads/'.urlencode($title).'.html';
 	}
 	
 	
