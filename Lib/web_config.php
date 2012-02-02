@@ -35,10 +35,10 @@
 	
 	}else if (SERVER == "live") {
 		//Database
-       define("DB_SERVER", ""); 
-		define("DB_USER", "");
-		define("DB_PASS", "");
-		define("DB_NAME", "");
+       define("HOSTNAME", "localhost"); 
+		define("DB_USER", "innovau8_beyatch");
+		define("DB_PASS", "!Q2w#E4r%T6y");
+		define("DB_NAME", "innovau8_blackink");
 		
 		//Site Files
 		define('DS', DIRECTORY_SEPARATOR);
@@ -51,14 +51,15 @@
 		define('ADMIN_PATH', CLASS_PATH.DS. 'admin');
 		define('FILE_PATH', SITE_FILES.DS."files".DS."uploads");
 		define('MAIL_PATH', CLASS_PATH.DS. 'mailer');
+		define('PLUGIN_PATH', CLASS_PATH.DS. 'plugins');
 		
 		//SMTP
-		define('HOST', "");
-		define('EMAIL_USER', "");
-		define('EMAIL_PASS', "");
+		define('EMAIL_HOST', "host199.hostmonster.com");
+		define('EMAIL_USER', "pharmacist@innovationcompounding.com");
+		define('EMAIL_PASS', "!nnov@tioNCompoundin$");
 		define('EMAIL_PORT', 26);
 		
-		define("REPORT_USER", '');
-		define("REPORT_PASS", '');
+		define("REPORT_USER", 'zack@2721west.com');
+		define("REPORT_PASS", '!@34QWermail');
 	} 
 ?>

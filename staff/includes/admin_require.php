@@ -10,7 +10,7 @@
 	require_once(CLASS_PATH.DS. "navigation.php");
 	require_once(CLASS_PATH.DS. "menus.php");
 	require_once(CLASS_PATH.DS. "content.php");
-	
+	require_once(CLASS_PATH.DS. 'contactInformation.php');
 	
 	//Admin
 	require_once(CLASS_PATH.DS. 'users.php');

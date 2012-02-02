@@ -11,18 +11,16 @@
 		$drug = $_GET['drug'];
 	
 	$display = new Display($title, $name, $drug);
-	$detect = new MobileDetect();
+	$detect = new MobileDetect(); 
 ?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html class="no-js  <?php if($detect->isMobile()) echo 'mobile'; ?>" lang="en"> <!--<![endif]-->
-<head> 
-  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-       More info: h5bp.com/b/378 -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<!--[if gt IE 8]><!--> <html class="<?php if($detect->isMobile()) echo 'mobile'; ?> no-js "  lang="en"> <!--<![endif]--><head> 
+ 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
   	
   <meta charset="utf-8">
   <title><?php echo $site->siteName . $display->displayPageTitle(); ?> :: Compounding Compass</title>
@@ -30,7 +28,7 @@
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
   <meta name="keywords" content="<?php echo $site->keywords; ?>"  />
   	
-  <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <meta name = "viewport" content = "initial-scale=1.0, width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes"/>
 
 
@@ -38,24 +36,29 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 	
   <!-- CSS: implied media="all" -->
-  <link rel="stylesheet" href="/css/basic.css" media="screen" />
-  <link rel="stylesheet" href="/css/plugins.css" media="screen" />
+  <link rel="stylesheet" href="/css/basic.css"  />
+  <link rel="stylesheet" href="/css/plugins.css"  />
   <link rel="stylesheet" href="/css/desktop.css" media="only screen and (min-width: 1024px)" />
-  <link rel="stylesheet" href="/css/tablet.css" media="only screen and (max-width:1024px)" />
+  
+  <link rel="stylesheet" href="/css/tablet.css" media="only screen and (max-width:1024px) and (min-width:480px;)" />
+
   <link rel="stylesheet" href="/css/mobile.css" media="only screen and (max-width:480px)" />
+    <!--[if gt IE 9]>
+  <![endif]-->
+
   
   
   <!-- Font Stylesheets -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   
-  <!-- plugin CSS files -->
-  <link rel="stylesheet" href="/css/plugins.css" media="screen" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> 
+  
     
   <script src="/js/libs/modernizr-2.0.6.min.js"></script>
   
+  
 </head>
 
-<body class"<?php if($title == 'compass') echo 'compass'?>"  >
+<body class"<?php if($title == 'compass') echo 'compass'; ?>"  >
 <div id="dialog"></div>
     <header>
     	<div class="row">
