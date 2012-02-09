@@ -306,12 +306,12 @@ FileETag None
 
 RewriteRule 	^(/?)$									/index.php [NC]
 
-RewriteRule		^compass/?$								/compass.php?title=compass [NC]
-RewriteRule		^compass/([^/.]+).html$					/compass.php?title=compass&name=$1 [NC]
-RewriteRule		^compass/([^/.]+/)([^/.]+).html$		/compass.php?title=compass&name=$1&drug=$2 [NC]
+#RewriteRule		^compass/?$								/compass.php?title=compass [NC]
+#RewriteRule		^compass/([^/.]+).html$					/compass.php?title=compass&name=$1 [NC]
+#RewriteRule		^compass/([^/.]+/)([^/.]+).html$		/compass.php?title=compass&name=$1&drug=$2 [NC]
 
-RewriteRule		^supplements/?$							/supplements.php?title=supplements [NC]
-RewriteRule		^supplements/([^/.]+).html$				/supplements.php?title=supplements&name=$1 [NC]
+#RewriteRule		^supplements/?$							/supplements.php?title=supplements [NC]
+#RewriteRule		^supplements/([^/.]+).html$				/supplements.php?title=supplements&name=$1 [NC]
 
 RewriteRule		^content/([^/.]+).html$				/display.php?title=$1 [NC]
 

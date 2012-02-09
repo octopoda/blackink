@@ -35,11 +35,6 @@
 				echo "$('.drugList').hide();";
 				echo "$('#link').addClass('activeInput');";
 				break;
-			case 3:
-				echo "$('.contentInput').hide();";
-				echo "$('.externalInput').hide();";
-				echo "$('#drugName').addClass('activeInput');";
-				break;
 			default:
 				echo "$('.externalInput').hide();";
 				echo "$('.drugList').hide();";
@@ -57,8 +52,6 @@
         	<select name="type" id="type" sel>
             	<option value="1">Content</option>
                 <option value="2">External Link</option>
-                <option value="3">Compass Drug Listing</option>
-                <option value="4">Compass Content</option>
             </select>
         </p>
     

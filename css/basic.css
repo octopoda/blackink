@@ -9,9 +9,7 @@ Colors for Site:
 
 
 @font-face  {
-	font-family: "tenderness";  
-	src: url(fonts/Tenderness.eot); /* IE */  
-	src: local("tenderness"), url(fonts/Tenderness.otf) format("opentype"); /* non-IE */ 
+	
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
@@ -152,7 +150,7 @@ input.hasError {background:#CB0202 !important; color:#FFF !important;}
 
 .buttonset button{ margin-left:8px;}
 
-button {
+button, .button {
 	margin-top:20px;
 	border-radius:3px 3px 3px 3px;
 	box-shadow:2px 2px 5px #CCC;
@@ -165,13 +163,13 @@ button {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C52127', endColorstr='#8D0D11',GradientType=0 ); /* IE6-9 */
 }
 
-button:hover { 
+button:hover, .button:hover { 
 	background: #ccc; /* Old browsers */
 	background: linear-gradient(top, #ccc 0%,#8c8c8c 100%); /* W3C */
 }
-button:active {box-shadow:inset 1px 1px 12px #666;}
+button:active, .button:active {box-shadow:inset 1px 1px 12px #666;}
 
-button.disabled {background:#CCC; cursor:default;}
+button.disabled, .button.disabled {background:#CCC; cursor:default;}
 
 .slider label{ margin-right:10px; float:left;}
 .slider input {background:none; color:#444; font-weight:bold; box-shadow:none; }
@@ -376,7 +374,7 @@ header {height:33px; background:#002F66}
 .mobileRefill {display:none;}
 
 /* Main Content */
-.mainContent, .homeContent {background:url(../images/content_background.jpg) top center no-repeat #FBFAF8; padding-top:20px; box-shadow:4px 10px 20px #666; min-height:453px; }
+.mainContent, .homeContent {padding-top:20px; box-shadow:4px 10px 20px #666; min-height:453px; }
 .mainContent {padding-bottom:30px;}
 .mainContent article h1, .homeContent article h1 {font-size:26px; font-weight:100; margin-bottom:30px; padding:8px;}
 .contentShadow {background:url(../images/content_shadow_up.jpg) bottom center no-repeat; height:37px; }
@@ -400,19 +398,8 @@ aside h3 {margin-top:10px;}
 	border-top: 30px solid #0A1948;
 }
 
-/* Refills */
-.refills {border-radius:3px 3px 3px 3px;}
-.refills h5 {background:#685B1D; width:80% ;  padding:10px; font-size:24px;}
-.refills h5 a {color:#FFF;}
-.refills .ninjaSymbol {color:#FFF; font-size:28px;float:right;}
 
-form.search input {width:70%;}
-.ac_results { background:white; z-index:99999; margin:0; padding:0;}
-	.ac_results ul {margin:0; padding:0;}
-	.ac_results ul li {  margin:0px; padding:0; width:100%; border-top:1px solid black; border-bottom:1px solid black; cursor:pointer; list-style:none; padding:5px 0px 5px 5px; }
-	.ac_results ul li:hover, .autocomplete ul li.active { color:white; background:#685B1D;}
-	.ac_results ul li:hover span, .autocomplete ul li.active span { color:#FFF;}
-	.ac_results ul li span { font-size:10px; color:#666;}
+
 	
 	
 footer {background: url(../images/footer.jpg) top center no-repeat #F5F2EB; border-top:1px solid #CCC; padding-bottom:40px;}
@@ -443,25 +430,7 @@ footer .about p {width:60%;}
 
 
 
-.alphaList { margin:0px; padding:0px;}
-.alphaList li {width:20px; height:20px; float:left; cursor:pointer; list-style:none; text-align:center; margin:5px;}
-.alphaList li:hover {background:#002F66; color:#FFF;}
 
-.supplementFeatured {margin:0; padding:0; margin-bottom:60px;}
-.supplementFeatured li{ list-style:none; margin:0; padding:5px 0px 5px 5px; border-bottom:1px solid #CCC;}
-.supplementFeatured li:hover {background:#002F66}
-.supplementFeatured li:hover a {color:#FFF;}
-
-.supplementThumb {height:200px; margin:40px 20px 40px 0px;}
-.supplementThumb img {float:left; margin-right:10px;}
-
-.homeLower {width: 100%;  min-width: 755px; margin: 0 auto; overflow: hidden; border-top:1px solid #CCC; background:#FFF; padding:20px 0px;}
-
-.supplementLeft h2 {margin-bottom:40px;}
-
-
-.supplementRight .price, .supplementRight .count {font-size:18px;}
-.supplementRight h6 {border-bottom:1px solid #CCC; margin-top:20px;}
 
 
 
@@ -469,30 +438,8 @@ footer .about p {width:60%;}
    Content Styles
    ========================================================================== */
 
-.mangevityLogo {
-	display:block;
-	background:url(../images/mangevity_logo.jpg) top left no-repeat;
-	text-indent:-9999px;
-	width:293px;
-	height:78px;
-}
-
-
-.homeAds {overflow:hidden;}
-.scroll {position:relative;}
-.panel {float:left; padding:0px; margin:0; padding-right:40px; }
-.numbers { position:relative; clear:both;}
-.numbers ul { margin:auto;}
-.numbers ul li { float:left; margin-left:5px; height:20px; width:15px; background:url(../images/numbers.jpg) no-repeat; background-position:-15px 0px;}
-.numbers ul li.active { background-position:0px 0px;}
 
 
 
-/* ==|== Site styles ================================================================================================================
-   Compass Styles
-   ========================================================================== */
-   
-.drugList {margin:0px; padding:0px;}   
-.drugList li {list-style:none; margin:0px; padding:8px 0px 8px 5px; border-bottom:1px solid #CCC; }
-.drugList li:hover {background:#002F66;}
-.drugList li:hover a {color:#FFF;} 
+
+

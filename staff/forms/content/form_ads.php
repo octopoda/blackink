@@ -126,6 +126,13 @@
 			
 			if (file.length > 59) {
 				alert('The file name is too long.  Please keep file names under 60 characters.');
+				btnUpload.html(button);			
+				return false;	
+			}
+			
+			if (file.indexOf(' ') > 0) {
+				alert('Please remove the spaces from the file name.');
+				btnUpload.html(button);			
 				return false;	
 			}
  			

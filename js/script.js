@@ -374,6 +374,102 @@ $(document).ready(function () {
 
 
 /* ===========================================
+	Shopping Cart Scripts
+   =========================================*/
+
+	$('.addToCart').live('click', function (e) {
+		e.preventDefault();
+		_itemNumber = $(this).attr('data-itemNumber');
+		_this = $(this);
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/ajax_submit.php',
+			data: {'addToCart': _itemNumber},
+			dataType:'json',
+			success: function (data) {
+				_this.html(data.button);
+				$('.miniCart').html(data.mini);	
+			},
+			error: function(xhr, textStatus, errThrown) {
+               	postError('error', 'Something went wrong with out System. Please try again later');
+				getErrors();
+            }	
+		});	
+	});
+	
+	$('.viewShoppingCart').live('click', function(e) {
+		e.preventDefault();
+		
+		$('#dialog').modal({
+			style: 'html',
+			url: '/shoppingCart.php',
+			width: '70%',
+		});
+	});
+	
+	
+	$('.productQuantity').live('focusout', function () {
+		
+		_quan = $(this).val();
+		_item = $(this).attr('data-itemNumber');
+		_this = $(this);
+		
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/ajax_submit.php',
+			data: {'changeQuantity': _quan, 'ItemNumber': _item},
+			dataType: 'json',
+			success: function (data) {
+				_this.parent('td').next('.price').html(data.singlePrice);
+				$('.totalPrice').html(data.totalPrice);	
+				$('.miniCart').html(data.mini);	
+			},
+			error: function(xhr, textStatus, errThrown) {
+                postError('error', 'Something went wrong with out System. Please try again later');
+				getErrors();
+            }	
+		});	
+	});
+	
+	$('.removeProduct').live('click', function (e) {
+		_item = $(this).attr('data-itemNumber');
+		_this = $(this);
+		
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/ajax_submit.php',
+			data: {'removeProduct': 1, 'ItemNumber': _item},
+			dataType: 'json',
+			success: function (data) {
+				//$('.data').html(data);
+				_this.parent('td').parent('tr').slideUp(500);
+				$('.miniCart').html(data.mini);
+				$('.totalPrice').html(data.totalPrice);
+			},
+			error: function(xhr, textStatus, errThrown) {
+               	postError('error', 'Something went wrong with out System. Please try again later');
+				getErrors();
+            }	
+		});	
+	})
+
+	$('.unsetSession').live('click', function (e) {
+		e.preventDefault();
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/ajax_submit.php',
+			data: {'unsetSession': 1},
+			success: function (data) {
+				alert(data);	
+			},
+			error: function(xhr, textStatus, errThrown) {
+                postError('error', 'Something went wrong with out System. Please try again later');
+				getErrors();
+            }	
+		});	
+	})
+
+/* ===========================================
 	Mobile Scripts
    =========================================*/
 

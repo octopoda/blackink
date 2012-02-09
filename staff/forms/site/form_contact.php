@@ -60,7 +60,7 @@
         
         </p>
             <label for="faxnumber">Company Fax</label>
-            <input type="tel" class="usPhone" id="faxnumber" name="faxnumber" />
+            <input type="tel" id="faxnumber" name="faxnumber" />
         <p>
         
         <p>

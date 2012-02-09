@@ -11,6 +11,7 @@
 	require_once(CLASS_PATH.DS. "menus.php");
 	require_once(CLASS_PATH.DS. "content.php");
 	require_once(CLASS_PATH.DS. 'contactInformation.php');
+	require_once(CLASS_PATH.DS. 'social.php');
 	
 	//Admin
 	require_once(CLASS_PATH.DS. 'users.php');
@@ -20,10 +21,7 @@
 	require_once(MAIL_PATH.DS. 'class.phpmailer.php');
 	require_once(MAIL_PATH.DS. 'class.smtp.php');
 	
-	//Plugins
-	require_once(PLUGIN_PATH.DS. 'refills.php');
-	require_once(PLUGIN_PATH.DS. 'drugs.php');
-	require_once(PLUGIN_PATH.DS. 'supplements.php');
+	
 	
 	
 	

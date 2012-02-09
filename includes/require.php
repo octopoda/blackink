@@ -21,9 +21,9 @@
 	require_once(MAIL_PATH.DS. 'class.smtp.php');
 	
 	//Plugins
-	require_once(PLUGIN_PATH.DS. 'refills.php');
-	require_once(PLUGIN_PATH.DS. 'drugs.php');
-	require_once(PLUGIN_PATH.DS. 'supplements.php');
+	
+	
+	//SDK
 	
 	$site = new Site();
 

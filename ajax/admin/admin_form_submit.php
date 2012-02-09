@@ -20,6 +20,14 @@ if (isset($_POST['contactForm'])) {
 	echo $_POST['contactForm'];
 }
 
+if (isset($_POST['socialForm'])) {
+	$social = new Social();
+	
+	$social->createSocialFromForm($_POST);
+	
+	echo $_POST['socialForm'];	
+}
+
 
 if (isset($_POST['addMenu'])) {
 	$menu = new Menus();
@@ -86,24 +94,6 @@ if (isset($_POST['addAds'])) {
 	echo $_POST['addAds'];	
 }
 
-
-if (isset($_POST['addDrugs'])) {
-	if (isset($_POST['drug_id'])) $id = $_POST['drug_id'];
-	$drugs = new Drugs($id);
-	
-	$created = $drugs->createDrugsFromForm($_POST);
-	
-	echo $_POST['addDrugs'].$created;
-}
-
-if (isset($_POST['supplementReload'])) {
-	$supplement = new Supplements();
-	
-	if ($supplement->installSupplements()) {
-		echo 'forms/supplements/list_supplements.php';	
-	}
-	
-}
 
 
 

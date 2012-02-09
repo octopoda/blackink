@@ -49,6 +49,18 @@
 			return $result;
 		}
 		
+		public function startTransaction() {
+			$this->database->query("START TRANSACTION");	
+		}
+		
+		public function endTransaction() {
+			$this->database->query("END TRANSACTION");	
+		}
+		
+		public function rollbackTransaction() {
+			$this->database->query("ROLLBACK TRANSACTION");	
+		}
+		
         public function queryFill($sql) {
            	$rtn = $this->query($sql);
             if (empty($rtn)) return false;

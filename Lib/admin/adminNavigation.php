@@ -43,7 +43,7 @@
 		public function listMainNav() {
 			global $db;
 			
-			$result_set = $db->queryFill("SELECT admin_id FROM adminNavigation where parent_id = 0 ORDER BY position");
+			$result_set = $db->queryFill("SELECT admin_id FROM adminNavigation WHERE parent_id = 0 AND published = 1 ORDER BY position");
 			foreach ($result_set as $row) {
 				$this->mainNav[] = new AdminNavigation ($row['admin_id']);	
 			}
@@ -52,7 +52,7 @@
 		public function listTabs($id) {
 			global $db;
 			
-			$tab_set = $db->queryFill("SELECT admin_id FROM adminNavigation WHERE parent_id = {$id} ORDER BY Position");
+			$tab_set = $db->queryFill("SELECT admin_id FROM adminNavigation WHERE parent_id = {$id} AND published = 1 ORDER BY Position");
 			foreach ($tab_set as $row) {
 				$this->tabs[] = new AdminNavigation($row['admin_id']);
 			}

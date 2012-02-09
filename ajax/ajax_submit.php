@@ -110,31 +110,64 @@ if (isset($_POST['supplementAlpha'])) {
 	}
 	
 	echo $html;
-}
- 
-/*if (isset($_POST['newsletterSubmit'])) {
-	
-	if ($_POST['email'] == '') {  echo 'No email address Provided'; return; }
-	
-	if(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*$/i", $_POST['email'])) {
-		echo "Email address is invalid"; 
-	}
-	
-	$api = new MCAPI('f0555cecd49835d6d0627a84c06271d7-us2');
-	
-	// grab your List's Unique Id by going to http://admin.mailchimp.com/lists/
-	// Click the "settings" link for the list - the Unique Id is at the bottom of that page. 
-	$list_id = "049ae5f62e";
+}	
 
-	if($api->listSubscribe($list_id, $_POST['email'], '') === true) {
-		// It worked!	
-		echo 'Success! Check your email to confirm sign up.';
-		return;
-	}else{
-		// An error ocurred, return error message	
-		echo 'Error: ' . $api->errorMessage;
-		return;
-	}	
-} */	
+
+
+
+
+if (isset($_POST['addToCart'])) {
+	$cart = new ShoppingCart();
+	$cart->addToCart($_POST['addToCart']);
+	
+	$mini = $cart->miniCart();
+	$button = "The item was added.";
+	
+	echo json_encode(array(
+		'mini'=> $mini,
+		'button'=> $button
+	));
+}
+
+
+if (isset($_POST['changeQuantity'])) {
+	$cart = new ShoppingCart();
+	$supplement = new Supplements($_POST['ItemNumber']);
+	$cart->changeQuantity($_POST['ItemNumber'], $_POST['changeQuantity']);
+	
+	$price = '$'.number_format($supplement->MSRP*$_POST['changeQuantity'], 2);
+	$mini = $cart->miniCart();
+	$total = '$'.$cart->totalPrice();
+	
+	echo json_encode(array(
+		'singlePrice'=>$price,
+		'mini'=>$mini,
+		'totalPrice'=>$total
+	));
+		
+}
+
+if (isset($_POST['removeProduct'])) {
+	$cart = new ShoppingCart();
+	
+	unset($_SESSION['cart'][$_POST['ItemNumber']]);	
+	
+	$mini = $cart->miniCart();
+	$total = '$'.$cart->totalPrice();
+	
+	echo json_encode(array(
+		'mini'=>$mini,
+		'totalPrice'=>$total
+	));
+}
+
+
+
+
+
+if (isset($_POST['unsetSession'])) {
+	unset($_SESSION['cart']);
+	echo 'Session Unset';	
+}
 
 ?>

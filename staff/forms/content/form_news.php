@@ -121,11 +121,19 @@
 			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
 				// extension is not allowed
 				alert('Only JPG, PNG, GIF,  files are allowed');
+				btnUpload.html(button);			
 				return false;
 			} 
 			
 			if (file.length > 59) {
 				alert('This file name is too long.  Please make it less than 60 characters');
+				btnUpload.html(button);			
+				return false;	
+			}
+			
+			if (file.indexOf(' ') > 0) {
+				alert('Please remove the spaces from the file name.');
+				btnUpload.html(button);			
 				return false;	
 			}
 			

@@ -48,6 +48,11 @@ $(document).ready(function () {
 					status.text('The file name is too long please keep it below 50 characters');
 					return false;	
 				}
+				
+				if (file.indexOf(' ') > 0) {
+					status.text("Please replace the spaces with underscores in the file name.");
+					return false;	
+				}
 				$('#status').text('Uploading...');
 			},
 			onComplete: function(file, response){

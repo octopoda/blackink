@@ -143,23 +143,31 @@
 	
 	var btnUpload=$('.uploadImageContent');
 	var button = $('.uploadImageContent').html();
-		
+
 	new AjaxUpload(btnUpload, {
 		action: '/ajax/ajax_upload.php',
 		name: 'file_name',
 		data: {'content': 1},
 		onSubmit: function(file, ext){
-			btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
+			_btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
 			content = $('.editor').val();
 			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
 				// extension is not allowed
 				alert('Only JPG, PNG, GIF,  files are allowed');
+				btnUpload.html(button);			
 				return false;
 			}
 			
 			if (file.length > 59) {
 				alert('The file name is too long. Please keep the file name under 60 characters.');
+				btnUpload.html(button);			
 				return false;	
+			}
+			
+			if (file.indexOf(' ') > 0) {
+				alert('Please remove the spaces from the file name.')
+				btnUpload.html(button);			
+				return false;
 			}
 			
 		},

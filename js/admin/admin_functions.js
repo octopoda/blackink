@@ -20,6 +20,8 @@
         	}
 		});
 	}
+	
+	
 
 	//Ajax Control of Main Navigation
 	$('#navigation ul li a').click(function (e) {
@@ -128,6 +130,8 @@
    
 	//Position Arrows 
 	$('.move').live('click', function (e) {
+		e.preventDefault();
+		
 		$title = $(this).attr('title');
 		$id = $(this).attr('sel');
 		$class = $(this).parent('li').attr('class');
@@ -136,19 +140,15 @@
 		$parent = $(this).attr('parent');
 		$menu_id = $(this).attr('menu')
 		
-		$.ajax ({
+		$.ajax({
 			url: '/ajax/admin/admin_functionality.php',
 			type: 'POST',
 			data: { 'id': $id, 'move': $title, 'class': $class, 'position': $position, 'href': $href, 'parent' : $parent, 'menu_id': $menu_id},
 			success: function (data) {
 				redirectTo(data);
-			}
-		}); 
-		
-		e.preventDefault();
+			}	
+		});
 	}); 
-	
-	
 	
 	
 	//Publish and unpublish items.
@@ -714,4 +714,7 @@
 		})
 	});
 	
+
+
+
 

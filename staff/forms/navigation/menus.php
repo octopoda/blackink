@@ -42,7 +42,7 @@
             	<th>Title</th>
                 <th width="80">Published</th>
                 <th width="100">Access</th>
-               <!-- <th>Delete</th> -->
+                <th>Delete</th>
             </tr>
         </thead>
     	<tbody>
@@ -55,7 +55,11 @@
 				<td class="menus"><a id="<?php echo $list->menu_id ?>" title="menu_name" href="<?php echo $link ?>" class="quickEdit"><?php echo $list->menu_name; ?></span></td>
 				<td><?php echo $list->published($list->menu_id); ?></td>
 				<td><?php echo $list->accessDropDown($list->access, $list->menu_id); ?></td>
-				<!-- <td><a class="delete ninjaSymbol ninjaSymbolClear" id="menus" sel="<?php echo $list->menu_id ?>" href="<?php echo $link ?>"></a></td> -->
+                <?php if ($list->menu_id != 2) : ?>
+				<td><a class="delete ninjaSymbol ninjaSymbolClear" id="menus" sel="<?php echo $list->menu_id ?>" href="<?php echo $link ?>"></a></td>
+                <?php else : ?>
+                <td>&nbsp;</td>
+				<? endif ?>
 			</tr>
 	
 	<?php } } else {?>

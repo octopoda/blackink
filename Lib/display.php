@@ -289,6 +289,7 @@
 		
 		public function supplementNavigation() {
 			$supplements = new Supplements();
+			$cart = new ShoppingCart();
 			
 			$html = '<h5>Our Featured Supplements</h5>';
 			$html .= '<ul class="supplementFeatured">';
@@ -308,14 +309,22 @@
 			}
 			$html .= '</ul>';	
 			
+			
+			$html .= '<h5 class="miniShopTitle">Shopping Cart</h5>';
+			$html .= '<nav class="miniCart">';
+			$html .= $cart->miniCart();
+			$html .= '</nav>';
+			
+			if (SERVER == 'dev') {
+				$html .= "<h5>SESSION</h5>";
+				$html .= print_r($_SESSION['cart']);
+			} 
 			echo $html;
 		}
 		
 		
 		
-		public function supplementPreview() {
-			
-		}
+		
 		
 /*  ===========================================
 	Module Methods
