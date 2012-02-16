@@ -79,20 +79,21 @@
 			//Setup Mailer
 			$mail = new PHPMailer(true);
 			$mail->IsSMTP();
+			$mail->IsHTML();
+			
 			$mail->Host = EMAIL_HOST;
-			$mail->Username = REPORT_USER;
-			$mail->Password = REPORT_PASS;
-			$mail->port = EMAIL_PORT;
-			$mail->SMTPAuth   = true;
-				
+			$mail->Username = EMAIL_USER;
+			$mail->Password = EMAIL_PASS;
+			$mail->Port = EMAIL_PORT;
+			$mail->SMTPAuth   = true; 
 				
 			usleep(1000);
 			
 			$site = new Site();
 			
-			$users = new Users($_SESSION['user_id']);	
-			$toName = $users->printName(); 
-			$email = $users->email;
+			$user = new Users($_SESSION['user_id']);	
+			$toName = $user->printName(); 
+			$email = $user->email;
 			
 			if (!empty($_SESSION['error_id'])) $adminId = $_SESSION['error_id'];
 				
@@ -118,10 +119,10 @@
 			<p>Thanks, 
 			Me</p>";
 					
-			$mail->SMTPDebug  = 1;	
-			$mail->AddReplyTo($email, $toName);
-			$mail->AddAddress('zack@2721west.com', 'Black Ink Error');
-			$mail->SetFrom($email, $toName );
+			$mail->SMTPDebug  = 1;  
+			$mail->AddReplyTo($user->email);
+			$mail->AddAddress($user->email, $user->printName());
+			$mail->SetFrom($user->email, $user->printName());
 			$mail->Subject = $subject;
 			$mail->Body = $mailMessage;
 			
@@ -130,9 +131,9 @@
 			
 			//Mail Sent Change Password
 			if ($sent) 
-				$error->addError("Your mail has been sent, an admin will return an email to you shortly.", '');
+				$error->addMessage("Your mail has been sent, an admin will return an email to you shortly.", '');
 			else
-				$error->addError("There seems to be a problem with the server sending an email. Please try again later.", '');
+				$error->addError("There seems to be a problem with the server sending an email. Contact Zack", '');
 					
 			return;	
 		}

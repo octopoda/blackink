@@ -22,8 +22,8 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
-  <script defer src="/js/plugins.js"></script>
-  <script defer src="/js/script.js"></script>
+  <script src="/js/plugins.js"></script>
+  <script src="/js/script.js"></script>
   <!-- end scripts-->
 
   <?php if (SERVER == 'dev') : ?>
@@ -33,10 +33,10 @@
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
  <?php if ((!empty($site->googleCode)) && (SERVER == 'live')) : ?>
   <script>
-    window._gaq = [['_setAccount','<?php echo $site->googleCode; ?>'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    });
+   var _gaq=[['_setAccount','<?php echo $site->googleCode; ?>'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
   </script>
   <?php endif; ?>
 

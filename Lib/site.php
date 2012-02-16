@@ -36,6 +36,49 @@
 		}
 		
 		
+		public function reportError($postedError, $u_id) {
+			global $db;
+			global $error;
+			
+			usleep(1000);
+			
+			$user = new Users($u_id);
+			
+			$subject = $this->siteName . " - Report Error";
+			$mailMessage =  $postedError;
+			
+			
+			$mail = new PHPMailer(true);
+			$mail->IsSMTP();
+			$mail->IsHTML();
+			
+			$mail->Host = EMAIL_HOST;
+			$mail->Username = EMAIL_USER;
+			$mail->Password = EMAIL_PASS;
+			$mail->Port = EMAIL_PORT;
+			$mail->SMTPAuth   = true; 
+			
+			
+			
+			$mail->SMTPDebug  = 1;  
+			$mail->AddReplyTo($user->email);
+			$mail->AddAddress($user->email, $user->printName());
+			$mail->SetFrom('noreply@'.$this->siteURL, $this->siteName.' - No Reply' );
+			$mail->Subject = $subject;
+			$mail->Body = $mailMessage;
+			
+			$sent = $mail->Send();
+			
+			//Mail Sent Change Password
+			if ($sent) {
+				$error->addMessage('The report has been sent. Zack will contact you soon. ');
+			} else {
+				$error->addMessage("There was a problem sending email.  Please try again or contact Zack.");
+			}
+			
+		}
+		
+		
 		
 		
 	}

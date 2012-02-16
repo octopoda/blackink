@@ -2,9 +2,8 @@
 
 /* ===========================================
 	Redirection  Methods
-   =========================================*/		
-    
-	//Redirect Main Content
+   =========================================*/
+   //Redirect Main Content
   	function redirectTo($string) {
 		findTab($string);
 		
@@ -399,9 +398,7 @@
 			data: {'reportError': 1},
 			onSubmit: $(this).html('Sending Email'),
 			success: function (data) {
-				$('.modal .close').click();
-				//$('.data').html(data);
-				postError('message', 'Your error has been reported.  Please give 3-4 business days for the error to be fixed.');	
+				getErrors();	
 			}
 		});	
 	});

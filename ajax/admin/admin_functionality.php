@@ -189,7 +189,7 @@ if (isset($_POST['reportError'])) {
 	global $error;
 	
 	if ($error->reportError()) {
-			
+		$error->addMessage('Your request has been sent.  Octopoda will respond soon.');
 	};	
 }
 

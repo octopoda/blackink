@@ -91,7 +91,7 @@
 					$this->phone_id[] = $row['phone_id'];
 				}	
 			} else {
-				$error->addError('This user has no Phone entered in the database.', 'User9876');	
+				return;
 			}
 		}
 		
@@ -124,6 +124,7 @@
                         if (isset($this->user_id)) {
                             $this->loggedIn = true;
                             $_SESSION['user_id'] = $this->user_id;      // set this so we can auto-recreate later on
+							$this->updateDate();
                            return true;
                         }
                     }
@@ -140,6 +141,14 @@
         public function LogOut() {
             $this->loggedIn = false;
         }
+		
+		private function updateDate() {
+			global $db;
+			
+			$date = date('Y-m-d h:i:s');
+			
+			$db->query("UPDATE users SET last_login = '{$date}' WHERE user_id = '{$this->user_id}'");
+		}
 
 
 /* =======================================
@@ -273,18 +282,18 @@
 				
 				
 				$mail = new PHPMailer(true);
-				//$mail->IsSMTP();
+				$mail->IsSMTP();
 				$mail->IsHTML();
 				
 				$mail->Host = EMAIL_HOST;
 				$mail->Username = EMAIL_USER;
 				$mail->Password = EMAIL_PASS;
 				$mail->Port = 25;
-				//$mail->SMTPAuth   = true; 
+				$mail->SMTPAuth   = true; 
 				
 				
 				
-				//$mail->SMTPDebug  = 1;  
+				$mail->SMTPDebug  = 1;  
 				$mail->AddReplyTo('noreply@'.$site->siteURL,  $site->siteName . ' - No Reply');
 				$mail->AddAddress($email, $first . $last);
 				$mail->SetFrom('noreply@'.$site->siteURL, $site->siteName.' - No Reply' );

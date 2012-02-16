@@ -6,7 +6,7 @@
     if (SERVER == "dev") {
 		define("HOSTNAME", "localhost"); 
 		define("DB_USER", "root");
-		define("DB_PASS", "root");
+		define("DB_PASS", "V8Juice");
 		define("DB_NAME", "blackink");  
 		
 		//Site Files
@@ -24,9 +24,9 @@
 		
 		//SMTP
 		define('EMAIL_HOST', 'host300.hostmonster.com');
-		define('EMAIL_USER', 'zack+2721west.com');
+		define('EMAIL_USER', 'zack@2721west.com');
 		define('EMAIL_PASS', '!@34QWermail');
-		define('EMAIL_PORT', '25');
+		define('EMAIL_PORT', '26');
 	
 		define("REPORT_USER", 'zack@2721west.com');
 		define("REPORT_PASS", '!@34QWermail');

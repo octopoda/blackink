@@ -94,6 +94,15 @@ if (isset($_POST['addAds'])) {
 	echo $_POST['addAds'];	
 }
 
+if (isset($_POST['reportError'])) {
+	
+	$site = new Site();
+	
+	$site->reportError($_POST['error'], $_POST['errorId']);
+	
+	echo 'forms/dashboard.php';	
+}
+
 
 
 

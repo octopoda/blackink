@@ -18,19 +18,20 @@ audio:not([controls]) { display: none; }
 [hidden] { display: none; }
 
 
-html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
 body { margin: 0; font-size: 12px; line-height: 1.9em; }
-body, button, input, select, textarea { font-family: 'Open Sans',  helvetica, arial, sans-serif;  color: #444; }
+body, button, input, select, textarea { font-family: helvetica, arial, sans-serif;  color: #444; }
 
 ::-moz-selection { background: #685B1D; color: #fff; text-shadow: none; }
 ::selection { background: #685B1D; color: #fff; text-shadow: none; }
 
 
 a { color: #8D0D11; text-decoration:none; cursor:pointer; }
+a:active {outline: 0;}
 a:visited { color: #685B1D; }
-a:hover { color: #C52127; }
+a:hover { color: #C52127; outline:0; }
 a:focus { outline: thin dotted; }
-a:hover, a:active { outline: 0; }
+
 
 
 /* =============================================================================
@@ -59,7 +60,7 @@ sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: b
 sup { top: -0.5em; }
 sub { bottom: -0.25em; }
 
-h1, h2, h3, h4, h5, h6 {font-family:'tenderness', arial, helvetica, san-serif; font-style:normal;}
+h1, h2, h3, h4, h5, h6 {font-family: arial, helvetica, san-serif; font-style:normal;}
 
 h1 {font-size:48px; color:#0A1948; margin:10px 0px 8px 0px; padding:12px 0px; border-top:1px solid #444; border-bottom:2px solid #444;}
 h2 {font-size:40px; color:#0A1948; margin:10px 0px 2px 0px; padding:0px;}
@@ -102,13 +103,15 @@ fieldset { border: 0; margin: 0; padding: 0; }
 
 
 legend { border: 0; *margin-left: -7px; padding: 0; }
+label {display:block; cursor:pointer;}
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
 button, input { line-height: normal; *overflow: visible; }
 table button, table input { *overflow: auto; }
 button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
-input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding:0; *width:13px; *height: 13px; }
 input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+
 button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
 textarea { overflow: auto; vertical-align: top; resize: vertical; }
 
@@ -116,7 +119,7 @@ textarea { overflow: auto; vertical-align: top; resize: vertical; }
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #AC0202; color:#FFF; }
 
-label {display:block;}
+
 span.error {color:#AC0202; position:absolute; margin-left:10px;}
 
 input, textarea {
@@ -253,9 +256,6 @@ img {height: auto;}
    ========================================================================== */
 
 .legal {font-size:10px; color:#838383; line-height:16px;}
-.blueText {color:#002f66;}
-.redText {color:#8D0D11;}
-.brownText {color:#685B1D;}
 .ninjaSymbol {font-family: 'Ninja Symbols' !important; cursor:pointer; color:#444; font-size:20px;}
 
 
@@ -264,7 +264,7 @@ img {height: auto;}
    ========================================================================== */
 
 /* For image replacement */
-.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
 .ir br { display: none; }
 
 /* Hide from both screenreaders and browsers: h5bp.com/u */
@@ -279,13 +279,12 @@ img {height: auto;}
 /* Hide visually and from screenreaders, but maintain layout */
 .invisible { visibility: hidden; }
 
-/* Contain floats: h5bp.com/q */ 
+/* Contain floats: h5bp.com/q */
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
-.clearfix { zoom: 1; }
+.clearfix { *zoom: 1; }
 
 /* Dev Mobile and Desktop Button */
-
 .devMobileButton {background:rgba(0,0,0,0.3); padding:10px 20px; position:fixed; right:0; bottom:0; cursor:pointer; color:#FFF; border-radius:10px 0px 0px 0px;}
 
 /* ==|== print styles =======================================================
@@ -294,7 +293,7 @@ img {height: auto;}
    ========================================================================== */
  
 @media print {
-  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
   a, a:visited { text-decoration: underline; }
   a[href]:after { content: " (" attr(href) ")"; }
   abbr[title]:after { content: " (" attr(title) ")"; }
@@ -348,14 +347,14 @@ img {height: auto;}
    Styles across the board not depending on Browser or viewport 
    ========================================================================== */
 header h1 {border:none;  position:absolute; margin-top:30px;}
-header {height:33px; background:#002F66}
-.logo {background:url(../images/logo.jpg) top left; display:block; width:196px; height:73px;}
+header {}
+.logo {background:url(../images/logo.jpg) top left; display:block; }
 
 
 
 
 
-.mainNav { height:100px; background:url(../images/nav_background.jpg) bottom left repeat-x; box-shadow:0px 10px 20px #CCC; z-index:20;}
+.mainNav { height:100px;  bottom left repeat-x; box-shadow:0px 10px 20px #CCC; z-index:20;}
 	.mainNav ul {margin-left:196px; margin-top:30px;}
 	.mainNav ul li  {float:left; margin-right:2.5%}
 	.mainNav ul li a {color:#002F66; font-size:15px; padding:25px 10px;}
@@ -365,7 +364,7 @@ header {height:33px; background:#002F66}
 	.mainNav ul li ul li:hover {background:#687AB6}
 	.mainNav ul li ul li a { color:#FFF; padding:10px 15px 10px 15px; display:block;}
 
-.quickNav {float:right; }
+.quickNav {float:right; background:#000; }
 .quickNav ul li {float:right; text-align:right;}
 .quickNav ul li a {color:#FFF; font-size:14px; padding:6px 15px; display:block;}
 .quickNav ul li a:hover {background:#FFF; color:#000;}

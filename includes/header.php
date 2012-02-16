@@ -14,21 +14,20 @@
 	$detect = new MobileDetect(); 
 ?>
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-
-<!--[if gt IE 8]><!--> <html class="<?php if($detect->isMobile()) echo 'mobile'; ?> no-js "  lang="en"> <!--<![endif]--><head> 
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9 oldie" lang="en"> <![endif]-->
+<html class="<?php if($detect->isMobile()) echo 'mobile'; ?> no-js "  lang="en"><head> 
  
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
   	
   <meta charset="utf-8">
-  <title><?php echo $site->siteName . $display->displayPageTitle(); ?> :: Compounding Compass</title>
+  <title><?php echo $site->siteName . $display->displayPageTitle(); ?></title>
   <meta name="description" content="<?php echo $display->displayPageDescription(); ?>">
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
   <meta name="keywords" content="<?php echo $site->keywords; ?>"  />
   	
-  <meta name = "viewport" content = "initial-scale=1.0, width=device-width">
+   <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes"/>
 
 
@@ -39,21 +38,13 @@
   <link rel="stylesheet" href="/css/basic.css"  />
   <link rel="stylesheet" href="/css/plugins.css"  />
   <link rel="stylesheet" href="/css/desktop.css" media="only screen and (min-width: 1024px)" />
-  
   <link rel="stylesheet" href="/css/tablet.css" media="only screen and (max-width:1024px) and (min-width:480px;)" />
-
   <link rel="stylesheet" href="/css/mobile.css" media="only screen and (max-width:480px)" />
-    <!--[if gt IE 9]>
-  <![endif]-->
-
   
+  <!-- Modernizr -->
+  <script src="js/libs/modernizr-2.5.2.min.js"></script>
   
-  <!-- Font Stylesheets -->
-  
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> 
-  
-    
-  <script src="/js/libs/modernizr-2.0.6.min.js"></script>
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
   
   
 </head>

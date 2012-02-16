@@ -5,35 +5,25 @@
 		curPageURL();
 		if ($pageTitle != 'Login')
 		echo '<ul class="bottomNav">
-			<li><a href="forms/report_errors.php" class="redirect">Report Errors</a></li>
+			<li><a href="forms/site/form_report_errors.php" class="redirect">Report Errors</a></li>
         	<li><a href="logout.php">Logout</a></li>
-			<li>Black Ink CMS System ::</li>
+			<li>Black Ink CMS System 1.0.1::</li>
         	<li>&copy 2010 - '.date('Y') .' Octopoda Inc.  All Rights Reserved.</li>
 		</ul>'
 	?>
     </footer>
 </div><!-- End SiteWrapper -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
-  <script>window.jQuery || document.write('<script src="/js/libs/jquery-1.6.2.min.js"><\/script>')</script> 
-  <!-- <script src="/js/libs/jquery-1.6.2.min.js"></script> -->
- <!-- <script src="/js/libs/jquery-ui-1.8.16.custom.min.js"></script> -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+
   <script src="/js/plugins.js"></script>
-  <script defer src="/js/admin/admin_functions.js"></script>
-  <script defer src="/js/libs/tiny_mce/tiny_mce.js"></script> 
+  <script src="/js/admin/admin_functions.js"></script>
+  <script src="/js/libs/tiny_mce/tiny_mce.js"></script> 
   
   <?php if (SERVER == 'dev') { ?>
 		<script src="/js/mylibs/live.js"></script>
   <?php } ?>
 
-
-  <!-- end scripts-->
-
- <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 7 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
 
 </body>
 </html>
