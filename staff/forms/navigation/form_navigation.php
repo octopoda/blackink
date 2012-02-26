@@ -57,7 +57,7 @@
     
         <p>
             <label for="title">Navigation Title (required)</label>
-            <input type="text" name="title" id="title" autofocus placeholder="Navigation Name" class="nospecial"  />
+            <input type="text" name="title" id="title" autofocus placeholder="Navigation Name" class="required"  />
             <input type="hidden" name="navigation_id" id="navigation_id" />
         </p>
         <p class="contentInput">

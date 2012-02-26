@@ -469,9 +469,35 @@ abstract class databaseObject {
 
 		//Creating links for content;
 		public function createLink($folder, $name) {
-			$title = str_replace(" ", "_", $name);
-			$link =  '/'.$folder.'/'	.urlencode($title).'.html';
+			$link =  '/'.$folder.'/'.$this->directLink.'.html';
 			return $link;
+		}
+		
+		function sanitize($string, $force_lowercase = true, $anal = false) {
+			$strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
+						   "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
+						   "â€”", "â€“", ",", "<", ".", ">", "/", "?", ".");
+			$clean = trim(str_replace($strip, "", strip_tags($string)));
+			$clean = preg_replace('/\s+/', "-", $clean);
+			
+			$clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
+			return ($force_lowercase) ?
+				(function_exists('mb_strtolower')) ?
+					mb_strtolower($clean, 'UTF-8') :
+					strtolower($clean) :
+		    $clean .'.html';
+		}
+		
+		public function idFromLink($link) {
+			global $db;
+			$sql = "SELECT {$this->idfield} FROM {$this->table} WHERE directLink = '{$link}'";
+			$result_set = $db->queryFill($sql);
+		
+			if ($result_set != false) {
+				foreach ($result_set as $row) {
+					return $row[$this->idfield];	
+				}
+			}	
 		}
 		
 		

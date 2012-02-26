@@ -18,6 +18,7 @@
 		$modName = $modUsers->printName();
 		$modId = $modUsers->user_id;
 	}
+	
 ?>
 
 <ul class="quickMenu">
@@ -34,6 +35,9 @@
 	<dl class="clearfix">
     	<dt>Content:</dt>
         	<dd><?php echo $content->content; ?></dd>
+        <dt>Search Engine Keywords:</dt>
+        	<dd><?php echo !empty($content->printKeywords) ? $content->printKeywords :  'No keywords added'; ?></dd>
+       
         <dt>Search Engine Summary:</dt>
         	<dd><?php echo !empty($content->summary) ? $content->summary :  'No summary added'; ?></dd>
         <dt>Direct Link:</dt>

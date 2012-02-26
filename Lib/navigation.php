@@ -15,6 +15,7 @@
 		public $menu_id;
 		public $default_page;
 		public $type;
+		public $directLink;
 		
 		//Helpers
 		public $itemList;
@@ -82,10 +83,10 @@
 	}
 	
 	
-	static function contentIdFromTitle($title) {
+	static function contentIdFromDirectLink($link) {
 		global $db; 
 		
-		$result = $db->queryFill("SELECT NC.content_id FROM navigation N JOIN navigationForContent NC ON N.navigation_id = NC.navigation_id WHERE N.title = '{$title}' ");
+		$result = $db->queryFill("SELECT NC.content_id FROM navigation N JOIN navigationForContent NC ON N.navigation_id = NC.navigation_id WHERE N.directLink = '{$link}' ");
 		
 		if ($result != false) {
 			foreach ($result as $row) {
@@ -102,17 +103,12 @@
 	public function buildNavigation($parentName ="") {
 		if ($this->published == 0) return;
 		
-		$title = $this->replaceString($this->title);
-		if (!empty($parentName)) {
-			$parentName = $this->replaceString($parentName);
-		}
-		
 		switch ($this->type) {
 			case 1:
-				return $this->contentLink($title, $parentName);
+				return $this->contentLink($parentName);
 				break;
 			case 2: 
-				return $this->externalLink($title);
+				return $this->externalLink();
 				break;
 			default:
 				return $this->compassLink($title);
@@ -130,11 +126,11 @@
 		return $html;
 	} 
 	
-	private function contentLink($title, $parentName="") {
+	private function contentLink($parentName="") {
 		if (!empty($parentName)) { //Child
-			$URL = DS.$parentName.DS.$title.'.html';	
+			$URL = DS.$parentName.DS.$this->directLink.'.html';	
 		} else { //Parent
-			$URL = DS.$title.DS;	
+			$URL = DS.$this->directLink.DS;	
 		}
 		
 		$html = '<li><a href="'.$URL.'">'.$this->title.'</a>';	
@@ -142,10 +138,6 @@
 		return $html;
 	}
 	
-	private function replaceString($string) {
-		$string = rawurlencode($string);
-		return str_replace("%20", "_", $string);	
-	}
 	
 
 /*  ===========================================
@@ -158,6 +150,8 @@
 			global $db;
 			
 			$this->fillFromForm($post);
+			$this->directLink = $this->sanitize($this->title, true);
+			
 			$oldPostion;
 			
 			switch ($_POST['type']) {
@@ -196,10 +190,6 @@
 				} else {
 					$this->navigation_id = $this->save($this->navigation_id);
 				}
-				
-				
-				
-				
 			}
 			
 			
@@ -207,8 +197,6 @@
 			if (!empty($this->content_id)) {
 				$this->placeContent($this->content_id, $this->navigation_id);
 			}
-			
-			
 			
 			
 			return $this->navigation_id; 
@@ -404,6 +392,43 @@
 		}
 		
 		$html .= '"></a>';
+		
+		return $html;
+	}
+	
+	
+/*  ===========================================
+	XML Methods
+	========================================= */	
+	
+	static public function listAllNav() {
+		global $db;
+		
+		$result_set = $db->queryFill("SELECT * FROM navigation");
+		
+		if ($result_set != false) {
+			return $result_set;	
+		}
+	}
+	
+	public function xmlLink() {
+		$html = "";
+		
+		if ($this->default_page == 1) {
+			$html = "index.html";
+			return $html;
+		}
+		
+		if ($this->published != 1) {
+			return;	
+		}
+		
+		if ($this->parent_id == 0) {
+			$html = $this->replaceString($this->title);	
+		} else {
+			$parent = new Navigation($this->parent_id);
+			$html .= $this->replaceString($parent->title)."/".$this->replaceString($this->title).'.html';	
+		}
 		
 		return $html;
 	}

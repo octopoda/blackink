@@ -42,7 +42,7 @@
 		<fieldset>
         	<p>
             	<label>ContentTitle</label>
-            	<input type="text" id="title" name="title" class="nospecial"  />
+            	<input type="text" id="title" name="title" class="required"  />
             </p>
             <div class="twoDropDowns clearfix">
             <p>
@@ -69,6 +69,11 @@
             	<label for="content">Content</label>
             	<textarea name="content" id="<?php echo $infoKey ?>" class="editorContent required"><?php echo $content->content; ?></textarea>
                 <input type="hidden" id="content" />
+            </p>
+            
+            <p>
+            	<label for="keywords">Keywords: (seperate with comma)</label>
+                <input type="text" name="keywords" id="keywords" value="<?php echo (!empty($content->printKeywords)) ? $content->printKeywords : ''; ?>" />
             </p>
             
             <p class="textarea">

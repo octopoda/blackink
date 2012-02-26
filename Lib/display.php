@@ -1,80 +1,61 @@
 <?php 
 
 	class display {
-		private $user;
-		private $user_access;
-		private $navTitle; 
-		private $contentTitle;
-		private $navigation_id;
-		private $content_id;
-		private $content;
+		public $user;
+		public $user_access;
+		public $navTitle; 
+		public $contentTitle;
+		public $navigation_id;
+		public $content_id;
+		public $content;
 		
 		//URL
 		private $parentURL;
 		private $childURL;
 		
 		
+		
 		//Public Attributes
 		public $companyAddress;
 		public $companyPhones = array();
-		public $drugList;
 		
 		
 		
-		public function __construct($urlTitle="", $contentTitle="", $drugTitle="") {
-			//Sanitze URLS from .htaccess File
+		public function navigationHandler($urlTitle="", $contentTitle="") {
 			if ($urlTitle == NULL) $urlTitle = $this->navTitle;
 			
-			$this->navTitle = $this->sanitizeURL($urlTitle);
-			$this->contentTitle = $this->sanitizeURL($contentTitle);
-			$this->drugTitle = $this->sanitizeURL($drugTitle);
+			$this->navTitle = $urlTitle;
+			$this->contentTitle = $contentTitle;
 			
-			//echo 'navTitle='.$this->navTitle.'<br />';
-			//echo 'contentTitle='.$this->contentTitle.'<br />';
-			//echo 'drug='.$this->drugTitle."<br />";
 			
-			//Verify and setup User
-			if (!empty($_SESSION['user_id'])) {
-				$this->user = new Users($_SESSION['user_id']);
+			echo 'navTitle='.$this->navTitle.'<br />';
+			echo 'contentTitle='.$this->contentTitle.'<br />';
+			
+			//Find the Content - Content Methods
+			if (array_key_exists($this->navTitle, $this->handler)) {
+				$classname = $this->handler[$this->navTitle];
+				$this->contentRequest($classname);
 			} else {
-				 $this->user = new Users();
+				$this->navigationRequest();
 			}
-			
-			$this->user_access = $this->user->access;
-			
-			//Setup Content
-			if ($this->navTitle == "ads") {
-				$this->getAds();
-			} else if ($this->navTitle == 'news') {
-				$this->getNews();
-			} else if ($this->navTitle == 'content') {
-				$this->getContent();
-			} else if (!empty($this->drugTitle)) {
-				$this->getDrugs();
-			} else if ($this->navTitle == 'compass') {
-				$this->getCompass();
-			} else if ($this->navTitle == 'supplements'){
-				$this->getSupplements();
-			} else {
-				$this->getContent();
-			}
-			
-			
-		   
 			
 			//Get information for Company
 			$this->getCompanyInformation();
 		}
 		
 		
-		//Santize the URLS
-		private function sanitizeURL($url) {
-			$url = urldecode($url);
-			$url = str_replace("/", "", $url);
-			$url = str_replace("_", " ", $url);
+		public function setupUser() {
+			if (!empty($_SESSION['user_id'])) { 
+				$this->user = new Users($_SESSION['user_id']); 
+			} else {	
+				$this->user = new Users();
+			}
 			
-			return $url;
+			$this->user_access = $this->user->access;
 		}
+		
+		
+		
 		
 /*  ===========================================
 	SEO Methods
@@ -103,6 +84,16 @@
 			}
 			return $this->content->summary;
 		} 
+		
+		public function displayKeywords() {
+			$site = new Site();	
+			
+			if (isset($this->content->keywords)) {
+				echo ($this->content->keywords != false) ? $this->content->keywordsForPrint() : $site->keywords;
+			} else {
+				echo $site->keywords;	
+			}
+		}
 			
 		
 
@@ -116,7 +107,6 @@
 			$navigation = new Navigation();
 			
 			$navigation->listNav($menu->menu_id);
-			
 			
 			$html = '<ul>';
 			foreach ($navigation->itemList as $list) {
@@ -140,7 +130,7 @@
 					$html .= "<ul>";
 					foreach ($list->subNavList as $subNav) {
 						if ($this->user_access >= $list->access)
-							$html .= $subNav->buildNavigation($list->title);	
+							$html .= $subNav->buildNavigation($list->directLink);	
 					}
 					$html .= "</ul>";
 				}
@@ -156,34 +146,23 @@
 	Content Methods
 	========================================= */		
 		
-		public function getContent() {
-			//Content Title only
+		private function contentRequest($classname) {
+			$class = new $classname();
+			$id = $class->idFromLink($this->contentTitle);
+			
+			$this->content = new $class($id);
+			
+			
+		}
+		
+		private function navigationRequest() {
 			if ((!empty($this->navTitle)) && (empty($this->contentTitle))) {
-				$this->content = new Content(Navigation::contentIdFromTitle($this->navTitle));
+				$this->content = new Content(Navigation::contentIdFromDirectLink($this->navTitle));
 			} else if ((!empty($this->navTitle)) && (!empty($this->contentTitle))){
-				$this->content = new Content(Navigation::contentIdFromTitle($this->contentTitle));
+				$this->content = new Content(Navigation::contentIdFromDirectLink($this->contentTitle));
 			} else if (empty($this->navTitle) && (empty($this->contentTitle))) {
 				$this->content = new Content(Navigation::defaultNavigation());
 			} 
-			
-			
-			if (empty($this->content->content)) {
-				redirect('/404.html');	
-			}
-		}
-		
-		public function getAds() {
-			$this->content = new Ads(Ads::adIdFromTitle($this->contentTitle));
-			if (empty($this->content->content)) {
-				redirect('/404.html');	
-			}
-		}
-		
-		public function getNews() {
-			$this->content = new news(News::newsIdFromTitle($this->contentTitle));
-			if (empty($this->content->content)) {
-				redirect('/404.html');	
-			}
 		}
 		
 		
@@ -205,123 +184,7 @@
 			}
 		}
 		
-/*  ===========================================
-	Compass Methods
-	========================================= */		
-		public function getCompass() {
-			//redirect for user access
-			if ($this->user_access < 2) {
-				redirect('/no_access.html');	
-			}
-			
-			$this->drugList = Navigation::drugListFromTitle($this->contentTitle);
-			if ($this->drugList == false) {
-				$this->content = new Content(Navigation::contentIdFromTitle($this->contentTitle));	
-			} else {
-				$this->content = new Drugs($this->drugList[0]->drug_id);	
-			}
-			
-			
-			if (empty($this->content->content)) {
-				redirect('/404.html');	
-			}
-		}
-		
-		public function getDrugs() {
-			$this->drugList = Navigation::drugListFromTitle($this->contentTitle);
-			$this->content = new Drugs(Drugs::drugsFromName($this->drugTitle));
-			
-			if (empty($this->content->content)) {
-				redirect('/404.html');	
-			}
-		}
-		
-		public function drugNavigation() {
-			$html  = '<h3>'.$this->contentTitle.'</h3>';
-			$html .= '<ul class="drugList">';
-			
-			foreach ($this->drugList as $drug){
-				if (($drug->published == 0) || ($this->user_access <= $drug->access)) continue;
-				$title = $this->prepareLink($this->contentTitle);
-				$drugName = $this->prepareLink($drug->drugName);
-				$link = DS.'compass'.DS.$title.DS.$drugName.'.html';
-				
-				$html .= '<li><a href="'.$link.'">'.$drug->drugName.'</a></li>';
-					
-			}
-			
-			$html .= "</ul>";	
-			echo $html;
-		}
-		
-		private function prepareLink($string) {
-			$string = rawurlencode($string);
-			return str_replace("%20", "_", $string);	
-		}
-		
 
-/*  ===========================================
-	Supplement Methods
-	========================================= */			
-		
-		private function getSupplements() {
-			$supplement = new Supplements();
-			
-			if ($this->contentTitle != false) {
-				$product = $supplement->supplementIdFromTitle($this->contentTitle);
-				$this->content = $supplement->displayFullSupplement($product);
-				return;	
-			} else {
-				$frontpage = $supplement->frontpage();
-				$this->content =  $supplement->displayFullSupplement($frontpage);	
-				return;
-			}
- 		}
-		
-		
-		public function displaySupplements() {
-			if ($this->content != false) {
-				echo $this->content;
-			} else {
-				redirect('/404.html');
-			}
-		}
-		
-		public function supplementNavigation() {
-			$supplements = new Supplements();
-			$cart = new ShoppingCart();
-			
-			$html = '<h5>Our Featured Supplements</h5>';
-			$html .= '<ul class="supplementFeatured">';
-			foreach ($supplements->featured() as $featured) {
-					$html .= '<li><a href="'.$featured->directLink.'">'.$featured->ProductName.'</a></li>';
-			}
-			
-			$html .= '</ul>';
-			
-			$html .= "<h5>Click to see all products</h5>";
-			
-			$alpha = range('A','Z');
-			
-			$html .= '<ul class="alphaList">';
-			foreach ($alpha as $bet) {
-				$html .= '<li class="alpha" sel="'.$bet.'">'.$bet.'</li>';
-			}
-			$html .= '</ul>';	
-			
-			
-			$html .= '<h5 class="miniShopTitle">Shopping Cart</h5>';
-			$html .= '<nav class="miniCart">';
-			$html .= $cart->miniCart();
-			$html .= '</nav>';
-			
-			if (SERVER == 'dev') {
-				$html .= "<h5>SESSION</h5>";
-				$html .= print_r($_SESSION['cart']);
-			} 
-			echo $html;
-		}
-		
 		
 		
 		

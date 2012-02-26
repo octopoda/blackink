@@ -1,16 +1,13 @@
 <?php
 	$title = "";
 	$name = ""; 
-	$drug = "";
 	
 	if (isset($_GET['title']))
 		$title = $_GET['title'];
 	if (isset($_GET['name']))
 		$name = $_GET['name'];
-	if (isset($_GET['drug']))
-		$drug = $_GET['drug'];
 	
-	$display = new Display($title, $name, $drug);
+	$display = new SiteDisplay($title, $name);
 	$detect = new MobileDetect(); 
 ?>
 <!doctype html>
@@ -25,7 +22,7 @@
   <title><?php echo $site->siteName . $display->displayPageTitle(); ?></title>
   <meta name="description" content="<?php echo $display->displayPageDescription(); ?>">
   <meta name="author" content="Octopoda Media Inc. http://octopodamedia.com">
-  <meta name="keywords" content="<?php echo $site->keywords; ?>"  />
+  <meta name="keywords" content="<?php echo $display->displayKeywords(); ?>"  />
   	
    <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -42,7 +39,7 @@
   <link rel="stylesheet" href="/css/mobile.css" media="only screen and (max-width:480px)" />
   
   <!-- Modernizr -->
-  <script src="js/libs/modernizr-2.5.2.min.js"></script>
+  <script src="/js/libs/modernizr-2.5.2.min.js"></script>
   
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
   
