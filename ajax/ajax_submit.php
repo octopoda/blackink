@@ -57,16 +57,27 @@ if (isset($_POST['sendEmail'])) {
 
 
 if (isset($_GET['searchAutoComplete'])) {
-	$display = new Display();
-	$result = $display->titleSearch($_GET['q']);
+	$search = new Search();
+	$result = $search->titleSearch($_GET['q']);
 	foreach($result as $row) {
 		 echo $row['title']."\n";
 	} 	
 }
 
-if (isset($_POST['search'])) {
-	$display = new Display();
-	$display->siteSearch($_POST['search'], $_POST['pageNumber']);
+if (isset($_POST['pageNumber'])) {
+	$display = new SiteDisplay();
+	
+	if ($_POST['search'] != false) {
+		$search->siteSearch($_POST['search'], $_POST['pageNumber']);
+		return;
+	} else {
+		if ($_POST['classname'] == 'post') {
+			$orderBy = 'publish_date';
+			$rate = 'DESC';	
+		}
+		$display->paginateClass($_POST['classname'], $_POST['pageNumber'], $orderBy, $rate);	
+	}
+
 	
 }
 
@@ -81,93 +92,5 @@ if (isset($_POST['changePassword'])) {
 }
 
 
-if (isset($_POST['refill'])) {
-	global $error;
-	
-	$refill = new Refills();
-	$id = $refill->createRefillFromForm($_POST);
-	
-	if ($id != false) {
-		$error->addMessage('You refill request has been sent.');	
-	} else {
-		$error->addMessage('Sorry there was an error with your refill. Please contact us for further information.');
-	}
-}
-
-
-if (isset($_POST['supplementAlpha'])) {
-	$supplement = new Supplements();
-	$searchArray = $supplement->alphaSearch($_POST['supplementAlpha']);
-	
-	$html = '';
-	
-	if ($searchArray != false) {
-		foreach ($searchArray as $product) {
-			$html .= $supplement->displayPreviewSupplement($product);	
-		}
-	} else {
-		$html .= '<h4>There are no products in your search.</h4>';	
-	}
-	
-	echo $html;
-}	
-
-
-
-
-
-if (isset($_POST['addToCart'])) {
-	$cart = new ShoppingCart();
-	$cart->addToCart($_POST['addToCart']);
-	
-	$mini = $cart->miniCart();
-	$button = "The item was added.";
-	
-	echo json_encode(array(
-		'mini'=> $mini,
-		'button'=> $button
-	));
-}
-
-
-if (isset($_POST['changeQuantity'])) {
-	$cart = new ShoppingCart();
-	$supplement = new Supplements($_POST['ItemNumber']);
-	$cart->changeQuantity($_POST['ItemNumber'], $_POST['changeQuantity']);
-	
-	$price = '$'.number_format($supplement->MSRP*$_POST['changeQuantity'], 2);
-	$mini = $cart->miniCart();
-	$total = '$'.$cart->totalPrice();
-	
-	echo json_encode(array(
-		'singlePrice'=>$price,
-		'mini'=>$mini,
-		'totalPrice'=>$total
-	));
-		
-}
-
-if (isset($_POST['removeProduct'])) {
-	$cart = new ShoppingCart();
-	
-	unset($_SESSION['cart'][$_POST['ItemNumber']]);	
-	
-	$mini = $cart->miniCart();
-	$total = '$'.$cart->totalPrice();
-	
-	echo json_encode(array(
-		'mini'=>$mini,
-		'totalPrice'=>$total
-	));
-}
-
-
-
-
-
-if (isset($_POST['unsetSession'])) {
-	unset($_SESSION['cart']);
-	echo 'Session Unset';	
-}
 
 ?>

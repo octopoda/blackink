@@ -154,7 +154,7 @@
 		name: 'file_name',
 		data: {'content': 1},
 		onSubmit: function(file, ext){
-			_btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
+			btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
 			content = $('.editor').val();
 			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
 				// extension is not allowed

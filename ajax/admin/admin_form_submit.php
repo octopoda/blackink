@@ -104,6 +104,7 @@ if (isset($_POST['reportError'])) {
 }
 
 
+require_once(PLUGIN_AJAX.DS.'plugin_form_submit.php');
 
 
 ?>

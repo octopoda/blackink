@@ -1,19 +1,29 @@
 <?php
 
-class Paginator
+class Pagination
 {
 	
 	public $page;
 	public $size;
 	public $total_records;
 	public $searchTerm;
+	public $classname;
 	
-	public function __construct($page = null, $size = null, $totalRecords = null,  $searchTerm = null)
+	
+	public function __construct($classname="")
 	{
+		$this->classname = $classname;
+	}
+	
+	public function setupPagination($page, $size, $totalRecords) {
 		$this->page = $page;
 		$this->size = $size;
 		$this->total_records = $totalRecords;
-		$this->searchTerm = $searchTerm;
+		
+	}
+	
+	public function setSearch($searchTerm) {
+		$this->searchTerm = $searchTerm;	
 	}
 	
 	
@@ -61,7 +71,7 @@ class Paginator
 		
 		$totalPages = floor($totalItems / $perPage);
 		$totalPages += ($totalItems % $perPage != 0) ? 1 : 0;
-
+		
 		if ($totalPages < 1 || $totalPages == 1){
 			return null;
 		}
@@ -73,42 +83,41 @@ class Paginator
 		
 
 		$output = null;
-		
 				
 		$loopStart = 1; 
 		$loopEnd = $totalPages;
-
-		if ($totalPages > 5)
-		{
-			if ($currentPage <= 3)
-			{
+		
+		if ($totalPages > 5) {
+			if ($currentPage <= 3){
 				$loopStart = 1;
 				$loopEnd = 5;
-			}
-			else if ($currentPage >= $totalPages - 2)
-			{
+			}else if ($currentPage >= $totalPages - 2) {
 				$loopStart = $totalPages - 4;
 				$loopEnd = $totalPages;
-			}
-			else
-			{
+			} else {
 				$loopStart = $currentPage - 2;
 				$loopEnd = $currentPage + 2;
 			}
 		}
-
-		if ($currentPage > 1){
-			$output .= sprintf('<li class="prevpage" sel="'.($currentPage-1).'"><a class="ninjaSymbol ninjaSymbolArrowLeft"></a></li>', $currentPage - 1);
+		
+		return $this->buildHTML($currentPage, $totalPages);
+	}
+	
+	private function buildHTML($currentPage, $totalPages) {
+		$html = "";
+		
+		if ($currentPage > 1) {
+			$html .= '<li class="prevpage" data-page="'.($currentPage-1).'"><a class="ninjaSymbol ninjaSymbolArrowLeft"></a></li>';	
+		} 
+		
+		$html .= '<li id="total_page">Page <input type="text" maxlength="3" value="'.$currentPage.'" /> of '.$totalPages.'</li>';
+		
+		
+		if ($currentPage < $totalPages) {
+			$html.= '<li class="nextpage"  data-page="'.($currentPage+1).'" ><a class="ninjaSymbol ninjaSymbolArrowRight"></a></li>';
 		}
 		
-		$output .= '<li id="total_page">Page <input type="text" maxlength="3" value="'.$currentPage.'" /> of '.$totalPages.'</li>';
-		
-		if ($currentPage < $totalPages){
-			$output .= sprintf('<li class="nextpage"  sel="'.($currentPage+1).'" ><a class="ninjaSymbol ninjaSymbolArrowRight"></a></li>', $currentPage + 1);
-		}
-		
-		
-		return '<ul class="pagination" sel="'.$this->searchTerm.'">' . $output . '</ul>';
+		return '<ul class="pagination" data-term="'.$this->searchTerm.'" data-class="'.$this->classname.'">' . $html . '</ul>';
 	}
 }
 

@@ -85,11 +85,14 @@
 		
 		public function escapeString ($value) {
 			if ($this->real_escape_string_exists) { 
-				if ($this->magic_quotes_active) {$value = stripslashes($value); }
+				if ($this->magic_quotes_active) {$value = stripslashes(str_replace('\r\n', "", $value)); }
 				$value = $this->database->real_escape_string($value);
 			} else {
 				if (!$this->magic_quotes_active) {$value = addslashes($value); }
 			}
+			
+			
+			
 			return $value;	
 		}
 

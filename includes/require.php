@@ -11,6 +11,7 @@
 	require_once(CLASS_PATH.DS. "menus.php");
 	require_once(CLASS_PATH.DS. "mobileDetect.php");
 	require_once(CLASS_PATH.DS. "contactInformation.php");
+	require_once(PLUGIN_LIB.DS. "siteDisplay.php");
 	
 	
 	//Admin

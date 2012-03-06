@@ -31,7 +31,7 @@
 			
 			if (!empty($c_id)) {
          		$result = $this->fetchById($c_id);
-				$this->directLink = $this->createLink("content", $this->title);
+				$this->directLink = $this->createLink("content", $this->directLink);
 				$this->keywords = $this->keywordsForContent();
 				$this->printKeywords = $this->keywordsForPrint();
 			} 
@@ -101,6 +101,7 @@
 		$this->modified_on = date("Y-m-d h:i:s");
 		$this->searchable = strip_tags($post['content']);
 		$this->summary = strip_tags($post['summary']);
+		$this->directLink = $this->sanitize($post['title'], true);
 		
 		$content_id = $this->save($this->content_id);
 		
@@ -188,13 +189,7 @@
 		}
 	}
 	
-	private function _array_diff($a, $b) {
-		$map = $out = array();
-		foreach($a as $val)  {$val = trim($val); $map[$val] = 1 ; }
-		foreach($b as $val)  {$val = trim($val); if(isset($map[$val])) $map[$val] = 0 ; }
-		foreach($map as $val => $ok) if($ok) $out[] = $val;
-		return $out;
-	}
+	
 	
 	
 	private function listKeywords() {

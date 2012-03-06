@@ -1,6 +1,6 @@
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
-
+	include(PLUGIN_AJAX.DS.'plugin_grid.php');
 	
 	// load our grid with a table
 	$grid = new Grid($_POST['table']);
@@ -60,35 +60,7 @@
 	//Add each grid that you need to change data for here.  The $name is on the HTML tag Table attribute sel 
 	function runFunctions($name) {
 		global $grid;
-		
-		switch ($name) {
-			case 'content':
-				content($grid->data);
-				break;
-			case 'users':
-				users($grid->data);
-				break;
-			case 'news':
-				news($grid->data);
-				break;
-			case 'ads':
-				ads($grid->data);
-				break;
-			case 'media':
-				media($grid->data);
-				break;
-			case 'refills':
-				refills($grid->data);
-				break;
-			case 'drugs':
-				drugs($grid->data);
-				break;
-			case 'supplements':
-				supplements($grid->data);
-				break;
-		}
-		
-		
+		$name($grid->data);	
 	}
 	
 	//Functions for Content Grid

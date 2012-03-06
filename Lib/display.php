@@ -18,18 +18,19 @@
 		//Public Attributes
 		public $companyAddress;
 		public $companyPhones = array();
-		
+		public $orderby;
+		public $rate;
 		
 		
 		public function navigationHandler($urlTitle="", $contentTitle="") {
 			if ($urlTitle == NULL) $urlTitle = $this->navTitle;
 			
-			$this->navTitle = $urlTitle;
-			$this->contentTitle = $contentTitle;
+			$this->navTitle = str_replace("/", "", $urlTitle);
+			$this->contentTitle = str_replace("/", "", $contentTitle);
 			
 			
-			echo 'navTitle='.$this->navTitle.'<br />';
-			echo 'contentTitle='.$this->contentTitle.'<br />';
+			//echo 'navTitle='.$this->navTitle.'<br />';
+			//echo 'contentTitle='.$this->contentTitle.'<br />';
 			
 			//Find the Content - Content Methods
 			if (array_key_exists($this->navTitle, $this->handler)) {
@@ -64,9 +65,9 @@
 		public function displayPageTitle() {
 			$spacer = " - ";
 			if ($this->contentTitle != NULL) {
-				return $spacer . $this->contentTitle;
+				return $spacer . $this->content->title;
 			} else if (($this->contentTitle == NULL) && ($this->navTitle != NULL)) {
-				return $spacer . $this->navTitle;	
+				return $spacer . $this->content->title;	
 			} else {
 				return;	
 			}
@@ -123,9 +124,10 @@
 					continue;	
 				}
 				
-				if ($this->user_access >= $list->access)
+				if ($this->user_access >= $list->access && $list->published == 1)
 				 	$html .= $list->buildNavigation();
-				
+				else 
+					continue;
 				if ($list->subNavList != false) {
 					$html .= "<ul>";
 					foreach ($list->subNavList as $subNav) {
@@ -140,6 +142,43 @@
 			
 			echo  $html;
 		}
+		
+		
+		public function  paginateClass($classname, $pageNumber, $orderby, $rate) {
+				$class = new $classname();
+				$html = "";
+				
+				$totalSize = count($class->fetchAll());
+				
+				$page = 1;
+				$size = 10;
+				
+				if (isset($pageNumber)) $page = $pageNumber;
+				
+				$pagination = new Pagination($classname);
+				$pagination->setupPagination($page, $size, $totalSize);
+				$result = $class->fetchPublished($orderby, $rate, $pagination->getLimitSQL());
+				
+				foreach ($result as $content) {
+					$c = new $classname($content[$class->idfield]);
+					$html .= $this->buildPaginationHTML($c);	
+				}
+					
+				echo $html;
+				echo $pagination->create_links();
+		}
+		
+		
+		
+		public function buildPaginationHTML($object) {
+				$html ="<div>";	
+				$html .= '<h3><a href="'.$object->directLink.'">'.$object->title.'</a></h3>';
+				$html .= '<p>'.  truncate($object->searchable, 400," ", "...").'</p>';	
+				$html .= '</div>';	
+				
+				return $html;
+		}
+
 
 
 /*  ===========================================
@@ -169,11 +208,7 @@
 		
 		
 		public function displayTitle() {
-			if (($this->navTitle = 'compass') && (!empty($this->drugList))) {
-				echo $this->content->drugName;
-			} else {
-				echo $this->content->title;	
-			}
+			echo $this->content->title;	
 		}
 		
 		public function displayContent() {
@@ -190,80 +225,28 @@
 		
 		
 /*  ===========================================
-	Module Methods
+	Social Methods
 	========================================= */
+	
+	public function socialIcons() {
+		$social = new Social();
 		
-		public function displayNews() {
-			$news = new News();
-			$news->listNews(3);
-			
-			$html = '<ul class="news">';
-			foreach ($news->newsList as $item) {
-				$item->summary = strip_tags($item->summary);
-				
-				if ($item->published == 0 || $item->access > $this->user->access) continue;
-				$html .= '<li>';	
-				$html .= '<h4><a href="'. $item->directLink .'">'.$item->title.'</a></h4>';
-				$html .= '<p>'.$item->summary.'</p>';
-				$html .= '</li>';	
+		$icons = $social->buildSocialArray();
+		
+		$html = "<ul>";
+		foreach($icons as $k=>$v) {
+			if ($v) {
+				$html .= '<li><a target="_blank" class=" social '.$k.'" href="'.$v.'"></a></li>';		
 			}
-			
-			$html .= "</ul>";
-			$html .= '<div class="newsTriangle"></div>';
-			return $html;
 		}
-		
-		public function displayAds($placement) {
-			$ads = new Ads();
-			$ads->listAds();
-			
-			
-			
-			$adDisplay = '<div class="scroll">';
-			foreach($ads->adList as $item) {
-				if ($item->placement == 1) {
-					continue;	
-				}
-				$adDisplay .= '<div class="panel">';
-				if (($placement == $item->humanPlacement) || ($item->humanPlacment == 'Both')) {
-					$adDisplay .= $item->summary;
-				} else if (($placement == $item->humanPlacement) || ($item->humanPlacement == 'Both')) {
-					$adDisplay .= $item->summary;
-				} 
-				$adDisplay .= '<a href="'.$item->directLink.'" class="learnMore">Learn More</a>';
-				$adDisplay .= '</div>';
-			}
-			$adDisplay .= '</div>
-			<div class="numbers ir"></div>
-			';
-			
-			echo $adDisplay;
-		}
+		$html .= '<li><a target="_blank" class="social" href="http://feeds.feedburner.com/TheAudioGuy">r</a></li>';
+		$html .= "</ul>";
+		echo $html;	
+	}	
 		
 		
-		public function randomAd($placement) {
-			$ads = new Ads();
-			$ads->listAds();
-			$max = count($ads->adList) -1;
-			
 		
-			$num = rand(0, $max);
-			$item = $ads->adList[$num];
-			
-			if ($item->placement == 1) return;
-			
-			$adDisplay = '<div class="panelInside">';
-			if (($placement == $item->humanPlacement) || ($item->humanPlacment == 'Both')) {
-				$adDisplay .= $item->summary;
-			} else if (($placement == $item->humanPlacement) || ($item->humanPlacement == 'Both')) {
-				$adDisplay .= $item->summary;
-			} 
-			$adDisplay .= '<a href="'.$item->directLink.'" class="learnMore">Learn More</a>';
-			$adDisplay .= '</div>';
-			
-			echo $adDisplay;
-			
-		}
+		
 		
 /*  ===========================================
 	Contact Methods
@@ -295,59 +278,9 @@
 		
 		
 /*  ===========================================
-	Search Methods
+	Helper Methods
 	========================================== */
 		
-		public function siteSearch($string, $pageNumber) {
-			global $db;
-			
-			
-			$totalSize = count(Content::searchContent($string));
-			
-			$page = 1;
-			$size = 10;
-			
-			if (isset($pageNumber)) $page = $pageNumber; 
- 			 
-			$pagination = new Paginator($page, $size, $totalSize, $string);
-			$result_set = Content::searchContent($string, $pagination->getLimitSql()); 
-			
-			if ($result_set != false) {
-				echo $this->buildSearch($result_set);
-				echo $pagination->create_links();
-			} else {
-				echo '<h3>No items matched your search.</h3>';		
-			}
-		}
-		
-		public function titleSearch($string) {
-			global $db;
-			
-			$result_set = $db->queryFill("SELECT title FROM content WHERE title LIKE '%".$string."%'");	
-			return $result_set;
-		}
-		
-		private function buildSearch($result_set) {
-			global $db;
-			$html = '';
-			
-			foreach ($result_set as $row) {
-				$content = new Content(Content::contentFromTitle($db->escapeString($row['title'])));
-				
-				$text = $row['content'];
-				if (strlen($text) > 200) {
-					$text = strip_tags($text);
- 				   	$text = wordwrap($text, 200, "<br />");
-					$text = substr($text, 0, strpos($text, "<br />"));
-				}
-				$html .="<div>";	
-				$html .= '<h3><a href="'.$content->directLink.'">'.$row['title'].'</a></h3>';
-				$html .= '<p>'. $text.'</p>';	
-				$html .= '</div>';
-			}
-			
-			return $html;
-		}
 		
 	} //end class
 ?>

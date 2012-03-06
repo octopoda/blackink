@@ -20,6 +20,23 @@
             $result = $this->fetchById(1);
 		}
 		
+		public function buildSocialArray() {
+			$array = array();
+			
+			$set = get_object_vars($this);
+			
+			unset($set['table']);
+			unset($set['idfield']);
+			unset($set['social_id']);
+			
+			foreach ($set as $k=>$v) {
+				$class = substr($k, 0, -4);
+				$array[$class] = $v;
+			}
+			
+			return $array;
+		}
+		
 		
 		public function createSocialFromForm($post) {
 			global $error;

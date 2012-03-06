@@ -46,6 +46,26 @@ abstract class databaseObject {
 			}
 		}
 		
+		public function fetchPublished($order_by, $rate, $limit="") {
+			global $db;
+			global $error;
+			$array = array();
+			
+			if (!property_exists($this->table,'published')) {
+				$error->addError("You are asking for published content when there is no published property.");
+				return;	
+			}
+			
+			if ($limit == false) {
+				$sql = "SELECT * FROM {$this->table}  WHERE published = 1 ORDER BY " .$order_by. " " . $rate;		
+			} else {
+				$sql = "SELECT * FROM {$this->table}  WHERE published = 1 ORDER BY ".$order_by. " " .$rate. " " .$limit;
+			}
+			
+			return $db->queryFill($sql);
+			
+		}
+		
 		public function fetchById($id = "") {
 			if ($id == NULL) $id = 0;
 			
@@ -82,6 +102,14 @@ abstract class databaseObject {
 			}
 			
 			return $array;
+		}
+		
+		public function _array_diff($a, $b) {
+			$map = $out = array();
+			foreach($a as $val)  {$val = trim($val); $map[$val] = 1 ; }
+			foreach($b as $val)  {$val = trim($val); if(isset($map[$val])) $map[$val] = 0 ; }
+			foreach($map as $val => $ok) if($ok) $out[] = $val;
+			return $out;
 		}
 		
 /* ================================================	

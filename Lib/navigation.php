@@ -424,10 +424,10 @@
 		}
 		
 		if ($this->parent_id == 0) {
-			$html = $this->replaceString($this->title);	
+			$html = $this->directLink;	
 		} else {
 			$parent = new Navigation($this->parent_id);
-			$html .= $this->replaceString($parent->title)."/".$this->replaceString($this->title).'.html';	
+			$html .= $parent->directLink."/".$this->directLink.'.html';	
 		}
 		
 		return $html;

@@ -26,7 +26,7 @@
   <script src="/js/script.js"></script>
   <!-- end scripts-->
 
-  <?php if (SERVER == 'dev') : ?>
+  <?php if ((SERVER == 'dev') && !$detect->isMobile()) : ?>
 		 <script src="/js/mylibs/live.js"></script> 
   <?php endif; ?>
   
