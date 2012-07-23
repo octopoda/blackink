@@ -24,7 +24,7 @@
 			
 			if (!empty($n_id)) {
          		$result = $this->fetchById($n_id); 
-				$this->directLink = $this->createLink('news', $this->title);
+				$this->directLink = $this->createLink('news');
 			} 
         }
 /* ========================================

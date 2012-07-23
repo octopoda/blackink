@@ -496,7 +496,7 @@ abstract class databaseObject {
 
 
 		//Creating links for content;
-		public function createLink($folder, $name) {
+		public function createLink($folder) {
 			$link =  '/'.$folder.'/'.$this->directLink.'.html';
 			return $link;
 		}

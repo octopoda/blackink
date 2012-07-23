@@ -329,6 +329,8 @@ FileETag None
 RewriteRule 	^(/?)$									/index.php [NC]
 RewriteRule		^/?sitemap.xml/?$						/sitemap.php [NC]
 RewriteRule		^/?staff/?$								/staff/index.php [NC]
+RewriteRule   ^users/([^/.]+).html$          /users/$1.php [NC]
+RewriteRule   ^sitemap.xml$                  /sitemap.php [NC]
 
 RewriteRule		^(/?[^/.]+/?)$							/display.php?title=$1 [NC]
 RewriteRule  	^(/?[^/.]+/)([^/.]+).html$ 				/display.php?title=$1&name=$2 [NC]

@@ -51,7 +51,7 @@
     <header>
     	<div class="row">
             <hgroup>
-                    <h1><a href="/index.php" class="ir logo"><?php echo $site->siteName; ?></a></h1>
+                    <h1><a href="/index.php" class=""><?php echo $site->siteName; ?></a></h1>
             </hgroup>
             <nav class="quickNav">
             	

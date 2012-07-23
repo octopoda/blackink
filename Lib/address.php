@@ -23,7 +23,7 @@ require_once("databaseObject.php");
 		public function __construct($a_id="") {
 			global $db;
 			if (!empty($a_id)) {
-				$result = $db->queryFill("SELECT * FROM address A JOIN states S ON A.state_id = S.state_id WHERE A.address_id = {$a_id} LIMIT 1");
+				$result = $db->queryFill("SELECT * FROM address A LEFT JOIN states S ON A.state_id = S.state_id WHERE A.address_id = {$a_id} LIMIT 1");
 				
 				if ($result != false) {
 					$result = array_shift($result);
@@ -66,26 +66,42 @@ require_once("databaseObject.php");
 			return $html;	
 		}
 		
-	   	public static function stateSelect() {
+	   	public static function stateSelect($id, $s_id="") {
 			global $db;
+			
 		
+			if (empty($s_id)) $s_id = 1; 
 			$result = $db->queryFill("SELECT * FROM states ORDER BY state_id");
 			if ($result != false) {
-				$html = '<select name="state_id" id="state_id">';
+				$html = '<select name="'.$id.'" id="'.$id.'">';
 				
 				foreach ($result as $state) {
-					$html .= '<option value="'. $state['state_id'].'">'.$state['statename'].'</option>';
+					$html .= '<option value="'. $state['state_id'].'"';
+					if ($state['state_id'] == $s_id) {
+						$html .= ' selected="selected" ';
+					}
+					$html .=  '>'.$state['statename'].'</option>';
 				}
 				$html .= '</select>';	
 			}
 		
 			return $html;
 		}
+		static public function getState($s_id) {
+			global $db;
+			
+			$result_set = $db->queryFill("SELECT statename FROM states WHERE state_id = {$s_id} LIMIT 1");
+			
+			if ($result_set != false) {
+				$result = array_shift($result_set);
+				return $result['statename'];	
+			}
+		}
 		
 		//Save
 		public function saveForForm() {
 			$this->address_id = $this->save($this->address_id);
-			return $address_id;
+			return $this->address_id;
 		}
 		
 		//Add Addresses

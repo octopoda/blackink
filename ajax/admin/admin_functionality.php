@@ -1,4 +1,7 @@
-<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
+<?php 
+
+	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
+	require_once(PLUGIN_AJAX.DS. '/plugin_form_submit.php');
 
 //echo 'hello';
 //print_r($_POST);
@@ -231,22 +234,6 @@ if (isset($_POST['preview'])) {
 }
 
 
-//Set supplements featured and Front Page
-if (isset($_POST['supplementTitle'])) {
-	$supplement = new Supplements($_POST['id']);
-	
-	switch ($_POST['supplementTitle']) {
-		case 'featured':
-			$supplement->setFeatured();
-			echo $supplement->displayFeatured();	
-			break;
-		case 'frontpage':
-			$supplement->setFrontpage();
-			echo $supplement->displayFrontpage();
-			break;
-	}
-	return;
-}
 
 ?>
 

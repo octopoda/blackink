@@ -44,25 +44,27 @@
 				$content = new Content($nav->content_id);
 				
 				
-				if ($nav->access >= 2) continue;
+				if ($nav->access > 2) continue;
 				
 				if ($nav->xmlLink() != NULL) {
 					$loc = $site->siteURL;
 					$mod = $content->created_on;
 					$changeFreq = 'monthly';
-					$priority = 1.0; 
-					
+					$priority = 0.8; 
 					
 					if ($nav->xmlLink() != 'index.html') {
 						$loc .= DS.$nav->xmlLink();
-						$priority = $content->priority;
-						$changeFreq = $content->frequencyToPrint();	
+						$priority = 0.8;
+						$changeFreq = 'monthly';
 					} else if ($nav->link != NULL) {
 						$loc .= DS.$nav->link;
 						$priority = 0.6;
 						$changeFreq = 'monthly';
 						
-					}
+					} 
+						
+
+					//echo $loc.'<br />';
 					
 					if ($content->modified_on != NULL) $mod = $content->modified_on;
 					
@@ -73,6 +75,9 @@
 					$this->xml .= $this->setURL($loc, $mod, $changeFreq, $priority);
 				}
 			}
+
+			
+
 			
 			//Run through any other sections needed. 
 			foreach ($this->sections as $classname) {
@@ -82,14 +87,19 @@
 				
 				foreach ($all as $piece) { 
 					
-					$loc = $site->siteURL.DS.'blog'.DS.$piece['directLink'].'.html';
-					$mod = $piece['publish_date'];
+					$loc = $site->siteURL.DS.$classname.DS.$piece['directLink'].'.html';
+					//echo $loc.'<br />';
+					if (isset($piece['publish_date'])) {
+						$mod = $piece['publish_date'];
+					} else {
+						$mod = date("m-d-Y h:i:s");
+					}
 					$priority = 0.6;
 					$changeFreq = 'never';
 					
 					$this->xml .= $this->setURL($loc, $mod, $changeFreq, $priority);
 				}
-			}
+			} 
 			
 			 
 			

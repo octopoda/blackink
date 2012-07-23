@@ -3,7 +3,6 @@
     <button id="searchButton">Search</button>
 </form>
 
-<?php include(MODULES. 'refills.php');  ?>
 
 <h3 class="newsHeader">Recent News</h3>
 <?php include(MODULES.'news.php'); ?>

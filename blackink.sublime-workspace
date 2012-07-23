@@ -1,0 +1,535 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Pr",
+				"ProductName"
+			],
+			[
+				"P",
+				"ProductImage  (variable)"
+			],
+			[
+				"chec",
+				"checkUsername  (function)"
+			],
+			[
+				"trans",
+				"transparent"
+			],
+			[
+				"last",
+				"last_login"
+			],
+			[
+				"sales",
+				"sales_tax"
+			],
+			[
+				"expire",
+				"expireYear"
+			],
+			[
+				"fou",
+				"focus"
+			],
+			[
+				"mi",
+				"miniCart"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 28.0,
+		"selected_items":
+		[
+			[
+				"git ",
+				"Git: Status"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"snippet ",
+				"Snippet: html"
+			],
+			[
+				"git status",
+				"Git: Status"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"file clos",
+				"File: Close All"
+			],
+			[
+				"file save",
+				"File: Save All"
+			],
+			[
+				"clos",
+				"File: Close All"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"codeIn",
+				"SublimeCodeIntel: Enable Live Autocompletion"
+			],
+			[
+				"insal",
+				"SublimeCodeIntel: Disable Live Autocompletion"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"ja",
+				"Format: Javascript"
+			],
+			[
+				"format",
+				"Format: Javascript"
+			],
+			[
+				"spelli",
+				"Snippet: Google AJAX Libraries: jQuery"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"git comm",
+				"Git: Custom Command"
+			],
+			[
+				"git stat",
+				"Git: Status"
+			],
+			[
+				"git bl",
+				"Git: Blame"
+			],
+			[
+				"",
+				"Git: Blame"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/phuzion/Sites/blackink/js/plugins.js",
+		"/Users/phuzion/Sites/blackink/.htaccess",
+		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/Git/Git.sublime-settings",
+		"/Users/phuzion/Sites/blackink/css/plugins.scss",
+		"/Users/phuzion/Sites/blackink/testing_video.html",
+		"/Users/phuzion/Sites/blackink/includes/footer.php",
+		"/Users/phuzion/Sites/blackink/lib/display.php",
+		"/Users/phuzion/Sites/blackink/plugins/lib/siteDisplay.php",
+		"/Users/phuzion/Sites/blackink/lib/content.php",
+		"/Users/phuzion/Sites/blackink/includes/header.php",
+		"/Users/phuzion/Sites/2721/css/position.css",
+		"/Users/phuzion/Sites/blackink/index.php",
+		"/Users/phuzion/Sites/blackink/css/basic.css",
+		"/Users/phuzion/Sites/blackink/staff/index.php",
+		"/Users/phuzion/Sites/blackink/modules/sidebar.php",
+		"/Users/phuzion/Sites/2721/css/default.css",
+		"/Users/phuzion/Sites/blackink/lib/navigation.php",
+		"/Users/phuzion/Sites/innovation/lib/display.php",
+		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/HtmlTidy/HtmlTidy.sublime-settings",
+		"/Users/phuzion/Sites/innovation/plugins/libs/drugs.php",
+		"/Users/phuzion/Sites/innovation/lib/navigation.php",
+		"/Users/phuzion/Sites/innovation/lib/web_config.php",
+		"/Users/phuzion/Sites/innovation/plugins/libs/siteDisplay.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/compass/form_drugs.php",
+		"/Users/phuzion/Sites/innovation/lib/users.php",
+		"/Users/phuzion/Sites/innovation/js/script.js",
+		"/Users/phuzion/Sites/innovation/lib/errors.php",
+		"/Users/phuzion/Sites/innovation/login.php",
+		"/Users/phuzion/Sites/innovation/users/join.php",
+		"/Users/phuzion/Sites/innovation/plugins/libs/supplements.php",
+		"/Users/phuzion/Sites/innovation/lib/database.php",
+		"/Users/phuzion/Sites/innovation/staff/index.php",
+		"/Users/phuzion/Sites/innovation/conversion.php",
+		"/Users/phuzion/Sites/innovation/plugins/libs/shoppingCart.php",
+		"/Users/phuzion/Sites/innovation/includes/header.php",
+		"/Users/phuzion/Sites/innovation/modules/refills.php",
+		"/Users/phuzion/Sites/innovation/shoppingCart.php",
+		"/Users/phuzion/Sites/innovation/supplements.php",
+		"/Users/phuzion/Sites/innovation/plugins/ajax/plugin_site_submit.php",
+		"/Users/phuzion/Sites/innovation/checkout.php",
+		"/Users/phuzion/Sites/innovation/lib/databaseObject.php",
+		"/Users/phuzion/Sites/innovation/css/basic.css",
+		"/Users/phuzion/Sites/innovation/lib/address.php",
+		"/Users/phuzion/Sites/innovation/includes/footer.php",
+		"/Users/phuzion/Sites/innovation/js/plugins.js",
+		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/phuzion/Sites/innovation/plugins/libs/refills.php",
+		"/Users/phuzion/Sites/innovation/robots.txt",
+		"/Users/phuzion/Sites/innovation/plugins/libs/anet_php_sdk/lib/AuthorizeNetAIM.php",
+		"/Users/phuzion/Sites/innovation/plugins/libs/anet_php_sdk/doc/AIM.markdown",
+		"/Users/phuzion/Sites/innovation/ajax/ajax_submit.php",
+		"/Users/phuzion/Sites/innovation/plugins/libs/checkout.php",
+		"/Users/phuzion/Sites/innovation/plugins/libs/orders.php",
+		"/Users/phuzion/Sites/innovation/forgot_password.php",
+		"/Users/phuzion/Sites/innovation/online_refills.php",
+		"/Users/phuzion/Sites/innovation/css/tablet.css",
+		"/Users/phuzion/Sites/innovation/css/mobile.css",
+		"/Users/phuzion/Sites/innovation/css/desktop.css",
+		"/Users/phuzion/Sites/innovation/display.php",
+		"/Users/phuzion/Sites/innovation/js/mylibs/creditcard_validator.js",
+		"/Users/phuzion/Sites/audioguy/css/tablet.css",
+		"/Users/phuzion/Sites/innovation/search.php",
+		"/Users/phuzion/Sites/innovation/lib/search.php",
+		"/Users/phuzion/Sites/innovation/.htaccess",
+		"/Users/phuzion/Sites/innovation/lib/sitemap.php",
+		"/Users/phuzion/Sites/innovation/sitemap.php",
+		"/Users/phuzion/Sites/innovation/lib/contactInformation.php",
+		"/Users/phuzion/Sites/innovation/users/update_user.php",
+		"/Users/phuzion/Sites/innovation/ajax/admin/admin_form_submit.php",
+		"/Users/phuzion/Sites/innovation/ajax/admin/admin_functionality.php",
+		"/Users/phuzion/Sites/innovation/js/admin/admin_functions.js",
+		"/Users/phuzion/Sites/innovation/staff/forms/site/form_contact.php",
+		"/Users/phuzion/Sites/innovation/account_created.php",
+		"/Users/phuzion/Sites/innovation/users/profile.php",
+		"/Users/phuzion/Sites/innovation/profile.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/dashboard.php",
+		"/Users/phuzion/Sites/innovation/staff/css/admin.css",
+		"/Users/phuzion/Sites/innovation/style_guide.php",
+		"/Users/phuzion/Sites/innovation/staff/style_guide.php",
+		"/Users/phuzion/Sites/innovation/404.html",
+		"/Users/phuzion/Sites/innovation/staff/forms/commerce/info_transactions.php",
+		"/Users/phuzion/Sites/innovation/plugins/ajax/plugin_grid.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/commerce/list_transactions.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/users/info_users.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/users/form_users.php",
+		"/Users/phuzion/Sites/innovation/join.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/users/list_users.php",
+		"/Users/phuzion/Sites/innovation/users/change_password.php",
+		"/Users/phuzion/Sites/innovation/staff/forms/users/change_password.php",
+		"/Users/phuzion/Sites/innovation/update_user.php",
+		"/Users/phuzion/Sites/innovation/lib/phones.php",
+		"/Users/phuzion/Sites/innovation/staff/includes/admin_require.php",
+		"/Users/phuzion/Sites/innovation/staff/includes/header.php",
+		"/Users/phuzion/Sites/innovation/orders.php",
+		"/Users/phuzion/Sites/innovation/contact_us.php",
+		"/Users/phuzion/Sites/innovation/my_order.php",
+		"/Users/phuzion/Sites/innovation/order_complete.php",
+		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/demo.css",
+		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/demo.html",
+		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/demo.js",
+		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/jquery.creditCardValidator.js",
+		"/Users/phuzion/Sites/innovation/review.php",
+		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/Users/phuzion/Sites/blackink",
+			"/Users/phuzion/Sites/innovation",
+			"",
+			"/",
+			"/users/change_password.php",
+			"change_password.php",
+			"join.php",
+			"",
+			"order_complete.php"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"SELECT keyword, K.keyword_id FROM keywords K JOIN keywordsForContent",
+			"SELECT keyword, K.keyword_id FROM keywords K JOIN keywordsForContent CK ON CK.keyword_id = K.keyword_id",
+			"User5746",
+			"User9876",
+			"ER1254",
+			"User9876",
+			"this",
+			"SFB",
+			":', $",
+			"SFB",
+			"name",
+			"		$",
+			"name",
+			"first",
+			"f",
+			"SANDBOX_URL",
+			"formRedirec",
+			"legend",
+			">",
+			"legend",
+			"placeholder	",
+			"</strong>",
+			"<strong>",
+			"dg",
+			"dt",
+			"dd",
+			"dt",
+			"dl",
+			"printAddress",
+			"dd",
+			"Address::stateSelect()",
+			"Address:stateSelect()",
+			"stateSelect(",
+			"last",
+			"Last",
+			"last",
+			"Last",
+			"last",
+			"Last",
+			"last",
+			"Last",
+			"last",
+			"login",
+			"last",
+			"Last",
+			"last",
+			":</",
+			"legend",
+			"bold",
+			".login",
+			"checkout",
+			"	.",
+			"checkout",
+			"h5",
+			"formUpdate",
+			"checkout",
+			"completeOrder",
+			"checkout",
+			"checkbox",
+			"<?"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Address:stateSelect('state_id')",
+			"h3"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 30.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"plug",
+				"js/plugins.js"
+			],
+			[
+				"dis",
+				"lib/display.php"
+			],
+			[
+				"disl",
+				"lib/display.php"
+			],
+			[
+				"navi",
+				"lib/navigation.php"
+			],
+			[
+				"navigation",
+				"lib/navigation.php"
+			],
+			[
+				"web",
+				"lib/web_config.php"
+			],
+			[
+				"scr",
+				"js/script.js"
+			],
+			[
+				"basi",
+				"css/basic.css"
+			],
+			[
+				"sited",
+				"plugins/libs/siteDisplay.php"
+			],
+			[
+				"footer",
+				"includes/footer.php"
+			],
+			[
+				"users",
+				"lib/users.php"
+			],
+			[
+				"script",
+				"js/script.js"
+			],
+			[
+				"shopp",
+				"plugins/libs/shoppingCart.php"
+			],
+			[
+				"head",
+				"includes/header.php"
+			],
+			[
+				"foot",
+				"includes/footer.php"
+			],
+			[
+				"shi",
+				"plugins/libs/shoppingCart.php"
+			],
+			[
+				"supple",
+				"supplements.php"
+			],
+			[
+				"shopping",
+				"plugins/libs/shoppingCart.php"
+			],
+			[
+				"search",
+				"search.php"
+			],
+			[
+				"address",
+				"lib/address.php"
+			],
+			[
+				"addre",
+				"lib/address.php"
+			],
+			[
+				"contact",
+				"contact_us.php"
+			],
+			[
+				"order",
+				"orders.php"
+			],
+			[
+				"bas",
+				"css/basic.css"
+			],
+			[
+				"basic",
+				"css/basic.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"ter",
+				"/Users/phuzion/Sites/Teresa/teresa.sublime-project"
+			],
+			[
+				"",
+				"/Users/phuzion/Sites/innovation/innovation.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 393.0,
+	"status_bar_visible": true
+}

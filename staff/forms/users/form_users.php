@@ -4,11 +4,13 @@
 	if (!empty($_GET['sel'])) {
 		$u = new users($_GET['sel']);	
 		$action = "Update User";	
+        $class = "updateUser";
 		
 	} else {
 		$u = new users();
 		$content = new Content();
-		$action = "Add User";	
+		$action = "Add User";
+        $class = "addUser";	
 	}
 	
 	$phones = new Phones($u->user_id);
@@ -69,7 +71,7 @@
         </p>
          <p>
             <label for="state">State</label>
-            <?php echo Address::stateSelect(); ?>
+            <?php echo Address::stateSelect('state_id'); ?>
         </p>
          <p>
             <label for="zip">Zip Code</label>
@@ -99,7 +101,7 @@
     <fieldset>
     	<button name="users"><?php echo $action; ?></button>
         <input type="hidden" name="user_id" id="user_id" />
-        <input type="hidden" name="addUser" id="addUser" value="forms/users/info_users.php?sel=<?php echo $u->user_id; ?>" />
+        <input type="hidden" name="<?php echo $class; ?>" id="<?php echo $class; ?>" value="forms/users/info_users.php?sel=<?php echo $u->user_id; ?>" />
     </fieldset>
 
 </form>

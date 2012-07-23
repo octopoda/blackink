@@ -1,0 +1,439 @@
+@charset "UTF-8";
+/* 
+
+
+Colors for Site: 
+
+
+*/
+
+
+@font-face  {
+	@font-face {
+    font-family: 'JustVector';
+    src: url('fonts/justvectorv2-webfont.eot');
+    src: url('fonts/justvectorv2-webfont.eot?#iefix') format('eot'),
+         url('fonts/justvectorv2-webfont.woff') format('woff'),
+         url('fonts/justvectorv2-webfont.ttf') format('truetype'),
+         url('fonts/justvectorv2-webfont.svg#webfontkw9J4lGf') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+audio:not([controls]) { display: none; }
+[hidden] { display: none; }
+
+
+html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+body { margin: 0; font-size: 12px; line-height: 1.9em; }
+body, button, input, select, textarea { font-family: helvetica, arial, sans-serif;  color: #444; }
+
+::-moz-selection { background: #685B1D; color: #fff; text-shadow: none; }
+::selection { background: #685B1D; color: #fff; text-shadow: none; }
+
+
+a { color: #26a5c0; text-decoration:none; cursor:pointer; }
+a:active {outline: 0;}
+a:visited { color: #26a5c0; }
+a:hover { color: #104651; outline:0; }
+a:focus { outline: thin dotted; }
+
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: bold; }
+blockquote { margin: 1em 40px; }
+dfn { font-style: italic; }
+
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+ins { background: #CAEEFC; color: #000; text-decoration: none; }
+mark { background: #CAEEFC; color: #000; font-style: italic; font-weight: bold; }
+
+
+pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+
+q { quotes: none; }
+q:before, q:after { content: ""; content: none; }
+
+small { font-size: 85%; }
+
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+
+h1, h2, h3, h4, h5, h6 {font-family: arial, helvetica, san-serif; font-style:normal;}
+
+h1 { font-size:40px;  color:#C0262D; margin:10px 0 20px 0; letter-spacing:-0.05em;}
+h2 {background:#000; text-transform:uppercase; letter-spacing:-0.05em; color:#FFF; font-size:18px; padding:5px;}
+h3 {margin-top:10px; text-transform:uppercase; letter-spacing:-0.05em; color:#FFF; font-size:18px; background:#C0262D; padding:5px;}
+h4 {color:#C0262D; text-transform:uppercase; letter-spacing:-0.05em; font-size:16px; margin:15px 0;}
+h5 {font-size:16px; color:#41080a; margin:20px 0px 5px 0px; padding:0px;}
+h6 {font-size:16px; color:#41080a; margin:10px 0px 2px 0px; padding:0px;}
+
+
+
+
+
+
+
+
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
+
+/* =============================================================================
+   Embedded content
+   ========================================================================== */
+
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+svg:not(:root) { overflow: hidden; }
+
+
+/* =============================================================================
+   Figures
+   ========================================================================== */
+
+figure { margin: 0; }
+
+
+/* =============================================================================
+   Forms
+   ========================================================================== */
+
+form { margin: 0; }
+fieldset { border: 0; margin: 0; padding: 0; }
+
+
+
+legend { border: 0; *margin-left: -7px; padding: 0; }
+label {display:block; cursor:pointer;}
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+button, input { line-height: normal; *overflow: visible; }
+table button, table input { *overflow: auto; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding:0; *width:13px; *height: 13px; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+textarea { overflow: auto; vertical-align: top; resize: vertical; }
+
+/* Colors for form validity */
+input:valid, textarea:valid {  }
+input:invalid, textarea:invalid { background-color: #AC0202; color:#FFF; }
+
+
+span.error {color:#AC0202; position:absolute; margin-left:10px;}
+
+input, textarea {
+		padding:5px; 
+		font-size:13px;
+		border:none;
+		background:#EEE;
+		box-shadow: inset 1px 1px 6px #999; 
+}
+
+legend {padding:10px 15px 0px; font-size:16px; color:#838383; margin-left:-20px;  padding-bottom:5px; border-bottom:1px solid black; width:100%;}
+fieldset {margin:5px 0px 20px 0px; padding:10px 20px 20px 20px; }
+fieldset p {clear:both; margin-bottom:20px;}
+textarea { width:300px; height:150px;}
+
+input.no-boxShadow {border:1px solid #444;}
+input.error {background:#AC0202; color:#FFF;}
+input.hasError {background:#CB0202 !important; color:#FFF !important;}
+.validationError {color:#CB0202; margin-left:10px;}
+
+.radio {  margin-left:10px; display:block; padding-bottom:30px;}
+.radio label {float:left; text-align:left; margin:8px 0px;}
+.radio input {float:left; margin:11px 10px 10px 10px;}
+.radio .error {color:#AC0202}
+
+
+.checkbox label {float:left; text-align:left; width:80%; margin:8px 0px 8px 10px;}
+.checkbox input {float:left; margin:13px 0px 10px 0px; }
+
+.phone select {margin-right:10px;}
+
+.buttonset button{ margin-left:8px;}
+
+button, .button {
+	margin-top:20px;
+	border-radius:3px 3px 3px 3px;
+	box-shadow:2px 2px 5px #CCC;
+	border:none;
+	padding:8px 12px;
+	color:#FFF;
+	font-size:14px;
+	background: #cc0000; /* Old browsers */
+	background: linear-gradient(top,  #C52127 0%,#8D0D11 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C52127', endColorstr='#8D0D11',GradientType=0 ); /* IE6-9 */
+}
+
+button:hover, .button:hover { 
+	background: #ccc; /* Old browsers */
+	background: linear-gradient(top, #ccc 0%,#8c8c8c 100%); /* W3C */
+}
+button:active, .button:active {box-shadow:inset 1px 1px 12px #666;}
+
+button.disabled, .button.disabled {background:#CCC; cursor:default;}
+
+.slider label{ margin-right:10px; float:left;}
+.slider input {background:none; color:#444; font-weight:bold; box-shadow:none; }
+.slider .slide {width:20%;}
+
+
+.autocomplete { background:white; z-index:99999;}
+.autocomplete ul li { padding:5px 0px; border-top:1px solid black; border-bottom:1px solid black; cursor:pointer;}
+.autocomplete ul li:hover, .autocomplete ul li.active { color:white; background:#666;}
+.autocomplete ul li:hover span, .autocomplete ul li.active span {color:#FFF;}
+.autocomplete ul li span { font-size:10px; color:#666;}
+
+.pagination  {float:right}
+.pagination li {float:left; list-style:none; margin-left:5px;}
+.pagination #total_page {margin-right:20px;}
+.pagination li input {width:20px;}
+.pagination .ninjaSymbol {position:relative; top:-5px; left:-10px;}
+
+
+
+/* =============================================================================
+   Tables
+   ========================================================================== */
+
+table { border-collapse: collapse; border-spacing: 0; margin-bottom:30px; font-size:12px; }
+table thead {background:#0A1948; color:#FFF;}
+td { vertical-align: top; padding:5px 10px; }
+
+table tbody tr td {border-bottom:1px solid #838383}
+table .highlight {background:#687AB6; color:#FFF;}
+table tfoot {font-size:11px; color:#838383; text-align:right;}
+
+
+/* =============================================================================
+   1140 Grid
+   ========================================================================== */
+
+#siteWrapper {padding-left: 20px; padding-right: 20px;}
+
+.row {width: 100%; max-width: 1140px; min-width: 755px; margin: 0 auto; overflow: hidden;}
+.onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol { margin-right: 3.8%; float: left; min-height: 1px; /*border:1px solid black;*/ }
+
+.row .onecol {width: 4.85%;}
+.oldie .onecol {width:4.7%;}
+
+.row .twocol {width: 13.45%;}
+.oldie .twocol {width:13.2%;}
+
+.row .threecol {width: 22.05%;}
+
+.row .fourcol {width: 30.75%;}
+.oldie .fourcol  {width:30.6%}
+
+.row .fivecol {width: 39.45%;}
+.oldie .fivecol {width:39%;}
+
+.row .sixcol {width: 48%}
+
+.row .sevencol  {width: 56.75%;}
+
+.row .eightcol {width: 64.4%;}
+.oldie .eightcol {width:61.6%}
+
+.row .ninecol {width: 74.05%;}
+
+.row .tencol {width: 82.7%;}
+.oldie .tencol {width:82%}
+
+.row .elevencol {width: 91.35%;}
+
+
+.row .twelvecol { width: 100%; float: left;}
+.last { margin-right: 0px;}
+img, object, embed {max-width: 100%;}
+img {height: auto;}
+
+
+
+/* ==|== primary styles =====================================================
+   Author: 
+   ========================================================================== */
+
+.legal {font-size:10px; color:#838383; line-height:16px;}
+.ninjaSymbol {font-family: 'Ninja Symbols' !important; cursor:pointer; color:#444; font-size:20px;}
+.social {font-family: 'JustVector' !important; cursor:pointer; color:#FFF; font-size:20px;}
+.facebook:before {content:'F';}
+.twitter:before {content:'t';}
+.linkedin:before {content: 'l';}
+.google:before {content:'g'}
+.foursquare:before {content:'j'}
+.last_fm:before {content:'L'}
+.tumblr:before {content:'T'}
+
+
+/* ==|== non-semantic helper classes ========================================
+   Please define your styles before this section.
+   ========================================================================== */
+
+/* For image replacement */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
+.ir br { display: none; }
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+.hidden { display: none !important; visibility: hidden; }
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* Contain floats: h5bp.com/q */
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+/* Dev Mobile and Desktop Button */
+.devMobileButton {background:rgba(0,0,0,0.3); padding:10px 20px; position:fixed; right:0; bottom:0; cursor:pointer; color:#FFF; border-radius:10px 0px 0px 0px;}
+
+/* ==|== print styles =======================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+ 
+@media print {
+  * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+
+/* ==|== Guide styles =======================================================
+   Styling of the style guide only.  Will not effect the site. 
+   ========================================================================== */
+   
+ .guide section {margin-bottom:20px; padding-bottom:20px;}
+ .guide .logo {background:url(../images/logo.png) top left no-repeat; height:65px; width:289px;}
+ 
+ .guide header hgroup h1 {float:left;}
+ .guide header hgroup h2 {margin-left:10px; padding-top:20px; color:#444; float:right; font-size:30px;}
+ 
+ .guide section header {background:#ccc; margin-bottom:10px;}
+ .guide section header h1 {margin:5px 0px; padding-left:10px; color:#FFF; font-size:20px;}
+ .guide section article {padding:30px 0px 30px 0px}
+ 
+ 
+ 
+ .guide .colors div {padding:5px 10px;}
+ 
+ 
+.guide a.visited { color: #0F5775; }
+.guide a.hover { color: #4B879E; }
+.guide a.focus { outline: thin dotted; }
+
+.guide button.hover {
+	background: #8dc63f; /* Old browsers */
+	background: -moz-linear-gradient(top, #8dc63f 0%, #6ab218 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#8dc63f), color-stop(100%,#6ab218)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #8dc63f 0%,#6ab218 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #8dc63f 0%,#6ab218 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #8dc63f 0%,#6ab218 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8dc63f', endColorstr='#6ab218',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #8dc63f 0%,#6ab218 100%); /* W3C */
+}
+.guide button.active {box-shadow:inset 1px 1px 18px #666; }
+
+
+/* ==|== Site styles ================================================================================================================
+   Styles across the board not depending on Browser or viewport 
+   ========================================================================== */
+
+header {background:#222;}
+  header h1 { color: #FFF; margin:50px 0 50px 0;}
+  header h1 a:link,header h1 a:visited { color: #FFF;}
+  
+
+
+footer {
+  clear: both;
+  max-width: 1140px;
+  margin: auto;
+  border-top: 1px solid #666;
+  padding-top: 50px;
+  margin-top: 10px;
+  padding-bottom: 20px;
+}
+
+section {
+  max-width: 1140px;
+  margin: auto;
+  padding: 30px 0;
+  padding-left: 20px;
+}
+
+.quickNav {background:#999; float:right; padding:10px; margin-top:-110px;}
+
+.quickNav ul li {float:left; margin:0 10px;}
+.quickNav ul li a {color:#222;}
+.quickNav ul li a:hover {color:#C0262D}
+
+  .mainNav ul li {float:left; margin:10px 20px; font-size:14px;}
+  .mainNav ul ul li { margin:0; padding: 10px 0; clear:left; float:none; background:black; width:100%; }
+  .mainNav ul ul li a:link, .mainNav ul ul li a:visited {color:#FFF; width:100%; padding:20px;}
+  .mainNav ul ul li > a:hover {background:#CCC; color:#000;}
+  .mainNav ul li ul {
+      background:black; 
+      margin:0; 
+      padding:0; 
+      box-shadow:0 0 3px #000;
+      position:absolute;
+      top:-1000px;
+      left:-2000px;
+    }
+  .mainNav ul li:hover  ul{ top:auto; left:auto;}
+
+
+
+
+
+
+
+
+/* ==|== Site styles ================================================================================================================
+   Content Styles
+   ========================================================================== */
+
+
+@import 'desktop.scss';
+@import 'tablet.scss';
+@import 'mobile.scss';
+@import 'plugins.scss';
+
+
+
+

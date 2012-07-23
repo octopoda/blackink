@@ -37,10 +37,11 @@
             <?php require_once('forms/dashboard.php'); ?>
         </article>
         <aside id="sidebar">
-        	<nav id="contentNavigation">
-        		Hey this could be navigation if I need it. 
-        	</nav>
-            This is my side bar with shit in it.
+        	 <h4>Need some help? </h4>
+            
+            <!--<p>Checkout the how to video page.</p> -->
+            <p>Maybe you need some help styling.  <a target="_blank" href="/style_guide.html">Look through your style guide.</a> </p>
+            <p>If you still need help hit the report errors button at the bottom of the page and send Zack and email.  He'll get back to you as soon as he can. </p>
         </aside>
     </section>
 </section>

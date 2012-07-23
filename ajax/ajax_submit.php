@@ -1,6 +1,7 @@
 <?php
 
 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/require.php');
+require_once(PLUGIN_AJAX.DS. 'plugin_site_submit.php');
 
 //print_r($_POST);
 
@@ -28,16 +29,42 @@ if (isset($_POST['login'])) {
 
 
 if (isset($_POST['registerUser'])) {
-	$user = new Users();
+	$refer = '/users/account_created.html';
+	$id = null;
+	$err = null;
 
-	$create = $user->createUserFromForm($_POST); //Create User
-	$saveUser = new Users($create);
-	
-	if ($user->authenticate($_POST['email'], $_POST['password'])) {
-		if ($user->isLoggedIn()) redirect('/index');	
+	if (isset($_POST['user_id'])) { 
+		$id = $_POST['user_id']; 
+		$refer = '/users/profile.html';
 	}
-	//Log in User	
+
+	$user = new Users($id);
+
+	
+	if (!isset($_POST['user_id'])) {
+		if (!$user->checkUserName($_POST['email'])) {
+			$err = 'This email is already in use';
+		}
+	}
+
+
+	$newUser = $user->createUserFromForm($_POST);
+
+	echo json_encode(array(
+		'refer'=>$refer,
+		'error'=>$err
+	));
 }
+
+if (isset($_POST['changePassword'])) {
+	$u = new Users($_POST['user_id']);
+	
+	if ($u->changePassword($_POST['newPass'])) {
+		echo $_POST['changePassword'];
+	}
+		
+}
+
 
 
 if (isset($_POST['sendEmail'])) {
@@ -66,6 +93,7 @@ if (isset($_GET['searchAutoComplete'])) {
 
 if (isset($_POST['pageNumber'])) {
 	$display = new SiteDisplay();
+	$search = new Search();
 	
 	if ($_POST['search'] != false) {
 		$search->siteSearch($_POST['search'], $_POST['pageNumber']);
@@ -77,19 +105,12 @@ if (isset($_POST['pageNumber'])) {
 		}
 		$display->paginateClass($_POST['classname'], $_POST['pageNumber'], $orderBy, $rate);	
 	}
-
-	
 }
 
 if (isset($_POST['forgotPassword'])) {
 	echo Users::forgotPassword($_POST['email']);	
 }
 
-if (isset($_POST['changePassword'])) {
-	$user = new Users($_POST['user_id']);
-	$user->changePassword($_POST['newPass']);
-	redirect('index.php');
-}
 
 
 

@@ -1,4 +1,6 @@
-<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
+<?php 
+	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/require.php'); 
+	require_once(PLUGIN_AJAX.DS. '/plugin_form_submit.php');
 
 //echo 'hello';
 
@@ -56,12 +58,29 @@ if (isset($_POST['addContent'])) {
 }
 
 if (isset($_POST['addUser'])) {
+	global $error;
+
 	if (isset($_POST['user_id']))  $id = $_POST['user_id'];
 	$user = new Users($id);
 	
+	if(!$user->checkUsername($_POST['email'])) {
+		$error->addError('That email is already registered');
+	}
+
 	$newUser = $user->createUserFromForm($_POST);
 	
 	echo $_POST['addUser'];	
+}
+
+if (isset($_POST['updateUser'])) {
+	global $error;
+
+	if (isset($_POST['user_id']))  $id = $_POST['user_id'];
+	$user = new Users($id);
+	
+	$newUser = $user->updateUser($_POST);
+	
+	echo $_POST['updateUser'];	
 }
 
 if (isset($_POST['addNews'])) {
@@ -104,7 +123,6 @@ if (isset($_POST['reportError'])) {
 }
 
 
-require_once(PLUGIN_AJAX.DS.'plugin_form_submit.php');
 
 
 ?>

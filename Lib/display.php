@@ -12,6 +12,7 @@
 		//URL
 		private $parentURL;
 		private $childURL;
+		public $scripts = array();
 		
 		
 		
@@ -54,6 +55,24 @@
 			
 			$this->user_access = $this->user->access;
 		}
+
+		public function addScript($url) {
+			$this->scripts[] = $url; 	
+		}
+		
+		
+		public function printScripts() {
+			$html = "";
+			if ($this->scripts == false) {
+				return;
+			}
+			
+			foreach ($this->scripts as $script) {
+				$html .= '<script src="'.$script.'"></script>';
+			}
+			echo  $html;
+		}	
+		
 		
 		
 		
@@ -190,6 +209,11 @@
 			$id = $class->idFromLink($this->contentTitle);
 			
 			$this->content = new $class($id);
+
+
+			if ($this->content->content == false) {
+				redirect('/404.html');
+			}
 			
 			
 		}
@@ -202,6 +226,11 @@
 			} else if (empty($this->navTitle) && (empty($this->contentTitle))) {
 				$this->content = new Content(Navigation::defaultNavigation());
 			} 
+
+			
+			if ($this->content->content == false) {
+				redirect('/404.html');
+			}
 		}
 		
 		

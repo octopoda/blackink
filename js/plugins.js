@@ -14,20 +14,11 @@ window.log = function(){
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
 
 
-// StyleFix 1.0.1 & PrefixFree 1.0.4 / by Lea Verou / MIT license
-(function(){function f(a,b){return[].slice.call((b||document).querySelectorAll(a))}if(window.addEventListener){var b=window.StyleFix={link:function(a){try{if(!/\bstylesheet\b/i.test(a.rel)||!a.sheet.cssRules)return}catch(c){return}var d=a.href||a.getAttribute("data-href"),g=d.replace(/[^\/]+$/,""),e=a.parentNode,h=new XMLHttpRequest;h.open("GET",d);h.onreadystatechange=function(){if(h.readyState===4){var c=h.responseText;if(c&&a.parentNode){c=b.fix(c,true,a);g&&(c=c.replace(/url\((?:'|")?(.+?)(?:'|")?\)/gi,
-function(a,c){return!/^([a-z]{3,10}:|\/)/i.test(c)?'url("'+g+c+'")':a}),c=c.replace(RegExp("\\b(behavior:\\s*?url\\('?\"?)"+g,"gi"),"$1"));var d=document.createElement("style");d.textContent=c;d.media=a.media;d.disabled=a.disabled;d.setAttribute("data-href",a.getAttribute("href"));e.insertBefore(d,a);e.removeChild(a)}}};h.send(null);a.setAttribute("data-inprogress","")},styleElement:function(a){var c=a.disabled;a.textContent=b.fix(a.textContent,true,a);a.disabled=c},styleAttribute:function(a){var c=
-a.getAttribute("style"),c=b.fix(c,false,a);a.setAttribute("style",c)},process:function(){f('link[rel~="stylesheet"]:not([data-inprogress])').forEach(StyleFix.link);f("style").forEach(StyleFix.styleElement);f("[style]").forEach(StyleFix.styleAttribute)},register:function(a,c){(b.fixers=b.fixers||[]).splice(c===void 0?b.fixers.length:c,0,a)},fix:function(a,c){for(var d=0;d<b.fixers.length;d++)a=b.fixers[d](a,c)||a;return a},camelCase:function(a){return a.replace(/-([a-z])/g,function(a,b){return b.toUpperCase()}).replace("-",
-"")},deCamelCase:function(a){return a.replace(/[A-Z]/g,function(a){return"-"+a.toLowerCase()})}};(function(){setTimeout(function(){f('link[rel~="stylesheet"]').forEach(StyleFix.link)},10);document.addEventListener("DOMContentLoaded",StyleFix.process,false)})()}})();
-(function(f){if(window.StyleFix&&window.getComputedStyle){var b=window.PrefixFree={prefixCSS:function(a,c){function d(c,d,g,e){c=b[c];c.length&&(c=RegExp(d+"("+c.join("|")+")"+g,"gi"),a=a.replace(c,e))}var g=b.prefix;d("functions","(\\s|:)","\\s*\\(","$1"+g+"$2(");d("keywords","(\\s|:)","(\\s|;|\\}||$)","$1"+g+"$2$3");d("properties","(^|\\{|\\s|;)","\\s*:","$1"+g+"$2:");if(b.properties.length){var e=RegExp("\\b("+b.properties.join("|")+")(?!:)","gi");d("valueProperties","\\b",":(.+?);",function(a){return a.replace(e,
-g+"$1")})}c&&(d("selectors","","\\b",b.prefixSelector),d("atrules","@","\\b","@"+g+"$1"));return a=a.replace(RegExp("-"+g,"g"),"-")},prefixSelector:function(a){return a.replace(/^:{1,2}/,function(a){return a+b.prefix})},prefixProperty:function(a,c){var d=b.prefix+a;return c?StyleFix.camelCase(d):d}};(function(){var a={},c="",d=0,g=[],e=getComputedStyle(document.documentElement,null),h=document.createElement("div").style,j=function(b){g.indexOf(b)===-1&&g.push(b);if(b.indexOf("-")>-1){var e=b.split("-");
-if(b.charAt(0)==="-"){var b=e[1],f=++a[b]||1;a[b]=f;for(d<f&&(c=b,d=f);e.length>3;)e.pop(),f=e.join("-"),StyleFix.camelCase(f)in h&&(b=g,b.indexOf(f)===-1&&b.push(f))}}};if(e.length>0)for(var i=0;i<e.length;i++)j(e[i]);else for(var f in e)j(StyleFix.deCamelCase(f));b.prefix="-"+c+"-";b.Prefix=StyleFix.camelCase(b.prefix);g.sort();b.properties=[];for(i=0;i<g.length;i++){f=g[i];if(f.charAt(0)!=="-")break;f.indexOf(b.prefix)===0&&(e=f.slice(b.prefix.length),StyleFix.camelCase(e)in h||b.properties.push(e))}b.Prefix==
-"Ms"&&!("transform"in h)&&!("MsTransform"in h)&&"msTransform"in h&&b.properties.push("transform","transform-origin");b.properties.sort()})();(function(){function a(a,b){g[b]="";g[b]=a;return!!g[b]}var c={"linear-gradient":{property:"backgroundImage",params:"red, teal"},calc:{property:"width",params:"1px + 5%"},element:{property:"backgroundImage",params:"#foo"}},d={initial:"color","zoom-in":"cursor","zoom-out":"cursor",box:"display",flexbox:"display","inline-flexbox":"display"};c["repeating-linear-gradient"]=
-c["repeating-radial-gradient"]=c["radial-gradient"]=c["linear-gradient"];b.functions=[];b.keywords=[];var g=document.createElement("div").style,e;for(e in c){var h=c[e],f=h.property,h=e+"("+h.params+")";!a(h,f)&&a(b.prefix+h,f)&&b.functions.push(e)}for(var i in d)f=d[i],!a(i,f)&&a(b.prefix+i,f)&&b.keywords.push(i)})();(function(){function a(a){g.textContent=a+"{}";return!!g.sheet.cssRules.length}var c={":read-only":null,":read-write":null,":any-link":null,"::selection":null},d={keyframes:"name",viewport:null,
-document:'regexp(".")'};b.selectors=[];b.atrules=[];var g=f.appendChild(document.createElement("style")),e;for(e in c){var h=e+(c[e]?"("+c[e]+")":"");!a(h)&&a(b.prefixSelector(h))&&b.selectors.push(e)}for(var j in d)h=j+" "+(d[j]||""),!a("@"+h)&&a("@"+b.prefix+h)&&b.atrules.push(j);f.removeChild(g)})();b.valueProperties=["transition","transition-property"];f.className+=" "+b.prefix;StyleFix.register(b.prefixCSS)}})(document.documentElement);
 
 //Black Ink Modal
 (function(a){a.fn.modal=function(d){var h={style:"message",text:"",url:"",cancel:"",reportError:true,reportURL:"",height:"",width:"60%"};var d=a.extend(h,d);var g=a(this);g.before('<div id="mask"><div>');$placement="center";if(h.style=="error"){g.html('<div class="text">'+h.text+"<div>");h.width="40%";i()}else{if(h.style=="message"){g.html(h.text);$placement="top";e()}else{if(h.style=="html"){g.html('<div class="text">'+h.text+"</div>");c()}}}function i(){g.removeClass();g.addClass("error");g.addClass("modal");g.children(".text").after('<a class="reportError button">Report Error</a>');f()}function e(j){g.removeClass();g.addClass("message");g.addClass("modal");f();g.delay(3000).fadeOut(200,function(){b()})}function c(){g.removeClass();g.addClass("html");g.addClass("modal");a.ajax({type:"POST",url:h.url,success:function(j){g.children(".text").html(j);f()},error:function(k,l,j){g.html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');f()}})}function f(){if($placement=="center"){var l=a(window).height()+a(window).scrollTop();var k=a(window).width();g.css("width",h.width);g.css("height",h.height);var j=a(window).height()+g.offset().top+g.height();var m=a(window).width();a("#mask").css({width:m,height:j});a("#mask").fadeIn(1000);a("#mask").fadeTo("slow",0.6);g.css({top:l/4,left:k/2-g.width()/2});g.children(".text").before('<a class="close"></a>');_left=g.offset().left;_objectW=g.outerWidth()-15;_totalLeft=_objectW+_left;_top=g.offset().top;_objectH=35/2;_totalTop=_top-_objectH;g.children("a.close").css({left:_totalLeft,top:_totalTop})}g.fadeIn(1000)}a(".modal .close").live("click",function(){b();h.cancel.call(this)});a("#mask").live("click",function(){b();h.cancel});function b(){a.ajax({url:"/ajax/admin/admin_functionality.php",type:"POST",data:{closeError:1},success:function(j){g.hide();g.html("");g.removeClass();a("#mask").remove()},error:function(k,l,j){a(".text").html("I was not able to close your error. Please report to system Admin.")}})}}})(jQuery);
+
+
 
 
 //Black Ink Valdation
@@ -134,7 +125,191 @@ function addCommas(a){var c=a.split(".",2),a=c[1],c=parseInt(c[0]);if(isNaN(c))r
 
 
 
+/* Very Simple Modal Plugin for JQUERY */
 
+
+(function($){
+	$.fn.modal = function (options) {
+		var defaults =  {
+			style: 'message',
+			text: '',
+			url: '',
+			cancel: '',
+			reportError: true,
+			reportURL: '',
+			height: '',
+			width: '60%'
+		};
+		
+		options = $.extend(defaults, options);
+		var $object = $(this);
+		
+		$object.before('<div id="mask"><div>');
+		var $placement = 'center';
+		
+	//Load Modal based on Style
+		if (defaults.style === 'error') {
+			$object.html('<div class="text">'+defaults.text+'<div>'); //Add Text tag to Modal
+			defaults.width = '40%';
+			modalError(); //Load Modal as an Error
+		} else if (defaults.style === 'message') {
+			$object.html(defaults.text); //Add Text tag to Modal
+			$placement = 'top';
+			modalMessage(); //Load Modal as an Message
+		} else if (defaults.style === 'html') {
+			$object.html('<div class="text">'+ defaults.text +'</div>'); //Add HTML wrapper for AJAX
+			
+			modalHTML(); //Load Modal as HTML
+		}
+		
+		
+		
+	//Modal Errors
+		function modalError() {
+			//Add and remove Classes to call CSS
+			$object.removeClass();
+			$object.addClass('error');
+			$object.addClass('modal');
+			
+			//If Default option to report Error is true print report error button
+			//if (defaults.reportError == true) {
+			$object.children('.text').after('<a class="reportError button">Report Error</a>');
+			//}
+			modal(); //Show Modal
+		}
+	
+	
+	//Modal Messages
+		function modalMessage($text) {
+			//Add and remove Classes to call CSS
+			$object.removeClass();
+			$object.addClass('message');
+			$object.addClass('modal');
+			
+			modal(); //Load Modal
+			
+			$object.delay(3000).fadeOut(200, function () {
+				clearModal();
+			});
+		}
+		
+		
+	//Modal AJAX
+		function modalHTML() {
+			//Add and remove Classes to call CSS
+			$object.removeClass();
+			$object.addClass('html');
+			$object.addClass('modal');
+			
+			
+			//AJAX Load the URL
+			$.ajax({
+				type: 'POST',
+				url: defaults.url,
+				success: function (data) {
+					$object.children('.text').html(data);
+					modal();
+				},
+				//If failed load the Error Modal
+				error: function(xhr, textStatus, errThrown) {
+					$object.html('<ul class="errors"><li>Something went wrong with out System, please alert our admin with this id: AJ198473</li></ul>');
+					modal();
+				}
+			});
+		}
+		
+	//Function to load modal and display it.
+		function modal () {
+			//Center Placement
+			if ($placement === 'center') {
+				
+				
+				//Set the popup window to center
+				$object.css('width', defaults.width);
+				$object.css('height', defaults.height);
+				
+				_height = $(window).scrollTop();
+
+				$('.mask').css({
+					height: $(document).height(),
+					width: $(document).width()
+				});
+
+				$('.dialog').css({
+					top: (($(window).height()/2) - (defaults.height/2)) + _height,
+					left: ($(window).width()/2) - (defaults.width/2)
+				});
+	
+				
+				//transition effect
+				$('#mask').fadeIn(1000);
+				$('#mask').fadeTo('slow', 0.6);
+				
+				
+				$object.css({
+					top: ($(window).height()/4),
+					left: $(window).width()/2-$object.width()/2
+				});
+				
+				$object.children('.text').before('<a class="close"></a>');
+				
+				_left = $object.offset().left;
+				_objectW = $object.outerWidth() - 15;
+				var _totalLeft = _objectW + _left;
+				
+				_top = $object.offset().top;
+				_objectH = 35/2;
+				var _totalTop = _top-_objectH;
+				
+				
+				$object.children('a.close').css({
+					left: _totalLeft,
+					top: _totalTop
+				});
+			}
+			
+			//transition effect
+			$object.fadeIn(1000);
+			
+		}
+		
+		//Click of the close button.  Clear modal and run callback function
+		$('.modal .close').live('click', function () {
+			clearModal();
+			defaults.cancel.call(this);
+		});
+	
+		//Click of the background.  Clear Modal and run callback function
+		$('#mask').live('click', function() {
+			clearModal();
+			defaults.cancel.call();
+		});
+		
+		//Clear the modal and remove all classes
+		function clearModal() {
+			//Send Ajax to clear modal
+			$.ajax({
+				url: '/ajax/admin/admin_functionality.php',
+				type: 'POST',
+				data: {'closeError': 1},
+				success: function (data) {
+					$object.hide();
+					$object.html('');
+					$object.removeClass();
+					$('#mask').remove();
+				},
+				error: function(xhr, textStatus, errThrown) {
+					$('.text').html('I was not able to close your error. Please report to system Admin.');
+				}
+			});
+		}
+		
+		
+	};
+})(jQuery);
+
+	
+	
 
 
 			

@@ -31,7 +31,7 @@
 			
 			if (!empty($c_id)) {
          		$result = $this->fetchById($c_id);
-				$this->directLink = $this->createLink("content", $this->directLink);
+				$this->directLink = $this->createLink("content");
 				$this->keywords = $this->keywordsForContent();
 				$this->printKeywords = $this->keywordsForPrint();
 			} 
@@ -209,6 +209,8 @@
 		$keys = array();
 		
 		if (empty($content_id)) $content_id = $this->content_id;
+
+		if (empty($this->content)) return;
 		
 		$sql = "SELECT keyword, K.keyword_id FROM keywords K 
 					JOIN keywordsForContent CK ON CK.keyword_id = K.keyword_id

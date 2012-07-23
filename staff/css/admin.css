@@ -214,7 +214,7 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .deletePhones {float:left; margin-left:300px; margin-top:-20px; width:300px; cursor:pointer;}
 .deletePhones .ninjaSymbol {margin-right:5px;display:inline-block; float:left;}
 .deletePhones .text {margin-top:0px; display:block; float:left;}
-#deletePhone {color:#CB0202; font-size:12px;   position:absolute; margin-left:-20px; margin-top:6px;}
+#deletePhone {color:#CB0202; font-size:12px;  position:relative;}
 #deleteCompass { color:#CB0202; font-size:12px; margin-right:10px; margin-top:-5px}
 
 	
@@ -255,16 +255,10 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 
 	
 	
-#sidebar {
-	float:left;
-	margin:20px 0px 0px 20px;
-	width:20%;
-	background:#CCC;
-}
+#sidebar { float:left; margin:20px 0px 0px 20px; width:20%; background:#E5E5E5; }
+	#sidebar h4 {margin:0; padding:10px; border:none; background:#666; color:#FFF;}
+	#sidebar p {margin:20px;}
 
-#contentNavigation {
-
-}
 
 
 footer {border-top:2px solid #CCC; margin-top:30px;}
@@ -358,6 +352,16 @@ input, textarea {
 		background:#EEE;
 		box-shadow: inset 1px 1px 6px #999; 
 }
+
+.dashboardPanel {background:#E5E5E5; width:40%; margin:10px 20px 10px 0px; float:left; padding:0px; box-shadow:0px 0px 5px #999;}
+	.dashboardPanel h4 {margin:0; padding:10px; border:none; background:#666; color:#FFF;}
+	.dashboardPanel p {margin:20px;}
+	.dashboardPanel ul {margin:10px 0; padding:0; }
+	.dashboardPanel ul li {list-style:none; line-height:26px; padding:0 0 0 20px; margin:0;}
+	.dashboardPanel ul li:hover {background:#000; }
+	.dashboardPanel ul li:hover a {color:#FFF;}
+
+
 
 /* =============================
 	Login

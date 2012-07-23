@@ -27,7 +27,7 @@
 			if (!empty($a_id)) {
          		$result = $this->fetchById($a_id);
 				$this->placementHumanReadable(); 
-				$this->directLink = $this->createLink('ads', $this->title);
+				$this->directLink = $this->createLink('ads');
 			} 
         }
 /* ========================================

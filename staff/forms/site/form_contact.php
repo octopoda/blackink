@@ -39,7 +39,7 @@
         </p>
          <p>
             <label for="state">State</label>
-            <?php echo Address::stateSelect(); ?>
+            <?php echo Address::stateSelect('state_id'); ?>
         </p>
          <p>
             <label for="zip">Zip Code</label>

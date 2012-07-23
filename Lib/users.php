@@ -14,6 +14,7 @@
         public $email;
 		public $loggedIn = false;
 		public $guid;
+		public $company;
 		
 		//Helpers
 		public $access;
@@ -71,13 +72,15 @@
 		
 		private function getAddress() {
 			global $db;
+			global $error; 
+
 			$result_set = $db->queryFill("SELECT address_id FROM addressForUser WHERE user_id = {$this->user_id}");
 			if ($result_set != false) {
 				foreach ($result_set as $row) {
 					$this->address_id = $row['address_id'];
 				}	
 			} else {
-				$error->addError('This user has no address entered in the database.', 'User5746');	
+				$error->addMessage('This user has no address entered in the database.', 'User5746');	
 			}
 		}
 		
@@ -91,7 +94,7 @@
 					$this->phone_id[] = $row['phone_id'];
 				}	
 			} else {
-				return;
+				$error->addMessage('This user has no phone entered in the database.', 'User9876');
 			}
 		}
 		
@@ -144,10 +147,15 @@
 		
 		private function updateDate() {
 			global $db;
+			$last = date('Y-m-d H:i:s');
 			
-			$date = date('Y-m-d h:i:s');
+			if ($this->last_login != false) {
+				$last = $this->last_login;
+			}
+
+			$date = date('Y-m-d H:i:s');
 			
-			$db->query("UPDATE users SET last_login = '{$date}' WHERE user_id = '{$this->user_id}'");
+			$db->query("UPDATE users SET last_login = '{$date}', prev_login = '{$last}'  WHERE user_id = '{$this->user_id}'");
 		}
 
 
@@ -155,9 +163,10 @@
 	Registration Methods
    ===================================== */
 		
-		 private function checkUsername($checkThis) {
-            $result = $this->findByKey('email', $this->escapeString($checkThis));
-            if ($result == false) return true;
+		 public function checkUsername($checkThis) {
+		 	global $db;
+            $result = $this->fetchByKey('email', $db->escapeString($checkThis));
+           	if ($result == false) return true;
             return false;
         }
    
@@ -179,12 +188,41 @@
 			if (empty($this->guid)) {
 				$this->guid = uniqid('', true);
 			}
+
+			if (empty($this->created_on)) {
+				$this->created_on = date("Y-m-d H:i:s");
+			}
 			
 			$u_id = $this->save($this->user_id);
 			
-			//Set Access to Registered
-			$this->setAccess(2, $u_id);
+			//Create Address return ID
+			$address = new Address();
+			$address->fillFromForm($post);
+			$a_id= $address->save($address->address_id);
+			$saveAddress = new Address($a_id);
+			$saveAddress->addAddressToUser($u_id);
+
 			
+			//Create Phone return ID
+			Phones::save($post,  $u_id);
+			
+			$saveUser = new Users($u_id);
+
+			//Set Access to Registered
+			if (!isset($saveUser->access)) {
+				$this->setAccess(2, $u_id);
+			}
+			
+			
+			if ($u_id == NULL || $a_id == NULL ) {
+				$error->addError("The user was not created.", 'User10974');	
+			}
+		}
+
+		public function updateUser($post) {
+			$this->fillFromForm($post);
+
+			$u_id = $this->save($this->user_id);
 			
 			//Create Address return ID
 			$address = new Address();
@@ -197,8 +235,11 @@
 			Phones::save($post,  $u_id);
 			
 			if ($u_id == NULL || $a_id == NULL ) {
-				$error->addError("The user was not created.", 'User10974');	
-			}
+				$error->addError("The user was not Updated.", 'User10222');	
+			} 
+
+			return $u_id;
+		
 		}
 		
 		public function deleteFromForm() {
@@ -288,12 +329,12 @@
 				$mail->Host = EMAIL_HOST;
 				$mail->Username = EMAIL_USER;
 				$mail->Password = EMAIL_PASS;
-				$mail->Port = 25;
+				$mail->Port = EMAIL_PORT;
 				$mail->SMTPAuth   = true; 
 				
 				
 				
-				$mail->SMTPDebug  = 1;  
+				//$mail->SMTPDebug  = 1;  
 				$mail->AddReplyTo('noreply@'.$site->siteURL,  $site->siteName . ' - No Reply');
 				$mail->AddAddress($email, $first . $last);
 				$mail->SetFrom('noreply@'.$site->siteURL, $site->siteName.' - No Reply' );
