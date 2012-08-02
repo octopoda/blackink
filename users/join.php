@@ -1,7 +1,7 @@
-<?php 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php'); 
+<?php
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php');
 	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/header.php');
-	
+
 	$phones = new Phones();
 ?>
 
@@ -21,25 +21,25 @@
             <label for="last">Last Name:</label>
             <input type="text" name="last" id="last" class="required" />
         </p>
-        <p>
+        <!--<p>
             <label for="company">Company Name:</label>
             <input type="text" name="company" id="company" class="required" />
         </p>
         <p>
             <label for="NPINumber">NPI Number:</label>
             <input type="text" name="NPINumber" id="NPINumber" class="required" />
-        </p>
+        </p> -->
         <p>
             <label for="email">Email:</label>
             <input type="email" name="email" id="email"  class="email" />
         </p>
-        
-         </p>
-            <?php echo $phones->createPhoneFields(); ?>
-        <p>
-        
+
+         <!--</p>
+            <?php //echo $phones->createPhoneFields(); ?>
+        <p> -->
+
     </fieldset>
-    <fieldset>
+    <!-- <fieldset>
         <h3>Location Details</h3>
         <p>
             <label for="address1">Address</label>
@@ -62,10 +62,10 @@
             <input name="zip" id="zip" type="text" class="zip" placeholder="90210" />
         </p>
         </p>
-            
+
         <p>
-    </fieldset>
-    
+    </fieldset> -->
+
     <fieldset>
         <h3>Authentication Details</h3>
         <p>
@@ -86,7 +86,7 @@
     </fieldset>
 </form>
     </article>
-    
+
     <aside class="fourcol last">
     	<?php include(MODULES.'sidebar.php'); ?>
     </aside>
@@ -94,5 +94,4 @@
 </section>
 
 
-<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>        
-       
+<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>

@@ -1,27 +1,27 @@
-<?php 
+<?php
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/staff/includes/admin_require.php');
-	
+
 	if (!empty($_GET['sel'])) {
-		$u = new users($_GET['sel']);	
-		$action = "Update User";	
+		$u = new users($_GET['sel']);
+		$action = "Update User";
         $class = "updateUser";
-		
+
 	} else {
 		$u = new users();
 		$content = new Content();
 		$action = "Add User";
-        $class = "addUser";	
+        $class = "addUser";
 	}
-	
+
 	$phones = new Phones($u->user_id);
 	$address = new Address($u->address_id);
-	
-	
+
+
 	echo $u->pushToForm();
 	echo $address->pushToForm();
-	
+
 	$link = 'form/users/form_users.php';
-	
+
 ?>
 
 
@@ -38,28 +38,29 @@
             <label for="last">Last Name:</label>
             <input type="text" name="last" id="last" class="required" />
         </p>
-    </fieldset>
-    
-    <fieldset>
-       <legend>Contact Information <a class="deletePhones"><span class="ninjaSymbol ninjaSymbolClear"></span> 
-            <span class="text">Delete Phones</span></a> </legend>
-         <p>
+        <p>
             <label for="email">Email:</label>
             <input type="text" name="email" id="email"  class="required email" />
         </p>
-        
+    </fieldset>
+
+    <!--<fieldset>
+       <legend>Contact Information <a class="deletePhones"><span class="ninjaSymbol ninjaSymbolClear"></span>
+            <span class="text">Delete Phones</span></a> </legend>
+
+
         </p>
             <?php echo $phones->createPhoneFields(); ?>
         <p>
     </fieldset>
-    
-    
+
+
     <fieldset>
         <legend>Location Details</legend>
         <p>
             <label for="address1">Address</label>
             <input id="address1" name="address1" type="text"  class="required"   />
-            <input type="hidden" name="address_id" id="address_id" /> 
+            <input type="hidden" name="address_id" id="address_id" />
         </p>
         <p>
             <label for="address2">Address 2</label>
@@ -77,10 +78,10 @@
             <label for="zip">Zip Code</label>
             <input name="zip" id="zip" type="text" class="zip" placeholder="90210" />
         </p>
-     </fieldset>
-     
-     
-    
+     </fieldset> -->
+
+
+
     <?php if ($action == "Add User") : ?>
     <fieldset>
         <legend>Authentication Details</legend>
@@ -101,7 +102,7 @@
     <fieldset>
     	<button name="users"><?php echo $action; ?></button>
         <input type="hidden" name="user_id" id="user_id" />
-        <input type="hidden" name="<?php echo $class; ?>" id="<?php echo $class; ?>" value="forms/users/info_users.php?sel=<?php echo $u->user_id; ?>" />
+        <input type="hidden" name="<?php echo $class; ?>" id="<?php echo $class; ?>" value="forms/users/info_users.php?sel=" />
     </fieldset>
 
 </form>
