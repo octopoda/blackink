@@ -282,15 +282,16 @@
 			global $db;
 
 			//Delete Phone
-			Phones::deleteFromForm($this->phone_id);
+			//Phones::deleteFromForm($this->phone_id);
 
 			//Delete Address
-			$address = new Address($this->address_id);
-			$address->deleteFromForm();
+			//$address = new Address($this->address_id);
+			//$address->deleteFromForm();
 
 			//Delete User
-			$db->query("DELETE FROM userInGroups WHERE user_id = {$this->user_id}");
-			$this->delete($this->user_id);
+			$db->query("DELETE FROM userSalts WHERE user_id = {$this->user_id}"); //Delete Salt
+			$db->query("DELETE FROM userInGroups WHERE user_id = {$this->user_id}"); //Delete Group
+			$this->delete($this->user_id); //Delete User
 
 		}
 

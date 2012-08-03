@@ -33,7 +33,7 @@ This is openGrid version 1.8
 
 
 Class Grid {
-	
+
 	var $data;
 	var $joins;
 	var $fields;
@@ -47,11 +47,11 @@ Class Grid {
 	var $security;
 	var $set;
 	var $sql;
-	
+
 	function __construct($table) {
 		$this->table = $table;
 	}
-	
+
 	function save() {
 		$saveArray = $this->getSaveArray();
 		// we need a primary key for editing
@@ -59,57 +59,57 @@ Class Grid {
 
 		// die here if a primary is not found
 		if(empty($primaryKey)) die("Primary Key for table {$this->table} Not set! For inline editing you must have a primary key on your table.");
-		
+
 		// go through each row and perform an update
 		foreach($saveArray as $rowId=>$row) {
 			$setArray = array();
 			foreach($row as $key=>$value) {
 				// don't update this row if you have security set
 				// idea from youtube user jfuruskog
-				if(!is_array($this->security) || in_array($key,$this->security)) { 
+				if(!is_array($this->security) || in_array($key,$this->security)) {
 					$key =  mysql_real_escape_string($key);
 					$value =  mysql_real_escape_string($value);
 					$setArray[] = "$key='$value'";
-				}	
+				}
 			}
-			
+
 			$sql = "UPDATE {$this->table} SET ".implode(",",$setArray)." WHERE $primaryKey = '$rowId'";
 			mysql_query($sql);
 
 			// die with messages if fail
 			$this->dieOnError($sql);
-		}	
-			
+		}
+
 	}
-	
+
 	// use this to write your own custom save function for the data
 	function getSaveArray() {
 		return json_decode(stripslashes($_POST['json']));
 	}
-	
+
 	// adds a new row based on the editable fields
 	function add() {
 		// if didn't pass a set param, just add a new row
 		if(empty($this->set)) {
 			mysql_query("INSERT INTO {$this->table} VALUES ()");
-		
+
 		// if you passed a set param then use that in the insert
 		} else {
 			mysql_query("INSERT INTO {$this->table} SET {$this->set}");
 		}
-		
+
 		// we return the primary key so that we can order by it in the jS
 		echo $this->getPrimaryKey();
 	}
-	
+
 	function delete() {
 		global $db;
-		
+
 		$post = $this->_safeMysql();
 		$primaryKey = $this->getPrimaryKey();
-		
+
 	}
-	
+
 	// will build an id, value array to be used to make a select box
 	function makeSelect($value,$display) {
 		// build sql if they are there
@@ -118,14 +118,14 @@ Class Grid {
 		$sort = $this->sort ? "{$this->sort}":"";
 		$limit = $this->limit ? "LIMIT {$this->limit}":"";
 		$table = $this->table;
-		
+
 		// bring all the joins togther if sent
 		if(is_array($this->joins)) {
 			$joins = implode(" ",$this->joins);
 		} else {
 			$joins = "";
 		}
-		
+
 		// we only are selecting 2 columns, the one to use as the ID and the one for the display
 		$colsArray = array($value,$display);
 		$newColsArray = array();
@@ -147,7 +147,7 @@ Class Grid {
 						if(!isset($this->fields[$col]) && !in_array($col,$usedCols)) {
 							$newColsArray[] = "$col";
 							$usedCols[] = $col;
-						}	
+						}
 					}
 				}
 			}
@@ -157,17 +157,17 @@ Class Grid {
 				$newColsArray[] = "$col";
 			}
 		}
-		
+
 		// put it back
 		$colsArray = $newColsArray;
-		
+
 		// get group and having
 		$groupBy = $this->groupBy ? "GROUP BY ".$this->groupBy : "";
 		$having = $this->having ? "HAVING ".$this->having : "";
-		
+
 		// bring it all together again
 		$cols = implode(",",$colsArray);
-		
+
 		// setup the sql - bring it all together
 		$sql = "
 			SELECT $cols
@@ -179,11 +179,11 @@ Class Grid {
 			$order_by $sort
 			$limit
 		";
-		
+
 		// run sql, build id/value json
 		$rows = $this->_queryMulti($sql);
 		$this->dieOnError($sql);
-		
+
 		// setup rows to feed back to JS
 		foreach($rows as $row) {
 			$data[$row[$value]] = $row[$display];
@@ -193,29 +193,29 @@ Class Grid {
 		$this->data = $data;
 
 	}
-	
+
 	// loads data into the grid
 	function load() {
 		$post = $this->_safeMysql();
-		
+
 		// setup variables from properties
 		$joins = $this->joins;
 		$fields = $this->fields;
 		$where = $this->where;
 		$table = $this->table;
-		
+
 		// we need to break this up for use
 		$colsArray = explode(",",$post['cols']);
-		
+
 		// were gonna use this one because this allows us to order by a column that we didnt' pass
 		$order_by = $post['order_by'] ? $post['order_by'] : $colsArray[0];
-		
+
 		// save variables for easier use throughout the code
 		$sort = $post['sort'];
 		$nRowsShowing = $post['nRowsShowing'];
 		$page = $post['page'];
 		$startRow = ($page - 1) * $nRowsShowing;
-		
+
 		// bring all the joins togther if sent
 		if((bool)$joins && is_array($joins)) {
 			$joins = implode(" ",$joins);
@@ -228,7 +228,7 @@ Class Grid {
 		$colsArrayForWhere = array();
 		$newColsArray = array();
 		$usedCols = array();
-		
+
 		$groupFunctions = array(
 			"AVG",
 			"BIT_AND",
@@ -248,7 +248,7 @@ Class Grid {
 			"VAR_SAMP",
 			"VARIANCE"
 		);
-		
+
 		if($fields && is_array($fields)) {
 			foreach($fields as $as=>$field) {
 				// find which column this is to replace
@@ -261,7 +261,7 @@ Class Grid {
 						preg_match('/^\w+/i',$field,$needle);
 						if(!in_array(strtoupper($needle[0]),$groupFunctions)) {
 							$colsArrayForWhere[] = $field;
-						}	
+						}
 						// mark as used
 						$usedCols[] = $col;
 					} else {
@@ -270,7 +270,7 @@ Class Grid {
 							$newColsArray[] = "`$col`";
 							$colsArrayForWhere[] = "`$col`";
 							$usedCols[] = $col;
-						
+
 						// add fields that aren't in the <table> but you want passed anyway
 						} else if(!in_array($as,$usedCols)){
 							// were just using field & as because you should have back ticked and chosen your table in your call
@@ -292,18 +292,18 @@ Class Grid {
 				$colsArrayForWhere[] = "`$col`";
 			}
 		}
-		
+
 		// put it back
 		$colsArray = $newColsArray;
-		
+
 		// get primary key
 		$primaryKey = $this->getPrimaryKey();
-		
+
 		// if primary key isn't in the list. add it.
 		if($primaryKey && !in_array($primaryKey,$usedCols)) {
 			$colsArray[] = $primaryKey;
 		}
-		
+
 		// with the cols array, if requested
 		$colData = array();
 		if($post['maxLength'] == "true") {
@@ -318,31 +318,31 @@ Class Grid {
 						$type = $row['Type'];
 					}
 					preg_match('/\(([^\)]+)/',$type,$matches);
-					$colData[$field] = array("maxLength"=>$matches[1]);	
+					$colData[$field] = array("maxLength"=>$matches[1]);
 				}
 			}
 		}
-		
+
 		// shrink to comma list
 		print_r($post['cols']);
 		$post['cols'] = implode(",",$colsArray);
-		
-		
+
+
 		// add dateRange to where
 		if(!empty($post['dateRangeFrom']) || !empty($post['dateRangeTo'])) {
 
 			// if one or the other is empty - use today otherwise parse into mysql date the date that was passed
 			$dateFrom = empty($post['dateRangeFrom']) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s',strtotime($post['dateRangeFrom']));
 			$dateTo = empty($post['dateRangeTo']) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s',strtotime($post['dateRangeTo']));
-			
+
 			// if they are = we want just this day (otherwise it would be blank)
 			if($dateFrom == $dateTo) {
 				$dateWhere = "DATE($table.$post[dateRange]) = DATE('$dateFrom')";
-			// we actually want a range	
+			// we actually want a range
 			} else {
 				$dateWhere = "`$table`.`$post[dateRange]` BETWEEN '$dateFrom' AND '$dateTo'";
 			}
-			
+
 			// add this to the global where statement
 			if(empty($where)) {
 				$where = $dateWhere;
@@ -351,7 +351,7 @@ Class Grid {
 			}
 
 		}
-		
+
 
 		// specific where setup for searching
 		if($post['search']) {
@@ -365,21 +365,21 @@ Class Grid {
 				$where = "WHERE $where";
 			}
 		}
-		
+
 		// get group and having
 		$groupBy = $this->groupBy ? "GROUP BY ".$this->groupBy : "";
 		$having = $this->having ? "HAVING ".$this->having : "";
-		
+
 		// we need this seperate so we can not have a limit at all
 		$limit = "LIMIT $startRow,$nRowsShowing";
-		
+
 		// if were searching, see if we want all results or not
 		if($_POST['pager'] == "false" || (!empty($_POST['search']) && $_POST['pageSearchResults'] == "false")) {
 			$limit = "";
 		}
-		
-		
-		
+
+
+
 		// setup the sql - bring it all together
 		$sql = "
 			SELECT $post[cols]
@@ -391,17 +391,17 @@ Class Grid {
 			ORDER BY $order_by $sort
 			$limit
 		";
-		
-		
+
+
 		$this->sql = $sql;
 
 		// execute the sql, get back a multi dimensial array
 		$rows = $this->_queryMulti($sql);
-		
+
 		// die with messages if fail
 		$this->dieOnError($sql);
 
-		
+
 		// form an array of the data to send back
 		$data = array();
 		$data['rows'] = array();
@@ -414,7 +414,7 @@ Class Grid {
 				$data['rows']["_".$key][$col] = $cell;
 			}
 		}
-		
+
 		// if were searching and we dont want all the results - dont run a 2nd query
 		if($_POST['pager'] == "false" || (!empty($_POST['search']) && $_POST['pageSearchResults'] == "false")) {
 			$data['nRows'] = count($rows);
@@ -424,7 +424,7 @@ Class Grid {
 			if(!$this->limit) {
 				// use the same query for counting less the limit
 				$sql2 = preg_replace('/LIMIT[\s\d,]+$/','',$sql);
-			
+
 				// find the total results to send back
 				$res = mysql_query($sql2);
 				$data['nRows'] = mysql_num_rows($res);
@@ -432,16 +432,16 @@ Class Grid {
 				$data['nRows'] = $this->limit;
 			}
 		}
-		
+
 		$data['order_by'] = $order_by;
 		$data['sort'] = $sort;
 		$data['page'] = $page;
 		$data['start'] = $startRow + 1;
 		$data['end'] = $startRow + $nRowsShowing;
-		$data['colData'] = $colData;		
+		$data['colData'] = $colData;
 		$this->data = $data;
 	}
-	
+
 	// incomplete
 	// will allow this whole thing to run off an entire custom query
 	// as in not just setting props
@@ -449,9 +449,9 @@ Class Grid {
 		$sql = preg_replace('/[ORDER BY|order by]+[\s]+[^\n\r]+/','',$sql);
 		$sql = preg_replace('/[LIMIT|limit]+[\s\d,]+$/','',$sql);
 		echo $sql;
-		
+
 	}
-	
+
 	// using the current table will get the primary key column name
 	// does not work for combined primary keys
 	public function getPrimaryKey($table=NULL) {
@@ -460,7 +460,7 @@ Class Grid {
 		$primaryKey = mysql_fetch_assoc($primaryKey);
 		return $primaryKey['Column_name'];
 	}
-	
+
 	// if there is a mysql error it will die with that error
 	function dieOnError($sql) {
 		if($e=mysql_error()) {
@@ -468,11 +468,11 @@ Class Grid {
 			die($e);
 		}
 	}
-	
+
 	// runs a query, always returns a multi dimensional array of results
 	function _queryMulti($sql) {
 		global $db;
-		
+
 		$array = array();
 		$res = $db->query($sql);
 		if((bool)$res) {
@@ -482,24 +482,24 @@ Class Grid {
 			} else if(mysql_num_fields($res) == 1) {
 				while($row = mysql_fetch_assoc($res)) {
 					foreach($row as $item) $array[] = $item;
-				}	
-			}	
+				}
+			}
 			$error = mysql_error();
 			if($error) echo $error;
 		}
 		return $array;
 	}
-	
+
 	// safeify post
 	function _safeMysql($post=NULL) {
 		if(!isset($post)) $post = $_POST;
 		$postReturn = array();
 		foreach($post as $key=>$value) {
 			if(!is_array($value)) {
-				$postReturn[$key] = mysql_real_escape_string(urldecode($value)); 
+				$postReturn[$key] = mysql_real_escape_string(urldecode($value));
 			} else if(is_array($value)) {
 				$postReturn[$key] = $value;
-			}	
+			}
 		}
 		return $postReturn;
 	}

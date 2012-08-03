@@ -1,8 +1,9 @@
-@charset "UTF-8";
-/* 
+@import 'plugins.scss';
+
+/*
 
 
-Colors for Site: 
+Colors for Site:
 
 
 */
@@ -141,11 +142,11 @@ input:invalid, textarea:invalid { background-color: #AC0202; color:#FFF; }
 span.error {color:#AC0202; position:absolute; margin-left:10px;}
 
 input, textarea {
-		padding:5px; 
+		padding:5px;
 		font-size:13px;
 		border:none;
 		background:#EEE;
-		box-shadow: inset 1px 1px 6px #999; 
+		box-shadow: inset 1px 1px 6px #999;
 }
 
 legend {padding:10px 15px 0px; font-size:16px; color:#838383; margin-left:-20px;  padding-bottom:5px; border-bottom:1px solid black; width:100%;}
@@ -184,7 +185,7 @@ button, .button {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C52127', endColorstr='#8D0D11',GradientType=0 ); /* IE6-9 */
 }
 
-button:hover, .button:hover { 
+button:hover, .button:hover {
 	background: #ccc; /* Old browsers */
 	background: linear-gradient(top, #ccc 0%,#8c8c8c 100%); /* W3C */
 }
@@ -270,7 +271,7 @@ img {height: auto;}
 
 
 /* ==|== primary styles =====================================================
-   Author: 
+   Author:
    ========================================================================== */
 
 .legal {font-size:10px; color:#838383; line-height:16px;}
@@ -317,7 +318,7 @@ img {height: auto;}
    Print styles.
    Inlined to avoid required HTTP connection: h5bp.com/r
    ========================================================================== */
- 
+
 @media print {
   * { background: transparent !important; color: black !important; box-shadow:none !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
   a, a:visited { text-decoration: underline; }
@@ -334,24 +335,24 @@ img {height: auto;}
 }
 
 /* ==|== Guide styles =======================================================
-   Styling of the style guide only.  Will not effect the site. 
+   Styling of the style guide only.  Will not effect the site.
    ========================================================================== */
-   
+
  .guide section {margin-bottom:20px; padding-bottom:20px;}
  .guide .logo {background:url(../images/logo.png) top left no-repeat; height:65px; width:289px;}
- 
+
  .guide header hgroup h1 {float:left;}
  .guide header hgroup h2 {margin-left:10px; padding-top:20px; color:#444; float:right; font-size:30px;}
- 
+
  .guide section header {background:#ccc; margin-bottom:10px;}
  .guide section header h1 {margin:5px 0px; padding-left:10px; color:#FFF; font-size:20px;}
  .guide section article {padding:30px 0px 30px 0px}
- 
- 
- 
+
+
+
  .guide .colors div {padding:5px 10px;}
- 
- 
+
+
 .guide a.visited { color: #0F5775; }
 .guide a.hover { color: #4B879E; }
 .guide a.focus { outline: thin dotted; }
@@ -370,13 +371,13 @@ img {height: auto;}
 
 
 /* ==|== Site styles ================================================================================================================
-   Styles across the board not depending on Browser or viewport 
+   Styles across the board not depending on Browser or viewport
    ========================================================================== */
 
 header {background:#222;}
   header h1 { color: #FFF; margin:50px 0 50px 0;}
   header h1 a:link,header h1 a:visited { color: #FFF;}
-  
+
 
 
 footer {
@@ -407,9 +408,9 @@ section {
   .mainNav ul ul li a:link, .mainNav ul ul li a:visited {color:#FFF; width:100%; padding:20px;}
   .mainNav ul ul li > a:hover {background:#CCC; color:#000;}
   .mainNav ul li ul {
-      background:black; 
-      margin:0; 
-      padding:0; 
+      background:black;
+      margin:0;
+      padding:0;
       box-shadow:0 0 3px #000;
       position:absolute;
       top:-1000px;
@@ -432,7 +433,7 @@ section {
 @import 'desktop.scss';
 @import 'tablet.scss';
 @import 'mobile.scss';
-@import 'plugins.scss';
+
 
 
 

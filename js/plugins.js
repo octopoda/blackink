@@ -4,7 +4,7 @@
 window.log = function(){
   log.history = log.history || [];   // store logs to an array for reference
   log.history.push(arguments);
-  arguments.callee = arguments.callee.caller;  
+  arguments.callee = arguments.callee.caller;
   if(this.console) console.log( Array.prototype.slice.call(arguments) );
 };
 // make it safe to use console.log always
@@ -78,7 +78,7 @@ border:"none",padding:"5px",opacity:0.6,cursor:"default",color:"#fff",background
 blockMsgClass:"blockMsg"};var j=null,l=[]}})(jQuery);
 
 
-//Open JS Grid 
+//Open JS Grid
 $(function(){$.fn.loadGrid=function(a){return this.each(function(){function c(a){b.data().loadStart&&b.loadStart();b.data("gridLoading",!1);b.data("totalRows",a.nRows);b.data("firstRowShowing",a.start);b.data("lastRowShowing",a.end);b.data("rowData",{});a.colData&&$.each(a.colData,function(a,c){$.each(c,function(c,d){b.data().columnOpts[a]&&(b.data().columnOpts[a][c]=d)})});if(b.data().pager){var c=b.getHeaderRow().find("th[col="+a.order_by+"]").text();if(a.end>a.nRows)a.end=a.nRows;g.find(".gridTotal").html(""+
 a.start+" - "+a.end+" of <span class='nRows'>"+a.nRows+"</span> by "+c+" "+a.sort);$(".nRows").click(function(){$(this).parents(".gridContainer").find(".grid").loadGrid({nRowsShowing:$(this).html()})})}b.find("tr").remove();b.getHeaderRow().find("th[col='#'],th[col='X'],th[col='+']").remove();b.getHeaderRow().find("th");if(a.rows&&"[object Object]"==a.rows.toString()){var e=d.rowClick?d.rowClick:null;$.each(a.rows,function(a,c){a=a.substr(1);if(!b.getHeaderRow().find("[primary_key="+a+"]").length){var d=
 $("<tr primary_key='"+a+"'>");e&&d.click(e);$.each(b.data().columnOpts,function(f,g){var h=c[f];g.currency&&(h=formatMoney(h,g.currency));b.data().columnOpts[f].value=h;if(g.type&&"image"==g.type){var h="<img style='width:100%' src='"+h+"'/>",e=b.getHeaderRow().find("th[col="+f+"]");e.attr("width")||e.attr("width",100)}g.link&&(e="<a target='"+g.linkTarget+"' href='"+g.link+"'>"+h+"</a>",h=e=e.replace("{COL}",f).replace("{VALUE}",h).replace("{ROWID}",a));d.append("<td col='"+f+"'>"+h+"</td>")});b.append(d);
@@ -90,7 +90,7 @@ c,b.data(a,!0))});b.parents(".gridContainer").width(b.data().width);b.parents(".
 (b.data().columnOpts[a.attr("col")]={});b.data().columnOpts[a.attr("col")][d]=c})}),b.data("objectized",!0));if(b.data().pager)var g=b.createPager();b.attr("title")&&!b.parents(".gridContainer").find(".gridTitle").length&&(b.parents(".gridContainer").prepend("<div class='gridTitle'>"+b.attr("title")+"</div>"),b.data().adding?(b.parents(".gridContainer").find(".gridTitle").append("<div class='gridButton gridAdd'><div>Add</div></div>"),b.parents(".gridContainer").find(".gridAdd").click(function(){var a=
 [];$.each(b.data().columnOpts,function(b,c){c.editable&&a.push(b)});$.post(b.attr("action"),{add:!0,cols:a},function(a){b.loadGrid({order_by:a,sort:"DESC"})})})):b.data().addButton&&b.parents(".gridContainer").find(".gridTitle").append("<a href='"+b.data().addButton+"' class='gridButton gridAdd'><div>Add</div></a>"));if(b.data().fullScreen){b.parents(".gridContainer").width("100%");b.parents(".gridContainer").find(".gridHeaderRow").width("100%");b.parents(".gridWrapper").css("max-height","none");
 var e=parseInt(b.find("tr:last").css("height")),i=parseInt(b.parents(".gridContainer").find(".gridHeaderRow th:first").css("padding-top"));b.css("margin-bottom",e+i);g.addClass("fixed");$(window).resize(function(){b.equalizeColumns()})}b.data().resizable&&b.makeResizable();b.data("cols",b.getHeaderRow().find("th[col!='X'][col!='#'][col!='+']").attrJoin("col"));b.data().beforeLoadStart&&b.beforeLoadStart();b.data("gridLoading",!0);$.ajax({url:b.attr("action"),type:"POST",data:{data:b.data(),table:b.attr("sel"),
-load:!0}, dataType:"json",  success:function(a,b,d){$(".data").html(a);$(".data").html(a.colData);c(a,b,d)}})})};$(".gridSearch input[type=text]").live("keyup",function(){var a=$(this).parents(".gridContainer").find(".grid");!1==a.data().justSearched?(a.loadGrid({search:$(this).val(),page:1}),a=$(this).parents(".gridContainer").find(".grid"),a.parents(".gridContainer").find(".gridSearch input").val(search)):a.data("justSearched",!1)}).live("keydown",function(a){var c=$(this).parents(".gridContainer").find(".grid");
+load:!0}, dataType:"json",   success:function(a,b,d){$(".data").html(a);$(".data").html(a.colData);c(a,b,d)}})})};$(".gridSearch input[type=text]").live("keyup",function(){var a=$(this).parents(".gridContainer").find(".grid");!1==a.data().justSearched?(a.loadGrid({search:$(this).val(),page:1}),a=$(this).parents(".gridContainer").find(".grid"),a.parents(".gridContainer").find(".gridSearch input").val(search)):a.data("justSearched",!1)}).live("keydown",function(a){var c=$(this).parents(".gridContainer").find(".grid");
 if("13"==a.keyCode&&(2<$(this).val().length||0==$(this).val().length))c.data("justSearched",!0),c.loadGrid({search:$(this).val(),page:1})});$(".nRowsShowing").live("keydown",function(a){13==a.keyCode&&0<parseInt($(this).val())&&($(this).parents(".gridContainer").find(".grid").loadGrid({nRowsShowing:$(this).val()}),a.preventDefault())}).live("keyup",function(){$(this).parents(".gridContainer").find(".grid").parents(".gridContainer").find(".nRowsShowing").val($(this).val())});$(".gridHeaderRow th").live("click",
 function(a){var c=$(this).parents(".gridContainer").find(".grid"),d=!0;c.find("tr.toBeSaved").length&&c.data().confirmBeforeSort&&(d=confirm("You have unsaved changes on the grid, if you continue those changes will be lost. Continue?"));!$(a.target).hasClass("colHandle")&&d&&c.data().clickToSort&&(a="DESC"==c.data().sort?"ASC":"DESC",c.loadGrid({sort:a,order_by:$(this).attr("col")}))});$(".gridHeaderRow th").live("mousedown",function(a){if(3!=a.which)return!1});$(".gridHeaderRow th").live("contextmenu",
 function(a){var c=$(this),d=$(this).parents(".gridContainer").find(".grid");0<$(".gridContext").length&&$(".gridContext").remove();var b="checkbox"==d.data().columnOpts[$(this).attr("col")].editable?"block":"none",e=!1,g=null,i=null,f=null,h=null,k=null;$(this).getTdsFromTh().each(function(a){var b=$(this).find("input").length?$(this).find("input").val():$(this).text();-1==b.search(/^[\d.\$\u00db\u00a3\u00b4\u00a3]*$/)&&(e=!0);b=parseFloat(b.replace(/[\$\u00db\u00a3\u00b4]/,""));g+=b;h||(h=b);f=b>
@@ -140,13 +140,13 @@ function addCommas(a){var c=a.split(".",2),a=c[1],c=parseInt(c[0]);if(isNaN(c))r
 			height: '',
 			width: '60%'
 		};
-		
+
 		options = $.extend(defaults, options);
 		var $object = $(this);
-		
+
 		$object.before('<div id="mask"><div>');
 		var $placement = 'center';
-		
+
 	//Load Modal based on Style
 		if (defaults.style === 'error') {
 			$object.html('<div class="text">'+defaults.text+'<div>'); //Add Text tag to Modal
@@ -158,50 +158,50 @@ function addCommas(a){var c=a.split(".",2),a=c[1],c=parseInt(c[0]);if(isNaN(c))r
 			modalMessage(); //Load Modal as an Message
 		} else if (defaults.style === 'html') {
 			$object.html('<div class="text">'+ defaults.text +'</div>'); //Add HTML wrapper for AJAX
-			
+
 			modalHTML(); //Load Modal as HTML
 		}
-		
-		
-		
+
+
+
 	//Modal Errors
 		function modalError() {
 			//Add and remove Classes to call CSS
 			$object.removeClass();
 			$object.addClass('error');
 			$object.addClass('modal');
-			
+
 			//If Default option to report Error is true print report error button
 			//if (defaults.reportError == true) {
 			$object.children('.text').after('<a class="reportError button">Report Error</a>');
 			//}
 			modal(); //Show Modal
 		}
-	
-	
+
+
 	//Modal Messages
 		function modalMessage($text) {
 			//Add and remove Classes to call CSS
 			$object.removeClass();
 			$object.addClass('message');
 			$object.addClass('modal');
-			
+
 			modal(); //Load Modal
-			
+
 			$object.delay(3000).fadeOut(200, function () {
 				clearModal();
 			});
 		}
-		
-		
+
+
 	//Modal AJAX
 		function modalHTML() {
 			//Add and remove Classes to call CSS
 			$object.removeClass();
 			$object.addClass('html');
 			$object.addClass('modal');
-			
-			
+
+
 			//AJAX Load the URL
 			$.ajax({
 				type: 'POST',
@@ -217,17 +217,17 @@ function addCommas(a){var c=a.split(".",2),a=c[1],c=parseInt(c[0]);if(isNaN(c))r
 				}
 			});
 		}
-		
+
 	//Function to load modal and display it.
 		function modal () {
 			//Center Placement
 			if ($placement === 'center') {
-				
-				
+
+
 				//Set the popup window to center
 				$object.css('width', defaults.width);
 				$object.css('height', defaults.height);
-				
+
 				_height = $(window).scrollTop();
 
 				$('.mask').css({
@@ -239,52 +239,52 @@ function addCommas(a){var c=a.split(".",2),a=c[1],c=parseInt(c[0]);if(isNaN(c))r
 					top: (($(window).height()/2) - (defaults.height/2)) + _height,
 					left: ($(window).width()/2) - (defaults.width/2)
 				});
-	
-				
+
+
 				//transition effect
 				$('#mask').fadeIn(1000);
 				$('#mask').fadeTo('slow', 0.6);
-				
-				
+
+
 				$object.css({
 					top: ($(window).height()/4),
 					left: $(window).width()/2-$object.width()/2
 				});
-				
+
 				$object.children('.text').before('<a class="close"></a>');
-				
+
 				_left = $object.offset().left;
 				_objectW = $object.outerWidth() - 15;
 				var _totalLeft = _objectW + _left;
-				
+
 				_top = $object.offset().top;
 				_objectH = 35/2;
 				var _totalTop = _top-_objectH;
-				
-				
+
+
 				$object.children('a.close').css({
 					left: _totalLeft,
 					top: _totalTop
 				});
 			}
-			
+
 			//transition effect
 			$object.fadeIn(1000);
-			
+
 		}
-		
+
 		//Click of the close button.  Clear modal and run callback function
 		$('.modal .close').live('click', function () {
 			clearModal();
 			defaults.cancel.call(this);
 		});
-	
+
 		//Click of the background.  Clear Modal and run callback function
 		$('#mask').live('click', function() {
 			clearModal();
 			defaults.cancel.call();
 		});
-		
+
 		//Clear the modal and remove all classes
 		function clearModal() {
 			//Send Ajax to clear modal
@@ -303,14 +303,14 @@ function addCommas(a){var c=a.split(".",2),a=c[1],c=parseInt(c[0]);if(isNaN(c))r
 				}
 			});
 		}
-		
-		
+
+
 	};
 })(jQuery);
 
-	
-	
 
 
-			
+
+
+
 
