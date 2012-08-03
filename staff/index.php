@@ -9,9 +9,6 @@
 	$nav = new AdminNavigation();
 	$site = new Site();
 
-  if (isset($_GET['href'])) {
-    echo $_GET['href'].'.php';
-  }
 ?>
 
 <section id="siteWrapper">
@@ -38,29 +35,7 @@
     <section id="main" class="clearfix row">
 
         <article id="content">
-            <?php
-              if (isset($_GET['href'])) { ?>
-              <script>
-              window.onload = function () {
-                $.ajax({
-                    url: '/staff/<?php echo $_GET['href'].".php" ?>',
-                    onSubmit: $('#content').html('<p><img src="/images/admin/ajax-loader.gif" alt="loading cursor"/>loading....</p>'),
-                    success: function(data) {
-                      getErrors();
-                      $('#content').html(data);
-                    },
-                    error:function(xhr, status, errorThrown) {
-                            alert('The Page was not Found');
-                        }
-                });
-              }
-              </script>
-            <?php
-              } else {
-                require_once('forms/dashboard.php');
-              }
-
-            ?>
+            <?php require_once('forms/dashboard.php'); ?>
         </article>
         <aside id="sidebar">
         	 <h4>Need some help? </h4>
