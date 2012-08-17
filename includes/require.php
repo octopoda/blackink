@@ -11,10 +11,12 @@
 	require_once(CLASS_PATH.DS. "menus.php");
 	require_once(CLASS_PATH.DS. "mobileDetect.php");
 	require_once(CLASS_PATH.DS. "contactInformation.php");
-	require_once(PLUGIN_LIB.DS. "siteDisplay.php");
+	require_once(CLASS_PATH.DS. "moduledecoder.php");
+	require_once(CLASS_PATH.DS. "installer.php");
+	require_once(CLASS_PATH.DS. "contactInformation.php");
 
 
-	// //Admin
+	//Admin
 	require_once(ADMIN_PATH.DS. 'grid.php');
 
 	// //Mail
@@ -22,7 +24,7 @@
 	require_once(MAIL_PATH.DS. 'class.smtp.php');
 
 	//Plugins
-
+	require_once(PLUGIN_LIB.DS. "siteDisplay.php");
 
 	//SDK
 
