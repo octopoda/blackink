@@ -5,8 +5,8 @@
 <p>Put information about use here.</p>
 
 <table class="grid editable" action="/ajax/grid_ajax.php" title="Default" sel="users">
-    <tr>	
-        <th col="name" width="150" link="forms/users/info_users.php">Title</th>
+    <tr>
+        <th col="name" width="150" link="forms/users/info_users.php">Name</th>
         <th col="email" width="100">email</th>
         <?php if ($users->access > 4) : ?>
         <th col="access" width="100" editable="select">Access</th>

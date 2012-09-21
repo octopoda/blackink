@@ -15,7 +15,14 @@
 
 		public function __construct($code) {
 			$this->code = $code;
-			$this->findModule();
+
+			if ($this->findModule()) {
+				echo $this->final;
+			} else {
+				echo $this->code;
+			};
+
+
 		}
 
 		private function findModule() {
@@ -44,7 +51,7 @@
 			//echo '<pre>'.$this->class.'</pre>';
 
 			if ($this->class != false) {
-				$this->runModule();
+				return $this->runModule();
 			} else {
 				return false;
 			}
@@ -56,6 +63,8 @@
 			$this->final = substr($this->code, 0, $this->startPos);
 			$this->final .= $class->displayModule($this->title);
 			$this->final .= substr($this->code, $this->endPos+2);
+
+			return $this->final;
 		}
 
 

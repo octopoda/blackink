@@ -122,6 +122,15 @@ if (isset($_POST['reportError'])) {
 	echo 'forms/dashboard.php';
 }
 
+if (isset($_POST['userGroups'])) {
+
+	if (isset($_POST['group_id'])) $id = $_POST['group_id'];
+	$ug = new userGroups($id);
+
+	$created = $ug->createFromForm($_POST);
+
+	echo $_POST['userGroups'].$created;
+}
 
 
 

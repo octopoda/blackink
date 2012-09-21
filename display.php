@@ -1,6 +1,8 @@
-<?php 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php'); 
+<?php
+	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php');
 	require_once($_SERVER['DOCUMENT_ROOT']. '/includes/header.php');
+
+
 ?>
 <section class="mainContent">
 	<div class="row">
@@ -8,8 +10,8 @@
            	<h1><?php $display->displayTitle(); ?></h1>
             <?php $display->displayContent(); ?>
         </article>
-        
-        
+
+
         <aside class="fourcol last">
             <?php include(MODULES.'sidebar.php'); ?>
         </aside>
@@ -17,5 +19,4 @@
 </section>
 
 
-<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>        
-       
+<?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/footer.php'); ?>

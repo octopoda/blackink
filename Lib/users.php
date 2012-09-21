@@ -66,12 +66,12 @@
 		private function getAccess() {
 			global $db;
 
-			$sql = "SELECT G.group_id, UG.groupname FROM userInGroups G INNER JOIN userGroups UG ON G.group_id = UG.group_id WHERE G.user_id  = {$this->user_id} LIMIT 1";
+			$sql = "SELECT  UG.position FROM userInGroups G INNER JOIN userGroups UG ON G.group_id = UG.group_id WHERE G.user_id  = {$this->user_id} LIMIT 1";
 			$result_set = $db->queryFill($sql);
 
 			if ($result_set != false) {
 				foreach($result_set as $row) {
-					$this->access = $row['group_id'];
+					$this->access = $row['position'];
 				}
 			}
 		}

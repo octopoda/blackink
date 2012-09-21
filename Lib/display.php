@@ -52,7 +52,6 @@
 			} else {
 				$this->user = new Users();
 			}
-
 			$this->user_access = $this->user->access;
 		}
 
@@ -207,7 +206,6 @@
 		private function contentRequest($classname) {
 			$class = new $classname();
 			$id = $class->idFromLink($this->contentTitle);
-
 			$this->content = new $class($id);
 
 
@@ -243,6 +241,7 @@
 		public function displayContent() {
 			if ($this->content->access <= $this->user->access) {
 				$module = new ModuleDecoder($this->content->content);
+
 
 				if ($module != false) {
 					echo $module->final;

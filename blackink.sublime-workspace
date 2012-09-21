@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"fet",
+				"fetchById  (function)"
+			],
+			[
 				"e",
 				"else"
 			],
@@ -60,50 +64,58 @@
 	"buffers":
 	[
 		{
-			"file": "lib/functions.php",
+			"file": "lib/userGroups.php",
 			"settings":
 			{
-				"buffer_size": 2147,
+				"buffer_size": 3262,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "staff/.htaccess",
+			"file": "lib/navigation.php",
 			"settings":
 			{
-				"buffer_size": 19218,
+				"buffer_size": 12893,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "staff/index.php",
+			"file": "lib/databaseObject.php",
 			"settings":
 			{
-				"buffer_size": 1348,
+				"buffer_size": 13963,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "staff/includes/header.php",
+			"file": "staff/forms/admin/list_roles.php",
 			"settings":
 			{
-				"buffer_size": 1477,
+				"buffer_size": 606,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "staff/handlers/navigation.php",
+			"file": "staff/forms/admin/form_roles.php",
 			"settings":
 			{
-				"buffer_size": 269,
+				"buffer_size": 987,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "js/admin/admin_functions.js",
+			"file": "ajax/grid_ajax.php",
 			"settings":
 			{
-				"buffer_size": 16567,
+				"buffer_size": 3645,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/plugins.js",
+			"settings":
+			{
+				"buffer_size": 50367,
 				"line_ending": "Unix"
 			}
 		}
@@ -216,20 +228,38 @@
 	},
 	"file_history":
 	[
+		"/Users/phuzion/Sites/blackink/ajax/admin/admin_form_submit.php",
+		"/Users/phuzion/Sites/blackink/lib/ads.php",
+		"/Users/phuzion/Sites/blackink/lib/users.php",
+		"/Users/phuzion/Sites/blackink/lib/content.php",
+		"/Users/phuzion/Sites/blackink/lib/menus.php",
+		"/Users/phuzion/Sites/blackink/js/plugins.js",
+		"/Users/phuzion/Sites/blackink/ajax/grid_ajax.php",
+		"/Users/phuzion/Sites/blackink/plugins/lib/sitedisplay.php",
+		"/Users/phuzion/Sites/blackink/lib/display.php",
+		"/Users/phuzion/Sites/blackink/lib/databaseObject.php",
+		"/Users/phuzion/Sites/blackink/ajax/ajax_submit.php",
+		"/Users/phuzion/Sites/blackink/staff/forms/admin/info_roles.php",
+		"/Users/phuzion/Sites/blackink/lib/grid.php",
+		"/Users/phuzion/Sites/blackink/lib/installer.php",
+		"/Users/phuzion/Sites/blackink/staff/forms/users/info_users.php",
+		"/Users/phuzion/Sites/blackink/display.php",
+		"/Users/phuzion/Sites/blackink/lib/navigation.php",
+		"/Users/phuzion/Sites/blackink/lib/moduledecoder.php",
+		"/Users/phuzion/Sites/blackink/staff/handlers/navigation.php",
+		"/Users/phuzion/Sites/blackink/staff/includes/header.php",
+		"/Users/phuzion/Sites/blackink/staff/index.php",
+		"/Users/phuzion/Sites/blackink/staff/.htaccess",
+		"/Users/phuzion/Sites/blackink/lib/functions.php",
+		"/Users/phuzion/Sites/blackink/js/admin/admin_functions.js",
 		"/Users/phuzion/Sites/blackink/.htaccess",
 		"/Users/phuzion/Sites/blackink/lib/web_config.php",
 		"/Users/phuzion/Sites/blackink/includes/require.php",
 		"/Users/phuzion/Sites/blackink/staff/includes/admin_require.php",
-		"/Users/phuzion/Sites/blackink/lib/grid.php",
-		"/Users/phuzion/Sites/blackink/js/plugins.js",
 		"/Users/phuzion/Sites/blackink/lib/mailer/docs/Callback_function_notes.txt",
 		"/Users/phuzion/Sites/blackink/css/sass/basic.scss",
-		"/Users/phuzion/Sites/blackink/staff/includes/header.php",
-		"/Users/phuzion/Sites/blackink/lib/users.php",
 		"/Users/phuzion/Sites/blackink/staff/css/plugins.css",
 		"/Users/phuzion/Sites/blackink/staff/css/plugins.scss",
-		"/Users/phuzion/Sites/blackink/ajax/admin/admin_form_submit.php",
-		"/Users/phuzion/Sites/blackink/staff/forms/users/info_users.php",
 		"/Users/phuzion/Sites/blackink/staff/forms/users/form_users.php",
 		"/Users/phuzion/Sites/blackink/users/join.php",
 		"/Users/phuzion/Sites/blackink/includes/header.php",
@@ -241,16 +271,12 @@
 		"/Users/phuzion/Sites/blackink/css/plugins.scss",
 		"/Users/phuzion/Sites/blackink/testing_video.html",
 		"/Users/phuzion/Sites/blackink/includes/footer.php",
-		"/Users/phuzion/Sites/blackink/lib/display.php",
 		"/Users/phuzion/Sites/blackink/plugins/lib/siteDisplay.php",
-		"/Users/phuzion/Sites/blackink/lib/content.php",
 		"/Users/phuzion/Sites/2721/css/position.css",
 		"/Users/phuzion/Sites/blackink/index.php",
 		"/Users/phuzion/Sites/blackink/css/basic.css",
-		"/Users/phuzion/Sites/blackink/staff/index.php",
 		"/Users/phuzion/Sites/blackink/modules/sidebar.php",
 		"/Users/phuzion/Sites/2721/css/default.css",
-		"/Users/phuzion/Sites/blackink/lib/navigation.php",
 		"/Users/phuzion/Sites/innovation/lib/display.php",
 		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/HtmlTidy/HtmlTidy.sublime-settings",
 		"/Users/phuzion/Sites/innovation/plugins/libs/drugs.php",
@@ -329,13 +355,7 @@
 		"/Users/phuzion/Sites/innovation/orders.php",
 		"/Users/phuzion/Sites/innovation/contact_us.php",
 		"/Users/phuzion/Sites/innovation/my_order.php",
-		"/Users/phuzion/Sites/innovation/order_complete.php",
-		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/demo.css",
-		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/demo.html",
-		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/demo.js",
-		"/Users/phuzion/Desktop/PawelDecowski-jQuery-CreditCardValidator-7d926cb/jquery.creditCardValidator.js",
-		"/Users/phuzion/Sites/innovation/review.php",
-		"/Users/phuzion/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
+		"/Users/phuzion/Sites/innovation/order_complete.php"
 	],
 	"find":
 	{
@@ -343,7 +363,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 95.0,
 		"where_history":
 		[
 			"/Users/phuzion/Sites/blackink",
@@ -362,6 +382,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"importance",
+			"SELECT UG.importance FROM userInGroups G INNER JOIN userGroups UG ON G.group_id = UG.group_id WHERE G.user_id = 1 LIMIT 1",
+			"navigation_id",
+			"first",
+			"First",
+			"first",
+			"user_id",
+			"*/,",
+			"position;",
+			"$position",
+			"$newPosition",
+			"$posHigh",
+			"$posLow",
+			"$this->navigation_id",
+			"Position",
+			"position",
+			"Position",
+			"position",
 			"password",
 			"passwrod",
 			"SELECT keyword, K.keyword_id FROM keywords K JOIN keywordsForContent",
@@ -443,23 +481,23 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "lib/functions.php",
+					"file": "lib/userGroups.php",
 					"settings":
 					{
-						"buffer_size": 2147,
+						"buffer_size": 3262,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								16,
-								16
+								1055,
+								1055
 							]
 						],
 						"settings":
@@ -476,82 +514,94 @@
 				},
 				{
 					"buffer": 1,
-					"file": "staff/.htaccess",
+					"file": "lib/navigation.php",
 					"settings":
 					{
-						"buffer_size": 19218,
+						"buffer_size": 12893,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								11709,
-								11709
+								8889,
+								9786
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"is_xml": false,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4099.0,
+						"translation.y": 4798.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "staff/index.php",
+					"file": "lib/databaseObject.php",
 					"settings":
 					{
-						"buffer_size": 1348,
+						"buffer_size": 13963,
 						"regions":
 						{
+							"TagLint":
+							{
+								"flags": 52,
+								"icon": "dot",
+								"regions":
+								[
+									[
+										8940,
+										8944
+									]
+								],
+								"scope": "variable.parameter"
+							}
 						},
 						"selection":
 						[
 							[
-								811,
-								811
+								8833,
+								8833
 							]
 						],
 						"settings":
 						{
 							"is_xml": false,
 							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4198.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "staff/includes/header.php",
+					"file": "staff/forms/admin/list_roles.php",
 					"settings":
 					{
-						"buffer_size": 1477,
+						"buffer_size": 606,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1188,
-								1188
+								428,
+								428
 							]
 						],
 						"settings":
 						{
 							"is_xml": false,
 							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
-							"tab_size": 2,
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -562,25 +612,26 @@
 				},
 				{
 					"buffer": 4,
-					"file": "staff/handlers/navigation.php",
+					"file": "staff/forms/admin/form_roles.php",
 					"settings":
 					{
-						"buffer_size": 269,
+						"buffer_size": 987,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								617,
+								617
 							]
 						],
 						"settings":
 						{
 							"is_xml": false,
 							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -590,27 +641,54 @@
 				},
 				{
 					"buffer": 5,
-					"file": "js/admin/admin_functions.js",
+					"file": "ajax/grid_ajax.php",
 					"settings":
 					{
-						"buffer_size": 16567,
+						"buffer_size": 3645,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								495,
-								495
+								3545,
+								3545
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"is_xml": false,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 188.0,
+						"translation.y": 143.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "js/plugins.js",
+					"settings":
+					{
+						"buffer_size": 50367,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								30148,
+								30148
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 5.0,
+						"translation.y": 913.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -660,6 +738,42 @@
 		"selected_items":
 		[
 			[
+				"naviat",
+				"lib/navigation.php"
+			],
+			[
+				"use",
+				"lib/users.php"
+			],
+			[
+				"ad",
+				"lib/ads.php"
+			],
+			[
+				"site",
+				"plugins/lib/sitedisplay.php"
+			],
+			[
+				"dis",
+				"lib/display.php"
+			],
+			[
+				"us",
+				"lib/users.php"
+			],
+			[
+				"data",
+				"lib/databaseObject.php"
+			],
+			[
+				"mode",
+				"lib/moduledecoder.php"
+			],
+			[
+				"dispa",
+				"display.php"
+			],
+			[
 				"grid",
 				"lib/grid.php"
 			],
@@ -676,16 +790,8 @@
 				"lib/mailer/docs/Callback_function_notes.txt"
 			],
 			[
-				"use",
-				"lib/users.php"
-			],
-			[
 				"plug",
 				"js/plugins.js"
-			],
-			[
-				"dis",
-				"lib/display.php"
 			],
 			[
 				"disl",
