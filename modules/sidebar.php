@@ -1,9 +1,13 @@
- <form id="form" method="GET" action="/search.php"  class="search">
-    <input type="search" name="h" id="search" />
-    <button id="searchButton">Search</button>
-</form>
+ <?php
+    $site = new Site();
+    print_r($site->configuration);
+    if ($site->configuration['Search'] == 1) { ?>
+    <form id="form" method="GET" action="/search.php"  class="search">
+        <input type="search" name="h" id="search" />
+        <button id="searchButton">Search</button>
+    </form>
+<?php } ?>
 
 
-<h3 class="newsHeader">Recent News</h3>
 <?php include(MODULES.'news.php'); ?>
 <?php $display->randomAd('Side Bar'); ?>

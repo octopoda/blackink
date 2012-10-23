@@ -183,6 +183,27 @@
 			$db->query("UPDATE users SET last_login = '{$date}', prev_login = '{$last}'  WHERE user_id = '{$this->user_id}'");
 		}
 
+		public static function checkAccess($accessNeeded, $user_id) {
+			global $db;
+
+			$user = new Users($user_id);
+			$accessId = 0;
+
+			$result = $db->queryFill("SELECT group_id FROM userGroups WHERE groupname = '{$accessNeeded}'");
+			if ($result != false) {
+				foreach ($result as $row) {
+					$accessId = $row['group_id'];
+				}
+			}
+
+
+			if ($user->access >= $accessId) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 
 /* =======================================
 	Registration Methods

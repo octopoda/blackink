@@ -11,10 +11,16 @@ class SiteDisplay extends display {
 	}
 
 	public function displayNews() {
+			$site = new Site();
+
+			if ($site->configuration['News'] != 1) {
+				return;
+			}
+
 			$news = new News();
 			$news->listNews(3);
-
-			$html = '<ul class="news">';
+			$html = '<h3 class="newsHeader">Recent News</h3>';
+			$html .= '<ul class="news">';
 			foreach ($news->newsList as $item) {
 				$item->summary = strip_tags($item->summary);
 
@@ -31,10 +37,14 @@ class SiteDisplay extends display {
 		}
 
 	public function displayAds($placement) {
+			$site = new Site();
+
+			if ($site->configuration['Ads'] != 1) {
+				return;
+			}
+
 			$ads = new Ads();
 			$ads->listAds();
-
-
 
 			$adDisplay = '<div class="scroll">';
 			foreach($ads->adList as $item) {
@@ -58,6 +68,12 @@ class SiteDisplay extends display {
 		}
 
 	public function randomAd($placement) {
+			$site = new Site();
+
+			if ($site->configuration['Ads'] != 1) {
+				return;
+			}
+
 			$ads = new Ads();
 			$ads->listAds();
 			$max = count($ads->adList) -1;

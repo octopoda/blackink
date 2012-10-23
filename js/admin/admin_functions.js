@@ -355,6 +355,20 @@
 		//}
 	});
 
+	//Turn on/off Site Config
+	$('#siteOnOff').live('change', function (e) {
+		_val = $(this).val();
+		_key = $(this).attr('data-name');
+		$.ajax({
+			url: '/ajax/admin/admin_functionality.php',
+			type: 'POST',
+			data: {'siteConfigOnOff': _val, 'siteConfigName': _key},
+			success: function (data) {
+				$('.data').html(data);
+			}
+		});
+	});
+
 
 /* ===========================================
 	Error Methods
@@ -370,10 +384,10 @@
 				$('#dialog').modal({
 					style: data.style,
 					text: data.text,
-					reportError: data.reportError,
+					reportError: data.reportError
 				});
 			}
-		})
+		});
 	}
 
 	function postError(type, text) {
