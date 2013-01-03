@@ -426,11 +426,11 @@
 		e.preventDefault();
 
 		$(this).find('[placeholder]').each(function() {
-    		var input = $(this);
-    		if (input.val() == input.attr('placeholder')) {
-      			input.val('');
-    		}
-  		});
+			var input = $(this);
+			if (input.val() == input.attr('placeholder')) {
+				input.val('');
+			}
+		});
 
 		var $this = $(this);
 		validate($this);
@@ -459,7 +459,7 @@
 			data: $datastring,
 			beforeSubmit: $('.data').html('loading....'),
 			success: function (data) {
-				//$('.data').html(data);
+				$('.data').html(data);
 				redirectTo(data);
 			},
 			error: function(xhr, textStatus, errThrown) {

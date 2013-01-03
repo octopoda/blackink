@@ -145,7 +145,7 @@
 	========================================= */
 
 		//Create From Form
-		public function createNavigationFromForm($post) {
+		public function createFromForm($post) {
 			global $error;
 			global $db;
 

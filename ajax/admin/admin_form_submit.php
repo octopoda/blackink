@@ -4,58 +4,19 @@
 
 //echo 'hello';
 
-if (isset($_POST['siteForm'])) {
-	$site = new Site();
+if (isset($_POST['create'])) {
+	$classname  =  $_POST['class'];
+	$classId = $classname . "_id";
+	$id = null;
 
-	if ($site->createFromForm($_POST)) {
-		echo $_POST['siteForm'];
-	} else {
-		return false;
-	}
+	if (isset($_POST[$classId])) $id = $_POST[$classId];
+
+	$class = new $classname($id);
+	$created = $class->createFromForm($_POST);
+
+	echo $_POST['create'].$created;
 }
 
-if (isset($_POST['contactForm'])) {
-	$contact = new contactInformation();
-
-	$contact->createFromForm($_POST);
-
-	echo $_POST['contactForm'];
-}
-
-if (isset($_POST['socialForm'])) {
-	$social = new Social();
-
-	$social->createSocialFromForm($_POST);
-
-	echo $_POST['socialForm'];
-}
-
-
-if (isset($_POST['addMenu'])) {
-	$menu = new Menus();
-
-	$menu->createMenuFromForm($_POST);
-
-	echo $_POST['addMenu'];
-}
-
-if (isset($_POST['addNavigation'])) {
-	if (isset($_POST['navigation_id'])) $id = $_POST['navigation_id'];
-
-	$navigation = new Navigation($id);
-	$navigation->createNavigationFromForm($_POST);
-
-	echo $_POST['addNavigation'].$_POST['menu_id'];
-}
-
-if (isset($_POST['addContent'])) {
-	if (isset($_POST['content_id'])) $id = $_POST['content_id'];
-	$content = new Content($id);
-
-	$created = $content->createContentFromForm($_POST);
-
-	echo $_POST['addContent'].$created;
-}
 
 if (isset($_POST['addUser'])) {
 	global $error;
@@ -83,14 +44,6 @@ if (isset($_POST['updateUser'])) {
 	echo $_POST['updateUser'];
 }
 
-if (isset($_POST['addNews'])) {
-	if (isset($_POST['news_id'])) $id = $_POST['news_id'];
-	$news = new News();
-
-	$created = $news->createNewsFromForm($_POST);
-
-	echo $_POST['addNews'];
-}
 
 if (isset($_POST['changePassword'])) {
 	global $error;
@@ -103,15 +56,7 @@ if (isset($_POST['changePassword'])) {
 
 }
 
-if (isset($_POST['addAds'])) {
-	global $error;
-	if (isset($_POST['ad_id'])) $id = $_POST['ad_id'];
-	$ads = new Ads($id);
 
-	$created = $ads->createAdsFromForm($_POST);
-
-	echo $_POST['addAds'];
-}
 
 if (isset($_POST['reportError'])) {
 

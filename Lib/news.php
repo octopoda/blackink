@@ -72,7 +72,7 @@
 	==================================== */
 
 	//CRU
-	public function createNewsFromForm($post) {
+	public function createFromForm($post) {
 		global $error;
 
 		$this->fillFromForm($post);
@@ -86,7 +86,7 @@
 		$news_id = $this->save($this->news_id);
 
 		if (isset($news_id)) {
-			return true;
+			return $news_id;
 		} else {
 			$error->addError('The information did not save.', 'News1284');
 		}

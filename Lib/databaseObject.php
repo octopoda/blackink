@@ -272,7 +272,7 @@ abstract class databaseObject {
             global $db;
            //echo "updating<br />";
 
-			$attributes = $this->attributes();
+			$attributes = $this->cleanAttributes();
 			$attribute_pairs = array();
 			foreach($attributes as $key => $value) {
                 if ($key != $this->idfield)

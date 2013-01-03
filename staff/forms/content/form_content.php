@@ -1,14 +1,14 @@
-<?php 
+<?php
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/staff/includes/admin_require.php');
-	
+
 	if (!empty($_GET['sel'])) {
 		$content = new Content($_GET['sel']);
 		$modContent = new Content($_GET['sel']);
-		
-		$action = "Update Content";	
+
+		$action = "Update Content";
 		$user = new Users($content->user_id);
 		$content->modified_by = $users->user_id;
-		
+
 		if (!empty($modContent->modified_by)) {
 			$modUsers = new Users($modContent->modified_by);
 			$modName = $modUsers->printName();
@@ -16,21 +16,21 @@
 		}
 	} else {
 		$content = new Content();
-		$action = "Insert Content";	
+		$action = "Insert Content";
 		$user = new Users($users->user_id);
 	}
-	
+
 	echo $content->pushToForm();
 	echo $user->pushToForm();
 	$infoKey = md5(time().rand());
 	$otherKey = md5(time().rand());
-	
+
 ?>
 <script src="/js/mylibs/ajaxupload.js"></script>
 
 <ul class="quickMenu">
 	<li><a href="/preview.php" class="preview" target="_blank">
-    		<span class="ninjaSymbol ninjaSymbolWatch"></span> 
+    		<span class="ninjaSymbol ninjaSymbolWatch"></span>
         	<span class="text">Preview</span>
          </a></li>
 </ul>
@@ -51,9 +51,9 @@
                     <option value="0">Unpublished</option>
                     <option value="1">Published</option>
                 </select>
-                
+
             </p>
-            
+
             <p class="new">
             	<label for="access">Access:</label>
 				<?php echo $content->accessDropDown($content->content_id) ?>
@@ -70,30 +70,31 @@
             	<textarea name="content" id="<?php echo $infoKey ?>" class="editorContent required"><?php echo $content->content; ?></textarea>
                 <input type="hidden" id="content" />
             </p>
-            
+
             <p>
             	<label for="keywords">Keywords: (seperate with comma)</label>
                 <input type="text" name="keywords" id="keywords" value="<?php echo (!empty($content->printKeywords)) ? $content->printKeywords : ''; ?>" />
             </p>
-            
+
             <p class="textarea">
             	<label for="content">Content Summary (1 Paragraph about your content)</label>
             	<textarea name="summary" id="<?php echo $otherKey ?>" class="editorSummary required"><?php echo $content->summary; ?></textarea>
                 <input type="hidden" id="summary" />
             </p>
-     	      
-            <p>	
+
+            <p>
             	<input type="hidden" name="content_id" id="content_id" />
                 <input type="hidden" name="user_id" id="user_id" />
                 <input type="hidden" name="modified_by" id="modified_by"  />
-                <input type="hidden" name="addContent" id="addContent" value="forms/content/info_content.php?sel=" />
+                <input type="hidden" name="class" id="class" value="content">
+                <input type="hidden" name="create" id="create" value="forms/content/info_content.php?sel=" />
                 <button><?php echo $action; ?></button>
             </p>
-            
+
         </fieldset>
     </form>
-    
-    
+
+
 </div>
 
 
@@ -116,13 +117,13 @@
 		theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "center",
         theme_advanced_resizing : true,
-		
+
 		content_css : "/css/tiny_styles.css",
-		
+
 		width: "600",
 		height: "400"
 	});
-	
+
 	tinyMCE.init({
         // General options
         mode : "textareas",
@@ -137,15 +138,15 @@
 		theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "center",
         theme_advanced_resizing : true,
-		
+
 		content_css : "/css/tiny_styles.css",
-		
+
 		width: "600",
 		height: "400"
 	});
-	
+
 	tinyMCE.triggerSave();
-	
+
 	var btnUpload=$('.uploadImageContent');
 	var button = $('.uploadImageContent').html();
 
@@ -156,33 +157,33 @@
 		onSubmit: function(file, ext){
 			btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
 			content = $('.editor').val();
-			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){ 
+			if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){
 				// extension is not allowed
 				alert('Only JPG, PNG, GIF,  files are allowed');
-				btnUpload.html(button);			
+				btnUpload.html(button);
 				return false;
 			}
-			
+
 			if (file.length > 59) {
 				alert('The file name is too long. Please keep the file name under 60 characters.');
-				btnUpload.html(button);			
-				return false;	
-			}
-			
-			if (file.indexOf(' ') > 0) {
-				alert('Please remove the spaces from the file name.')
-				btnUpload.html(button);			
+				btnUpload.html(button);
 				return false;
 			}
-			
+
+			if (file.indexOf(' ') > 0) {
+				alert('Please remove the spaces from the file name.')
+				btnUpload.html(button);
+				return false;
+			}
+
 		},
 		onComplete: function(file, response){
 			var ed = tinyMCE.get('<?php echo $infoKey ?>');      // get editor instance
 			var newNode = ed.getDoc().createElement ( "img" );   // create img node
 			newNode.src= response;                            // add src attribute
 			ed.execCommand('mceInsertContent', false, newNode.outerHTML)
-			btnUpload.html(button);			
+			btnUpload.html(button);
 		}
 	});
-		
+
 </script>

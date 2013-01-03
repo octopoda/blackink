@@ -1,23 +1,23 @@
-<?php 
-	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php'); 
-	
+<?php
+	require_once($_SERVER['DOCUMENT_ROOT']. '/staff/includes/admin_require.php');
+
 	if (isset($_GET['sel'])) {
-		
+
 	} else {
-		
+
 	}
-	
+
 	$menu = new Menus();
 	$link = '/staff/forms/navigation/menus.php';
-	
+
 ?>
 
 <script>
 	$(function () {
 		$('#addMenu').hide();
-		
+
 		$('.quickMenu .addMenu').click(function () {
-			$('#addMenu').slideDown(800);	
+			$('#addMenu').slideDown(800);
 		})
 	});
 </script>
@@ -46,8 +46,8 @@
             </tr>
         </thead>
     	<tbody>
-    
-	<?php  
+
+	<?php
 		$menu->listMenus();
 		if ($menu->menuList != false) {
 		foreach ($menu->menuList as $list) {	?>
@@ -61,7 +61,7 @@
                 <td>&nbsp;</td>
 				<? endif ?>
 			</tr>
-	
+
 	<?php } } else {?>
     		<tr>
             	<td colspan="4">There are no menus in your database.  Please add a menu.</td>
@@ -89,7 +89,7 @@
 			<select name="published" id="published">
 				<option value="0">Unpublished</option>
 				<option value="1">Published</option>
-			</select>	
+			</select>
 		</p>
 		<p class="new">
 			<label for="access">Access:</label>
@@ -98,7 +98,8 @@
 		</div>
 		<p>
 			<button type="submit">Add Menu</button>
-            <input type="hidden" name="addMenu" value="<?php echo $link ?>" />
+            <input type="hidden" name="class" id="class" value="menus" />
+            <input type="hidden" name="create" id="create" value="<?php echo $link ?>" />
 		</p>
 	</fieldset>
 </form>
