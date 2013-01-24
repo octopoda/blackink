@@ -9,11 +9,10 @@
 	require_once(CLASS_PATH.DS. "errors.php");
 	require_once(CLASS_PATH.DS. "navigation.php");
 	require_once(CLASS_PATH.DS. "menus.php");
-	require_once(CLASS_PATH.DS. "mobileDetect.php");
-	require_once(CLASS_PATH.DS. "contactInformation.php");
+	require_once(CLASS_PATH.DS. "mobiledetect.php");
+	require_once(CLASS_PATH.DS. "contactinformation.php");
 	require_once(CLASS_PATH.DS. "moduledecoder.php");
 	require_once(CLASS_PATH.DS. "installer.php");
-	require_once(CLASS_PATH.DS. "contactInformation.php");
 
 
 	//Admin

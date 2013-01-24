@@ -1,21 +1,21 @@
 /*
-CSS Document  
+CSS Document
 
 For: Black Ink
 Date:
 Created By: Zack Davis
 
 /* ==!==================================
-    
-	
-	
-	Colors for Site: 
+
+
+
+	Colors for Site:
 	Purple: #9902CB
 	Red: #CB0202
 	Gray: #999
 	Blue: #06e
 	Black #444
-	
+
    =====================================*/
 
 
@@ -31,28 +31,28 @@ header {
 
 
 #navigation  {
-	background:#444;	
+	background:#444;
 	clear:both;
 	width:100%;
-	
+
 }
 	#navigation ul { margin-left:15px;}
 	#navigation ul li { float:left;	list-style:none;}
 	#navigation ul li a {
 		color:#FFF;
 		font-size:18px;
-		text-decoration:none;	
+		text-decoration:none;
 		display:block;
 		padding:5px 20px;
 	}
-	
+
 	#navigation ul li a:hover, #navigation ul li.active a {
 		color:#000;
-		background:white;	
+		background:white;
 	}
 
 #tabs {
-	clear:both;	
+	clear:both;
 	margin-top:30px;
 	margin-left:30px;
 	position:relative;
@@ -68,11 +68,11 @@ header {
 		z-index:1;
 		list-style:none;
 	}
-	
+
 	#tabs ul li.active {
 		z-index:950;
 	}
-	
+
 	#tabs ul li a:link, #tabs ul li a:visited {
 		-webkit-border-radius: 6px;
 		-moz-border-radius: 6px;
@@ -89,7 +89,7 @@ header {
 		border-bottom-left-radius:0px;
 		cursor:pointer;
 	}
-	
+
 	#tabs ul li.active a:link, #tabs ul li.active a:visited {
 		color: #444;
 		background-color: #FFF !important;
@@ -100,12 +100,12 @@ header {
 		border-bottom-right-radius:0px;
 		border-bottom-left-radius:0px;
 		padding-bottom:80px !important;
-	}	
-	
-	#tabs ul li.active {
-		background-color: #FFF !important;	
 	}
-	
+
+	#tabs ul li.active {
+		background-color: #FFF !important;
+	}
+
 
 /* =============================
 	Main Section
@@ -133,22 +133,22 @@ section:last-child {border-bottom:0px;}
 }
 
 	#content label {color:#838383;}
-	
-	#content input{ 
-		width:300px; margin-bottom:5px; border:none; background:#ECECEC; 
-		
+
+	#content input{
+		width:300px; margin-bottom:5px; border:none; background:#ECECEC;
+
 		-moz-box-shadow:inset 2px 2px 8px #999;
 		-webkit-box-shadow:inset 2px 2px 8px #999;
 		box-shadow:inset 2px 2px 8px #999;
 	}
     #content textarea {
 		 background:#ECECEC; border:none;
-		
+
 		-moz-box-shadow:inset 2px 2px 8px #999;
 		-webkit-box-shadow:inset 2px 2px 8px #999;
 		box-shadow:inset 2px 2px 8px #999;
 	}
-	
+
 .list {clear:both;margin-top:20px; font-family: Arial,Helvetica, san-serif}
 
 
@@ -160,7 +160,7 @@ section:last-child {border-bottom:0px;}
 
 
 
-table.navigationList {width:100%; height:auto}	
+table.navigationList {width:100%; height:auto}
 table.navigationList thead {background:#444; color:#FFF; text-align:left;}
 table.navigationList thead tr th {padding:5px; border-right:1px solid white;}
 
@@ -174,9 +174,9 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 /* =============================
 	Admin Tools
 	===========================*/
-	
-	
-	
+
+
+
 .moveArrows {margin-left:-12px;}
 .moveArrows li { list-style:none; margin:0px; margin-left:8px; float:left;}
 .moveArrows .move {font-size:20px; color:#444}
@@ -191,7 +191,7 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 .quickMenu li a {cursor:pointer; color:#878787; margin-right:30px;}
 .quickMenu li {list-style:none; font-size:16px; float:left;}
 .quickMenu li span {display: inline-table; margin-right:6px; }
-.quickMenu .text {line-height:22px; position:relative; top:4px;}	
+.quickMenu .text {line-height:22px; position:relative; top:4px;}
 
 .navigationList a {color:#CB0202}
 .navigationList .mainNav .title  a {color:#CB0202 !important}
@@ -217,7 +217,7 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 #deletePhone {color:#CB0202; font-size:12px;  position:relative;}
 #deleteCompass { color:#CB0202; font-size:12px; margin-right:10px; margin-top:-5px}
 
-	
+
 .grid tbody tr td a.supplementStar {font-size:16px; cursor:pointer; color:#CCC; margin-left:20px;}
 .grid tbody tr td a.supplementStar.active {color:#CB0202; cursor:default;}
 
@@ -253,8 +253,8 @@ table.navigationList tbody tr td a.setDefault.active {color:#CB0202; cursor:defa
 	Side Bar
 	===========================*/
 
-	
-	
+
+
 #sidebar { float:left; margin:20px 0px 0px 20px; width:20%; background:#E5E5E5; }
 	#sidebar h4 {margin:0; padding:10px; border:none; background:#666; color:#FFF;}
 	#sidebar p {margin:20px;}
@@ -274,7 +274,7 @@ button {
 	font-size: 14px;
 	color: #ffffff;
 	padding: 5px 8px;
-	
+
 	background: #7d7e7d; /* Old browsers */
 	background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* Chrome,Safari4+ */
@@ -283,18 +283,18 @@ button {
 	background: -ms-linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* IE10+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
 	background: linear-gradient(top, #7d7e7d 0%,#0e0e0e 100%); /* W3C */
-	
+
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	border: 1px solid #134201;
-	
+
 	-moz-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,1);
 	-webkit-box-shadow: 0px 1px 3px rgba(000,000,000,0.5), inset 0px 0px 2px rgba(255,255,255,1);
 	text-shadow:0px -1px 0px rgba(000,000,000,0.4),0px 1px 0px rgba(255,255,255,0.3);
 }
 
- 
+
  button:hover {
     background: #d9d9d9;
     -webkit-box-shadow: inset 0 0 1px 1px #eaeaea;
@@ -302,7 +302,7 @@ button {
     -ms-box-shadow: inset 0 0 1px 1px #eaeaea;
     -o-box-shadow: inset 0 0 1px 1px #eaeaea;
     box-shadow: inset 0 0 1px 1px #eaeaea;
-	
+
 	background: #b5bdc8; /* Old browsers */
 	background: -moz-linear-gradient(top, #b5bdc8 0%, #828c95 36%, #28343b 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b5bdc8), color-stop(36%,#828c95), color-stop(100%,#28343b)); /* Chrome,Safari4+ */
@@ -311,11 +311,11 @@ button {
 	background: -ms-linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* IE10+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0 ); /* IE6-9 */
 	background: linear-gradient(top, #b5bdc8 0%,#828c95 36%,#28343b 100%); /* W3C */
-	
+
     color: #FFF;
-    cursor: pointer; 
+    cursor: pointer;
  }
- 
+
  button:active {
     background: #d0d0d0;
     -webkit-box-shadow: inset 0 0 1px 1px #e3e3e3;
@@ -323,9 +323,9 @@ button {
     -ms-box-shadow: inset 0 0 1px 1px #e3e3e3;
     -o-box-shadow: inset 0 0 1px 1px #e3e3e3;
     box-shadow: inset 0 0 1px 1px #e3e3e3;
-    color: #000; 
+    color: #000;
  }
- 
+
  button.disabled {
 	color:#C4C4C4;
 	cursor:default;
@@ -346,12 +346,17 @@ button {
 input.hasError {background:#CB0202 !important; color:#FFF !important;}
 .validationError {color:#CB0202; margin-left:10px;}
 input, textarea {
-		padding:5px; 
+		padding:5px;
 		font-size:13px;
 		border:none;
 		background:#EEE;
-		box-shadow: inset 1px 1px 6px #999; 
+		box-shadow: inset 1px 1px 6px #999;
 }
+
+.ac_results  {background:#FFF; border:1px solid #eee; z-index:10000;}
+  .ac_results ul {margin-left:0; padding-left:0;}
+  .ac_results ul li {list-style:none; border-bottom:1px solid #EEE; margin-left:0; padding:8px 4px; }
+  .ac_odd {background:#CCC;}
 
 .dashboardPanel {background:#E5E5E5; width:40%; margin:10px 20px 10px 0px; float:left; padding:0px; box-shadow:0px 0px 5px #999;}
 	.dashboardPanel h4 {margin:0; padding:10px; border:none; background:#666; color:#FFF;}

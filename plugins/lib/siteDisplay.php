@@ -97,6 +97,51 @@ class SiteDisplay extends display {
 
 		}
 
+	public function  paginateClass($classname, $pageNumber, $orderby, $rate) {
+		$class = new $classname();
+		$html = "";
+
+		$totalSize = count($class->fetchAll());
+
+		$page = 1;
+		$size = 10;
+
+		if (isset($pageNumber)) $page = $pageNumber;
+
+		$pagination = new Pagination($classname);
+		$pagination->setupPagination($page, $size, $totalSize);
+		$result = $class->fetchPublished($orderby, $rate, $pagination->getLimitSQL());
+
+		foreach ($result as $content) {
+			$c = new $classname($content[$class->idfield]);
+			if ($classname == 'post' && $c->isPublished()) {
+				$html .= $this->buildPaginationHTML($c);
+			}
+		}
+
+		echo $html;
+		echo $pagination->create_links();
+	}
+
+
+	public function buildPaginationHTML($object) {
+
+		if ($object->table == 'post') {
+			$user = new Users($object->user_id);
+			$html  = '<div class="pagination"><hgroup>';
+			$html .= '<h3><a href="'.$object->directLink.'">'.$object->title.'</a></h3>';
+			$html .= '<h5>Author: '.$user->printName(). ' // Date: '.date("M d, Y", strtotime($object->publish_date)).'</h5>';
+			$html .= '</hgroup>';
+			$html .= '<p>'.  truncate($object->searchable, 400," ", "...").'</p>';
+			$html .= '</div>';
+		}
+
+		return $html;
+	}
+
+
+	//End Comments
+
 
 
 }

@@ -26,7 +26,7 @@
 	$otherKey = md5(time().rand());
 
 ?>
-<script src="/js/mylibs/ajaxupload.js"></script>
+<script src="/js/libs/ajaxupload.js"></script>
 
 <ul class="quickMenu">
 	<li><a href="/preview.php" class="preview" target="_blank">

@@ -10,10 +10,10 @@
             <section class="fourcol last">
                 <h5>Visit Us</h5>
                 <p><?php echo $contactInformation->address->printAddress(); ?></p>
-                
+
                 <h5>Email Us</h5>
                 <a href="/contact_us.html">Click here to send an email.</a>
-                
+
                 <h5>Call Us</h5>
                 <?php echo $contactInformation->printPhones(); ?>
             </section>
@@ -27,10 +27,7 @@
   <script src="/js/script.js"></script>
   <!-- end scripts-->
 
-  <?php if ((SERVER == 'dev') && !$detect->isMobile()) : ?>
-		 <script src="/js/mylibs/live.js"></script> 
-  <?php endif; ?>
-  
+
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
  <?php if ((!empty($site->googleCode)) && (SERVER == 'live')) : ?>
   <script>
@@ -48,9 +45,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
-	
+
 </body>
 </html>
- 
-        
+
+
 

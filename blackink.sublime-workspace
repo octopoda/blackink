@@ -63,6 +63,17 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "<?php\n	require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php');\n\n	class Installer {\n		private $endComment = '//End Comments';\n\n	//Front End\n		//Move the file to plug in folder\n		public function moveToPlugin($source) {\n			$files = scandir($source);\n			$destination = $_SERVER['DOCUMENT_ROOT'].\"/plugins/lib/\";\n\n			$this->moveFiles($source, $destination, $files);\n\n		}\n\n		//Add appropriate scripts to the scripts page with comments\n		public function addToScript($code) {\n			$script = SCRIPTS_PATH.DS. 'extra_script.js';\n			return $this->setScripts($code, $script);\n		}\n\n		public function moveToJSLib($source) {\n			$files = scandir($source);\n			$destination = $_SERVER['DOCUMENT_ROOT'].'/js/libs/';\n\n			$this->moveFiles($source, $destination, $files);\n		}\n\n		public function moveToAdminCSS($source) {\n			$files = scandir($source);\n			$destination = $_SERVER['DOCUMENT_ROOT'].'/staff/css/';\n\n			$this->moveFiles($source, $destination, $files);\n		}\n\n		//Add ajax to plugin ajax page.\n		public function addToPlugin($code) {\n			$pluginPage = PLUGIN_AJAX.DS. 'plugin_site_submit.php';\n			return $this->setFiles($code, $pluginPage);\n		}\n\n		public function moveToRoot($source) {\n			$files = scandir($source);\n			$destination = $_SERVER['DOCUMENT_ROOT'].DS;\n\n			$this->moveFiles($source, $destination, $files);\n\n		}\n\n		public function addToHtaccess($code) {\n\n		}\n\n\n\n\n\n\n	//Back End\n\n		//Run SQL Code\n		public function runSQL($sql) {\n			global $db;\n\n			$db->query($sql);\n		}\n\n		//Build Admin Navigation\n		public function adminNavigation($parent, $childArray) {\n			global $db;\n\n			//Get the high position.\n			$result_set = $db->queryFill(\"SELECT position FROM adminNavigation WHERE position < 20 ORDER BY position DESC limit 1  \");\n			$result_set = array_shift($result_set);\n			$pos = $result_set['position']+1;\n\n			$sql = \"INSERT INTO adminNavigation (title, link, access, position, published, parent_id )  VALUES \";\n			foreach ($parent as  $title=>$link) {\n				$sql .= \" ('{$title}', '{$link}', 3, '{$pos}', '1', '0')\";\n			}\n			//echo $sql. '<p></p>';\n			$db->query($sql);\n			$id = $db->insertedID();\n\n			$sql = \"INSERT INTO adminNavigation (title, link, access, position, published, parent_id )  VALUES \";\n\n			$nTimes = 0;\n			$length = count($childArray);\n\n			foreach ($childArray as $title=>$link) {\n				$sql .= \" ('{$title}', '{$link}', 3, '{$nTimes}', '1', '{$id}')\";\n				if ($nTimes+1 != $length) {\n					$sql .= ', ';\n				}\n				$nTimes++;\n			}\n\n			//echo $sql;\n			$db->query($sql);\n		}\n\n		// Add folder to forms\n		public function moveStaffFolder($source, $folder_name) {\n			$files = scandir($source);\n		    $destination = $_SERVER['DOCUMENT_ROOT'].\"/staff/forms/\".$folder_name.DS;\n		    mkdir($destination);\n\n		    $this->moveFiles($source, $destination, $files);\n\n		}\n\n		// Add Ajax to plug in file\n		public function addStaffPlugins($code) {\n			$pluginPage = PLUGIN_AJAX.DS. 'plugin_form_submit.php';\n			return $this->setFiles($code, $pluginPage);\n		}\n\n		// add script to js file\n		public function addStaffScript($code) {\n\n		}\n\n		//Add to Grid\n		public function addGrid($code) {\n			$pluginPage = PLUGIN_AJAX.DS. 'plugin_grid.php';\n			return $this->setFiles($code, $pluginPage);\n		}\n\n		//Add to Site Display\n		public function addSiteDisplay($code) {\n			$pluginPage = PLUGIN_LIB.DS. 'sitedisplay.php';\n			return $this->setClass($code, $pluginPage);\n		}\n\n\n	//Needed Methods\n		//Move all files in a folder\n		private function moveFiles($source, $destination, $files) {\n			$delete = array();\n\n			foreach ($files as $file) {\n		      	if (in_array($file, array(\".\",\"..\"))) continue;\n		      	if (copy($source.$file, $destination.$file)) {\n		        	$delete[] = $source.$file;\n		      	}\n		    }\n		    foreach ($delete as $file) {\n		     	unlink($file);\n		    }\n		}\n\n		//Write to up plugin files\n		private function  setFiles($code, $file) {\n			$content = file_get_contents($file);\n			$content = $this->parseFiles($content, $code);\n			if ($content != false) file_put_contents($file, $content);\n			return true;\n		}\n\n		//Write to a class files\n		private function  setClass($code, $file) {\n			$content = file_get_contents($file);\n			$content = $this->parseClasses($content, $code);\n			if ($content != false) file_put_contents($file, $content);\n			return true;\n		}\n\n		//Write to script files\n		private function setScripts($code, $file) {\n			$content = file_get_contents($file);\n			$content = $this->parseScripts($content, $code);\n			if ($content != false) file_put_contents($file, $content);\n			return true;\n		}\n\n		//Write to Htaccess\n		private function setHtaccess($code, $file) {\n			$content = file_get_contents($file);\n			$content = $this->parseHtaccess($content, $code);\n			if ($content != false) file_put_contents($file, $content);\n			return true;\n		}\n\n		//Parse plugin files\n		private function  parseFiles($file_contents, $code) {\n			$commentPos = strpos($file_contents, $this->endComment);\n			$content = '';\n\n			if ($commentPos === false) {\n				$phpString = strpos($file_contents, '<?php');\n				$content .= '<?php';\n				$content .= $code;\n				$content .= $this->endComment;\n				$content .= '?>';\n			} else {\n				$sub = substr($file_contents, 1, $commentPos-1);\n				$content .= '<'.$sub;\n				$content .= $code;\n				$content .= $this->endComment;\n				$content .= '?>';\n			}\n\n			return $content;\n		}\n\n		//Parse Classes files\n		private function  parseClasses($file_contents, $code) {\n			$commentPos = strpos($file_contents, $this->endComment);\n			$content = '';\n\n			if ($commentPos === false) {\n				$phpString = strpos($file_contents, '<?php');\n				$content .= '<?php';\n				$content .= $code;\n				$content .= $this->endComment . \"\n\n				 } ?>\";\n\n			} else {\n				$sub = substr($file_contents, 1, $commentPos-1);\n				$content .= '<'.$sub;\n				$content .= $code;\n				$content .= $this->endComment . \"\n\n				 } ?>\";\n\n			}\n\n			return $content;\n		}\n\n		//Parse Scripts Files\n		private function  parseScripts($file_contents, $code) {\n			$commentPos = strpos($file_contents, $this->endComment);\n			$content = '';\n\n			if ($commentPos === false) {\n				$content .= '$(document).ready(function () {';\n				$content .= $code;\n				$content .= $this->endComment;\n				$content .= '});';\n			} else {\n				$sub = substr($file_contents, 1, $commentPos-1);\n				$content .= '$'.$sub;\n				$content .= $code;\n				$content .= $this->endComment;\n				$content .= '});';\n			}\n			return $content;\n		}\n\n\n		//Parse htacess file\n		private function parseHtaccess($file_contents, $code) {\n			$commmentPos = strpos($file_contents, '# start rewrite rules');\n\n		}\n\n} //end class\n\n\n?>",
+			"file": "lib/installer.php",
+			"file_size": 6088,
+			"file_write_time": 1358981439000000,
+			"settings":
+			{
+				"buffer_size": 6534,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -172,6 +183,16 @@
 	},
 	"file_history":
 	[
+		"/Users/phuzion/Sites/blackink/plugins/lib/sitedisplay.php",
+		"/Users/phuzion/Sites/blackink/includes/footer.php",
+		"/Users/phuzion/Sites/blackink/.htaccess",
+		"/Users/phuzion/Sites/blackink/js/extra_script.js",
+		"/Users/phuzion/Sites/blackink/js/script.js",
+		"/Users/phuzion/Sites/blackink/staff/includes/footer.php",
+		"/Users/phuzion/Sites/blackink/staff/forms/content/form_content.php",
+		"/Users/phuzion/Sites/blackink/lib/web_config.php",
+		"/Users/phuzion/Sites/blackink/lib/database.php",
+		"/Users/phuzion/Sites/blackink/includes/require.php",
 		"/Users/phuzion/Sites/blackink/lib/databaseObject.php",
 		"/Users/phuzion/Sites/blackink/lib/users.php",
 		"/Users/phuzion/Sites/blackink/staff/forms/navigation/form_navigation.php",
@@ -182,7 +203,6 @@
 		"/Users/phuzion/Sites/blackink/staff/forms/site/form_social.php",
 		"/Users/phuzion/Sites/blackink/lib/social.php",
 		"/Users/phuzion/Sites/blackink/staff/forms/site/form_contact.php",
-		"/Users/phuzion/Sites/blackink/staff/forms/content/form_content.php",
 		"/Users/phuzion/Sites/blackink/lib/content.php",
 		"/Users/phuzion/Sites/blackink/lib/navigation.php",
 		"/Users/phuzion/Sites/blackink/lib/news.php",
@@ -191,16 +211,12 @@
 		"/Users/phuzion/Sites/blackink/lib/ads.php",
 		"/Users/phuzion/Sites/blackink/staff/forms/navigation/menus.php",
 		"/Users/phuzion/Sites/blackink/lib/menus.php",
-		"/Users/phuzion/Sites/blackink/js/script.js",
 		"/Users/phuzion/Sites/blackink/js/plugins.js",
 		"/Users/phuzion/Sites/blackink/search.php",
-		"/Users/phuzion/Sites/blackink/includes/footer.php",
 		"/Users/phuzion/Sites/blackink/modules/sidebar.php",
 		"/Users/phuzion/Sites/blackink/lib/display.php",
 		"/Users/phuzion/Sites/blackink/lib/moduledecoder.php",
 		"/Users/phuzion/Sites/blackink/display.php",
-		"/Users/phuzion/Sites/blackink/lib/web_config.php",
-		"/Users/phuzion/Sites/blackink/plugins/lib/sitedisplay.php",
 		"/Users/phuzion/Sites/blackink/staff/forms/site/configuration.php",
 		"/Users/phuzion/Sites/blackink/lib/search.php",
 		"/Users/phuzion/Sites/blackink/ajax/admin/admin_functionality.php",
@@ -218,8 +234,6 @@
 		"/Users/phuzion/Sites/blackink/staff/index.php",
 		"/Users/phuzion/Sites/blackink/staff/.htaccess",
 		"/Users/phuzion/Sites/blackink/lib/functions.php",
-		"/Users/phuzion/Sites/blackink/.htaccess",
-		"/Users/phuzion/Sites/blackink/includes/require.php",
 		"/Users/phuzion/Sites/blackink/staff/includes/admin_require.php",
 		"/Users/phuzion/Sites/blackink/lib/mailer/docs/Callback_function_notes.txt",
 		"/Users/phuzion/Sites/blackink/css/sass/basic.scss",
@@ -296,10 +310,7 @@
 		"/Users/phuzion/Sites/innovation/account_created.php",
 		"/Users/phuzion/Sites/innovation/users/profile.php",
 		"/Users/phuzion/Sites/innovation/profile.php",
-		"/Users/phuzion/Sites/innovation/staff/forms/dashboard.php",
-		"/Users/phuzion/Sites/innovation/staff/css/admin.css",
-		"/Users/phuzion/Sites/innovation/style_guide.php",
-		"/Users/phuzion/Sites/innovation/staff/style_guide.php"
+		"/Users/phuzion/Sites/innovation/staff/forms/dashboard.php"
 	],
 	"find":
 	{
@@ -307,7 +318,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 95.0,
 		"where_history":
 		[
 			"/Users/phuzion/Sites/blackink",
@@ -326,6 +337,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"mylibs/",
 			"siteForm",
 			"socialForm",
 			"contactForm",
@@ -431,8 +443,125 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "lib/installer.php",
+					"settings":
+					{
+						"buffer_size": 6534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6458,
+								6458
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"is_xml": false,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/HTML5/Syntaxes/HTML 5.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2426.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -478,8 +607,28 @@
 		"selected_items":
 		[
 			[
+				"footer",
+				"includes/footer.php"
+			],
+			[
+				"web",
+				"lib/web_config.php"
+			],
+			[
+				"sitedi",
+				"plugins/lib/sitedisplay.php"
+			],
+			[
+				"insta",
+				"lib/installer.php"
+			],
+			[
 				"dta",
-				"lib/databaseObject.php"
+				"lib/database.php"
+			],
+			[
+				"re",
+				"includes/require.php"
 			],
 			[
 				"site",
@@ -516,10 +665,6 @@
 			[
 				"sid",
 				"modules/sidebar.php"
-			],
-			[
-				"footer",
-				"includes/footer.php"
 			],
 			[
 				"searc",
@@ -588,10 +733,6 @@
 			[
 				"grid",
 				"lib/grid.php"
-			],
-			[
-				"web",
-				"lib/web_config.php"
 			],
 			[
 				"funct",
@@ -689,6 +830,10 @@
 		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"2721",
+				"/Users/phuzion/Sites/2721/2721west.sublime-project"
+			],
 			[
 				"",
 				"/Users/phuzion/Sites/TAND/TAND.sublime-project"
