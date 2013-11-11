@@ -48,6 +48,11 @@
 
 		}
 
+		public function addToHtaccess($code) {
+			$ht = SITE_FILES. '.htacess';
+			return $this->setHtaccess($code, $ht);
+		}
+
 
 
 
@@ -130,6 +135,7 @@
 		}
 
 
+
 	//Needed Methods
 		//Move all files in a folder
 		private function moveFiles($source, $destination, $files) {
@@ -166,6 +172,14 @@
 		private function setScripts($code, $file) {
 			$content = file_get_contents($file);
 			$content = $this->parseScripts($content, $code);
+			if ($content != false) file_put_contents($file, $content);
+			return true;
+		}
+
+		//Write to Htaccess
+		private function setHtaccess($code, $file) {
+			$content = file_get_contents($file);
+			$content = $this->parseHtaccess($content, $code);
 			if ($content != false) file_put_contents($file, $content);
 			return true;
 		}
@@ -232,12 +246,31 @@
 				$sub = substr($file_contents, 1, $commentPos-1);
 				$content .= '$'.$sub;
 				$content .= $code;
-				$content .= $this->endComment;
-				$content .= '});';
+				$content .= $this->endComment .
+				            '});';
 			}
 			return $content;
 		}
 
+
+		//Parse htacess file
+		private function parseHtaccess($file_contents, $code) {
+			$startCommmentPos = strpos($file_contents, '# start rewrite rules');
+			$endCommentPos = strpos($file_content, '# end rewrite rules');
+			$length = strlen($file_content);
+
+			$content = '';
+
+			$sub = substr($file_contents, 1, $startCommentPos-1);
+			$end = substr($file_contents, $endCommentPos, $length-$endCommentPos);
+
+			$content .= $sub;
+			$content .= $code;
+			$content .= $end;
+
+			return $content;
+
+		}
 
 } //end class
 

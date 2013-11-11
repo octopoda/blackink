@@ -7,7 +7,7 @@
 		define("HOSTNAME", "localhost");
 		define("DB_USER", "root");
 		define("DB_PASS", "V8Juice");
-		define("DB_NAME", "testing");
+		define("DB_NAME", "blackink");
 
 		//Site Files
 		define('DS', DIRECTORY_SEPARATOR);

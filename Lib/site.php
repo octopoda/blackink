@@ -21,10 +21,10 @@
         }
 
 
-		public function createFromForm($_POST) {
+		public function createFromForm($POST) {
 			global $error;
 
-			$this->fillFromForm($_POST);
+			$this->fillFromForm($POST);
 			$this->siteDescription = strip_tags($this->siteDescription);
 
 			if ($this->save($this->site_id)) {

@@ -60,6 +60,11 @@
 		}
 
 
+		public function addScriptFunctions($string) {
+			$this->scriptFunctions[] = $string;
+		}
+
+
 		public function printScripts() {
 			$html = "";
 			if ($this->scripts == false) {

@@ -261,11 +261,10 @@
 
 			$saveUser = new Users($u_id);
 
-			//Set Access to Registered
+				//Set Access to Registered
 			if (!isset($saveUser->access)) {
-				$this->setAccess(2, $u_id);
+				$this->setAccess($_POST['access'], $u_id);
 			}
-
 
 			if ($u_id == NULL) {
 				$error->addError("The user was not created.", 'User10974');
@@ -281,15 +280,15 @@
 
 			$u_id = $this->save($this->user_id);
 
-			//Create Address return ID
-			$address = new Address();
-			$address->fillFromForm($post);
-			$a_id= $address->save($address->address_id);
-			$saveAddress = new Address($a_id);
-			$saveAddress->addAddressToUser($u_id);
+			// //Create Address return ID
+			// $address = new Address();
+			// $address->fillFromForm($post);
+			// $a_id= $address->save($address->address_id);
+			// $saveAddress = new Address($a_id);
+			// $saveAddress->addAddressToUser($u_id);
 
-			//Create Phone return ID
-			Phones::save($post,  $u_id);
+			// //Create Phone return ID
+			// Phones::save($post,  $u_id);
 
 			if ($u_id == NULL || $a_id == NULL ) {
 				$error->addError("The user was not Updated.", 'User10222');

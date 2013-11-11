@@ -363,7 +363,7 @@ abstract class databaseObject {
 		}
 
 		//Set new Position
-		public function setPosition ($newPosition, $varName) {
+		public function setPosition ($newPosition, $varName, $parent, $menu_id) {
 			global $db;
 
 			$position = $varName; //3
@@ -390,7 +390,7 @@ abstract class databaseObject {
 		}
 
 		//Create the arrows for position
-		public function moveArrows ($id, $varName, $link) {
+		public function moveArrows ($id, $varName, $link, $parent, $menu_id) {
 			$position = $varName;
 
 			$html = '<ul class="moveArrows">
@@ -422,7 +422,7 @@ abstract class databaseObject {
 		}
 
 		//Find out if item is in bottom position
-		public function bottomPosition() {
+		public function bottomPosition($position, $parent, $menu_id) {
 			global $db;
 
 			$result = $db->queryFill("SELECT max(position) AS 'position' FROM {$this->table}");

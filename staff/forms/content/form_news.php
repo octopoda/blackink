@@ -115,7 +115,7 @@
 	new AjaxUpload(btnUpload, {
 		action: '/ajax/ajax_upload.php',
 		name: 'file_name',
-		data: {'content': 1},
+		data: {'content': 1, 'folder':'uploads'},
 		onSubmit: function(file, ext){
 			btnUpload.html('<img src="/images/admin/ajax-loader.gif" alt="loading"/>');
 			content = $('.editor').val();

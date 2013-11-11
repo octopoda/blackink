@@ -1,6 +1,6 @@
 <?php require_once($_SERVER['DOCUMENT_ROOT'].'/includes/require.php'); ?>
 <?php require_once($_SERVER['DOCUMENT_ROOT']. '/includes/header.php'); ?>
-<?php 
+<?php
 	$site = new Site();
 ?>
 
@@ -8,11 +8,11 @@
   <div class="row">
   <article class="eightcol">
     <h2>Contact Us</h2>
-    
+
     <address>
     	<?php $display->printAddress(); ?>
     </address>
-    
+
     <p class="phones">
     	<?php $display->printPhones(); ?>
     </P>
@@ -30,7 +30,7 @@
         </p>
         <p>
           <label for="phone">Phone:</label>
-          <input type="phone" name="phone" id="phone"  placeholder="e.g. (972) 867-5309" autocomplete="off" />
+          <input type="phone" name="phone" id="phone" autocomplete="off" />
         </p>
         <p>
           <label for="subject">Subject:</label>
@@ -42,7 +42,7 @@
         </p>
         <p class="submitArea">
           <input type="hidden" name="sendEmail" value="1" />
-          <button name="sendEmail" id="sendEmail" class="button" >E-Mail Us.</button>
+          <button name="sendEmail" id="sendEmail" class="button" >E-Mail Octopoda.</button>
         </p>
         <p class="message"> </p>
       </fieldset>

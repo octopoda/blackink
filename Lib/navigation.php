@@ -452,10 +452,10 @@
 			}
 
 
-			$db->query("UPDATE {$this->table} SET position = 400000 WHERE position = {$position} AND parent_id = {$parent} AND menu_id = {$menu_id}");
-			$db->query("SELECT @sign:= SIGN({$posHigh}-{$posLow}) FROM {$this->table}");
-			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position > {$posLow} AND parent_id = {$parent} AND menu_id = {$menu_id} AND NOT position = 400000");
-			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 400000 AND parent_id = {$parent} AND menu_id = {$menu_id}");
+			$db->query("UPDATE {$this->table} SET position = 4000 WHERE position = {$position} AND parent_id = {$parent} AND menu_id = {$menu_id}");
+			$db->query("SELECT @sign:= SIGN({$position}-{$newPosition}) FROM {$this->table}");
+			$db->query("UPDATE {$this->table} SET position = @sign + position WHERE position BETWEEN {$posLow} AND {$posHigh} AND parent_id = {$parent} AND menu_id = {$menu_id}");
+			$db->query("UPDATE {$this->table} SET position = {$newPosition} WHERE position = 4000 AND parent_id = {$parent} AND menu_id = {$menu_id}");
 
 			if ($db->affectedRows() > 0) {
 
