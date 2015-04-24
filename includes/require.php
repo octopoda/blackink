@@ -23,7 +23,7 @@
 	require_once(MAIL_PATH.DS. 'class.smtp.php');
 
 	//Plugins
-	require_once(PLUGIN_LIB.DS. "siteDisplay.php");
+	require_once(PLUGIN_LIB.DS. "sitedisplay.php");
 
 	//SDK
 
